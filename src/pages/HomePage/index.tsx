@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import { FC, useState } from "react";
 import Loading from "../../components/Loading";
 
@@ -8,7 +9,11 @@ const HomePage: FC = () => {
     return <Loading />;
   }
 
-  return <>Home</>;
+  return (
+    <>
+      <Button color="primary">Hello World</Button>
+    </>
+  );
 };
 
 export default HomePage;

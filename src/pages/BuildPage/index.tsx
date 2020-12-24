@@ -4,11 +4,16 @@ import { useHistory, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getBuild } from "../../services/backend";
 import useErrorHandler from "../../utils/useErrorHandler";
+import { Build, BuildPlayer } from "../../types";
+import AppError from "../../utils/AppError";
+import { AppErrorId, WarcraftPlayerSpec } from "../../consts";
+import { IconProvider } from "../../utils/IconProvider";
+import RaidComposition from "../../components/RaidComposition";
 
 const BuildPage: FC = () => {
   const { buildId } = useParams<{ buildId?: string }>();
   const [isLoading, setIsLoading] = useState(true);
-  const [build, setBuild] = useState<{ test: string }>();
+  const [build, setBuild] = useState<Build>();
   const history = useHistory();
   const [common] = useTranslation("common");
   const handleError = useErrorHandler();
@@ -18,8 +23,8 @@ const BuildPage: FC = () => {
       history.push(common("urls.home"));
     } else {
       getBuild(buildId)
-        .then(({ data: { test } }) => {
-          setBuild({ test: test });
+        .then(({ data }) => {
+          setBuild(data);
           setIsLoading(false);
         })
         .catch(handleError);
@@ -30,12 +35,11 @@ const BuildPage: FC = () => {
     return <Loading />;
   }
 
-  return (
-    <div>
-      <p>Build: {buildId}</p>
-      <p>Test: {build?.test}</p>
-    </div>
-  );
+  if (!build) {
+    throw new AppError(AppErrorId.Unspecific);
+  }
+
+  return <RaidComposition build={build} />;
 };
 
 export default BuildPage;

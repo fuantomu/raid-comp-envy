@@ -1,4 +1,3 @@
-export type getBuildResponseData = {
-  buildId: string;
-  test: string;
-};
+import { Build } from "../../types";
+
+export interface getBuildResponseData extends Build {};

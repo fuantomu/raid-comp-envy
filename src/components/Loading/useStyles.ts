@@ -1,11 +1,11 @@
 import { css, keyframes } from "@emotion/react";
 import hexToRgba from "../../utils/hexToRgba";
-import useTheme from "../../utils/useTheme";
+import useTheme, { Spacing } from "../../utils/useTheme";
 
 type StyleOptions = { small?: boolean; overlay?: boolean };
 
 export default function useStyles({ small = false, overlay = false }: StyleOptions) {
-  const { colors, spacing } = useTheme();
+  const { palette, spacing } = useTheme();
 
   const spin = keyframes`
     0% {
@@ -35,25 +35,25 @@ export default function useStyles({ small = false, overlay = false }: StyleOptio
         align-items: center;
         display: grid;
         grid-auto-flow: column;
-        grid-gap: ${small ? spacing.xs : spacing.s};
+        grid-gap: ${small ? spacing(Spacing.xs) : spacing(Spacing.s)};
 
         &::before {
           animation: ${spin} 1s linear infinite;
-          border: 2px solid ${hexToRgba(colors.lightGrey, 0.25)};
-          border-top-color: ${colors.white};
+          border: 5px solid ${hexToRgba(palette.text.secondary, 0.25)};
+          border-top-color: ${palette.text.primary};
           border-radius: 100%;
           content: "";
           display: block;
-          height: ${small ? spacing.s : spacing.l};
-          width: ${small ? spacing.s : spacing.l};
+          height: ${small ? spacing(Spacing.s) : spacing(Spacing.m)};
+          width: ${small ? spacing(Spacing.s) : spacing(Spacing.m)};
         }
       `,
       overlay &&
         css`
-          background-color: ${colors.grey};
-          border-radius: ${spacing.xxs};
+          background-color: ${palette.background.paper};
+          border-radius: ${spacing(Spacing.xxs)};
           box-shadow: 0px 1px 4px rgba(51, 51, 51, 0.12);
-          padding: ${spacing.s};
+          padding: ${spacing(Spacing.s)} ${spacing(Spacing.l)};
         `,
     ],
   };

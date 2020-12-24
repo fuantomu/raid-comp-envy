@@ -1,90 +1,86 @@
-const maxPageWidth = 1200;
-const midPageWidth = "40rem";
-const minPageWidth = 360;
-const maxFieldWidth = "26.5rem";
+import { createMuiTheme, ThemeOptions } from "@material-ui/core";
+export type ThemeName = "dark" | "light";
 
-type Typography = {
-  lineHeight: number;
+export enum Spacing {
+  xxs = 1,
+  xs = 2,
+  s = 3,
+  m = 4,
+  l = 5,
+  xl = 6,
+  xxl = 7,
+}
+
+const mainTheme: ThemeOptions = {
+  spacing: (factor) => {
+    let size = 1.5;
+    switch (factor) {
+      case Spacing.xxs:
+        size = 0.3;
+        break;
+      case Spacing.xs:
+        size = 0.5;
+        break;
+      case Spacing.s:
+        size = 1;
+        break;
+      case Spacing.m:
+        size = 1.5;
+        break;
+      case Spacing.l:
+        size = 2;
+        break;
+      case Spacing.xl:
+        size = 2.5;
+        break;
+      case Spacing.xxl:
+        size = 3;
+        break;
+    }
+    return `${size}rem`;
+  },
 };
 
-type Theme = {
-  colors: Record<string, string>;
-  breaks: Record<string, string>;
-  layout: Record<string, number | string>;
-  spacing: Record<string, string>;
-  transitionDuration: string;
-  typography: {
-    base: Typography;
-    sizes: Record<number, Typography>;
-  };
+const lightTheme: ThemeOptions = {
+  ...mainTheme,
+  palette: {
+    text: {
+      primary: "#000",
+      secondary: "#111",
+    },
+  },
 };
 
-const createTheme = <T extends Theme>(theme: T): (() => T) => () => theme;
+const darkTheme: ThemeOptions = {
+  ...mainTheme,
+  palette: {
+    background: {
+      default: "#242424",
+      paper: "#1d1d1d",
+    },
+    text: {
+      primary: "#fff",
+      secondary: "#ddd",
+    },
+    primary: {
+      main: "#fff",
+      light: "#fff",
+      dark: "#eee",
+    },
+    secondary: {
+      main: "#fff",
+      light: "#fff",
+      dark: "#eee",
+    },
+  },
+};
 
-export default createTheme({
-  colors: {
-    grey: "#1d1d1d",
-    black: "#000",
-    lightGrey: "#a8a8a8",
-    darkGrey: "#0f0f0f",
-    white: "#fff",
-    red: "#f00",
-  },
-  breaks: {
-    maxPageWidth: `screen and (min-width: ${maxPageWidth}px)`,
-    midPageWidth: `screen and (min-width: ${midPageWidth})`,
-    minPageWidth: `screen and (min-width: ${minPageWidth}px)`,
-  },
-  layout: {
-    maxPageWidth,
-    midPageWidth,
-    minPageWidth,
-    maxFieldWidth,
-  },
-  pageGridGap: ["18px", "60px"],
-  spacing: {
-    xxs: "0.3rem",
-    xs: "0.5rem",
-    s: "1rem",
-    m: "1.5rem",
-    l: "2rem",
-    xl: "2.5rem",
-    xxl: "3rem",
-  },
-  transitionDuration: "0.2s",
-  typography: {
-    base: {
-      lineHeight: 1.5,
-    },
-    sizes: {
-      1: {
-        fontSize: "2.2rem",
-        lineHeight: 1.2,
-      },
-      2: {
-        fontSize: "1.7rem",
-        lineHeight: 1.2,
-      },
-      3: {
-        fontSize: "1.4rem",
-        lineHeight: 1.3333,
-      },
-      4: {
-        fontSize: "1.2rem",
-        lineHeight: 1.4,
-      },
-      5: {
-        fontSize: "1rem",
-        lineHeight: 1.5,
-      },
-      6: {
-        fontSize: "0.9rem",
-        lineHeight: 1.5,
-      },
-      7: {
-        fontSize: "0.77rem",
-        lineHeight: 1.5,
-      },
-    },
-  },
-});
+export default () => {
+  return createMuiTheme(darkTheme);
+  // switch () {
+  //   case "light":
+  //     return createMuiTheme(lightTheme);
+  //   case "dark":
+  //   default:
+  //     return createMuiTheme(darkTheme);
+};

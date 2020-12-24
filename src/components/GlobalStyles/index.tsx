@@ -4,7 +4,7 @@ import { FC } from "react";
 import useTheme from "../../utils/useTheme";
 
 const GlobalStyles: FC = () => {
-  const { colors, typography } = useTheme();
+  const { palette, typography } = useTheme();
 
   return (
     <Global
@@ -24,16 +24,14 @@ const GlobalStyles: FC = () => {
         body {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
-          color: ${colors.white};
-          font-family: "Futura BT", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-            "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+          color: ${palette.text.primary};
           font-size: 100%;
           letter-spacing: 0.01em;
-          line-height: ${typography.base.lineHeight};
+          line-height: ${typography.body1.lineHeight};
           margin: 0;
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
             "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-          background-color: ${colors.darkGrey};
+          background-color: ${palette.background.default};
         }
 
         html,
@@ -64,7 +62,7 @@ const GlobalStyles: FC = () => {
         }
 
         a {
-          color: ${colors.black};
+          color: ${palette.action.active};
           font-weight: 500;
         }
 
