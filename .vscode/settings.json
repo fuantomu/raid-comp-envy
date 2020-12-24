@@ -1,0 +1,20 @@
+{
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "eslint.options": {
+        "configFile": "./.eslintrc.json"
+    },
+    "cSpell.words": [],
+    "javascript.preferences.importModuleSpecifierEnding": "js",
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+            "source.fixAll": true
+        }
+    },
+    "files.eol": "\r\n",
+    "prettier.endOfLine": "crlf",
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+}

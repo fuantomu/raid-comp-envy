@@ -1,0 +1,7 @@
+{
+  "urls": {
+    "home": "/",
+    "build": "/build"
+  },
+  "loading": "Loading..."
+}
