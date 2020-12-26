@@ -31,7 +31,7 @@ const Loading: FC<Props> = ({ delay, silent = false, small = false, text, ...pro
   }, [delay]);
 
   return isVisible ? (
-    <div css={styles.base} data-test-id="loading" {...props}>
+    <div css={styles.base} {...props}>
       <div css={styles.inner} role={silent ? undefined : "alert"}>
         {!silent && <span>{text || common("loading")}</span>}
       </div>

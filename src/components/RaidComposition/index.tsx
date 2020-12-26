@@ -59,7 +59,7 @@ const RaidComposition: FC<RaidCompositionProps> = (props) => {
             })}
         </Box>
         {buildRoles[WarcraftRole.Unknown].length && (
-          <Box key={UUID()} id={UUID()} css={styles.ungrouped}>
+          <Box key={UUID()} css={styles.ungrouped}>
             {buildCompositionRoleMapper(
               WarcraftRole.Unknown,
               buildRoles[WarcraftRole.Unknown],

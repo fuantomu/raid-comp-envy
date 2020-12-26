@@ -10,6 +10,7 @@ import ErrorBoundary from "../ErrorBoundary";
 import HomePage from "../../pages/HomePage";
 import Loading from "../Loading";
 import useStyles from "./useStyles";
+import { Box } from "@material-ui/core";
 
 const App: FC = () => {
   const style = useStyles();
@@ -17,7 +18,7 @@ const App: FC = () => {
 
   return (
     <Fragment>
-      <main css={style.content} id="content">
+      <Box css={style.content}>
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Switch>
@@ -39,7 +40,7 @@ const App: FC = () => {
             </Switch>
           </Suspense>
         </ErrorBoundary>
-      </main>
+      </Box>
     </Fragment>
   );
 };
