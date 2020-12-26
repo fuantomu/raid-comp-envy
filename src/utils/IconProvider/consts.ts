@@ -73,10 +73,10 @@ export const WarcraftRoleIcon: {
   [className in WarcraftRole]: WarcraftIcon;
 } = {
   [WarcraftRole.Unknown]: IconUnknown,
-  [WarcraftRole.Tank]: "ability_warrior_shieldreflection",
-  [WarcraftRole.Healer]: "spell_holy_renew",
-  [WarcraftRole.RangedDPS]: "inv_weapon_bow_12",
-  [WarcraftRole.MeleeDPS]: "inv_sword_04",
+  [WarcraftRole.Tank]: "inv_shield_04",
+  [WarcraftRole.Healer]: "spell_nature_protectionformnature",
+  [WarcraftRole.RangedDPS]: "inv_ammo_arrow_01",
+  [WarcraftRole.MeleeDPS]: "ability_ghoulfrenzy",
 };
 
 export const WarcraftBuffIcon: {
