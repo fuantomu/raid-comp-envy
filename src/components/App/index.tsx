@@ -24,7 +24,7 @@ const App: FC = () => {
               <Route exact path={common("urls.home")}>
                 <HomePage />
               </Route>
-              <Route path={`${common("urls.build")}/:buildId([\\w]{8})`}>
+              <Route path={`${common("urls.build")}/:buildId([\\w]+)/:name?`}>
                 <BuildPage />
               </Route>
               {/* <Route path={`${common("urls.build")}/:buildId([\\w]{8})/edit`}>

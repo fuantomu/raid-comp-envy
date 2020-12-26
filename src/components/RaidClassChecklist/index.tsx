@@ -1,0 +1,36 @@
+/** @jsxImportSource @emotion/react */
+
+import { Card, CardContent, Typography } from "@material-ui/core";
+import { FC } from "react";
+import { useTranslation } from "react-i18next";
+import { InviteStatus, WarcraftPlayerClass } from "../../consts";
+import { Build } from "../../types";
+import Player from "../Player";
+import RaidClass from "../RaidClass";
+
+export interface RaidClassChecklistProps {
+  build: Build;
+}
+
+const buildClassChecklist = (build: Build) => {
+  const classNames = [];
+  for (const className in WarcraftPlayerClass) {
+    const count = build.players.filter((player) => player.class === className).length;
+    classNames.push(<RaidClass className={className as WarcraftPlayerClass} count={count} />);
+  }
+  return classNames;
+};
+
+const RaidClassChecklist: FC<RaidClassChecklistProps> = ({ build }) => {
+  const [common] = useTranslation("common");
+  return (
+    <Card>
+      <CardContent>
+        <Typography variant="subtitle1">{common("build.checklist.classes")}</Typography>
+        {buildClassChecklist(build)}
+      </CardContent>
+    </Card>
+  );
+};
+
+export default RaidClassChecklist;

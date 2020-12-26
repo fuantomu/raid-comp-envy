@@ -1,4 +1,5 @@
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "./consts";
+import { WarcraftRole } from "./utils/RoleProvider/consts";
 
 export type AppErrorData = {
   action?: string;
@@ -8,6 +9,7 @@ export type AppErrorData = {
 };
 
 export type BuildId = string;
+export type GroupId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type BuildPlayer = {
   name: string;
@@ -15,11 +17,20 @@ export type BuildPlayer = {
   class: WarcraftPlayerClass;
   spec?: WarcraftPlayerSpec;
   status: InviteStatus;
-  group?: number;
+  group?: GroupId;
 };
 
 export type Build = {
   buildId: BuildId;
   players: BuildPlayer[];
   grouped: boolean;
+};
+
+export type BuildGroup = {
+  groupId: GroupId;
+  players: BuildPlayer[];
+};
+
+export type BuildRoles = {
+  [role in WarcraftRole]: BuildPlayer[];
 };

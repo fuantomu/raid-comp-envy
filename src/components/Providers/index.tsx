@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useTheme } from "@emotion/react";
 import { ThemeProvider } from "@material-ui/core";
 import { FC, StrictMode, Suspense } from "react";
+import useTheme from "../../utils/useTheme";
 
 import GlobalStyles from "../GlobalStyles";
 

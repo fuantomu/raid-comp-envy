@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { FC, useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import { useHistory, useParams } from "react-router-dom";
@@ -9,6 +10,10 @@ import AppError from "../../utils/AppError";
 import { AppErrorId, WarcraftPlayerSpec } from "../../consts";
 import { IconProvider } from "../../utils/IconProvider";
 import RaidComposition from "../../components/RaidComposition";
+import { Box, Container, Typography } from "@material-ui/core";
+import { css } from "@emotion/react";
+import RaidChecklist from "../../components/RaidChecklist";
+import useTheme, { Spacing } from "../../utils/useTheme";
 
 const BuildPage: FC = () => {
   const { buildId } = useParams<{ buildId?: string }>();
@@ -17,6 +22,7 @@ const BuildPage: FC = () => {
   const history = useHistory();
   const [common] = useTranslation("common");
   const handleError = useErrorHandler();
+  const theme = useTheme();
 
   useEffect(() => {
     if (!buildId) {
@@ -36,10 +42,24 @@ const BuildPage: FC = () => {
   }
 
   if (!build) {
-    throw new AppError(AppErrorId.Unspecific);
+    throw new AppError(AppErrorId.Api404);
   }
 
-  return <RaidComposition build={build} />;
+  return (
+    <Container>
+      <Box style={{ margin: `${theme.spacing(Spacing.m)} auto` }}>
+        <Typography variant="h4" gutterBottom>
+          Greatest team ever
+        </Typography>
+      </Box>
+      <Box>
+        <RaidComposition build={build} />
+      </Box>
+      <Box style={{ margin: `${theme.spacing(Spacing.m)} auto` }}>
+        <RaidChecklist build={build} />
+      </Box>
+    </Container>
+  );
 };
 
 export default BuildPage;

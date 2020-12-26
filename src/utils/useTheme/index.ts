@@ -1,4 +1,5 @@
 import { createMuiTheme, ThemeOptions } from "@material-ui/core";
+
 export type ThemeName = "dark" | "light";
 
 export enum Spacing {
@@ -13,7 +14,7 @@ export enum Spacing {
 
 const mainTheme: ThemeOptions = {
   spacing: (factor) => {
-    let size = 1.5;
+    let size;
     switch (factor) {
       case Spacing.xxs:
         size = 0.3;
@@ -36,8 +37,19 @@ const mainTheme: ThemeOptions = {
       case Spacing.xxl:
         size = 3;
         break;
+      default:
+        size = 1.5 * (factor ?? 1);
+        break;
     }
     return `${size}rem`;
+  },
+  typography: {
+    fontSize: 14,
+  },
+  props: {
+    MuiAvatar: {
+      sizes: "10px",
+    },
   },
 };
 
@@ -63,15 +75,15 @@ const darkTheme: ThemeOptions = {
       secondary: "#ddd",
     },
     primary: {
-      main: "#fff",
-      light: "#fff",
-      dark: "#eee",
+      main: "#616161",
+      light: "#757575",
+      dark: "#424242",
     },
-    secondary: {
-      main: "#fff",
-      light: "#fff",
-      dark: "#eee",
-    },
+    // secondary: {
+    //   main: "#fff",
+    //   light: "#fff",
+    //   dark: "#eee",
+    // },
   },
 };
 

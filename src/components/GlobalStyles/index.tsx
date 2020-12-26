@@ -14,7 +14,7 @@ const GlobalStyles: FC = () => {
         }
 
         :root {
-          font-size: 18px;
+          font-size: ${typography.fontSize}px;
         }
 
         html {
@@ -41,24 +41,12 @@ const GlobalStyles: FC = () => {
 
         #app-root {
           display: grid;
-          grid-template-rows: auto 1fr auto;
+          /* grid-template-rows: auto 1fr auto; */
           min-height: 100%;
         }
 
         strong {
           font-weight: 500;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        ol,
-        ul {
-          margin: 0;
         }
 
         a {

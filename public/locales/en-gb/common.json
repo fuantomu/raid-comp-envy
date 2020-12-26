@@ -3,5 +3,64 @@
     "home": "/",
     "build": "/build"
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "build": {
+    "groups": {
+      "group": "Group {{groupId}}"
+    },
+    "roles": {
+      "Unknown": "Unknown",
+      "Tank": "Tank",
+      "Healer": "Healer",
+      "RangedDPS": "Ranged DPS",
+      "MeleeDPS": "Melee DPS"
+    },
+    "checklist": {
+      "classes": "Classes Checklist",
+      "buffs": "Buffs Checklist",
+      "utilities": "Utilities Checklist"
+    }
+  },
+  "status": {
+    "invited": "Invited",
+    "tentative": "Tentative",
+    "accepted": "Accepted",
+    "declined": "Declined",
+    "unknown": "Unknown"
+  },
+  "classes": {
+      "DeathKnight": "Death Knight",
+      "DemonHunter": "Demon Hunter",
+      "Druid": "Druid",
+      "Hunter": "Hunter",
+      "Mage": "Mage",
+      "Monk": "Monk",
+      "Paladin": "Paladin",
+      "Priest": "Priest",
+      "Rogue": "Rogue",
+      "Shaman": "Shaman",
+      "Warlock": "Warlock",
+      "Warrior": "Warrior"
+  },
+  "buff": {
+    "Intellect": "Intellect",
+    "AttackPower": "Attack Power",
+    "Stamina": "Stamina",
+    "MovementSpeed": "Movement Speed",
+    "PhysicalDamage": "Physical Damage",
+    "MagicDamage": "Magic Damage",
+    "DamageReduction": "Damage Reduction"
+  },
+  "utility": {
+    "Bloodlust": "Bloodlust",
+    "CombatResurrection": "Combat Resurrection",
+    "MovementSpeed": "Movement Speed",
+    "Healthstone": "Healthstone",
+    "Gateway": "Gateway",
+    "Innervate": "Innervate",
+    "AntiMagicZone": "Anti-Magic Zone",
+    "BlessingOfProtection": "Blessing of Protection",
+    "RallyingCry": "Rallying Cry",
+    "Darkness": "Darkness"
+  }
 }

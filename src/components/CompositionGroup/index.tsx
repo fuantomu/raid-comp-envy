@@ -1,5 +1,9 @@
+/** @jsxImportSource @emotion/react */
+import { Card, CardContent, Typography } from "@material-ui/core";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { BuildPlayer } from "../../types";
+import UUID from "../../utils/UUID";
 import Player from "../Player";
 
 export interface CompositionGroupProps {
@@ -7,15 +11,24 @@ export interface CompositionGroupProps {
   groupId: number;
 }
 
-const CompositionGroup: FC<CompositionGroupProps> = (props) => {
-  const { players } = props;
+const buildGroupPlayers = (players: BuildPlayer[]) => {
+  return players.map((player) => <Player key={UUID()} {...player} showRole />);
+};
+
+const CompositionGroup: FC<CompositionGroupProps> = ({ groupId, players }) => {
+  const [common] = useTranslation("common");
+
+  if (players.length === 0) {
+    return <></>;
+  }
 
   return (
-    <>
-      {players.map((player) => (
-        <Player {...player} showRole />
-      ))}
-    </>
+    <Card>
+      <CardContent>
+        <Typography variant="subtitle1">{common("build.groups.group", { groupId })}</Typography>
+        {buildGroupPlayers(players)}
+      </CardContent>
+    </Card>
   );
 };
 

@@ -1,3 +1,4 @@
+
 export enum TestEnum {
   X = 1,
 }
@@ -25,84 +26,67 @@ export enum WarcraftPlayerClass {
   Warrior = "Warrior",
 }
 
-export enum PlayerRole {
-  Unknown,
-  Tank,
-  Healer,
-  RangedDPS,
-  MeleeDPS,
-}
-
 export enum InviteStatus {
-  Invited,
-  Tentative,
-  Accepted,
-  Confirmed,
-  Declined,
-  Unknown,
+  Invited = "invited",
+  Tentative = "tentative",
+  Accepted = "accepted",
+  Confirmed = "confirmed",
+  Declined = "declined",
+  Unknown = "unknown",
 }
 
 export enum WarcraftPlayerSpec {
-  DeathKnightBlood,
-  DeathKnightFrost,
-  DeathKnightUnholy,
-  DemonHunterHavoc,
-  DemonHunterVengeance,
-  DruidBalance,
-  DruidFeral,
-  DruidGuardian,
-  DruidRestoration,
-  HunterBeast,
-  HunterMarksmanship,
-  HunterSurvival,
-  MageArcane,
-  MageFire,
-  MageFrost,
-  MonkBrewmaster,
-  MonkMistweaver,
-  MonkWindwalker,
-  PaladinDiscipline,
-  PaladinHoly,
-  PaladinShadow,
-  PriestHoly,
-  PriestProtection,
-  PriestRetribution,
-  RogueAssassination,
-  RogueOutlaw,
-  RogueSubtlety,
-  ShamanAffliction,
-  ShamanDemonology,
-  ShamanDestruction,
-  WarlockElemental,
-  WarlockEnhancement,
-  WarlockRestoration,
-  WarriorArms,
-  WarriorFury,
-  WarriorProtection,
+  DeathKnightBlood = "DeathKnightBlood",
+  DeathKnightFrost = "DeathKnightFrost",
+  DeathKnightUnholy = "DeathKnightUnholy",
+  DemonHunterHavoc = "DemonHunterHavoc",
+  DemonHunterVengeance = "DemonHunterVengeance",
+  DruidBalance = "DruidBalance",
+  DruidFeral = "DruidFeral",
+  DruidGuardian = "DruidGuardian",
+  DruidRestoration = "DruidRestoration",
+  HunterBeastmastery = "HunterBeastmastery",
+  HunterMarksmanship = "HunterMarksmanship",
+  HunterSurvival = "HunterSurvival",
+  MageArcane = "MageArcane",
+  MageFire = "MageFire",
+  MageFrost = "MageFrost",
+  MonkBrewmaster = "MonkBrewmaster",
+  MonkMistweaver = "MonkMistweaver",
+  MonkWindwalker = "MonkWindwalker",
+  PriestDiscipline = "PriestDiscipline",
+  PriestHoly = "PriestHoly",
+  PriestShadow = "PriestShadow",
+  PaladinHoly = "PaladinHoly",
+  PaladinProtection = "PaladinProtection",
+  PaladinRetribution = "PaladinRetribution",
+  RogueAssassination = "RogueAssassination",
+  RogueOutlaw = "RogueOutlaw",
+  RogueSubtlety = "RogueSubtlety",
+  WarlockAffliction = "WarlockAffliction",
+  WarlockDemonology = "WarlockDemonology",
+  WarlockDestruction = "WarlockDestruction",
+  ShamanElemental = "ShamanElemental",
+  ShamanEnhancement = "ShamanEnhancement",
+  ShamanRestoration = "ShamanRestoration",
+  WarriorArms = "WarriorArms",
+  WarriorFury = "WarriorFury",
+  WarriorProtection = "WarriorProtection",
 }
 
-interface WarcraftClassConfig {
-  icon: string;
-  colour: string;
-}
-
-interface WarcraftSpecConfig {
-  icon: string;
-  role: PlayerRole;
-}
-
-type WarcraftConfig = {
-  [className in WarcraftPlayerClass]: {
-    default: WarcraftClassConfig;
-    [spec: number]: WarcraftSpecConfig;
-  };
-};
-
-// export const WarcraftConfig: WarcraftConfig = {
-//   [WarcraftPlayerClass.DeathKnight]: {
-//     default: {
-//       icon: WarcraftIcon[WarcraftPlayerClass.DeathKnight],
-//       colour: WarcraftClassColour[WarcraftPlayerClass.DeathKnight]
-//     }
-//   }
-// }
+export const WarcraftClassColour: {
+  [className in WarcraftPlayerClass]: string
+} = {
+  DeathKnight: "#C41F3B",
+  DemonHunter: "#A330C9",
+  Druid: "#FF7D0A",
+  Hunter: "#A9D271",
+  Mage: "#40C7EB",
+  Monk: "#00FF96",
+  Paladin: "#F58CBA",
+  Priest: "#FFFFFF",
+  Rogue: "#FFF569",
+  Shaman: "#0070DE",
+  Warlock: "#8787ED",
+  Warrior: "#C79C6E",
+};;

@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import Loading from "../../components/Loading";
 
 const HomePage: FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   if (isLoading) {
     return <Loading />;
