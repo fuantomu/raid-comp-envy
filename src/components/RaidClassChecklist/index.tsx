@@ -3,9 +3,8 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { InviteStatus, WarcraftPlayerClass } from "../../consts";
+import { WarcraftPlayerClass } from "../../consts";
 import { Build } from "../../types";
-import Player from "../Player";
 import RaidClass from "../RaidClass";
 
 export interface RaidClassChecklistProps {
@@ -15,8 +14,10 @@ export interface RaidClassChecklistProps {
 const buildClassChecklist = (build: Build) => {
   const classNames = [];
   for (const className in WarcraftPlayerClass) {
-    const count = build.players.filter((player) => player.class === className).length;
-    classNames.push(<RaidClass className={className as WarcraftPlayerClass} count={count} />);
+    const playersWithClass = build.players.filter((player) => player.class === className);
+    classNames.push(
+      <RaidClass className={className as WarcraftPlayerClass} players={playersWithClass} />
+    );
   }
   return classNames;
 };

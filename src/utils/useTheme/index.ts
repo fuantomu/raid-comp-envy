@@ -46,11 +46,6 @@ const mainTheme: ThemeOptions = {
   typography: {
     fontSize: 14,
   },
-  props: {
-    MuiAvatar: {
-      sizes: "10px",
-    },
-  },
 };
 
 const lightTheme: ThemeOptions = {

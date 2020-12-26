@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, Global } from "@emotion/react";
 import { FC } from "react";
-import useTheme from "../../utils/useTheme";
+import useTheme, { Spacing } from "../../utils/useTheme";
 
 const GlobalStyles: FC = () => {
-  const { palette, typography } = useTheme();
+  const { palette, typography, spacing } = useTheme();
 
   return (
     <Global
@@ -56,6 +56,10 @@ const GlobalStyles: FC = () => {
 
         img {
           display: block;
+        }
+
+        div[role="tooltip"] > div {
+          font-size: ${spacing(Spacing.s)} !important;
         }
       `}
     />

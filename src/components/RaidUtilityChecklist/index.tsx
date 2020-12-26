@@ -14,10 +14,12 @@ export interface RaidUtilityChecklistProps {
 const buildUtilityChecklist = (build: Build) => {
   const raidBuffs = [];
   for (const utility in WarcraftRaidUtility) {
-    const count = build.players.filter(({ spec }) =>
+    const playersWithUtility = build.players.filter(({ spec }) =>
       RoleProvider.getSpecUtilities(spec).includes(utility as WarcraftRaidUtility)
-    ).length;
-    raidBuffs.push(<RaidUtility utility={utility as WarcraftRaidUtility} count={count} />);
+    );
+    raidBuffs.push(
+      <RaidUtility utility={utility as WarcraftRaidUtility} players={playersWithUtility} />
+    );
   }
   return raidBuffs;
 };

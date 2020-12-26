@@ -14,10 +14,10 @@ export interface RaidBuffChecklistProps {
 const buildBuffChecklist = (build: Build) => {
   const raidBuffs = [];
   for (const buff in WarcraftRaidBuff) {
-    const count = build.players.filter(({ spec }) =>
+    const playersWithBuff = build.players.filter(({ spec }) =>
       RoleProvider.getSpecBuffs(spec).includes(buff as WarcraftRaidBuff)
-    ).length;
-    raidBuffs.push(<RaidBuff buff={buff as WarcraftRaidBuff} count={count} />);
+    );
+    raidBuffs.push(<RaidBuff buff={buff as WarcraftRaidBuff} players={playersWithBuff} />);
   }
   return raidBuffs;
 };
