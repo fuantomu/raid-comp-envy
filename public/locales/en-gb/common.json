@@ -6,7 +6,17 @@
   "loading": "Loading...",
   "build": {
     "groups": {
-      "group": "Group {{groupId}}"
+      "group": "Group",
+      "group_each": "$t(build.groups.group_{{groupId}})",
+      "group_1": "$t(build.groups.group) {{groupId}}",
+      "group_2": "$t(build.groups.group) {{groupId}}",
+      "group_3": "$t(build.groups.group) {{groupId}}",
+      "group_4": "$t(build.groups.group) {{groupId}}",
+      "group_5": "$t(build.groups.group) {{groupId}}",
+      "group_6": "$t(build.groups.group) {{groupId}}",
+      "group_7": "$t(build.groups.group) {{groupId}}",
+      "group_8": "$t(build.groups.group) {{groupId}}",
+      "group_none": "Ungrouped"
     },
     "roles": {
       "Unknown": "Unknown",

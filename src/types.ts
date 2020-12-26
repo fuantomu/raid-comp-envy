@@ -9,7 +9,7 @@ export type AppErrorData = {
 };
 
 export type BuildId = string;
-export type GroupId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type GroupId = "none" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type BuildPlayer = {
   name: string;
@@ -29,6 +29,10 @@ export type Build = {
 export type BuildGroup = {
   groupId: GroupId;
   players: BuildPlayer[];
+};
+
+export type BuildGroups = {
+  [groupId in GroupId]?: BuildGroup;
 };
 
 export type BuildRoles = {

@@ -12,23 +12,23 @@ const players: BuildPlayer[] = [
   {
     name: "Albionna",
     class: WarcraftPlayerClass.Priest,
-    spec: WarcraftPlayerSpec.PriestHoly,
+    // spec: WarcraftPlayerSpec.PriestHoly,
     status: InviteStatus.Tentative,
-    group: 1,
+    // group: 1,
   },
   {
     name: "Angélinaholy",
     class: WarcraftPlayerClass.Paladin,
-    spec: WarcraftPlayerSpec.PaladinHoly,
+    // spec: WarcraftPlayerSpec.PaladinHoly,
     status: InviteStatus.Accepted,
-    group: 1,
+    // group: 1,
   },
   {
     name: "Badumtis",
     class: WarcraftPlayerClass.Monk,
     spec: WarcraftPlayerSpec.MonkBrewmaster,
     status: InviteStatus.Declined,
-    group: 1,
+    // group: 1,
   },
   {
     name: "Betræyer",
@@ -36,14 +36,14 @@ const players: BuildPlayer[] = [
     class: WarcraftPlayerClass.DemonHunter,
     spec: WarcraftPlayerSpec.DemonHunterHavoc,
     status: InviteStatus.Unknown,
-    group: 1,
+    // group: 1,
   },
   {
     name: "Luleradhiqe",
     class: WarcraftPlayerClass.Druid,
     status: InviteStatus.Accepted,
     spec: WarcraftPlayerSpec.DruidRestoration,
-    group: 2,
+    // group: 2,
   },
   // {
   //   name: "Pigor",
@@ -62,9 +62,9 @@ const players: BuildPlayer[] = [
   {
     name: "Sephmeow",
     class: WarcraftPlayerClass.Druid,
-    spec: WarcraftPlayerSpec.DruidGuardian,
+    // spec: WarcraftPlayerSpec.DruidGuardian,
     status: InviteStatus.Accepted,
-    group: 2,
+    // group: 2,
   },
   {
     name: "Shiftmypantz",

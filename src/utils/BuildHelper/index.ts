@@ -1,23 +1,25 @@
-import { BuildGroup, BuildPlayer, BuildRoles } from "../../types";
+import { BuildGroup, BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
 
 export abstract class BuildHelper {
-  public static getGroups(players: BuildPlayer[]): BuildGroup[] {
+  public static getGroups(players: BuildPlayer[]): BuildGroups {
     const ungrouped: BuildGroup = {
-      groupId: 0,
+      groupId: "none",
       players: [],
     };
-    const groups: BuildGroup[] = [ungrouped];
+    const groups: BuildGroups = {
+      none: ungrouped,
+    };
     for (const player of players) {
-      let groupId = player.group ?? 0;
-      groupId = groupId > 8 ? 0 : groupId;
-      const group = groups.find((group) => group.groupId === groupId);
+      let groupId: GroupId = player.group ?? "none";
+      groupId = groupId > 8 ? "none" : groupId;
+      const group = groups[groupId];
       if (!group) {
-        groups.push({
+        groups[groupId] = {
           groupId,
           players: [player],
-        });
+        };
       } else {
         group.players.push(player);
       }

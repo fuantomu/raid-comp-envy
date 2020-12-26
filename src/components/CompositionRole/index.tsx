@@ -12,15 +12,16 @@ import useStyles from "./useStyles";
 export interface CompositionRoleProps {
   role: WarcraftRole;
   players: BuildPlayer[];
+  spread: boolean
 }
 
 const buildRolePlayers = (players: BuildPlayer[]) => {
   return players.map((player) => <Player key={UUID()} {...player} />);
 };
 
-const CompositionRole: FC<CompositionRoleProps> = ({ role, players }) => {
+const CompositionRole: FC<CompositionRoleProps> = ({ role, players, spread }) => {
   const [common] = useTranslation("common");
-  const styles = useStyles();
+  const styles = useStyles(spread);
 
   if (players.length === 0) {
     return <></>;
@@ -33,7 +34,9 @@ const CompositionRole: FC<CompositionRoleProps> = ({ role, players }) => {
           <Avatar css={styles.icon} src={IconProvider.getRoleIcon(role)} />
           <Typography variant="subtitle1">{common(`build.roles.${role}`)}</Typography>
         </Box>
-        {buildRolePlayers(players)}
+        <Box css={styles.spread}>
+          {buildRolePlayers(players)}
+        </Box>
       </CardContent>
     </Card>
   );

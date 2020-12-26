@@ -15,13 +15,13 @@ export default (count: number = 0) => {
     checklist: css`
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-gap: ${theme.spacing(Spacing.m)};
+      column-gap: ${theme.spacing(Spacing.m)};
     `,
     container: css`
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
-      grid-gap: ${spacing(Spacing.xs)};
+      column-gap: ${spacing(Spacing.xs)};
       padding: ${spacing(Spacing.xs)};
       border-radius: ${spacing(Spacing.xxs)};
       user-select: none;

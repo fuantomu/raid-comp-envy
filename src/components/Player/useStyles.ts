@@ -10,7 +10,7 @@ export default (className: WarcraftPlayerClass) => {
     player: css`
       display: grid;
       grid-template-columns: auto 1fr auto;
-      grid-gap: ${theme.spacing(Spacing.m)};
+      column-gap: ${theme.spacing(Spacing.m)};
       padding: ${theme.spacing(Spacing.xs)};
       margin: ${theme.spacing(Spacing.xxs)} 0;
       background-color: ${theme.palette.background.paper};
@@ -25,7 +25,7 @@ export default (className: WarcraftPlayerClass) => {
     icons: css`
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 0.2ch;
+      column-gap: 0.2ch;
     `,
     icon: css`
       width: ${iconSize}!important;
