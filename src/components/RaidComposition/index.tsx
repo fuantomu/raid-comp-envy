@@ -11,6 +11,7 @@ import useStyles from "./useStyles";
 
 export interface RaidCompositionProps {
   build: Build;
+  grouped?: boolean;
 }
 
 const buildCompositionRoleMapper = (role: string, players: BuildPlayer[], spread = false) => (
@@ -21,10 +22,7 @@ const buildCompositionGroupMapper = (groupId: GroupId, players: BuildPlayer[], s
   <CompositionGroup key={UUID()} groupId={groupId} players={players} spread={spread} />
 );
 
-const RaidComposition: FC<RaidCompositionProps> = (props) => {
-  const {
-    build: { grouped, players, buildId },
-  } = props;
+const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped }) => {
   const styles = useStyles();
 
   if (grouped) {

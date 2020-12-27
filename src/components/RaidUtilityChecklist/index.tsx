@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Build } from "../../types";
 import { RoleProvider } from "../../utils/RoleProvider";
 import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
+import UUID from "../../utils/UUID";
 import RaidUtility from "../RaidUtility";
 
 export interface RaidUtilityChecklistProps {
@@ -18,7 +19,11 @@ const buildUtilityChecklist = (build: Build) => {
       RoleProvider.getSpecUtilities(spec).includes(utility as WarcraftRaidUtility)
     );
     raidBuffs.push(
-      <RaidUtility utility={utility as WarcraftRaidUtility} players={playersWithUtility} />
+      <RaidUtility
+        key={UUID()}
+        utility={utility as WarcraftRaidUtility}
+        players={playersWithUtility}
+      />
     );
   }
   return raidBuffs;

@@ -5,6 +5,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { WarcraftPlayerClass } from "../../consts";
 import { Build } from "../../types";
+import UUID from "../../utils/UUID";
 import RaidClass from "../RaidClass";
 
 export interface RaidClassChecklistProps {
@@ -16,7 +17,11 @@ const buildClassChecklist = (build: Build) => {
   for (const className in WarcraftPlayerClass) {
     const playersWithClass = build.players.filter((player) => player.class === className);
     classNames.push(
-      <RaidClass className={className as WarcraftPlayerClass} players={playersWithClass} />
+      <RaidClass
+        key={UUID()}
+        className={className as WarcraftPlayerClass}
+        players={playersWithClass}
+      />
     );
   }
   return classNames;

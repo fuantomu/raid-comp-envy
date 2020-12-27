@@ -12,6 +12,8 @@ export default () => {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(calc(${iconSize} + ${countSize}), 1fr));
       column-gap: ${theme.spacing(Spacing.xs)};
+      user-select: none;
+      cursor: pointer;
     `,
     role: css`
       display: grid;

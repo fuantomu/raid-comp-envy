@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { WarcraftRaidBuff } from "../../utils/RoleProvider/consts";
 import RaidBuff from "../RaidBuff";
 import { RoleProvider } from "../../utils/RoleProvider";
+import UUID from "../../utils/UUID";
 
 export interface RaidBuffChecklistProps {
   build: Build;
@@ -17,7 +18,9 @@ const buildBuffChecklist = (build: Build) => {
     const playersWithBuff = build.players.filter(({ spec }) =>
       RoleProvider.getSpecBuffs(spec).includes(buff as WarcraftRaidBuff)
     );
-    raidBuffs.push(<RaidBuff buff={buff as WarcraftRaidBuff} players={playersWithBuff} />);
+    raidBuffs.push(
+      <RaidBuff key={UUID()} buff={buff as WarcraftRaidBuff} players={playersWithBuff} />
+    );
   }
   return raidBuffs;
 };

@@ -1,7 +1,8 @@
 {
   "urls": {
     "home": "/",
-    "build": "/build"
+    "build": "/build",
+    "buildGrouped": "/build/g"
   },
   "loading": "Loading...",
   "build": {

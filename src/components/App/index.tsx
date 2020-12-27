@@ -25,6 +25,9 @@ const App: FC = () => {
               <Route exact path={common("urls.home")}>
                 <HomePage />
               </Route>
+              <Route path={`${common("urls.buildGrouped")}/:buildId([\\w]+)/:name?`}>
+                <BuildPage grouped />
+              </Route>
               <Route path={`${common("urls.build")}/:buildId([\\w]+)/:name?`}>
                 <BuildPage />
               </Route>
@@ -34,9 +37,9 @@ const App: FC = () => {
               <Route path={`${common("urls.build")}/build`}>
                 <EditBuildPage />
               </Route> */}
-              <Route path="*">
-                <HomePage />
-              </Route>
+              {/* <Route path="*" >
+                {null}
+              </Route> */}
             </Switch>
           </Suspense>
         </ErrorBoundary>

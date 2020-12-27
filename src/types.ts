@@ -23,7 +23,6 @@ export type BuildPlayer = {
 export type Build = {
   buildId: BuildId;
   players: BuildPlayer[];
-  grouped: boolean;
 };
 
 export type BuildGroup = {

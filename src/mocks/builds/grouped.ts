@@ -288,11 +288,9 @@ const players: BuildPlayer[] = [
 export const BUILD_GROUPED: Build = {
   buildId: "grouped1",
   players,
-  grouped: true,
 };
 
 export const BUILD_UNGROUPED: Build = {
   buildId: "grouped0",
   players,
-  grouped: false,
 };
