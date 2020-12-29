@@ -1,9 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/mocharc",
-  "timeout": 15000,
+  "timeout": 2000,
   "bail": true,
   "extension": ["ts"],
-  "spec": "test/**/*.spec.ts",
-  "require": "ts-node/register",
+  "spec": "src/test/**/*.spec.ts",
+  "require": ["ts-node/register/transpile-only"],
+  "recursive": true,
   "full-trace": false
 }

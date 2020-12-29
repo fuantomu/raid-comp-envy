@@ -22,6 +22,7 @@ export type BuildPlayer = {
 
 export type Build = {
   buildId: BuildId;
+  name: string;
   players: BuildPlayer[];
 };
 

@@ -58,7 +58,7 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
     <Container>
       <Box key={UUID()} css={[styles.gridBox, styles.header]}>
         <Typography variant="h4" gutterBottom>
-          Greatest team ever
+          {build.name}
         </Typography>
         <BuildRolesCount handleChangeGrouping={handleChangeGrouping} build={build} />
       </Box>

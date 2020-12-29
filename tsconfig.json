@@ -21,11 +21,9 @@
   "prettier": "@zonedigital/prettier-config",
   "browserslist": ["extends @zonedigital/browserslist-config"],
   "eslint": {
-    "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/eslintrc.json",
+    "$schema": "https://json.schemastore.org/eslintrc",
 
-    "extends": ["@zonedigital/eslint-config-react"],
     "root": true,
-    "ignorePatterns": "!.storybook",
     "rules": {
       "import/no-anonymous-default-export": "off",
       "no-underscore-dangle": [
@@ -59,7 +57,6 @@
         }
       ]
     },
-    "plugins": ["simple-import-sort"],
     "settings": {
       "polyfills": ["AbortController", "fetch", "Promise"],
       "react": {
@@ -68,8 +65,9 @@
     },
     "overrides": [
       {
-        "files": ["**/*.ts?(x)"],
+        "files": ["src/**/*.ts?(x)"],
         "extends": [
+          "@zonedigital/eslint-config-react",
           "plugin:import/typescript",
           "plugin:@typescript-eslint/eslint-recommended",
           "plugin:@typescript-eslint/recommended",
@@ -77,7 +75,7 @@
           "prettier/@typescript-eslint"
         ],
         "parser": "@typescript-eslint/parser",
-        "plugins": ["@typescript-eslint"],
+        "plugins": ["@typescript-eslint", "simple-import-sort"],
         "rules": {
           "@typescript-eslint/explicit-module-boundary-types": "off",
           "@typescript-eslint/explicit-function-return-type": "off",
@@ -92,9 +90,10 @@
         }
       },
       {
-        "files": ["./src/**/*.ts?(x)"],
+        "extends": ["@zonedigital/eslint-config-react"],
+        "files": ["src/**/*.ts?(x)"],
         "excludedFiles": [".test.ts?(x)"],
-        "plugins": ["i18next"],
+        "plugins": ["i18next", "simple-import-sort"],
         "rules": {
           "i18next/no-literal-string": [
             "error",

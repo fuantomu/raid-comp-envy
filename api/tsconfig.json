@@ -15,13 +15,11 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strictNullChecks": false,
-    "target": "ES6"
+    "target": "ES6",
+    "types": ["reflect-metadata", "jest"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "baseUrl": "."
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "../src",
-    "../node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["../src", "../node_modules"]
 }

@@ -4,7 +4,8 @@ doc
 node_modules
 .vscode
 .nyc_output
-coverage
+reports
 *.log
 npm-debug.log*
 .idea
+coverage

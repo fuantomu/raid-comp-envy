@@ -287,10 +287,12 @@ const players: BuildPlayer[] = [
 
 export const BUILD_GROUPED: Build = {
   buildId: "grouped1",
+  name: "Best raid ever",
   players,
 };
 
 export const BUILD_UNGROUPED: Build = {
   buildId: "grouped0",
+  name: "Best raid ever",
   players,
 };

@@ -1,5 +1,3 @@
-"use strict";
-
 import { start } from "./start";
 
 start().catch((err) => {

@@ -6,8 +6,8 @@ import { getBuildResponseData } from "./types";
 
 export const baseURL =
   process.env.REACT_APP_USE_MOCK === "false" && process.env.NODE_ENV === "development"
-    ? "/v1"
-    : "/api/v1";
+    ? ""
+    : "/api";
 
 const errorMap: Record<string, AppErrorId> = {
   "403": AppErrorId.Api403,
