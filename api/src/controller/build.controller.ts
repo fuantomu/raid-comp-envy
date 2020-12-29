@@ -13,7 +13,7 @@ export class BuildController {
 
   @POST
   @Path("/create")
-  public async postBuild(build: BuildType) {
+  public async createBuild(build: BuildType) {
     await BuildDelegate.createBuild(build);
   }
 }

@@ -1,9 +1,10 @@
-export enum AppErrorId {
-  Unspecific = "unspecific",
-  App404 = "notFound",
-  ApiCancelled = "apiCancelled",
-  Api403 = "api403",
-  Api404 = "api404",
+export enum InviteStatus {
+  Invited = "invited",
+  Tentative = "tentative",
+  Accepted = "accepted",
+  Confirmed = "confirmed",
+  Declined = "declined",
+  Unknown = "unknown",
 }
 
 export enum WarcraftPlayerClass {
@@ -19,15 +20,6 @@ export enum WarcraftPlayerClass {
   Shaman = "Shaman",
   Warlock = "Warlock",
   Warrior = "Warrior",
-}
-
-export enum InviteStatus {
-  Invited = "invited",
-  Tentative = "tentative",
-  Accepted = "accepted",
-  Confirmed = "confirmed",
-  Declined = "declined",
-  Unknown = "unknown",
 }
 
 export enum WarcraftPlayerSpec {
@@ -69,19 +61,14 @@ export enum WarcraftPlayerSpec {
   WarriorProtection = "WarriorProtection",
 }
 
-export const WarcraftClassColour: {
-  [className in WarcraftPlayerClass]: string
-} = {
-  DeathKnight: "#C41F3B",
-  DemonHunter: "#A330C9",
-  Druid: "#FF7D0A",
-  Hunter: "#A9D271",
-  Mage: "#40C7EB",
-  Monk: "#00FF96",
-  Paladin: "#F58CBA",
-  Priest: "#FFFFFF",
-  Rogue: "#FFF569",
-  Shaman: "#0070DE",
-  Warlock: "#8787ED",
-  Warrior: "#C79C6E",
-};;
+export enum GroupId {
+  NONE = "none",
+  GROUP1 = 1,
+  GROUP2 = 2,
+  GROUP3 = 3,
+  GROUP4 = 4,
+  GROUP5 = 5,
+  GROUP6 = 6,
+  GROUP7 = 7,
+  GROUP8 = 8,
+}

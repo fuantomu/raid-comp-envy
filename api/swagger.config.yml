@@ -3,17 +3,16 @@ swagger:
   entryFile: 
     - ./src/controller/*
   outputFormat: OpenApi_3
-  name: Typescript-rest Boilerplate Application
-  description: A Sample application using Typescipt-rest library
+  name: Raid Composition API
   license: MIT
   produces: [application/json]
-  version: 0.0.1
-  securityDefinitions:
-    default:
-      type: apiKey
-      in: header
-      name: Authorization
-    secondAuthenticator:
-      type: apiKey
-      in: header
-      name: Authorization
+  version: 1.0.0
+  # securityDefinitions:
+  #   default:
+  #     type: apiKey
+  #     in: header
+  #     name: Authorization
+  #   secondAuthenticator:
+  #     type: apiKey
+  #     in: header
+  #     name: Authorization
