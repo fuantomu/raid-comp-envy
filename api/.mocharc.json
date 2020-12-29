@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/mocharc",
+  "timeout": 15000,
+  "bail": true,
+  "extension": ["ts"],
+  "spec": "test/**/*.spec.ts",
+  "require": "ts-node/register",
+  "full-trace": false
+}

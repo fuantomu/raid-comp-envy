@@ -1,0 +1,8 @@
+version: '3.1'
+
+services:
+  mongo:
+    container_name: raid-comp-mongo
+    image: mongo:bionic
+    ports:
+      - 27017:27017

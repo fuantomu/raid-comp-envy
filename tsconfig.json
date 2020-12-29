@@ -16,7 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": ["./src"],
+  "exclude": ["./api"],
   "prettier": "@zonedigital/prettier-config",
   "browserslist": ["extends @zonedigital/browserslist-config"],
   "eslint": {

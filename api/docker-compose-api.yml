@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  mongo:
+    container_name: raid-comp-mongo
+    image: mongo:bionic
+    ports:
+      - 27017:27017
+
+  raid-comp-api:
+    container_name: raid-comp-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/db
+    ports:
+      - 3000:3000
