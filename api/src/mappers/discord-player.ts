@@ -51,7 +51,6 @@ export const DiscordWarcraftCharacter: {
     [WarcraftPlayerSpec.ShamanElemental]: "Cultmaster",
   },
   "219835592983314432": { [WarcraftPlayerSpec.PaladinRetribution]: "Christene" },
-  "Likoskila": { [WarcraftPlayerSpec.MonkWindwalker]: "Likoskila" },
   "183674051615653888": {
     [WarcraftPlayerSpec.WarriorArms]: "Aemiliuss",
     [WarcraftPlayerSpec.WarriorFury]: "Aemiliuss",
@@ -109,7 +108,6 @@ export const DiscordWarcraftCharacterTeam: {
   "356492216174116866": RaidTeam.HC,
   "219129629221453825": RaidTeam.HC,
   "219835592983314432": RaidTeam.HC,
-  "Likoskila": RaidTeam.HC,
   "183674051615653888": RaidTeam.HC,
   "220318467125936138": RaidTeam.HC,
   "188341550764392458": RaidTeam.HC,

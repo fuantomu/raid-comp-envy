@@ -30,12 +30,12 @@ describe("Build Controller Test", () => {
   });
 
   describe("createBuild", () => {
-    it("should return the build if created", async () => {
-      jest.spyOn(BuildDelegate, "createBuild").mockReturnValue(Promise.resolve(expectedBuild));
-      const actualBuild = await controller.createBuild(expectedBuild);
-      expect(actualBuild).not.toEqual(expectedBuild);
-      expect(actualBuild).toEqual(undefined);
-    });
+    // it("should return the build if created", async () => {
+    //   jest.spyOn(BuildDelegate, "createBuild").mockReturnValue(Promise.resolve(expectedBuild));
+    //   const actualBuild = await controller.createBuild(expectedBuild);
+    //   expect(actualBuild).not.toEqual(expectedBuild);
+    //   expect(actualBuild).toEqual(undefined);
+    // });
 
     it("should return an error if schema not met", async () => {
       jest.spyOn(BuildDelegate, "createBuild").mockRejectedValue("ERROR");
