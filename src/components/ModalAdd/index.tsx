@@ -83,14 +83,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   };
 
   const sendImportToContext = (nameOverride = name) => {
-    const { name: playerName, realm } = nameOverride.match(/(?<name>\w+)(?:-(?<realm>\w.+))?/)
-      ?.groups || {
-        name: "",
-        realm: ""
-      } as {
-      name: string;
-      realm: string;
-    };
+    const { name: playerName, realm } = PlayerUtils.splitFullName(nameOverride);
     context?.importBuild([
       {
         name: playerName,

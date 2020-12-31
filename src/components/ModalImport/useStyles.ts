@@ -24,7 +24,7 @@ export default () => {
     `,
     textarea: css`
       width: 100%;
-      height: 50vh;
+      height: 30vh;
       resize: none;
       padding: ${spacing(Spacing.s)};
     `,

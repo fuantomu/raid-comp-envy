@@ -1,3 +1,4 @@
+import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
 import { Build, BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
 import { PlayerUtils } from "../PlayerUtils";
 import { RoleProvider } from "../RoleProvider";
@@ -57,5 +58,34 @@ export abstract class BuildHelper {
     return build.players.map(player => {
       return `${PlayerUtils.getFullName(player)},${player.class},${player.spec ?? ""},${player.status}`;
     }).join("\n");
+  }
+
+  public static parseImport(importString: string): BuildPlayer[] {
+    const lines = importString.split("\n");
+    const players: BuildPlayer[] = [];
+
+    for (const line of lines) {
+      let [name, className, spec, status] = line.split(",");
+      if (!name || !className) {
+        continue;
+      }
+      if (!(className in WarcraftPlayerClass)) {
+        continue;
+      }
+      if (spec && !(spec in WarcraftPlayerSpec)) {
+        spec = "";
+      }
+      if (status && !(status in InviteStatus)) {
+        status = InviteStatus.Unknown;
+      }
+      players.push({
+        ...PlayerUtils.splitFullName(name),
+        class: className as WarcraftPlayerClass,
+        status: status as InviteStatus,
+        spec: spec as WarcraftPlayerSpec
+      })
+    }
+
+    return players;
   }
 }

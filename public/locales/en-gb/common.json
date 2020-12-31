@@ -39,7 +39,9 @@
       "import": "Import"
     },
     "export": {
-      "title": "Export Build"
+      "title": "Export Build",
+      "raid-comp": "Raid Composition",
+      "wowaudit": "wowaudit Invite Tool"
     },
     "reset": {
       "title": "Reset Build",
