@@ -14,5 +14,11 @@ export default () => {
       gap: ${theme.spacing(Spacing.m)};
       word-break: break-all;
     `,
+    buttons: css`
+      display: grid;
+      width: min(550px, 100%);
+      grid-template-columns: repeat(4, 1fr);
+      gap: ${theme.spacing(Spacing.m)};
+    `,
   };
 };

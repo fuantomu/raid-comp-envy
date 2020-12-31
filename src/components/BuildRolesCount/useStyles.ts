@@ -11,14 +11,14 @@ export default () => {
     roles: css`
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(calc(${iconSize} + ${countSize}), 1fr));
-      column-gap: ${theme.spacing(Spacing.xs)};
+      gap: ${theme.spacing(Spacing.xs)};
       user-select: none;
       cursor: pointer;
     `,
     role: css`
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      column-gap: ${theme.spacing(Spacing.xs)};
+      gap: ${theme.spacing(Spacing.xs)};
       align-items: center;
     `,
     icon: css`

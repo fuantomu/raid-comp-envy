@@ -4,19 +4,21 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
+import UUID from "../../utils/UUID";
 import AttendanceIcon from "../AttendanceIcon";
 import useStyles from "./useStyles";
 
 export interface PlayerProps extends BuildPlayer {
   showRole?: boolean;
+  onClick?: () => void;
 }
 
-const Player: FC<PlayerProps> = ({ name, realm, class: className, spec, status, showRole }) => {
+const Player: FC<PlayerProps> = ({ name, realm, class: className, spec, status, showRole, onClick }) => {
   const styles = useStyles(className);
   const [common] = useTranslation("common");
 
   return (
-    <Box css={styles.player}>
+    <Box key={UUID()} css={styles.player} onClick={onClick ? onClick : () => {}}>
       <Box css={styles.icons}>
         {showRole && <Avatar css={styles.icon} src={IconProvider.getSpecRoleIcon(spec)} />}
         <Avatar

@@ -60,7 +60,7 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
         <Typography variant="h4" gutterBottom>
           {build.name}
         </Typography>
-        <BuildRolesCount handleChangeGrouping={handleChangeGrouping} build={build} />
+        <BuildRolesCount key={UUID()} handleChangeGrouping={handleChangeGrouping} build={build} />
       </Box>
       <Box key={UUID()} css={styles.gridBox}>
         <RaidComposition build={build} grouped={!!grouped} />

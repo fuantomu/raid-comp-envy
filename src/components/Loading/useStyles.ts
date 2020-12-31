@@ -35,7 +35,7 @@ export default function useStyles({ small = false, overlay = false }: StyleOptio
         align-items: center;
         display: grid;
         grid-auto-flow: column;
-        column-gap: ${small ? spacing(Spacing.xs) : spacing(Spacing.s)};
+        gap: ${small ? spacing(Spacing.xs) : spacing(Spacing.s)};
 
         &::before {
           animation: ${spin} 1s linear infinite;

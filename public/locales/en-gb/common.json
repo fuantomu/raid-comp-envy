@@ -30,6 +30,41 @@
       "classes": "Classes Checklist",
       "buffs": "Buffs Checklist",
       "utilities": "Utilities Checklist"
+    },
+    "new": "New Build",
+    "unnamed": "Unnamed Build",
+    "import": {
+      "title": "Import Build",
+      "import": "Import"
+    },
+    "reset": {
+      "title": "Reset Build",
+      "confirm": "Are you sure you want to reset this build?"
+    },
+    "save": {
+      "title": "Save Build",
+      "emptyBuild": "There is nothing to save. Add some players first."
+    },
+    "edit": {
+      "title": "Edit Player",
+      "save": "Save",
+      "remove": "Remove"
+    },
+    "add": {
+      "title": "Add Player",
+      "add": "Add",
+      "groups": {
+        "group_each": "$t(build.add.groups.group_{{groupId}})",
+        "group_1": "{{groupId}}",
+        "group_2": "{{groupId}}",
+        "group_3": "{{groupId}}",
+        "group_4": "{{groupId}}",
+        "group_5": "{{groupId}}",
+        "group_6": "{{groupId}}",
+        "group_7": "{{groupId}}",
+        "group_8": "{{groupId}}",
+        "group_none": "Ungrouped"
+      }
     }
   },
   "status": {
@@ -40,18 +75,56 @@
     "unknown": "Unknown"
   },
   "classes": {
-      "DeathKnight": "Death Knight",
-      "DemonHunter": "Demon Hunter",
-      "Druid": "Druid",
-      "Hunter": "Hunter",
-      "Mage": "Mage",
-      "Monk": "Monk",
-      "Paladin": "Paladin",
-      "Priest": "Priest",
-      "Rogue": "Rogue",
-      "Shaman": "Shaman",
-      "Warlock": "Warlock",
-      "Warrior": "Warrior"
+    "DeathKnight": "Death Knight",
+    "DemonHunter": "Demon Hunter",
+    "Druid": "Druid",
+    "Hunter": "Hunter",
+    "Mage": "Mage",
+    "Monk": "Monk",
+    "Paladin": "Paladin",
+    "Priest": "Priest",
+    "Rogue": "Rogue",
+    "Shaman": "Shaman",
+    "Warlock": "Warlock",
+    "Warrior": "Warrior"
+  },
+  "specs": {
+    "DeathKnightBlood": "Blood",
+    "DeathKnightFrost": "Frost",
+    "DeathKnightUnholy": "Unholy",
+    "DemonHunterHavoc": "Havoc",
+    "DemonHunterVengeance": "Vengeance",
+    "DruidBalance": "Balance",
+    "DruidFeral": "Feral",
+    "DruidGuardian": "Guardian",
+    "DruidRestoration": "Restoration",
+    "HunterBeastmastery": "Beast Mastery",
+    "HunterMarksmanship": "Marksmanship",
+    "HunterSurvival": "Survival",
+    "MageArcane": "Arcane",
+    "MageFire": "Fire",
+    "MageFrost": "Frost",
+    "MonkBrewmaster": "Brewmaster",
+    "MonkMistweaver": "Mistweaver",
+    "MonkWindwalker": "Windwalker",
+    "PriestDiscipline": "Discipline",
+    "PriestHoly": "Holy",
+    "PriestShadow": "Shadow",
+    "PaladinHoly": "Holy",
+    "PaladinProtection": "Protection",
+    "PaladinRetribution": "Retribution",
+    "RogueAssassination": "Assassination",
+    "RogueOutlaw": "Outlaw",
+    "RogueSubtlety": "Subtlety",
+    "WarlockAffliction": "Affliction",
+    "WarlockDemonology": "Demonology",
+    "WarlockDestruction": "Destruction",
+    "ShamanElemental": "Elemental",
+    "ShamanEnhancement": "Enhancement",
+    "ShamanRestoration": "Restoration",
+    "WarriorArms": "Arms",
+    "WarriorFury": "Fury",
+    "WarriorProtection": "Protection"
   },
   "buff": {
     "Intellect": "Intellect",
@@ -73,5 +146,9 @@
     "BlessingOfProtection": "Blessing of Protection",
     "RallyingCry": "Rallying Cry",
     "Darkness": "Darkness"
+  },
+  "buttons": {
+    "ok": "OK",
+    "cancel": "Cancel"
   }
 }

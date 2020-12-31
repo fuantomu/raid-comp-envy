@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Component, ErrorInfo, ReactNode } from "react";
 
-import { AppErrorId } from "../../consts";
-// import SessionExpiredPage from '../../pages/errors/SessionExpiredPage';
-// import UnspecificErrorPage from '../../pages/errors/UnspecificErrorPage';
+import ErrorPage from "../../pages/ErrorPage";
 import AppError from "../../utils/AppError";
-// import { ErrorBoundaryProvider } from './context';
+import { ErrorBoundaryProvider } from "./context";
 
 type ErrorType = Error | AppError;
 
@@ -45,18 +43,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
     // If we have an error, work out what it is and how to show it
     if (error) {
-      if (error instanceof AppError) {
-        switch (error.id) {
-          case AppErrorId.Api403:
-          case AppErrorId.Api404:
-          // return <SessionExpiredPage />;
-          default:
-          // return <UnspecificErrorPage />;
-        }
-      }
-
-      // return <UnspecificErrorPage />;
-      return <></>;
+      return <ErrorPage error={error} />;
     }
 
     // If we have no error, render children
@@ -65,10 +52,9 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render() {
     return (
-      // <ErrorBoundaryProvider value={{ reset: this.handleReset }}>
-      this.renderChildren()
-      // </ErrorBoundaryProvider>
-      // <></>
+      <ErrorBoundaryProvider value={{ reset: this.handleReset }}>
+        {this.renderChildren()}
+      </ErrorBoundaryProvider>
     );
   }
 }

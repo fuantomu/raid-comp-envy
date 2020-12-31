@@ -1,12 +1,13 @@
 import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
 import {
+  WarcraftClassRaidBuffs,
   WarcraftClassUtilities,
   WarcraftRaidBuff,
   WarcraftRaidUtility,
   WarcraftRole,
   WarcraftSpecRaidBuffs,
   WarcraftSpecRole,
-  WarcraftSpecUtilities,
+  WarcraftSpecUtilities
 } from "./consts";
 
 export abstract class RoleProvider {
@@ -18,8 +19,12 @@ export abstract class RoleProvider {
     return spec ? WarcraftSpecUtilities[spec] : [];
   }
 
-  public static getSpecBuffs(className?: WarcraftPlayerSpec): WarcraftRaidBuff[] {
-    return className ? WarcraftSpecRaidBuffs[className] : [];
+  public static getSpecBuffs(spec?: WarcraftPlayerSpec): WarcraftRaidBuff[] {
+    return spec ? WarcraftSpecRaidBuffs[spec] : [];
+  }
+
+  public static getClassBuff(className?: WarcraftPlayerClass): WarcraftRaidBuff[] {
+    return className ? WarcraftClassRaidBuffs[className] : [];
   }
 
   public static getClassUtilities(className?: WarcraftPlayerClass): WarcraftRaidUtility[] {

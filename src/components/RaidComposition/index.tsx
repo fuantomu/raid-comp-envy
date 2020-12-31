@@ -12,21 +12,14 @@ import useStyles from "./useStyles";
 export interface RaidCompositionProps {
   build: Build;
   grouped?: boolean;
+  editing?: boolean;
 }
 
-const buildCompositionRoleMapper = (role: string, players: BuildPlayer[], spread = false) => (
-  <CompositionRole key={UUID()} role={role as WarcraftRole} players={players} spread={spread} />
-);
-
-const buildCompositionGroupMapper = (groupId: GroupId, players: BuildPlayer[], spread = false) => (
-  <CompositionGroup key={UUID()} groupId={groupId} players={players} spread={spread} />
-);
-
-const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped }) => {
+const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped, editing }) => {
   const styles = useStyles();
 
   if (grouped) {
-    const groups = BuildHelper.getGroups(players);
+    const groups = BuildHelper.getGroups(players, editing);
     return (
       <>
         <Box key={UUID()} css={styles.grouped}>
@@ -35,14 +28,27 @@ const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped
             .map((group) => {
               if (!group) return <></>;
               const { groupId, players } = group;
-              return buildCompositionGroupMapper(groupId, players);
+              return (
+                <CompositionGroup
+                  key={UUID()}
+                  groupId={groupId}
+                  players={players}
+                  editing={editing}
+                />
+              );
             })}
         </Box>
-        {groups["none"]?.players.length && (
+        {groups["none"]?.players.length ? (
           <Box key={UUID()} css={styles.ungrouped}>
-            {buildCompositionGroupMapper("none", groups.none?.players, true)}
+            <CompositionGroup
+              key={UUID()}
+              groupId={"none"}
+              players={groups["none"]?.players ?? []}
+              spread
+              editing={editing}
+            />
           </Box>
-        )}
+        ) : null}
       </>
     );
   } else {
@@ -53,16 +59,23 @@ const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped
           {Object.keys(buildRoles)
             .filter((role) => role !== WarcraftRole.Unknown)
             .map((role) => {
-              return buildCompositionRoleMapper(role, buildRoles[role as WarcraftRole]);
+              return (
+                <CompositionRole
+                  key={UUID()}
+                  role={role as WarcraftRole}
+                  players={buildRoles[role as WarcraftRole]}
+                />
+              );
             })}
         </Box>
         {buildRoles[WarcraftRole.Unknown].length && (
           <Box key={UUID()} css={styles.ungrouped}>
-            {buildCompositionRoleMapper(
-              WarcraftRole.Unknown,
-              buildRoles[WarcraftRole.Unknown],
-              true
-            )}
+            <CompositionRole
+              key={UUID()}
+              role={WarcraftRole.Unknown}
+              players={buildRoles[WarcraftRole.Unknown]}
+              spread
+            />
           </Box>
         )}
       </>

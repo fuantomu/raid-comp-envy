@@ -25,7 +25,6 @@ export enum InviteStatus {
   Invited = "invited",
   Tentative = "tentative",
   Accepted = "accepted",
-  Confirmed = "confirmed",
   Declined = "declined",
   Unknown = "unknown",
 }

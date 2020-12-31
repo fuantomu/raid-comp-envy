@@ -220,3 +220,68 @@ export const WarcraftSpecUtilities: {
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
 };
+
+export const WarcraftPlayerClassSpecs: {
+  [className in WarcraftPlayerClass]: WarcraftPlayerSpec[];
+} = {
+  [WarcraftPlayerClass.DeathKnight]: [
+    WarcraftPlayerSpec.DeathKnightBlood,
+    WarcraftPlayerSpec.DeathKnightFrost,
+    WarcraftPlayerSpec.DeathKnightUnholy,
+  ],
+  [WarcraftPlayerClass.DemonHunter]: [
+    WarcraftPlayerSpec.DemonHunterHavoc,
+    WarcraftPlayerSpec.DemonHunterVengeance,
+  ],
+  [WarcraftPlayerClass.Druid]: [
+    WarcraftPlayerSpec.DruidBalance,
+    WarcraftPlayerSpec.DruidFeral,
+    WarcraftPlayerSpec.DruidGuardian,
+    WarcraftPlayerSpec.DruidRestoration,
+  ],
+  [WarcraftPlayerClass.Hunter]: [
+    WarcraftPlayerSpec.HunterBeastmastery,
+    WarcraftPlayerSpec.HunterMarksmanship,
+    WarcraftPlayerSpec.HunterSurvival,
+  ],
+  [WarcraftPlayerClass.Mage]: [
+    WarcraftPlayerSpec.MageArcane,
+    WarcraftPlayerSpec.MageFire,
+    WarcraftPlayerSpec.MageFrost,
+  ],
+  [WarcraftPlayerClass.Monk]: [
+    WarcraftPlayerSpec.MonkBrewmaster,
+    WarcraftPlayerSpec.MonkMistweaver,
+    WarcraftPlayerSpec.MonkWindwalker,
+  ],
+  [WarcraftPlayerClass.Priest]: [
+    WarcraftPlayerSpec.PriestDiscipline,
+    WarcraftPlayerSpec.PriestHoly,
+    WarcraftPlayerSpec.PriestShadow,
+  ],
+  [WarcraftPlayerClass.Paladin]: [
+    WarcraftPlayerSpec.PaladinHoly,
+    WarcraftPlayerSpec.PaladinProtection,
+    WarcraftPlayerSpec.PaladinRetribution,
+  ],
+  [WarcraftPlayerClass.Rogue]: [
+    WarcraftPlayerSpec.RogueAssassination,
+    WarcraftPlayerSpec.RogueOutlaw,
+    WarcraftPlayerSpec.RogueSubtlety,
+  ],
+  [WarcraftPlayerClass.Warlock]: [
+    WarcraftPlayerSpec.WarlockAffliction,
+    WarcraftPlayerSpec.WarlockDemonology,
+    WarcraftPlayerSpec.WarlockDestruction,
+  ],
+  [WarcraftPlayerClass.Shaman]: [
+    WarcraftPlayerSpec.ShamanElemental,
+    WarcraftPlayerSpec.ShamanEnhancement,
+    WarcraftPlayerSpec.ShamanRestoration,
+  ],
+  [WarcraftPlayerClass.Warrior]: [
+    WarcraftPlayerSpec.WarriorArms,
+    WarcraftPlayerSpec.WarriorFury,
+    WarcraftPlayerSpec.WarriorProtection,
+  ],
+};

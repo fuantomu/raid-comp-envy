@@ -2,11 +2,11 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { AppErrorId } from "../../consts";
 import { BuildId } from "../../types";
 import AppError from "../../utils/AppError";
-import { getBuildResponseData } from "./types";
+import { getBuildResponseData, postBuildRequestData } from "./types";
 
 export const baseURL =
   process.env.REACT_APP_USE_MOCK === "false" && process.env.NODE_ENV === "development"
-    ? ""
+    ? "http://localhost:8080"
     : "/api";
 
 const errorMap: Record<string, AppErrorId> = {
@@ -34,3 +34,6 @@ service.interceptors.response.use(undefined, (error: AxiosError) => {
 
 export const getBuild = (buildId: BuildId, config?: AxiosRequestConfig) =>
   service.get<getBuildResponseData>(`/build/${buildId}`, config);
+
+export const postBuild = (data: postBuildRequestData, config?: AxiosRequestConfig) =>
+  service.post<postBuildRequestData>(`/build/create`, data, config);

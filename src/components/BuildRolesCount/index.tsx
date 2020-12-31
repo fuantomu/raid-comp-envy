@@ -19,7 +19,7 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build, handleChangeGrouping
   const [common] = useTranslation("common");
 
   return (
-    <Box css={styles.roles} onClick={handleChangeGrouping}>
+    <Box key={UUID()} css={styles.roles} onClick={handleChangeGrouping}>
       {Object.keys(WarcraftRole).map((role) => {
         const label = common(`build.roles.${role}`);
         const count = build.players.filter(({ spec }) => RoleProvider.getSpecRole(spec) === role)

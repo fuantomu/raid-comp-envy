@@ -1,15 +1,16 @@
-import { BuildGroup, BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
+import { BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
 
 export abstract class BuildHelper {
-  public static getGroups(players: BuildPlayer[]): BuildGroups {
-    const ungrouped: BuildGroup = {
-      groupId: "none",
-      players: [],
-    };
+  public static getGroups(players: BuildPlayer[], getEmpty: boolean = false): BuildGroups {
+    const emptyGroups = getEmpty ? BuildHelper.getEmptyGroups() : {};
     const groups: BuildGroups = {
-      none: ungrouped,
+      ...emptyGroups,
+      none: {
+        groupId: "none",
+        players: [],
+      },
     };
     for (const player of players) {
       let groupId: GroupId = player.group ?? "none";
@@ -23,6 +24,14 @@ export abstract class BuildHelper {
       } else {
         group.players.push(player);
       }
+    }
+    return groups;
+  }
+
+  private static getEmptyGroups() {
+    const groups: any = {};
+    for (let groupId = 1; groupId <= 8; groupId++) {
+      groups[groupId] = { groupId , players: [] };
     }
     return groups;
   }

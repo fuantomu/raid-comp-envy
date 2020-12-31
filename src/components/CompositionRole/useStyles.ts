@@ -10,7 +10,7 @@ export default (spread: boolean) => {
       display: grid;
       grid-template-columns: auto 1fr;
       align-items: center;
-      column-gap: ${theme.spacing(Spacing.xs)};
+      gap: ${theme.spacing(Spacing.xs)};
     `,
     icon: css`
       width: ${iconSize}!important;
@@ -25,7 +25,7 @@ export default (spread: boolean) => {
         css`
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, auto));
-          column-gap: ${theme.spacing(Spacing.m)};
+          gap: ${theme.spacing(Spacing.m)};
         `,
     ],
   };

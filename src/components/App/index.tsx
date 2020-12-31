@@ -7,10 +7,10 @@ import { Route, Switch } from "react-router-dom";
 
 import BuildPage from "../../pages/BuildPage";
 import ErrorBoundary from "../ErrorBoundary";
-import HomePage from "../../pages/HomePage";
 import Loading from "../Loading";
 import useStyles from "./useStyles";
 import { Box } from "@material-ui/core";
+import EditBuildPage from "../../pages/EditBuildPage";
 
 const App: FC = () => {
   const style = useStyles();
@@ -22,8 +22,11 @@ const App: FC = () => {
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Switch>
-              <Route exact path={common("urls.home")}>
-                <HomePage />
+              <Route path={`${common("urls.build")}/:buildId([\\w]{8})/edit`}>
+                <EditBuildPage />
+              </Route>
+              <Route path={`${common("urls.build")}/build`}>
+                <EditBuildPage />
               </Route>
               <Route path={`${common("urls.buildGrouped")}/:buildId([\\w]+)/:name?`}>
                 <BuildPage grouped />
@@ -31,15 +34,9 @@ const App: FC = () => {
               <Route path={`${common("urls.build")}/:buildId([\\w]+)/:name?`}>
                 <BuildPage />
               </Route>
-              {/* <Route path={`${common("urls.build")}/:buildId([\\w]{8})/edit`}>
+              <Route path="*" >
                 <EditBuildPage />
               </Route>
-              <Route path={`${common("urls.build")}/build`}>
-                <EditBuildPage />
-              </Route> */}
-              {/* <Route path="*" >
-                {null}
-              </Route> */}
             </Switch>
           </Suspense>
         </ErrorBoundary>

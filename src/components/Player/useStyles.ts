@@ -4,28 +4,29 @@ import useTheme, { Spacing } from "../../utils/useTheme";
 
 export default (className: WarcraftPlayerClass) => {
   const theme = useTheme();
+  const { palette, spacing } = theme;
   const iconSize = theme.spacing(Spacing.l);
 
   return {
     player: css`
       display: grid;
       grid-template-columns: auto 1fr auto;
-      column-gap: ${theme.spacing(Spacing.m)};
-      padding: ${theme.spacing(Spacing.xs)};
-      margin: ${theme.spacing(Spacing.xxs)} 0;
-      background-color: ${theme.palette.background.paper};
-      border-radius: ${theme.spacing(Spacing.xxs)};
+      gap: ${spacing(Spacing.m)};
+      padding: ${spacing(Spacing.xs)};
+      margin: ${spacing(Spacing.xxs)} 0;
+      background-color: ${palette.background.paper};
+      border-radius: ${spacing(Spacing.xxs)};
       align-items: center;
       user-select: none;
 
       &:hover {
-        background-color: ${theme.palette.primary.dark};
+        background-color: ${palette.secondary.dark};
       }
     `,
     icons: css`
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      column-gap: 0.2ch;
+      gap: 0.2ch;
     `,
     icon: css`
       width: ${iconSize}!important;

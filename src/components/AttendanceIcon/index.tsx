@@ -23,7 +23,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
     case InviteStatus.Invited:
       return (
         <InsertInvitationIcon
-          titleAccess={common(`status.${InviteStatus.Invited}`)}
+          titleAccess={common(`status.${status}`)}
           css={css`
             color: ${palette.info.main};
           `}
@@ -33,7 +33,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
     case InviteStatus.Tentative:
       return (
         <CalendarTodayIcon
-          titleAccess={common(`status.${InviteStatus.Tentative}`)}
+          titleAccess={common(`status.${status}`)}
           css={css`
             color: ${palette.warning.main};
           `}
@@ -43,7 +43,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
     case InviteStatus.Accepted:
       return (
         <EventAvailableIcon
-          titleAccess={common(`status.${InviteStatus.Accepted}`)}
+          titleAccess={common(`status.${status}`)}
           css={css`
             color: ${palette.success.main};
           `}
@@ -53,7 +53,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
     case InviteStatus.Declined:
       return (
         <EventBusyIcon
-          titleAccess={common(`status.${InviteStatus.Declined}`)}
+          titleAccess={common(`status.${status}`)}
           css={css`
             color: ${palette.error.main};
           `}
@@ -62,7 +62,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
 
     case InviteStatus.Unknown:
     default:
-      return <HelpIcon titleAccess={common(`status.${InviteStatus.Unknown}`)} />;
+      return <HelpIcon titleAccess={common(`status.${status}`)} />;
   }
 };
 

@@ -37,6 +37,7 @@ const GlobalStyles: FC = () => {
         html,
         body {
           height: 100%;
+          padding: 0!important;
         }
 
         #app-root {
@@ -60,6 +61,13 @@ const GlobalStyles: FC = () => {
 
         div[role="tooltip"] > div {
           font-size: ${spacing(Spacing.s)} !important;
+        }
+
+        input,
+        textarea {
+          background-color: ${palette.text.disabled};
+          color: ${palette.text.primary};
+          border: solid 1px black;
         }
       `}
     />

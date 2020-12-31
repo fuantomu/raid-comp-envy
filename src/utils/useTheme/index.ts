@@ -70,15 +70,15 @@ const darkTheme: ThemeOptions = {
       secondary: "#ddd",
     },
     primary: {
+      main: "#ad0a0a",
+      light: "#d41313",
+      dark: "#910404",
+    },
+    secondary: {
       main: "#616161",
       light: "#757575",
       dark: "#424242",
     },
-    // secondary: {
-    //   main: "#fff",
-    //   light: "#fff",
-    //   dark: "#eee",
-    // },
   },
 };
 

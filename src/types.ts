@@ -18,6 +18,7 @@ export type BuildPlayer = {
   spec?: WarcraftPlayerSpec;
   status: InviteStatus;
   group?: GroupId;
+  oldName?: string;
 };
 
 export type Build = {

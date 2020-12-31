@@ -15,19 +15,19 @@ export default (count: number = 0) => {
     checklist: css`
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      column-gap: ${theme.spacing(Spacing.m)};
+      gap: ${theme.spacing(Spacing.m)};
     `,
     container: css`
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
-      column-gap: ${spacing(Spacing.xs)};
+      gap: ${spacing(Spacing.xs)};
       padding: ${spacing(Spacing.xs)};
       border-radius: ${spacing(Spacing.xxs)};
       user-select: none;
 
       &:hover {
-        background-color: ${palette.primary.dark};
+        background-color: ${palette.secondary.dark};
       }
     `,
     icon: css`
