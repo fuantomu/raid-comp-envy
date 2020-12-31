@@ -3,21 +3,21 @@ import useTheme, { Spacing } from "../../utils/useTheme";
 
 export default () => {
   const theme = useTheme();
-  const { spacing } = theme;
+  const { typography: {h5}, spacing } = theme;
   const iconSize = spacing(Spacing.xl);
   const countSize = spacing(Spacing.xl);
 
   return {
     roles: css`
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(calc(${iconSize} + ${countSize}), 1fr));
+      grid-template-columns: repeat(5, calc(${iconSize} + ${h5.fontSize} + ${spacing(Spacing.l)}));
       gap: ${theme.spacing(Spacing.xs)};
       user-select: none;
       cursor: pointer;
     `,
     role: css`
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: auto 1fr;
       gap: ${theme.spacing(Spacing.xs)};
       align-items: center;
     `,

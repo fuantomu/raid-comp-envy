@@ -8,13 +8,15 @@ import { Build } from "../../types";
 import AppError from "../../utils/AppError";
 import { AppErrorId } from "../../consts";
 import RaidComposition from "../../components/RaidComposition";
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Button, Container, Typography } from "@material-ui/core";
 import RaidChecklist from "../../components/RaidChecklist";
 import useStyles from "./useStyles";
 import UUID from "../../utils/UUID";
 import BuildRolesCount from "../../components/BuildRolesCount";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ModalExport from "../../components/ModalExport";
+import EditIcon from '@material-ui/icons/Edit';
 
 export interface BuildPageProps {
   grouped?: boolean;
@@ -35,6 +37,10 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
     setIsLoading(true);
     history.push(`${common(grouped ? "urls.build" : "urls.buildGrouped")}/${buildId}`);
   };
+
+  const handleEditBuild = () => {
+    history.push(`${common("urls.build")}/${buildId}${common("urls.edit")}`);
+  }
 
   useEffect(() => {
     getBuild(buildId)
@@ -67,6 +73,12 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
       </Box>
       <Box key={UUID()} css={styles.gridBox}>
         <RaidChecklist build={build} />
+      </Box>
+      <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
+        <ModalExport build={build}/>
+        <Button color="primary" variant="contained" size="large" onClick={handleEditBuild}>
+          <EditIcon />
+        </Button>
       </Box>
     </Container>
   );

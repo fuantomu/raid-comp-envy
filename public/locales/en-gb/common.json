@@ -2,7 +2,8 @@
   "urls": {
     "home": "/",
     "build": "/build",
-    "buildGrouped": "/build/g"
+    "buildGrouped": "/build/g",
+    "edit": "/edit"
   },
   "loading": "Loading...",
   "build": {
@@ -36,6 +37,9 @@
     "import": {
       "title": "Import Build",
       "import": "Import"
+    },
+    "export": {
+      "title": "Export Build"
     },
     "reset": {
       "title": "Reset Build",

@@ -22,7 +22,7 @@ const App: FC = () => {
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Switch>
-              <Route path={`${common("urls.build")}/:buildId([\\w]{8})/edit`}>
+              <Route path={`${common("urls.build")}/:buildId([\\w]{8})${common("urls.edit")}`}>
                 <EditBuildPage />
               </Route>
               <Route path={`${common("urls.build")}/build`}>

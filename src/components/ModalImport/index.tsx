@@ -47,8 +47,7 @@ const ModalImport: FC<ModalImportProps> = () => {
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.import.title")}</h2>
-          {/* <p></p> */}
-          <textarea css={styles.importTextarea} disabled={disabled}></textarea>
+          <textarea css={styles.textarea} disabled={disabled}></textarea>
           <br />
           <Box css={styles.buttons}>
             <Button color="primary" variant="contained" onClick={handleImport} disabled={disabled}>

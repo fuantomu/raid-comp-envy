@@ -59,7 +59,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setIsLoading(true);
     postBuild(getCurrentBuild())
       .then(({ data: { buildId } }) => {
-        history.push(`${common("urls.build")}/${buildId}`);
+        history.push(`${common("urls.build")}/${buildId}/${name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-")}`);
       })
       .catch(handleError);
   };

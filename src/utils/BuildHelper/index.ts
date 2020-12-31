@@ -1,4 +1,5 @@
-import { BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
+import { Build, BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
+import { PlayerUtils } from "../PlayerUtils";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
 
@@ -50,5 +51,11 @@ export abstract class BuildHelper {
     }
 
     return buildRoles;
+  }
+
+  public static generateExport(build: Build): string {
+    return build.players.map(player => {
+      return `${PlayerUtils.getFullName(player)},${player.class},${player.spec ?? ""},${player.status}`;
+    }).join("\n");
   }
 }

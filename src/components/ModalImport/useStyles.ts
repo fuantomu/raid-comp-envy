@@ -22,10 +22,11 @@ export default () => {
         outline: none;
       }
     `,
-    importTextarea: css`
+    textarea: css`
       width: 100%;
       height: 50vh;
       resize: none;
+      padding: ${spacing(Spacing.s)};
     `,
     buttons: css`
       margin-top: ${spacing(Spacing.xs)};
