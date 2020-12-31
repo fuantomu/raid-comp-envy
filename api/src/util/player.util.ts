@@ -1,6 +1,6 @@
 import { Errors } from "typescript-rest";
-import { GroupId, InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../src/consts";
-import { BuildPlayer } from "../../src/types";
+import { GroupId, InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../consts";
+import { BuildPlayer } from "../types";
 
 export abstract class PlayerUtil {
   public static sanitizePlayer(player: BuildPlayer): BuildPlayer {
