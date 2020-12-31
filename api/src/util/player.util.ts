@@ -27,4 +27,16 @@ export abstract class PlayerUtil {
       realm: (realm ?? "").substr(0, 30),
     };
   }
+
+  public static splitFullName(
+    fullName: string
+  ): {
+    name: string;
+    realm: string;
+  } {
+    return (fullName ?? "").match(/^(?<name>.*?)(?:-(?<realm>\w.*))?$/)?.groups as {
+      name: string;
+      realm: string;
+    };
+  }
 }

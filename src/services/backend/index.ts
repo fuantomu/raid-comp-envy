@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { AppErrorId } from "../../consts";
 import { BuildId } from "../../types";
 import AppError from "../../utils/AppError";
-import { getBuildResponseData, postBuildRequestData } from "./types";
+import { getBuildResponseData, postBuildRequestData, postBuildResponseData } from "./types";
 
 export const baseURL =
   process.env.REACT_APP_USE_MOCK === "false" && process.env.NODE_ENV === "development"
@@ -36,4 +36,4 @@ export const getBuild = (buildId: BuildId, config?: AxiosRequestConfig) =>
   service.get<getBuildResponseData>(`/build/${buildId}`, config);
 
 export const postBuild = (data: postBuildRequestData, config?: AxiosRequestConfig) =>
-  service.post<postBuildRequestData>(`/build/create`, data, config);
+  service.post<postBuildResponseData>(`/build/create`, data, config);

@@ -1,0 +1,15 @@
+import { NextFunction, Request, Response } from "express";
+
+export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+  if (err instanceof Error) {
+    console.error(err);
+  }
+  res.set("Content-Type", "application/json");
+  const statusCode = err?.statusCode ?? 500;
+  const message = err?.message ?? err ?? "Internal Server Error";
+  res.status(statusCode);
+  res.json({ error: message, code: statusCode });
+};

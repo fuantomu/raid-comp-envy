@@ -68,7 +68,7 @@ const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped
               );
             })}
         </Box>
-        {buildRoles[WarcraftRole.Unknown].length && (
+        {buildRoles[WarcraftRole.Unknown].length ? (
           <Box key={UUID()} css={styles.ungrouped}>
             <CompositionRole
               key={UUID()}
@@ -77,7 +77,7 @@ const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped
               spread
             />
           </Box>
-        )}
+        ) : null}
       </>
     );
   }

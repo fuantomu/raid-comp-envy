@@ -14,6 +14,13 @@ export class BuildController {
   @POST
   @Path("/create")
   public async createBuild(build: BuildType) {
-    await BuildDelegate.createBuild(build);
+    const newBuild = await BuildDelegate.createBuild(build);
+    return { buildId: newBuild.buildId };
+  }
+
+  @POST
+  @Path("/import/raid-helper")
+  public async importRaidHelper({raw}: {raw: string}) {
+    return await BuildDelegate.createBuildsFromRH(raw);
   }
 }

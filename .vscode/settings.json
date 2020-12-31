@@ -1,6 +1,4 @@
 {
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications",
     "eslint.options": {
         "configFile": "./.eslintrc.json"
     },
@@ -16,5 +14,6 @@
     "prettier.endOfLine": "crlf",
     "editor.detectIndentation": false,
     "editor.tabSize": 2,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": true,
+    "jestrunner.projectPath": "V:\\workspace\\raid-comp\\api",
 }

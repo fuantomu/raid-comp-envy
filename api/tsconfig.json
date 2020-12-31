@@ -18,7 +18,8 @@
     "target": "ES6",
     "types": ["reflect-metadata", "jest"],
     "typeRoots": ["./types", "./node_modules/@types"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "lib": ["es2020"]
   },
   "include": ["src"],
   "exclude": ["../src", "../node_modules"]

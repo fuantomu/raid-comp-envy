@@ -16,3 +16,9 @@ export interface BuildType {
   name: string;
   players: Array<BuildPlayer>;
 }
+
+export interface BuildResponse {
+  buildId: string;
+  buildName: string;
+  team?: string;
+}

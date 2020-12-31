@@ -4,6 +4,7 @@ import * as http from "http";
 import * as morgan from "morgan";
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import { PassportAuthenticator, Server } from "typescript-rest";
+import { errorHandler } from "./util/error-handler";
 
 export class ApiServer {
   public PORT: number = +process.env.PORT || 3000;
@@ -19,6 +20,7 @@ export class ApiServer {
 
     Server.loadServices(this.app, "controller/*", __dirname);
     Server.swagger(this.app, { filePath: "./dist/swagger.json" });
+    this.app.use(errorHandler);
   }
 
   /**
