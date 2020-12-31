@@ -16,7 +16,8 @@ import BuildRolesCount from "../../components/BuildRolesCount";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ModalExport from "../../components/ModalExport";
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from "@material-ui/icons/Edit";
+import { BuildHelper } from "../../utils/BuildHelper";
 
 export interface BuildPageProps {
   grouped?: boolean;
@@ -35,26 +36,29 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
   const handleChangeGrouping = () => {
     setShouldUpdate(!shouldUpdate);
     setIsLoading(true);
-    history.push(`${common(grouped ? "urls.build" : "urls.buildGrouped")}/${buildId}`);
+    history.push(
+      `${common(
+        grouped ? "urls.build" : "urls.buildGrouped"
+      )}/${buildId}/${BuildHelper.humanReadableURL(build?.name!)}`
+    );
   };
 
   const handleEditBuild = () => {
     history.push(`${common("urls.build")}/${buildId}${common("urls.edit")}`);
-  }
+  };
 
   useEffect(() => {
     getBuild(buildId)
-        .then(({ data }) => {
-          setBuild(data);
-          setIsLoading(false);
-        })
-        .catch(handleError);
+      .then(({ data }) => {
+        setBuild(data);
+        setIsLoading(false);
+      })
+      .catch(handleError);
   }, [shouldUpdate]);
 
   if (isLoading) {
     return <Loading />;
   }
-
 
   if (!build) {
     throw new AppError(AppErrorId.Api404);
@@ -75,7 +79,7 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
         <RaidChecklist build={build} />
       </Box>
       <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-        <ModalExport build={build}/>
+        <ModalExport build={build} />
         <Button color="primary" variant="contained" size="large" onClick={handleEditBuild}>
           <EditIcon />
         </Button>

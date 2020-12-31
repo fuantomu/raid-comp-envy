@@ -19,6 +19,7 @@ import ModalResetBuild from "../../components/ModalResetBuild";
 import ModalSaveBuild from "../../components/ModalSaveBuild";
 import BuildTitle from "../../components/BuildTitle";
 import { PlayerUtils } from "../../utils/PlayerUtils";
+import { BuildHelper } from "../../utils/BuildHelper";
 
 export interface EditBuildPageProps {}
 
@@ -59,7 +60,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setIsLoading(true);
     postBuild(getCurrentBuild())
       .then(({ data: { buildId } }) => {
-        history.push(`${common("urls.build")}/${buildId}/${name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-")}`);
+        history.push(`${common("urls.build")}/${buildId}/${BuildHelper.humanReadableURL(name)}`);
       })
       .catch(handleError);
   };
