@@ -22,12 +22,12 @@ export abstract class BuildDelegate {
     };
   }
 
-  public static async createBuildsFromRH(
+  public static async createBuildFromRHByTeams(
     raw: string
   ): Promise<{
     builds: BuildResponse[];
   }> {
-    const builds = RaidHelper.createBuildsFromRH(raw);
+    const builds = RaidHelper.createBuildFromRHByTeams(raw);
     return {
       builds: [{
         ...(await BuildDelegate.createBuild(builds[RaidTeam.BF])),
@@ -37,5 +37,15 @@ export abstract class BuildDelegate {
         team: RaidTeam.HC
       }],
     };
+  }
+
+  public static async createBuildFromRH(raw: string) {
+    const build = RaidHelper.createBuildFromRH(raw);
+    return {
+      builds: [{
+        ...(await BuildDelegate.createBuild(build)),
+        team: "All"
+      }]
+    }
   }
 }

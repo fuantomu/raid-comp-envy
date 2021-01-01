@@ -24,26 +24,36 @@ export abstract class RaidHelper {
   public static getWarcraftSpec(rhSpec: string) {
     return RHSpecMap[rhSpec as RaidHelperSpec];
   }
+
   public static getStatus(rhStatus: string) {
     return RHStatusMap[rhStatus as RaidHelperStatus] ?? InviteStatus.Accepted;
   }
+
   public static getClassFromSpec(rhSpec: string) {
     return RHSpecClassMap[rhSpec];
   }
 
+  public static getClassFromClassOrSpec(rhClassOrSpec: string) {
+    return (
+      RaidHelper.getWarcraftClass(rhClassOrSpec) ??
+      RaidHelper.getClassFromSpec(rhClassOrSpec) ??
+      WarcraftPlayerClass.Warrior
+    );
+  }
+
   public static parseInvite(line: string): PlayerSignup | void {
     const match = line.match(
-      /^(?:(?<status>Tentative)|(?<className>\w+)),(?<spec>\w+),(?<name>[^,]+),(?<id>\d+),(?<stamp>[\d-:TZ]+)$/
+      /^(?:(?:(?<status>Tentative|Bench|Absence|Late),(?<classOrSpec>\w+))|(?:(?<className>\w+),(?<spec>\w+))),(?<name>[^,]+),(?<id>\d+),(?<stamp>[\d-:TZ]+)$/
     );
     if (match && match.groups) {
-      const { status, className, spec, name, id } = match.groups;
+      const { status, classOrSpec, className, spec, name, id } = match.groups;
       return {
         name,
         class:
           RaidHelper.getWarcraftClass(className) ??
           RaidHelper.getClassFromSpec(spec) ??
-          WarcraftPlayerClass.Warrior,
-        spec: RaidHelper.getWarcraftSpec(spec),
+          RaidHelper.getClassFromClassOrSpec(classOrSpec),
+        spec: RaidHelper.getWarcraftSpec(spec) ?? RaidHelper.getWarcraftSpec(classOrSpec),
         status: RaidHelper.getStatus(status),
         discordId: id,
       };
@@ -51,12 +61,12 @@ export abstract class RaidHelper {
   }
 
   private static filterTeamPlayers(team: RaidTeam, players: PlayerSignup[]): BuildPlayer[] {
-    const filtered: PlayerSignup[] = players.filter((player) => {
+    const filtered: PlayerSignup[] = team ? players.filter((player) => {
       const playerTeam = DiscordWarcraftCharacterTeam[player.discordId];
       return typeof playerTeam === "undefined" || playerTeam === team;
-    });
-    return filtered.map(({ name, class: className, spec, status, group, discordId }, index) => {
-      const playerTeam = DiscordWarcraftCharacterTeam[discordId];
+    }) : [...players];
+    let index = 0;
+    return filtered.map(({ name, class: className, spec, status, group, discordId }) => {
       let fullCharacterName = name;
       const account = DiscordWarcraftCharacter[discordId];
       if (account) {
@@ -77,13 +87,20 @@ export abstract class RaidHelper {
             (queryBySpec ?? queryByClass ?? queryByClassOfSpec) as
               | WarcraftPlayerSpec
               | WarcraftPlayerClass
-          ] ?? Object.values(account)[0] ?? name;
+          ] ??
+          Object.values(account)[0] ??
+          name;
       }
       const { name: characterName, realm: characterRealm } = PlayerUtil.splitFullName(
         fullCharacterName
       );
-      const indexGroup = playerTeam ? (index % 5) + 1 : 0;
-      const groupId = indexGroup > 8 ? 0 : indexGroup;
+      let groupId: any = "none";
+      const playerTeam = DiscordWarcraftCharacterTeam[discordId];
+      if (team && playerTeam) {
+        groupId = Math.floor(index / 5) + 1;
+        groupId = groupId > 8 ? "none" : groupId;
+        index++;
+      }
       return {
         name: characterName,
         realm: characterRealm,
@@ -100,18 +117,18 @@ export abstract class RaidHelper {
     players: PlayerSignup[],
     buildTitle?: string
   ): BuildType {
+    let name = `${buildTitle ?? "Raid Helper Import"}`;
+    if (team) {
+      name = name + ` - ${team.toString()}`;
+    }
     return {
       buildId: "",
-      name: `${buildTitle ?? "Raid Helper Import"} - ${team.toString()}`,
+      name,
       players: RaidHelper.filterTeamPlayers(team, players),
     };
   }
 
-  public static createBuildsFromRH(
-    raw: string
-  ): {
-    [team in RaidTeam]: BuildType;
-  } {
+  private static parseRHCSV(raw: string) {
     const lines = raw.split("\n");
     const { name: buildTitle } = lines[1].match(/^(?<name>.+?),(?:[\d-]+)/).groups;
     const players = lines
@@ -119,8 +136,26 @@ export abstract class RaidHelper {
       .map(RaidHelper.parseInvite)
       .filter((player) => player !== undefined) as PlayerSignup[];
     return {
-      [RaidTeam.BF]: RaidHelper.createRHTeamBuild(RaidTeam.BF, players, buildTitle),
-      [RaidTeam.HC]: RaidHelper.createRHTeamBuild(RaidTeam.HC, players, buildTitle),
+      buildId: "",
+      name: buildTitle,
+      players
+    }
+  }
+
+  public static createBuildFromRH(raw: string) {
+    const {name, players} = RaidHelper.parseRHCSV(raw);
+    return RaidHelper.createRHTeamBuild(undefined, players, name);
+  }
+
+  public static createBuildFromRHByTeams(
+    raw: string
+  ): {
+    [team in RaidTeam]: BuildType;
+  } {
+    const {name, players} = RaidHelper.parseRHCSV(raw);
+    return {
+      [RaidTeam.BF]: RaidHelper.createRHTeamBuild(RaidTeam.BF, players, name),
+      [RaidTeam.HC]: RaidHelper.createRHTeamBuild(RaidTeam.HC, players, name),
     };
   }
 }

@@ -21,6 +21,12 @@ export class BuildController {
   @POST
   @Path("/import/raid-helper")
   public async importRaidHelper({raw}: {raw: string}) {
-    return await BuildDelegate.createBuildsFromRH(raw);
+    return await BuildDelegate.createBuildFromRH(raw);
+  }
+
+  @POST
+  @Path("/import/raid-helper/teams")
+  public async importRaidHelperToTeams({raw}: {raw: string}) {
+    return await BuildDelegate.createBuildFromRHByTeams(raw);
   }
 }
