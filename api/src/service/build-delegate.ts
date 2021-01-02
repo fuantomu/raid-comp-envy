@@ -27,7 +27,7 @@ export abstract class BuildDelegate {
   ): Promise<{
     builds: BuildResponse[];
   }> {
-    const builds = RaidHelper.createBuildFromRHByTeams(raw);
+    const builds = await RaidHelper.createBuildFromRHByTeams(raw);
     return {
       builds: [{
         ...(await BuildDelegate.createBuild(builds[RaidTeam.BF])),
@@ -40,7 +40,7 @@ export abstract class BuildDelegate {
   }
 
   public static async createBuildFromRH(raw: string) {
-    const build = RaidHelper.createBuildFromRH(raw);
+    const build = await RaidHelper.createBuildFromRH(raw);
     return {
       builds: [{
         ...(await BuildDelegate.createBuild(build)),

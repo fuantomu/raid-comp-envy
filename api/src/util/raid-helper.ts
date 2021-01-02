@@ -7,12 +7,10 @@ import {
   WarcraftPlayerClassSpecs,
   WarcraftPlayerSpec
 } from "../consts";
-import {
-  DiscordWarcraftCharacter,
-  DiscordWarcraftCharacterTeam,
-  RaidTeam
-} from "../mappers/discord-player";
+import { DiscordPlayersMapper, RaidTeam } from "../mappers/discord-player";
 import { RHClassMap, RHSpecClassMap, RHSpecMap, RHStatusMap } from "../mappers/raid-helper";
+import { DiscordUserCharacter } from "../model/discord-user-character-model";
+import { DiscordUserDocument } from "../model/discord-user-model";
 import { BuildPlayer, BuildType } from "../types";
 import { PlayerUtil } from "./player.util";
 
@@ -60,63 +58,70 @@ export abstract class RaidHelper {
     }
   }
 
-  private static filterTeamPlayers(team: RaidTeam, players: PlayerSignup[]): BuildPlayer[] {
-    const filtered: PlayerSignup[] = team ? players.filter((player) => {
-      const playerTeam = DiscordWarcraftCharacterTeam[player.discordId];
-      return typeof playerTeam === "undefined" || playerTeam === team;
-    }) : [...players];
-    let index = 0;
-    return filtered.map(({ name, class: className, spec, status, group, discordId }) => {
-      let fullCharacterName = name;
-      const account = DiscordWarcraftCharacter[discordId];
-      if (account) {
-        let queryBySpec = spec ? account[spec as WarcraftPlayerSpec] : undefined;
-        let queryByClass = className ? account[className as WarcraftPlayerClass] : undefined;
-        let classOfSpec = spec
-          ? Object.keys(WarcraftPlayerClassSpecs).find((className) =>
-              WarcraftPlayerClassSpecs[className as WarcraftPlayerClass].includes(
-                spec as WarcraftPlayerSpec
-              )
-            )
-          : undefined;
-        let queryByClassOfSpec = classOfSpec
-          ? account[classOfSpec as WarcraftPlayerClass]
-          : undefined;
-        fullCharacterName =
-          account[
-            (queryBySpec ?? queryByClass ?? queryByClassOfSpec) as
-              | WarcraftPlayerSpec
-              | WarcraftPlayerClass
-          ] ??
-          Object.values(account)[0] ??
-          name;
-      }
+  private static tryToFindCharacter(
+    account: DiscordUserDocument,
+    spec: string,
+    className: string
+  ): DiscordUserCharacter | undefined {
+    let character: DiscordUserCharacter | undefined;
+    if (account) {
+      let queryBySpec = account.characters.find((ch) => ch.spec === spec);
+      let queryByClass = account.characters.find((ch) => ch.className === className);
+      let classOfSpec = Object.keys(WarcraftPlayerClassSpecs).find((className) =>
+        WarcraftPlayerClassSpecs[className as WarcraftPlayerClass].includes(
+          spec as WarcraftPlayerSpec
+        )
+      );
+      let queryByClassOfSpec = account.characters.find((ch) => ch.className === classOfSpec);
+      character = queryBySpec ?? queryByClass ?? queryByClassOfSpec ?? account.characters[0];
+    }
+    return character;
+  }
+
+  private static async filterPlayers(
+    team: RaidTeam,
+    players: PlayerSignup[]
+  ): Promise<BuildPlayer[]> {
+    const filteredPlayers: BuildPlayer[] = [];
+    let playerIndex = 0;
+    for (const player of players) {
+      const { name, class: className, spec, status, discordId } = player;
+      const account = await DiscordPlayersMapper.getAccount(discordId);
+      let character = RaidHelper.tryToFindCharacter(account, spec, className);
+      let fullCharacterName = character?.character ?? name;
       const { name: characterName, realm: characterRealm } = PlayerUtil.splitFullName(
         fullCharacterName
       );
-      let groupId: any = "none";
-      const playerTeam = DiscordWarcraftCharacterTeam[discordId];
-      if (team && playerTeam) {
-        groupId = Math.floor(index / 5) + 1;
-        groupId = groupId > 8 ? "none" : groupId;
-        index++;
+
+      if (team && character?.team && team !== character?.team) {
+        continue;
       }
-      return {
+
+      let groupId: any = "none";
+      if (team && character?.team) {
+        groupId = Math.floor(playerIndex / 5) + 1;
+        groupId = groupId > 8 ? "none" : groupId;
+        playerIndex++;
+      }
+
+      filteredPlayers.push({
         name: characterName,
         realm: characterRealm,
         class: className,
         spec,
         status,
         group: groupId,
-      };
-    });
+      });
+    }
+
+    return filteredPlayers;
   }
 
-  private static createRHTeamBuild(
+  private static async createRHTeamBuild(
     team: RaidTeam,
     players: PlayerSignup[],
     buildTitle?: string
-  ): BuildType {
+  ): Promise<BuildType> {
     let name = `${buildTitle ?? "Raid Helper Import"}`;
     if (team) {
       name = name + ` - ${team.toString()}`;
@@ -124,7 +129,7 @@ export abstract class RaidHelper {
     return {
       buildId: "",
       name,
-      players: RaidHelper.filterTeamPlayers(team, players),
+      players: await RaidHelper.filterPlayers(team, players),
     };
   }
 
@@ -138,24 +143,26 @@ export abstract class RaidHelper {
     return {
       buildId: "",
       name: buildTitle,
-      players
-    }
+      players,
+    };
   }
 
-  public static createBuildFromRH(raw: string) {
-    const {name, players} = RaidHelper.parseRHCSV(raw);
-    return RaidHelper.createRHTeamBuild(undefined, players, name);
+  public static async createBuildFromRH(raw: string) {
+    const { name, players } = RaidHelper.parseRHCSV(raw);
+    return await RaidHelper.createRHTeamBuild(undefined, players, name);
   }
 
-  public static createBuildFromRHByTeams(
+  public static async createBuildFromRHByTeams(
     raw: string
-  ): {
-    [team in RaidTeam]: BuildType;
-  } {
-    const {name, players} = RaidHelper.parseRHCSV(raw);
+  ): Promise<
+    {
+      [team in RaidTeam]: BuildType;
+    }
+  > {
+    const { name, players } = RaidHelper.parseRHCSV(raw);
     return {
-      [RaidTeam.BF]: RaidHelper.createRHTeamBuild(RaidTeam.BF, players, name),
-      [RaidTeam.HC]: RaidHelper.createRHTeamBuild(RaidTeam.HC, players, name),
+      [RaidTeam.BF]: await RaidHelper.createRHTeamBuild(RaidTeam.BF, players, name),
+      [RaidTeam.HC]: await RaidHelper.createRHTeamBuild(RaidTeam.HC, players, name),
     };
   }
 }

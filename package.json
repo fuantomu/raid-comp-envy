@@ -9,7 +9,6 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
-    "@types/node": "^12.19.11",
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
     "@types/react-router-dom": "^5.1.6",
@@ -22,6 +21,8 @@
     "i18next": "^19.8.4",
     "i18next-http-backend": "^1.0.21",
     "msw": "^0.24.2",
+    "node-fetch": "^2.6.1",
+    "node-html-parser": "^2.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.4",
@@ -55,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^12.19.11",
+    "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
     "eslint-config-prettier": "^6.15.0",
