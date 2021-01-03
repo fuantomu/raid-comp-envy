@@ -25,7 +25,7 @@ export default (spread: boolean) => {
         css`
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, auto));
-          gap: ${theme.spacing(Spacing.m)};
+          column-gap: ${theme.spacing(Spacing.m)};
         `,
     ],
   };

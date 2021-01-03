@@ -75,7 +75,7 @@ export abstract class BuildHelper {
       if (spec && !(spec in WarcraftPlayerSpec)) {
         spec = "";
       }
-      if (status && !(status in InviteStatus)) {
+      if (status && !Object.values(InviteStatus).includes(status as InviteStatus)) {
         status = InviteStatus.Unknown;
       }
       players.push({
