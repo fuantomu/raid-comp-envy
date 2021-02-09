@@ -12,7 +12,7 @@ export default () => {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: ${theme.spacing(Spacing.m)};
-      word-break: break-all;
+      word-break: break-word;
     `,
     buttons: css`
       display: grid;
