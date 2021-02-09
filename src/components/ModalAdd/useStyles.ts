@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import hexToRgba from "../../utils/hexToRgba";
 import useTheme, { Spacing } from "../../utils/useTheme";
 
 export default () => {
@@ -55,5 +56,13 @@ export default () => {
     groupSelectElement: css`
       color: ${palette.text.primary};
     `,
+    buttonGroups: css`
+      flex-wrap: wrap;
+      place-content: center;
+
+      & > button.Mui-selected {
+        background-color: ${hexToRgba(palette.primary.dark, 0.6)};
+      }
+    `
   };
 };

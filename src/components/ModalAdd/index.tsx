@@ -119,7 +119,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const renderClassToggle = () => {
     return (
       <Box>
-        <ToggleButtonGroup value={className} exclusive onChange={handleSelectClass}>
+        <ToggleButtonGroup css={styles.buttonGroups} value={className} exclusive onChange={handleSelectClass}>
           {Object.keys(WarcraftPlayerClass).map((className) => (
             <ToggleButton value={className} key={UUID()} title={common(`classes.${className}`)}>
               <Avatar
@@ -136,7 +136,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const renderSpecToggle = () => {
     return (
       <Box>
-        <ToggleButtonGroup value={spec} exclusive onChange={handleSelectSpec}>
+        <ToggleButtonGroup css={styles.buttonGroups} value={spec} exclusive onChange={handleSelectSpec}>
           {WarcraftPlayerClassSpecs[className].map((spec) => (
             <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
               <Avatar css={styles.icon} src={IconProvider.getSpecIcon(spec)} />
@@ -150,7 +150,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const renderStatusToggle = () => {
     return (
       <Box>
-        <ToggleButtonGroup value={status} exclusive onChange={handleSelectStatus}>
+        <ToggleButtonGroup css={styles.buttonGroups} value={status} exclusive onChange={handleSelectStatus}>
           {Object.values(InviteStatus).map((status) => (
             <ToggleButton value={status} key={UUID()} title={common(`status.${status}`)}>
               <AttendanceIcon status={status} />
@@ -165,7 +165,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     const groups = ["none", 1, 2, 3, 4, 5, 6, 7, 8];
     return (
       <Box>
-        <ToggleButtonGroup value={groupId} exclusive onChange={handleSelectGroup}>
+        <ToggleButtonGroup css={styles.buttonGroups} value={groupId} exclusive onChange={handleSelectGroup}>
           {groups.map((groupId) => (
             <ToggleButton value={groupId} key={UUID()}>
               <Typography css={styles.groupSelectElement}>

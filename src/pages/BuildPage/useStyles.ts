@@ -10,15 +10,21 @@ export default () => {
     `,
     header: css`
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
       gap: ${theme.spacing(Spacing.m)};
-      word-break: break-all;
+      word-break: break-word;
     `,
     buttons: css`
       display: grid;
       width: min(350px, 100%);
       grid-template-columns: repeat(2, 1fr);
       gap: ${theme.spacing(Spacing.m)};
+    `,
+    rolesCount: css`
+      place-self: center;
+    `,
+    headerText: css`
+      text-align: center;
     `,
   };
 };

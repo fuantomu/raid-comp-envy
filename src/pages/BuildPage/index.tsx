@@ -67,10 +67,15 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
   return (
     <Container>
       <Box key={UUID()} css={[styles.gridBox, styles.header]}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom css={styles.headerText}>
           {build.name}
         </Typography>
-        <BuildRolesCount key={UUID()} handleChangeGrouping={handleChangeGrouping} build={build} />
+        <BuildRolesCount
+            css={styles.rolesCount}
+            key={UUID()}
+            handleChangeGrouping={handleChangeGrouping}
+            build={build}
+          />
       </Box>
       <Box key={UUID()} css={styles.gridBox}>
         <RaidComposition build={build} grouped={!!grouped} />
