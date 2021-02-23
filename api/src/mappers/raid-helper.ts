@@ -52,7 +52,7 @@ export const RHSpecMap: {
   Protection1: WarcraftPlayerSpec.PaladinProtection,
   Retribution: WarcraftPlayerSpec.PaladinRetribution,
   Assassination: WarcraftPlayerSpec.RogueAssassination,
-  Combat: WarcraftPlayerSpec.RogueOutlaw,
+  Outlaw: WarcraftPlayerSpec.RogueOutlaw,
   Subtlety: WarcraftPlayerSpec.RogueSubtlety,
   Affliction: WarcraftPlayerSpec.WarlockAffliction,
   Demonology: WarcraftPlayerSpec.WarlockDemonology,

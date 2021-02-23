@@ -113,7 +113,7 @@ export enum RaidHelperSpec {
   Protection1 = "Protection1",
   Retribution = "Retribution",
   Assassination = "Assassination",
-  Combat = "Combat",
+  Outlaw = "Outlaw",
   Subtlety = "Subtlety",
   Affliction = "Affliction",
   Demonology = "Demonology",
