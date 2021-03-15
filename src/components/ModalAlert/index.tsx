@@ -4,6 +4,11 @@ import { FC, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useStyles from "../ModalAlert/useStyles";
 
+export enum ModalAlertResponse {
+  OK,
+  Cancel,
+}
+
 export interface ModalAlertProps {
   handleOpen: (callback: () => void) => void;
   title?: string;
@@ -69,8 +74,3 @@ const ModalAlert: FC<ModalAlertProps> = ({
 };
 
 export default ModalAlert;
-
-export enum ModalAlertResponse {
-  OK,
-  Cancel,
-}

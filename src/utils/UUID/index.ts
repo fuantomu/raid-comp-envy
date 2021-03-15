@@ -1,8 +1,3 @@
-export default () =>
-  "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx".replace(/x/g, (c) => {
-    // eslint-disable-next-line no-bitwise
-    const r = (Math.random() * 16) | 0;
+import { v4 as uuidv4 } from 'uuid';
 
-    // eslint-disable-next-line no-bitwise
-    return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
-  });
+export default () => uuidv4();

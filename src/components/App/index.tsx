@@ -34,7 +34,7 @@ const App: FC = () => {
               <Route path={`${common("urls.build")}/:buildId([\\w]+)/:name?`}>
                 <BuildPage />
               </Route>
-              <Route path="*" >
+              <Route path="*">
                 <EditBuildPage />
               </Route>
             </Switch>

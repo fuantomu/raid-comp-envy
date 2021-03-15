@@ -54,7 +54,7 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
         setIsLoading(false);
       })
       .catch(handleError);
-  }, [shouldUpdate]);
+  }, [shouldUpdate, buildId, handleError]);
 
   if (isLoading) {
     return <Loading />;

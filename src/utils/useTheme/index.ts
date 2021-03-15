@@ -83,11 +83,5 @@ const darkTheme: ThemeOptions = {
 };
 
 export default () => {
-  return createMuiTheme(darkTheme);
-  // switch () {
-  //   case "light":
-  //     return createMuiTheme(lightTheme);
-  //   case "dark":
-  //   default:
-  //     return createMuiTheme(darkTheme);
+  return createMuiTheme(process.env.DEFAULT_THEME === "LIGHT" ? lightTheme : darkTheme);
 };

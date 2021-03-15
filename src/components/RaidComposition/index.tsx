@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Box } from "@material-ui/core";
 import { FC } from "react";
-import { Build, BuildPlayer, BuildRoles, GroupId } from "../../types";
+import { Build } from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import { WarcraftRole } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";

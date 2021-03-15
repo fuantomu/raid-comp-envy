@@ -96,7 +96,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, [buildId, handleError]);
 
   if (isLoading) {
     return <Loading />;

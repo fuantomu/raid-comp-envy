@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Button } from "@material-ui/core";
 import { FC } from "react";
-import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
+import ModalAlert from "../ModalAlert";
 import { useTranslation } from "react-i18next";
 import SaveIcon from "@material-ui/icons/Save";
 import { useAppContext } from "../App/context";

@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Avatar, Box, Typography } from "@material-ui/core";
 import { FC } from "react";
-import { useTranslation } from "react-i18next";
 import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
@@ -15,7 +14,6 @@ export interface PlayerProps extends BuildPlayer {
 
 const Player: FC<PlayerProps> = ({ name, realm, class: className, spec, status, showRole, onClick }) => {
   const styles = useStyles(className);
-  const [common] = useTranslation("common");
 
   return (
     <Box key={UUID()} css={styles.player} onClick={onClick ? onClick : () => {}}>

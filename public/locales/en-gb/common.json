@@ -156,5 +156,14 @@
   "buttons": {
     "ok": "OK",
     "cancel": "Cancel"
+  },
+  "error": {
+    "goBack": "Go Back",
+    "reload": "Reload",
+    "unspecific": "Unknown Error",
+    "notFound": "Not Found",
+    "apiCancelled": "Internal Error",
+    "api403": "403: Unauthorized",
+    "api404": "404: Not Found"
   }
 }

@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Box, Button, Modal } from "@material-ui/core";
-import { createRef, FC, useRef, useState } from "react";
+import { createRef, FC, useState } from "react";
 import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import useStyles from "./useStyles";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
-import { InviteStatus, WarcraftPlayerClass } from "../../consts";
 import { BuildHelper } from "../../utils/BuildHelper";
 
 export interface ModalImportProps {}
@@ -15,7 +14,7 @@ const ModalImport: FC<ModalImportProps> = () => {
   const [open, setOpen] = useState(false);
   const [common] = useTranslation("common");
   const appContext = useAppContext();
-  const [disabled, setDisabled] = useState(false);
+  const [disabled] = useState(false);
   let importTextarea = createRef<HTMLTextAreaElement>();
 
   const handleClose = () => {

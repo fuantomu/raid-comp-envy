@@ -50,10 +50,7 @@ const ModalExport: FC<ModalExportProps> = ({ build }) => {
               target="_blank"
               rel="noopener"
               color="textPrimary"
-            >
-              {common("build.export.wowaudit")}
-            </Link>
-            <a href=""></a>
+            >{common("build.export.wowaudit")}</Link>
           </p>
           <textarea
             css={styles.textarea}
