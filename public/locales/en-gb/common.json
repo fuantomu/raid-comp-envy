@@ -163,7 +163,7 @@
     "unspecific": "Unknown Error",
     "notFound": "Not Found",
     "apiCancelled": "Internal Error",
-    "api403": "403: Unauthorized",
+    "api403": "403: Forbidden",
     "api404": "404: Not Found"
   }
 }

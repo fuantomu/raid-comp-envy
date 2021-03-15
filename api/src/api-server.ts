@@ -4,6 +4,7 @@ import * as http from "http";
 import * as morgan from "morgan";
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import { PassportAuthenticator, Server } from "typescript-rest";
+import { SchedulingService } from "./service/scheduling-service";
 import { errorHandler, undefinedHandler } from "./util/error-handler";
 
 export class ApiServer {
@@ -34,7 +35,8 @@ export class ApiServer {
           return reject(err);
         }
 
-        // TODO: replace with Morgan call
+        SchedulingService.init();
+
         // tslint:disable-next-line:no-console
         console.log(`Listening to http://127.0.0.1:${this.PORT}`);
 

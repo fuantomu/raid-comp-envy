@@ -1,3 +1,4 @@
+import { Query } from "mongoose";
 import * as sha256 from "sha256";
 import { RaidTeam } from "../mappers/discord-player";
 import BuildModel, { BuildDocument } from "../model/build-model";
@@ -7,7 +8,22 @@ import { RaidHelper } from "../util/raid-helper";
 
 export abstract class BuildDelegate {
   public static async findByBuildId(buildId: BuildId): Promise<BuildDocument> {
-    return await BuildModel.findOne({ buildId });
+    const build = await BuildModel.findOne({ buildId });
+    this.updateBuildLastSeen(build);
+    return build;
+  }
+
+  public static deleteOldBuilds(maxAgeDays: number): Query<{ ok?: number; n?: number }> {
+    const nowMillis = new Date().getTime();
+    const minDate = new Date(nowMillis - maxAgeDays * 24 * 60 * 60 * 1000);
+    return BuildModel.deleteMany({ lastSeen: { $lt: minDate } });
+  }
+
+  public static updateBuildLastSeen(build?: BuildDocument): void {
+    if (!build) {
+      return;
+    }
+    BuildModel.updateOne({ _id: build._id }, { lastSeen: new Date() }).catch(console.error);
   }
 
   public static async createBuild({ name, players }: BuildType): Promise<BuildResponse> {
@@ -29,23 +45,28 @@ export abstract class BuildDelegate {
   }> {
     const builds = await RaidHelper.createBuildFromRHByTeams(raw);
     return {
-      builds: [{
-        ...(await BuildDelegate.createBuild(builds[RaidTeam.BF])),
-        team: RaidTeam.BF
-      }, {
-        ...(await BuildDelegate.createBuild(builds[RaidTeam.HC])),
-        team: RaidTeam.HC
-      }],
+      builds: [
+        {
+          ...(await BuildDelegate.createBuild(builds[RaidTeam.BF])),
+          team: RaidTeam.BF,
+        },
+        {
+          ...(await BuildDelegate.createBuild(builds[RaidTeam.HC])),
+          team: RaidTeam.HC,
+        },
+      ],
     };
   }
 
   public static async createBuildFromRH(raw: string) {
     const build = await RaidHelper.createBuildFromRH(raw);
     return {
-      builds: [{
-        ...(await BuildDelegate.createBuild(build)),
-        team: "All"
-      }]
-    }
+      builds: [
+        {
+          ...(await BuildDelegate.createBuild(build)),
+          team: "All",
+        },
+      ],
+    };
   }
 }

@@ -10,6 +10,7 @@ const RaidBuildSchema = new mongoose.Schema(
     buildId: { type: String, required: true, unique: true, index: true },
     name: { type: String, unique: false, index: false },
     players: [PlayerSchema],
+    lastSeen: { type: Date, default: () => new Date() }
   },
   { timestamps: true }
 );
