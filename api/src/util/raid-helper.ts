@@ -35,7 +35,7 @@ export abstract class RaidHelper {
     return (
       RaidHelper.getWarcraftClass(rhClassOrSpec) ??
       RaidHelper.getClassFromSpec(rhClassOrSpec) ??
-      WarcraftPlayerClass.Warrior
+      WarcraftPlayerClass.Unknown
     );
   }
 
@@ -98,7 +98,11 @@ export abstract class RaidHelper {
       }
 
       let groupId: any = "none";
-      if (team && character?.team) {
+      if (
+        ![InviteStatus.Declined, InviteStatus.Unknown].includes(player.status as InviteStatus) &&
+        team &&
+        character?.team
+      ) {
         groupId = Math.floor(playerIndex / 5) + 1;
         groupId = groupId > 8 ? "none" : groupId;
         playerIndex++;

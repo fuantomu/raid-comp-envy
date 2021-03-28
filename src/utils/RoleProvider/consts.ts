@@ -47,6 +47,7 @@ export const WarcraftSpecRole: {
   [WarcraftPlayerSpec.WarriorArms]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorFury]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank,
+  [WarcraftPlayerSpec.Unknown]: WarcraftRole.Unknown,
 };
 
 export enum WarcraftRaidBuff {
@@ -74,6 +75,7 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.Warlock]: [],
   [WarcraftPlayerClass.Shaman]: [],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower],
+  [WarcraftPlayerClass.Unknown]: [],
 };
 
 export const WarcraftSpecRaidBuffs: {
@@ -118,6 +120,7 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior],
+  [WarcraftPlayerSpec.Unknown]: [],
 };
 
 export enum WarcraftRaidUtility {
@@ -158,6 +161,7 @@ export const WarcraftClassUtilities: {
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidUtility.RallyingCry],
+  [WarcraftPlayerClass.Unknown]: [],
 };
 
 export const WarcraftSpecUtilities: {
@@ -219,6 +223,7 @@ export const WarcraftSpecUtilities: {
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
+  [WarcraftPlayerSpec.Unknown]: [],
 };
 
 export const WarcraftPlayerClassSpecs: {
@@ -284,4 +289,7 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
   ],
+  [WarcraftPlayerClass.Unknown]: [
+    WarcraftPlayerSpec.Unknown,
+  ]
 };

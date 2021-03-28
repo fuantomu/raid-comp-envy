@@ -19,6 +19,7 @@ export enum WarcraftPlayerClass {
   Shaman = "Shaman",
   Warlock = "Warlock",
   Warrior = "Warrior",
+  Unknown = "Unknown"
 }
 
 export enum WarcraftPlayerSpec {
@@ -58,6 +59,7 @@ export enum WarcraftPlayerSpec {
   WarriorArms = "WarriorArms",
   WarriorFury = "WarriorFury",
   WarriorProtection = "WarriorProtection",
+  Unknown = "Unknown",
 }
 
 export enum GroupId {
@@ -197,4 +199,7 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
   ],
+  [WarcraftPlayerClass.Unknown]: [
+    WarcraftPlayerSpec.Unknown
+  ]
 };

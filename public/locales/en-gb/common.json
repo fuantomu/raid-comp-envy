@@ -92,7 +92,8 @@
     "Rogue": "Rogue",
     "Shaman": "Shaman",
     "Warlock": "Warlock",
-    "Warrior": "Warrior"
+    "Warrior": "Warrior",
+    "Unknown": "Unknown"
   },
   "specs": {
     "DeathKnightBlood": "Blood",
@@ -130,7 +131,8 @@
     "ShamanRestoration": "Restoration",
     "WarriorArms": "Arms",
     "WarriorFury": "Fury",
-    "WarriorProtection": "Protection"
+    "WarriorProtection": "Protection",
+    "Unknown": "Unknown"
   },
   "buff": {
     "Intellect": "Intellect",

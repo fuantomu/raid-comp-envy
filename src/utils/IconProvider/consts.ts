@@ -26,6 +26,7 @@ export const WarcraftClassIcon: {
   [WarcraftPlayerClass.Shaman]: "classicon_shaman",
   [WarcraftPlayerClass.Warlock]: "classicon_warlock",
   [WarcraftPlayerClass.Warrior]: "classicon_warrior",
+  [WarcraftPlayerClass.Unknown]: IconUnknown,
 };
 
 export const WarcraftSpecIcon: {
@@ -67,6 +68,7 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.WarriorArms]: "ability_warrior_savageblow",
   [WarcraftPlayerSpec.WarriorFury]: "ability_warrior_innerrage",
   [WarcraftPlayerSpec.WarriorProtection]: "ability_warrior_defensivestance",
+  [WarcraftPlayerSpec.Unknown]: IconUnknown,
 };
 
 export const WarcraftRoleIcon: {
