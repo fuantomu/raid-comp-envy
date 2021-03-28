@@ -28,7 +28,7 @@ export abstract class RaidHelper {
   }
 
   public static getClassFromSpec(rhSpec: string) {
-    return RHSpecClassMap[rhSpec];
+    return RHSpecClassMap[rhSpec as RaidHelperSpec];
   }
 
   public static getClassFromClassOrSpec(rhClassOrSpec: string) {

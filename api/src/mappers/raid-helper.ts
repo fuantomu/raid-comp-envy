@@ -53,6 +53,7 @@ export const RHSpecMap: {
   Retribution: WarcraftPlayerSpec.PaladinRetribution,
   Assassination: WarcraftPlayerSpec.RogueAssassination,
   Outlaw: WarcraftPlayerSpec.RogueOutlaw,
+  Combat: WarcraftPlayerSpec.RogueOutlaw,
   Subtlety: WarcraftPlayerSpec.RogueSubtlety,
   Affliction: WarcraftPlayerSpec.WarlockAffliction,
   Demonology: WarcraftPlayerSpec.WarlockDemonology,
@@ -66,7 +67,7 @@ export const RHSpecMap: {
 };
 
 export const RHSpecClassMap: {
-  [rhSpec: string]: WarcraftPlayerClass;
+  [rhSpec in RaidHelperSpec]: WarcraftPlayerClass;
 } = {
   Blood: WarcraftPlayerClass.DeathKnight,
   Frost1: WarcraftPlayerClass.DeathKnight,
@@ -93,6 +94,7 @@ export const RHSpecClassMap: {
   Protection1: WarcraftPlayerClass.Paladin,
   Retribution: WarcraftPlayerClass.Paladin,
   Assassination: WarcraftPlayerClass.Rogue,
+  Outlaw: WarcraftPlayerClass.Rogue,
   Combat: WarcraftPlayerClass.Rogue,
   Subtlety: WarcraftPlayerClass.Rogue,
   Affliction: WarcraftPlayerClass.Warlock,
