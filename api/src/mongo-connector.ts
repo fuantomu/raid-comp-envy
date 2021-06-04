@@ -7,6 +7,7 @@ export class MongoConnector {
 
   constructor() {
     config({ path: ".env" });
+    config({ path: `.env.${process.env.NODE_ENV}` });
     (mongoose as any).Promise = global.Promise;
   }
 
