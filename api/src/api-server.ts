@@ -2,6 +2,7 @@ import * as cors from "cors";
 import * as express from "express";
 import * as http from "http";
 import * as morgan from "morgan";
+import { hostname } from "os";
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import { PassportAuthenticator, Server } from "typescript-rest";
 import { SchedulingService } from "./service/scheduling-service";
@@ -17,10 +18,12 @@ export class ApiServer {
     this.app = express();
     this.config();
 
-    Server.useIoC();
-
     Server.loadServices(this.app, "controller/*", __dirname);
-    Server.swagger(this.app, { filePath: "./dist/swagger.json" });
+
+    if (process.env.ENABLE_SWAGGER === "true") {
+      Server.swagger(this.app, { filePath: "./dist/swagger.json" });
+    }
+
     this.app.use("*", undefinedHandler);
     this.app.use(errorHandler);
   }
@@ -30,15 +33,11 @@ export class ApiServer {
    */
   public async start() {
     return new Promise<void>((resolve, reject) => {
-      this.server = this.app.listen(this.PORT, (err: any) => {
-        if (err) {
-          return reject(err);
-        }
-
+      this.server = this.app.listen(this.PORT, () => {
         SchedulingService.init();
 
         // tslint:disable-next-line:no-console
-        console.log(`Listening to http://127.0.0.1:${this.PORT}`);
+        console.log(`Listening on http://${hostname()}:${this.PORT}`);
 
         return resolve();
       });

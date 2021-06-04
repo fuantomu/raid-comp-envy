@@ -13,7 +13,9 @@ export abstract class BuildDelegate {
     return build;
   }
 
-  public static deleteOldBuilds(maxAgeDays: number): Query<{ ok?: number; n?: number }> {
+  public static deleteOldBuilds(
+    maxAgeDays: number
+  ): Query<{ ok?: number; n?: number }, BuildDocument> {
     const nowMillis = new Date().getTime();
     const minDate = new Date(nowMillis - maxAgeDays * 24 * 60 * 60 * 1000);
     return BuildModel.deleteMany({ lastSeen: { $lt: minDate } });
@@ -38,9 +40,7 @@ export abstract class BuildDelegate {
     };
   }
 
-  public static async createBuildFromRHByTeams(
-    raw: string
-  ): Promise<{
+  public static async createBuildFromRHByTeams(raw: string): Promise<{
     builds: BuildResponse[];
   }> {
     const builds = await RaidHelper.createBuildFromRHByTeams(raw);

@@ -57,7 +57,7 @@ describe("Build Delegate Test", () => {
     });
 
     it("should throw an error if schema not met", async () => {
-      jest.spyOn(BuildModel, "create").mockRejectedValue("ERROR");
+      jest.spyOn(BuildModel, "create").mockRejectedValue("ERROR" as never);
       await expect(BuildDelegate.createBuild(expectedBuild)).rejects.toEqual("ERROR");
     });
   });
