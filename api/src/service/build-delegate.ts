@@ -5,10 +5,10 @@ import { BuildId, BuildResponse, EntityType } from "../types";
 import { RaidHelper } from "../util/raid-helper";
 
 export abstract class BuildDelegate {
-  public static async findByBuildId(buildId: BuildId): Promise<BuildType> {
+  public static async findByBuildId(buildId: BuildId): Promise<BuildType | undefined> {
     const build = await BuildModel.findOne({ buildId });
     this.updateBuildLastSeen(build);
-    return build.entityData;
+    return build?.entityData;
   }
 
   public static async deleteOldBuilds(maxAgeDays: number) {
@@ -25,8 +25,10 @@ export abstract class BuildDelegate {
   }
 
   public static updateBuildLastSeen(build?: EntityType<BuildType>): void {
-    build.lastSeen = new Date();
-    build.save().catch(console.error);
+    if (build) {
+      build.lastSeen = new Date();
+      build.save().catch(console.error);
+    }
   }
 
   public static async createBuild({ name, players }: BuildType): Promise<BuildResponse> {
