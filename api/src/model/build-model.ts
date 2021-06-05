@@ -1,22 +1,22 @@
-import * as mongoose from "mongoose";
-import { Model } from "mongoose";
-import { BuildType } from "../types";
-import { PlayerSchema } from "./player-model";
+import Schema from "gstore-node/lib/schema";
+import { DatastoreConnector } from "../datastore-connector";
+import { BuildId } from "../types";
+import { PlayerType } from "./player-model";
 
-export type BuildDocument = BuildType & mongoose.Document;
+const gstore = DatastoreConnector.getInstance();
 
-const RaidBuildSchema = new mongoose.Schema(
-  {
-    buildId: { type: String, required: true, unique: true, index: true },
-    name: { type: String, unique: false, index: false },
-    players: [PlayerSchema],
-    lastSeen: { type: Date, default: () => new Date() }
-  },
-  { timestamps: true }
-);
+export interface BuildType {
+  buildId: BuildId;
+  name: string;
+  players: Array<PlayerType>;
+  lastSeen?: Date;
+}
 
-const BuildModel: Model<BuildDocument> = mongoose.model<BuildDocument>(
-  "RaidBuild",
-  RaidBuildSchema
-);
-export default BuildModel;
+const BuildSchema = new Schema<BuildType>({
+  buildId: { type: String },
+  name: { type: String },
+  players: { type: Array },
+  lastSeen: { type: Date, default: gstore.defaultValues.NOW },
+});
+
+export const BuildModel = gstore.model<BuildType>("Build", BuildSchema);

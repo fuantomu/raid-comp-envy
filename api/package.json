@@ -6,8 +6,8 @@
   "scripts": {
     "tsc": "tsc",
     "start": "ts-node src/index.ts",
-    "start:watch": "nodemon --exec ts-node src/index.ts",
-    "start:in:docker": "node dist/index.js",
+    "start:watch": "nodemon --exec cross-env NODE_ENV=development ts-node src/index.ts",
+    "start:in:docker": "cross-env NODE_ENV=production node dist/index.js",
     "build": "npm run clean && tsc && npm run swagger",
     "clean": "rimraf dist",
     "lint": "eslint ./src/**/*.ts",
@@ -19,10 +19,11 @@
     "swagger": "swaggerGen -c ./swagger.config.yml"
   },
   "dependencies": {
+    "@google-cloud/datastore": "^6.4.0",
     "cors": "^2.8.5",
     "dotenv": "10.0.0",
     "express": "^4.17.1",
-    "mongoose": "5.12.13",
+    "gstore-node": "^7.2.6",
     "morgan": "1.10.0",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
@@ -38,7 +39,6 @@
     "@types/cors": "^2.8.10",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.12",
-    "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.2",
     "@types/node-cron": "^2.0.3",
     "@types/node-fetch": "^2.5.7",

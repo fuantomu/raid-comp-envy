@@ -1,6 +1,6 @@
 import { GET, Path, PathParam, POST, Return } from "typescript-rest";
+import { BuildType } from "../model/build-model";
 import { BuildDelegate } from "../service/build-delegate";
-import { BuildType } from "../types";
 
 @Path("/build")
 export class BuildController {
@@ -20,13 +20,13 @@ export class BuildController {
 
   @POST
   @Path("/import/raid-helper")
-  public async importRaidHelper({raw}: {raw: string}) {
+  public async importRaidHelper({ raw }: { raw: string }) {
     return await BuildDelegate.createBuildFromRH(raw);
   }
 
   @POST
   @Path("/import/raid-helper/teams")
-  public async importRaidHelperToTeams({raw}: {raw: string}) {
+  public async importRaidHelperToTeams({ raw }: { raw: string }) {
     return await BuildDelegate.createBuildFromRHByTeams(raw);
   }
 }

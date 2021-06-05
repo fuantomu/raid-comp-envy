@@ -1,7 +1,10 @@
-import { start } from "./start";
+import { config } from "dotenv";
 
-start().catch((err) => {
-  // tslint:disable-next-line:no-console
-  console.error(`Error starting server: ${err.message}`);
-  process.exit(-1);
-});
+config({ path: `.env.${process.env.NODE_ENV}` });
+require("./start")
+  .start()
+  .catch((err: Error) => {
+    // tslint:disable-next-line:no-console
+    console.error(`Error starting server: ${err.message}`);
+    process.exit(-1);
+  });

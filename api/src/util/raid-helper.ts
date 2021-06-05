@@ -9,9 +9,10 @@ import {
 } from "../consts";
 import { DiscordPlayersMapper, RaidTeam } from "../mappers/discord-player";
 import { RHClassMap, RHSpecClassMap, RHSpecMap, RHStatusMap } from "../mappers/raid-helper";
-import { DiscordUserCharacter } from "../model/discord-user-character-model";
-import { DiscordUserDocument } from "../model/discord-user-model";
-import { BuildPlayer, BuildType } from "../types";
+import { BuildType } from "../model/build-model";
+import { DiscordUserCharacterType } from "../model/discord-user-character-model";
+import { DiscordUserType } from "../model/discord-user-model";
+import { PlayerType } from "../model/player-model";
 import { PlayerUtil } from "./player.util";
 
 export abstract class RaidHelper {
@@ -59,11 +60,11 @@ export abstract class RaidHelper {
   }
 
   private static tryToFindCharacter(
-    account: DiscordUserDocument,
+    account: DiscordUserType,
     spec: string,
     className: string
-  ): DiscordUserCharacter | undefined {
-    let character: DiscordUserCharacter | undefined;
+  ): DiscordUserCharacterType | undefined {
+    let character: DiscordUserCharacterType | undefined;
     if (account) {
       let queryBySpec = account.characters.find((ch) => ch.spec === spec);
       let queryByClass = account.characters.find((ch) => ch.className === className);
@@ -81,17 +82,16 @@ export abstract class RaidHelper {
   private static async filterPlayers(
     team: RaidTeam,
     players: PlayerSignup[]
-  ): Promise<BuildPlayer[]> {
-    const filteredPlayers: BuildPlayer[] = [];
+  ): Promise<PlayerType[]> {
+    const filteredPlayers: PlayerType[] = [];
     let playerIndex = 0;
     for (const player of players) {
       const { name, class: className, spec, status, discordId } = player;
       const account = await DiscordPlayersMapper.getAccount(discordId);
       let character = RaidHelper.tryToFindCharacter(account, spec, className);
       let fullCharacterName = character?.character ?? name;
-      const { name: characterName, realm: characterRealm } = PlayerUtil.splitFullName(
-        fullCharacterName
-      );
+      const { name: characterName, realm: characterRealm } =
+        PlayerUtil.splitFullName(fullCharacterName);
 
       if (team && character?.team && team !== character?.team) {
         continue;
@@ -156,9 +156,7 @@ export abstract class RaidHelper {
     return await RaidHelper.createRHTeamBuild(undefined, players, name);
   }
 
-  public static async createBuildFromRHByTeams(
-    raw: string
-  ): Promise<
+  public static async createBuildFromRHByTeams(raw: string): Promise<
     {
       [team in RaidTeam]: BuildType;
     }
@@ -171,6 +169,6 @@ export abstract class RaidHelper {
   }
 }
 
-interface PlayerSignup extends BuildPlayer {
+interface PlayerSignup extends PlayerType {
   discordId: string;
 }

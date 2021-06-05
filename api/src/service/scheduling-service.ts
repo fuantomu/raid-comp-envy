@@ -26,14 +26,14 @@ export class SchedulingService {
   private cleanOldBuilds() {
     console.log("Pruning old builds...");
     BuildDelegate.deleteOldBuilds(30)
-    .then(result => {
-      if (result?.n) {
-        console.log(`Pruned ${result.n} records.`)
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then((count) => {
+        if (count) {
+          console.log(`Pruned ${count} records.`);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   public static init(): void {
