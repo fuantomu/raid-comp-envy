@@ -16,7 +16,7 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
 };
 
 export const undefinedHandler = (req: Request, res: Response, next: NextFunction) => {
-   if (res.headersSent) {
+  if (res.headersSent) {
     return;
   }
   errorHandler(new Errors.NotFoundError(), req, res, next);

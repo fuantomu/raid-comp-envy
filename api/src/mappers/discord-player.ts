@@ -1,6 +1,6 @@
 import { WarcraftPlayerSpec } from "../consts";
-import { DiscordUserCharacter } from "../model/discord-user-character-model";
-import { DiscordUser } from "../model/discord-user-model";
+import { DiscordUserCharacterType } from "../model/discord-user-character-model";
+import { DiscordUserType } from "../model/discord-user-model";
 import { DiscordUserDelegate } from "../service/discord-user-delegate";
 import { WowauditService } from "../service/wowaudit-service";
 import { DiscordId } from "../types";
@@ -14,8 +14,8 @@ const WowauditTeams: {
   [id: number]: RaidTeam;
 } = {
   7295: RaidTeam.BF,
-  32827: RaidTeam.HC
-}
+  32827: RaidTeam.HC,
+};
 
 export abstract class DiscordPlayersMapper {
   public static async getAccount(discordId: DiscordId) {
@@ -25,7 +25,7 @@ export abstract class DiscordPlayersMapper {
   public static async getCharacter(
     discordId: DiscordId,
     spec: WarcraftPlayerSpec
-  ): Promise<DiscordUserCharacter> {
+  ): Promise<DiscordUserCharacterType> {
     const account = await DiscordUserDelegate.findByDiscordId(discordId);
     return account?.characters.find((ch) => ch.spec === spec);
   }
@@ -42,23 +42,23 @@ export abstract class DiscordPlayersMapper {
           }
           discordUsers[discordId].push({
             ...char,
-            team: team.id
+            team: team.id,
           });
         }
       }
     }
 
     for (const discordId of Object.keys(discordUsers)) {
-      const discordUser: DiscordUser = {
+      const discordUser: DiscordUserType = {
         discordId,
-        characters: []
-      }
+        characters: [],
+      };
       for (const character of discordUsers[discordId]) {
         discordUser.characters.push({
           className: character.class,
           character: character.name,
-          team: WowauditTeams[character.team]
-        })
+          team: WowauditTeams[character.team],
+        });
       }
       try {
         await DiscordUserDelegate.createUpdateUser(discordUser);

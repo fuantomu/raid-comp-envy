@@ -1,23 +1,22 @@
 /** @jsxImportSource @emotion/react */
+import { Box, Button, Container, Typography } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 import { FC, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useHistory, useParams } from "react-router-dom";
+import BuildRolesCount from "../../components/BuildRolesCount";
 import Loading from "../../components/Loading";
-import { useParams } from "react-router-dom";
+import ModalExport from "../../components/ModalExport";
+import RaidChecklist from "../../components/RaidChecklist";
+import RaidComposition from "../../components/RaidComposition";
+import { AppErrorId } from "../../consts";
 import { getBuild } from "../../services/backend";
-import useErrorHandler from "../../utils/useErrorHandler";
 import { Build } from "../../types";
 import AppError from "../../utils/AppError";
-import { AppErrorId } from "../../consts";
-import RaidComposition from "../../components/RaidComposition";
-import { Box, Button, Container, Typography } from "@material-ui/core";
-import RaidChecklist from "../../components/RaidChecklist";
-import useStyles from "./useStyles";
-import UUID from "../../utils/UUID";
-import BuildRolesCount from "../../components/BuildRolesCount";
-import { useHistory } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import ModalExport from "../../components/ModalExport";
-import EditIcon from "@material-ui/icons/Edit";
 import { BuildHelper } from "../../utils/BuildHelper";
+import useErrorHandler from "../../utils/useErrorHandler";
+import UUID from "../../utils/UUID";
+import useStyles from "./useStyles";
 
 export interface BuildPageProps {
   grouped?: boolean;
@@ -71,11 +70,11 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
           {build.name}
         </Typography>
         <BuildRolesCount
-            css={styles.rolesCount}
-            key={UUID()}
-            handleChangeGrouping={handleChangeGrouping}
-            build={build}
-          />
+          css={styles.rolesCount}
+          key={UUID()}
+          handleChangeGrouping={handleChangeGrouping}
+          build={build}
+        />
       </Box>
       <Box key={UUID()} css={styles.gridBox}>
         <RaidComposition build={build} grouped={!!grouped} />

@@ -2,7 +2,6 @@ import * as cors from "cors";
 import * as express from "express";
 import * as http from "http";
 import * as morgan from "morgan";
-import { hostname } from "os";
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import { PassportAuthenticator, Server } from "typescript-rest";
 import { SchedulingService } from "./service/scheduling-service";
@@ -37,7 +36,7 @@ export class ApiServer {
         SchedulingService.init();
 
         // tslint:disable-next-line:no-console
-        console.log(`Listening on http://${hostname()}:${this.PORT}`);
+        console.log(`Listening on http://localhost:${this.PORT}`);
 
         return resolve();
       });

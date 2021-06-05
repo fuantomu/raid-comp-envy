@@ -14,7 +14,7 @@ RUN npm install
 
 # Bundle app source
 COPY ./dist ./dist
-COPY ./.env ./.env
+COPY ./.env.production ./.env.production
 
 EXPOSE 3000
 CMD [ "npm", "run", "start:in:docker" ]

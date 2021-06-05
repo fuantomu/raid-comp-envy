@@ -1,22 +1,9 @@
-import { GroupId, WarcraftPlayerClass } from "./consts";
+import { Entity } from "gstore-node/lib/entity";
+import { CustomEntityFunction } from "gstore-node/lib/types";
+import { WarcraftPlayerClass } from "./consts";
 
 export type BuildId = string;
 export type DiscordId = string;
-
-export interface BuildPlayer {
-  name: string;
-  realm?: string;
-  class: string;
-  spec?: string;
-  status: string;
-  group?: GroupId;
-}
-
-export interface BuildType {
-  buildId: BuildId;
-  name: string;
-  players: Array<BuildPlayer>;
-}
 
 export interface BuildResponse {
   buildId: string;
@@ -26,14 +13,25 @@ export interface BuildResponse {
 
 export interface WowauditData {
   guild: {
-    teams: [{
-      id: number,
-      slug: string,
-      characters: [{
-        name: string,
-        class: WarcraftPlayerClass,
-        note: string
-      }]
-    }]
-  }
+    teams: [
+      {
+        id: number;
+        slug: string;
+        characters: [
+          {
+            name: string;
+            class: WarcraftPlayerClass;
+            note: string;
+          }
+        ];
+      }
+    ];
+  };
 }
+
+export type EntityType<T extends Object> = Entity<
+  T,
+  {
+    [key: string]: CustomEntityFunction<T>;
+  }
+>;

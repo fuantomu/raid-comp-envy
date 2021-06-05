@@ -1,9 +1,9 @@
 import { Errors } from "typescript-rest";
 import { GroupId, InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../consts";
-import { BuildPlayer } from "../types";
+import { PlayerType } from "../model/player-model";
 
 export abstract class PlayerUtil {
-  public static sanitizePlayer(player: BuildPlayer): BuildPlayer {
+  public static sanitizePlayer(player: PlayerType): PlayerType {
     const { name, status, class: className, spec, group, realm } = player;
     if (
       !className ||
@@ -28,9 +28,7 @@ export abstract class PlayerUtil {
     };
   }
 
-  public static splitFullName(
-    fullName: string
-  ): {
+  public static splitFullName(fullName: string): {
     name: string;
     realm: string;
   } {

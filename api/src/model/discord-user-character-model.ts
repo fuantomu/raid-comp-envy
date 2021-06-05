@@ -1,19 +1,25 @@
-import * as mongoose from "mongoose";
+import Schema from "gstore-node/lib/schema";
 import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../consts";
+import { DatastoreConnector } from "../datastore-connector";
 import { RaidTeam } from "../mappers/discord-player";
 
-export interface DiscordUserCharacter {
+const gstore = DatastoreConnector.getInstance();
+
+export interface DiscordUserCharacterType {
   spec?: WarcraftPlayerSpec;
   className: WarcraftPlayerClass;
   character: string;
   team: RaidTeam;
 }
 
-export type DiscordUserCharacterDocument = DiscordUserCharacter & mongoose.Document;
-
-export const DiscordUserCharacterSchema = new mongoose.Schema({
-  spec: { type: String, index: true },
-  className: { type: String, required: true, index: true },
-  character: { type: String, required: true },
-  team: { type: String, required: true },
+export const DiscordUserCharacterSchema = new Schema({
+  spec: { type: String, optional: true },
+  className: { type: String },
+  character: { type: String },
+  team: { type: String },
 });
+
+export const DiscordUserCharacterModel = gstore.model(
+  "DiscordUserCharacter",
+  DiscordUserCharacterSchema
+);
