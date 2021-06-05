@@ -11,10 +11,15 @@ export class DatastoreConnector {
       errorOnEntityNotFound: false,
     });
 
-    const datastore = new Datastore({
-      projectId: process.env.DATASTORE_PROJECT_ID,
-      apiEndpoint: process.env.DATASTORE_URL,
-    });
+    let dataStoreConfig: any = undefined;
+    if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+      dataStoreConfig = {
+        projectId: process.env.DATASTORE_PROJECT_ID,
+        apiEndpoint: process.env.DATASTORE_URL,
+      };
+    }
+
+    const datastore = new Datastore(dataStoreConfig);
 
     // Then connect gstore to the datastore instance
     this.gstore.connect(datastore);
