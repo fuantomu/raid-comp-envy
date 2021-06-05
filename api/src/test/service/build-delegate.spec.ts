@@ -1,17 +1,17 @@
-import BuildModel, { BuildDocument } from "../../model/build-model";
+import { BuildModel, BuildType } from "../../model/build-model";
+import { PlayerType } from "../../model/player-model";
 import { BuildDelegate } from "../../service/build-delegate";
-import { BuildPlayer } from "../../types";
 
 describe("Build Delegate Test", () => {
   const buildId = "123456";
   const newBuildId = "abcdef";
   const name = "test name";
-  const players: BuildPlayer[] = [];
+  const players: PlayerType[] = [];
   const expectedBuild = {
     buildId,
     name,
     players,
-  } as BuildDocument;
+  } as BuildType;
 
   describe("findByBuildId", () => {
     beforeEach(() => {
@@ -32,8 +32,9 @@ describe("Build Delegate Test", () => {
   });
 
   describe("createBuild", () => {
+    const build = new BuildModel(expectedBuild);
     beforeEach(() => {
-      jest.spyOn(BuildModel, "create").mockReturnValue(
+      jest.spyOn(build, "save").mockReturnValue(
         Promise.resolve({
           ...expectedBuild,
           buildId: newBuildId,
@@ -57,7 +58,7 @@ describe("Build Delegate Test", () => {
     });
 
     it("should throw an error if schema not met", async () => {
-      jest.spyOn(BuildModel, "create").mockRejectedValue("ERROR" as never);
+      jest.spyOn(build, "save").mockRejectedValue("ERROR" as never);
       await expect(BuildDelegate.createBuild(expectedBuild)).rejects.toEqual("ERROR");
     });
   });

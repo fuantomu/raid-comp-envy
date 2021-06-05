@@ -16,4 +16,5 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "jestrunner.projectPath": "V:\\workspace\\raid-comp\\api",
+    "typescript.preferences.importModuleSpecifier": "relative"
 }

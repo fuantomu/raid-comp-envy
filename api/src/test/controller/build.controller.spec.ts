@@ -1,18 +1,18 @@
 import { Return } from "typescript-rest";
 import { BuildController } from "../../controller/build.controller";
-import { BuildDocument } from "../../model/build-model";
+import { BuildType } from "../../model/build-model";
+import { PlayerType } from "../../model/player-model";
 import { BuildDelegate } from "../../service/build-delegate";
-import { BuildPlayer } from "../../types";
 
 describe("Build Controller Test", () => {
   const buildId = "123456";
   const name = "test name";
-  const players: BuildPlayer[] = [];
+  const players: PlayerType[] = [];
   const expectedBuild = {
     buildId,
     name,
     players,
-  } as BuildDocument;
+  } as BuildType;
   let controller = new BuildController();
 
   describe("getBuild", () => {

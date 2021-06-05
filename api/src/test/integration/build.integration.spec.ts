@@ -1,8 +1,8 @@
 import * as request from "request";
 import { HttpMethod, Server } from "typescript-rest";
 import { ApiServer } from "../../api-server";
-import BuildModel, { BuildDocument } from "../../model/build-model";
-import { BuildPlayer } from "../../types";
+import { BuildModel, BuildType } from "../../model/build-model";
+import { PlayerType } from "../../model/player-model";
 
 const apiServer: ApiServer = new ApiServer();
 const buildRequest: request.RequestAPI<
@@ -14,12 +14,12 @@ const buildRequest: request.RequestAPI<
 describe("Build integration test", () => {
   const buildId = "123456";
   const name = "test name";
-  const players: BuildPlayer[] = [];
+  const players: PlayerType[] = [];
   const expectedBuild = {
     buildId,
     name,
     players,
-  } as BuildDocument;
+  } as BuildType;
 
   beforeAll(() => {
     return apiServer.start();
