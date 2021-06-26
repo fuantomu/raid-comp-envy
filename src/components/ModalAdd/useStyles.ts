@@ -49,9 +49,16 @@ export default () => {
         margin: ${spacing(Spacing.xxs)} 0;
       }
     `,
+    nameInputWrapper: css`
+      width: 100%;
+    `,
     nameInput: css`
+      width: 100%;
       padding: ${spacing(Spacing.xs)};
-      text-align: center;
+      
+      input {
+        text-align: center;
+      }
     `,
     groupSelectElement: css`
       color: ${palette.text.primary};

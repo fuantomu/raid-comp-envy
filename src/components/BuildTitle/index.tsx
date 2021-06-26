@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, FocusEventHandler } from "react";
 import useStyles from "./useStyles";
+import { Input } from "@material-ui/core";
 
 export interface BuildTitleProps {
   title: string;
@@ -9,14 +10,24 @@ export interface BuildTitleProps {
 
 const BuildTitle: FC<BuildTitleProps> = ({ title, onChange }) => {
   const styles = useStyles();
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange: FocusEventHandler<HTMLInputElement> = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
     const newTitle = event.currentTarget.value;
     if (newTitle !== title) {
       onChange(newTitle);
     }
   };
 
-  return <input css={styles.input} type="text" onBlur={handleChange} defaultValue={title} />;
+  return (
+    <Input
+      autoFocus={true}
+      css={styles.input}
+      type="text"
+      onBlur={handleChange}
+      defaultValue={title}
+    />
+  );
 };
 
 export default BuildTitle;

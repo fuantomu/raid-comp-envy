@@ -107,7 +107,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       <ModalAdd editPlayer={editPlayerModalFn} />
       <Container>
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
-          <BuildTitle key={UUID()} title={name} onChange={handleTitleChange} />
+          <BuildTitle css={styles.buildTitle} key={UUID()} title={name} onChange={handleTitleChange} />
           <BuildRolesCount key={UUID()} handleChangeGrouping={() => {}} build={getCurrentBuild()} />
         </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>

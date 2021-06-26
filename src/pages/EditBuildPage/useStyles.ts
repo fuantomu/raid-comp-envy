@@ -10,7 +10,7 @@ export default () => {
     `,
     header: css`
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr;
       gap: ${theme.spacing(Spacing.m)};
       word-break: break-word;
     `,
@@ -20,5 +20,8 @@ export default () => {
       grid-template-columns: repeat(4, 1fr);
       gap: ${theme.spacing(Spacing.m)};
     `,
+    buildTitle: css`
+      width: 100%;
+    `
   };
 };

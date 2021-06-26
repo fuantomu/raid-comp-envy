@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Avatar, Box, Button, Modal, Typography } from "@material-ui/core";
+import { Avatar, Box, Button, Modal, Typography, Input } from "@material-ui/core";
 import { ChangeEvent, FC, MouseEvent, useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import useStyles from "./useStyles";
@@ -26,7 +26,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const [className, setClassName] = useState(WarcraftPlayerClass.Warrior);
   const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorArms);
   const [status, setStatus] = useState(InviteStatus.Invited);
-  const [groupId, setGroupId] = useState("none" as GroupId);
+  const [groupId, setGroupId] = useState(1 as GroupId);
   const [name, setName] = useState("");
   const [oldName, setOldName] = useState<string>();
   const context = useAppContext();
@@ -52,7 +52,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const handleSelectClass = (event: MouseEvent, newClass: string) => {
     if (newClass !== null) {
       setClassName(newClass as WarcraftPlayerClass);
-      setSpec(WarcraftPlayerClassSpecs[className][0]);
+      setSpec(WarcraftPlayerClassSpecs[newClass as WarcraftPlayerClass][0]);
     }
   };
 
@@ -194,10 +194,11 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         <Box css={styles.modal}>
           <h2>{oldName ? common("build.edit.title") : common("build.add.title")}</h2>
           <Box css={styles.content}>
-            <Box>
-              <input
+            <Box css={styles.nameInputWrapper}>
+              <Input
                 css={styles.nameInput}
                 type="text"
+                autoFocus={true}
                 defaultValue={name}
                 onChange={handleNameChange}
                 onBlur={handleNameBlur}
