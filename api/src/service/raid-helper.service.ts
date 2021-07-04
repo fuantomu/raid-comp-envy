@@ -88,7 +88,9 @@ export abstract class RaidHelper {
     const { name: eventName, players } = RaidHelperUtil.parseRHCSV(raw);
     const teams = await WowAuditDelegate.getTeams();
     const all: Team = { name: "All", players: teams.map((t) => t.players).flat(), filter: false };
-    return [all, ...teams].map((team) => RaidHelper.createRHTeamBuild(players, team, eventName));
+    return [all, ...teams]
+      .filter((team) => team.players.length > 0)
+      .map((team) => RaidHelper.createRHTeamBuild(players, team, eventName));
   }
 }
 
