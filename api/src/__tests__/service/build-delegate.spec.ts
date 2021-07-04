@@ -1,6 +1,6 @@
-import { BuildModel, BuildType } from "../../model/build-model";
+import { BuildDelegate } from "../../delegate/build.delegate";
+import { BuildModel, BuildType } from "../../model/build.model";
 import { PlayerType } from "../../model/player-model";
-import { BuildDelegate } from "../../service/build-delegate";
 
 describe("Build Delegate Test", () => {
   const buildId = "123456";

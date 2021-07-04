@@ -1,8 +1,7 @@
 import * as sha256 from "sha256";
-import { RaidTeam } from "../mappers/discord-player";
-import { BuildModel, BuildType } from "../model/build-model";
+import { BuildModel, BuildType } from "../model/build.model";
+import { RaidHelper } from "../service/raid-helper.service";
 import { BuildId, BuildResponse, EntityType } from "../types";
-import { RaidHelper } from "../util/raid-helper";
 
 export abstract class BuildDelegate {
   public static async findByBuildId(buildId: BuildId): Promise<BuildType | undefined> {
@@ -47,30 +46,9 @@ export abstract class BuildDelegate {
   public static async createBuildFromRHByTeams(raw: string): Promise<{
     builds: BuildResponse[];
   }> {
-    const builds = await RaidHelper.createBuildFromRHByTeams(raw);
-    return {
-      builds: [
-        {
-          ...(await BuildDelegate.createBuild(builds[RaidTeam.BF])),
-          team: RaidTeam.BF,
-        },
-        {
-          ...(await BuildDelegate.createBuild(builds[RaidTeam.HC])),
-          team: RaidTeam.HC,
-        },
-      ],
-    };
-  }
-
-  public static async createBuildFromRH(raw: string) {
-    const build = await RaidHelper.createBuildFromRH(raw);
-    return {
-      builds: [
-        {
-          ...(await BuildDelegate.createBuild(build)),
-          team: "All",
-        },
-      ],
-    };
+    const builds = await Promise.all(
+      (await RaidHelper.createBuildFromRHByTeams(raw)).map(this.createBuild)
+    );
+    return { builds };
   }
 }

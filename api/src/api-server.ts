@@ -4,7 +4,7 @@ import * as http from "http";
 import * as morgan from "morgan";
 import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import { PassportAuthenticator, Server } from "typescript-rest";
-import { SchedulingService } from "./service/scheduling-service";
+import { SchedulingService } from "./service/scheduling.service";
 import { errorHandler, undefinedHandler } from "./util/error-handler";
 
 export class ApiServer {

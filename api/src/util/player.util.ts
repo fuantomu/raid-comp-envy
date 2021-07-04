@@ -1,6 +1,6 @@
 import { Errors } from "typescript-rest";
 import { GroupId, InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../consts";
-import { PlayerType } from "../model/player-model";
+import { PlayerType } from "../model/build.model";
 
 export abstract class PlayerUtil {
   public static sanitizePlayer(player: PlayerType): PlayerType {

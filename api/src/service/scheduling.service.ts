@@ -1,5 +1,5 @@
 import * as cron from "node-cron";
-import { BuildDelegate } from "./build-delegate";
+import { BuildDelegate } from "../delegate/build.delegate";
 
 export class SchedulingService {
   private static INSTANCE: SchedulingService;
@@ -31,9 +31,7 @@ export class SchedulingService {
           console.log(`Pruned ${count} records.`);
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(console.error);
   }
 
   public static init(): void {

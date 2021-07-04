@@ -1,7 +1,7 @@
 import * as request from "request";
 import { HttpMethod, Server } from "typescript-rest";
 import { ApiServer } from "../../api-server";
-import { BuildModel, BuildType } from "../../model/build-model";
+import { BuildModel, BuildType } from "../../model/build.model";
 import { PlayerType } from "../../model/player-model";
 
 const apiServer: ApiServer = new ApiServer();
