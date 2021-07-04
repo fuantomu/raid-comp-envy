@@ -1,8 +1,7 @@
 import { Return } from "typescript-rest";
 import { BuildController } from "../../controller/build.controller";
 import { BuildDelegate } from "../../delegate/build.delegate";
-import { BuildType } from "../../model/build.model";
-import { PlayerType } from "../../model/player-model";
+import { BuildType, PlayerType } from "../../model/build.model";
 
 describe("Build Controller Test", () => {
   const buildId = "123456";
