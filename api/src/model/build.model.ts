@@ -1,7 +1,7 @@
 import Schema from "gstore-node/lib/schema";
+import { GroupId } from "../consts";
 import { DatastoreConnector } from "../datastore-connector";
 import { BuildId } from "../types";
-import { PlayerType } from "./player-model";
 
 const gstore = DatastoreConnector.getInstance();
 
@@ -10,6 +10,15 @@ export interface BuildType {
   name: string;
   players: Array<PlayerType>;
   lastSeen?: Date;
+}
+
+export interface PlayerType {
+  name: string;
+  realm?: string;
+  class: string;
+  spec?: string;
+  status: string;
+  group?: GroupId;
 }
 
 const BuildSchema = new Schema<BuildType>({
