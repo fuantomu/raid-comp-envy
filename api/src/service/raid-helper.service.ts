@@ -6,21 +6,25 @@ import {
 } from "../consts";
 import { Team, TeamCharacter, WowAuditDelegate } from "../delegate/wowaudit.delegate";
 import { BuildType, PlayerType } from "../model/build.model";
-import { DiscordId } from "../types";
 import { PlayerUtil } from "../util/player.util";
 import { RaidHelperUtil } from "../util/raid-helper.util";
 
-export abstract class RaidHelper {
-  private static tryToFindCharacter(
+export class RaidHelper {
+  private teams: Team[];
+
+  constructor(callback: Function) {
+    (async () => {
+      this.teams = await WowAuditDelegate.getTeams();
+      callback();
+    })();
+  }
+
+  private tryToFindCharacter(
     team: Team,
-    discordId: DiscordId,
-    spec: string,
-    className: string
+    { discordId, spec, class: className }: PlayerSignup
   ): TeamCharacter | undefined {
-    let character: TeamCharacter | undefined;
     if (team && discordId) {
       const characters = team.players.filter((player) => player.discordId === discordId);
-      let queryBySpec = characters.find((ch) => ch.spec === spec);
       let queryByClass = characters.find((ch) => ch.className === className);
       let classOfSpec = Object.keys(WarcraftPlayerClassSpecs).find((className) =>
         WarcraftPlayerClassSpecs[className as WarcraftPlayerClass].includes(
@@ -28,18 +32,30 @@ export abstract class RaidHelper {
         )
       );
       let queryByClassOfSpec = characters.find((ch) => ch.className === classOfSpec);
-      character = queryBySpec ?? queryByClass ?? queryByClassOfSpec ?? characters[0];
+      return queryByClass ?? queryByClassOfSpec;
     }
-    return character;
+    return undefined;
   }
 
-  private static filterPlayers(team: Team, players: PlayerSignup[]): PlayerType[] {
+  private tryToFindCharacterInAllTeams(
+    notInTeam: Team,
+    playerSignup: PlayerSignup
+  ): TeamCharacter | undefined {
+    return this.teams
+      .filter((team) => team !== notInTeam)
+      .map((team) => this.tryToFindCharacter(team, playerSignup))
+      .filter(Boolean)
+      .flat()?.[0];
+  }
+
+  private filterPlayers(team: Team, players: PlayerSignup[]): PlayerType[] {
     const filteredPlayers: PlayerType[] = [];
     let playerIndex = 0;
 
     for (const player of players) {
-      const { name, class: className, spec, status, discordId } = player;
-      let character = RaidHelper.tryToFindCharacter(team, discordId, spec, className);
+      const { name, class: className, spec, status } = player;
+      let character =
+        this.tryToFindCharacter(team, player) ?? this.tryToFindCharacterInAllTeams(team, player);
       let fullCharacterName = character?.character ?? name;
       const { name: characterName, realm: characterRealm } =
         PlayerUtil.splitFullName(fullCharacterName);
@@ -68,11 +84,7 @@ export abstract class RaidHelper {
     return filteredPlayers;
   }
 
-  private static createRHTeamBuild(
-    players: PlayerSignup[],
-    team: Team,
-    buildTitle?: string
-  ): BuildType {
+  private createRHTeamBuild(players: PlayerSignup[], team: Team, buildTitle?: string): BuildType {
     let name = `${buildTitle ?? "Raid Helper Import"}`;
     if (team) {
       name = name + ` - ${team.name}`;
@@ -80,17 +92,20 @@ export abstract class RaidHelper {
     return {
       buildId: "",
       name,
-      players: RaidHelper.filterPlayers(team, players),
+      players: this.filterPlayers(team, players),
     };
   }
 
-  public static async createBuildFromRHByTeams(raw: string): Promise<BuildType[]> {
+  public createBuildFromRHByTeams(raw: string): BuildType[] {
     const { name: eventName, players } = RaidHelperUtil.parseRHCSV(raw);
-    const teams = await WowAuditDelegate.getTeams();
-    const all: Team = { name: "All", players: teams.map((t) => t.players).flat(), filter: false };
-    return [all, ...teams]
+    const all: Team = {
+      name: "All",
+      players: this.teams.map((t) => t.players).flat(),
+      filter: false,
+    };
+    return [all, ...this.teams]
       .filter((team) => team.players.length > 0)
-      .map((team) => RaidHelper.createRHTeamBuild(players, team, eventName));
+      .map((team) => this.createRHTeamBuild(players, team, eventName));
   }
 }
 

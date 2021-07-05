@@ -2,6 +2,7 @@ import * as sha256 from "sha256";
 import { BuildModel, BuildType } from "../model/build.model";
 import { RaidHelper } from "../service/raid-helper.service";
 import { BuildId, BuildResponse, EntityType } from "../types";
+import { AsyncFactory } from "../util/async-factory";
 
 export abstract class BuildDelegate {
   public static async findByBuildId(buildId: BuildId): Promise<BuildType | undefined> {
@@ -46,8 +47,9 @@ export abstract class BuildDelegate {
   public static async createBuildFromRHByTeams(raw: string): Promise<{
     builds: BuildResponse[];
   }> {
+    const raidHelper = await AsyncFactory.getInstance(RaidHelper);
     const builds = await Promise.all(
-      (await RaidHelper.createBuildFromRHByTeams(raw)).map(this.createBuild)
+      raidHelper.createBuildFromRHByTeams(raw).map(this.createBuild)
     );
     return { builds };
   }
