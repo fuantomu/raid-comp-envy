@@ -54,15 +54,19 @@ export class RaidHelper {
 
     for (const player of players) {
       const { name, class: className, spec, status } = player;
-      let character =
-        this.tryToFindCharacter(team, player) ?? this.tryToFindCharacterInAllTeams(team, player);
+      let character = this.tryToFindCharacter(team, player);
+
+      if (!character) {
+        if (team.filter) {
+          continue;
+        } else {
+          character = this.tryToFindCharacterInAllTeams(team, player);
+        }
+      }
+
       let fullCharacterName = character?.character ?? name;
       const { name: characterName, realm: characterRealm } =
         PlayerUtil.splitFullName(fullCharacterName);
-
-      if (team.filter && !character) {
-        continue;
-      }
 
       let groupId: any = "none";
       if (![InviteStatus.Declined, InviteStatus.Unknown].includes(player.status as InviteStatus)) {
