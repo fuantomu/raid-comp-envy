@@ -21,6 +21,7 @@
       "group_none": "Ungrouped"
     },
     "roles": {
+      "total": "Total",
       "Unknown": "Unknown",
       "Tank": "Tank",
       "Healer": "Healer",

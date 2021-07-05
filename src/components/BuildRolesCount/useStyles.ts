@@ -8,9 +8,9 @@ export default () => {
 
   return {
     roles: css`
-      display: grid;
-      width: auto;
-      grid-template-columns: repeat(5, min-content);
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
       gap: ${theme.spacing(Spacing.xs)};
       user-select: none;
       place-content: center;
@@ -18,7 +18,6 @@ export default () => {
 
       @media only screen and (max-width: 650px) {
         & {
-          grid-template-columns: repeat(auto-fit, minmax(5em, 1fr));
           place-items: center;
         }
       }

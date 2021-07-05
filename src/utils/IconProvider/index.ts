@@ -2,13 +2,14 @@ import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRaidBuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
 import {
+  CustomIcon,
   IconUnknown,
   WarcraftBuffIcon,
   WarcraftClassIcon,
   WarcraftIconSize,
   WarcraftRoleIcon,
   WarcraftSpecIcon,
-  WarcraftUtilityIcon,
+  WarcraftUtilityIcon
 } from "./consts";
 
 export abstract class IconProvider {
@@ -56,4 +57,11 @@ export abstract class IconProvider {
   public static getUtilityIcon(utility?: WarcraftRaidUtility, size?: WarcraftIconSize): string {
     return IconProvider.getWarcraftIconURI(utility && WarcraftUtilityIcon[utility], size);
   }
+
+  public static getCustomIcon(customIcon?: CustomIcon): string;
+  public static getCustomIcon(customIcon: CustomIcon, size?: WarcraftIconSize): string;
+  public static getCustomIcon(customIcon?: CustomIcon, size?: WarcraftIconSize): string {
+    return IconProvider.getWarcraftIconURI(customIcon, size);
+  }
 }
+

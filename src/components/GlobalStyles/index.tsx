@@ -69,6 +69,19 @@ const GlobalStyles: FC = () => {
           color: ${palette.text.primary};
           border: solid 1px black;
         }
+
+        ::-webkit-scrollbar {
+          width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+          background: ${palette.background.paper};
+        }
+        ::-webkit-scrollbar-thumb {
+          background: ${palette.primary.dark};
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: ${palette.primary.main};
+        }
       `}
     />
   );

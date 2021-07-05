@@ -5,6 +5,7 @@ import {
   WarcraftPlayerSpec
 } from "../consts";
 import { Team, TeamCharacter, WowAuditDelegate } from "../delegate/wowaudit.delegate";
+import { WowAuditClassMap } from "../mapper/wow-audit.mapper";
 import { BuildType, PlayerType } from "../model/build.model";
 import { PlayerUtil } from "../util/player.util";
 import { RaidHelperUtil } from "../util/raid-helper.util";
@@ -25,13 +26,15 @@ export class RaidHelper {
   ): TeamCharacter | undefined {
     if (team && discordId) {
       const characters = team.players.filter((player) => player.discordId === discordId);
-      let queryByClass = characters.find((ch) => ch.className === className);
+      let queryByClass = characters.find((ch) => WowAuditClassMap[ch.className] === className);
       let classOfSpec = Object.keys(WarcraftPlayerClassSpecs).find((className) =>
         WarcraftPlayerClassSpecs[className as WarcraftPlayerClass].includes(
           spec as WarcraftPlayerSpec
         )
       );
-      let queryByClassOfSpec = characters.find((ch) => ch.className === classOfSpec);
+      let queryByClassOfSpec = characters.find(
+        (ch) => WowAuditClassMap[ch.className] === classOfSpec
+      );
       return queryByClass ?? queryByClassOfSpec;
     }
     return undefined;

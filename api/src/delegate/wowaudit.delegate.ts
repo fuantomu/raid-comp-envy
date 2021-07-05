@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../consts";
+import { WowAuditPlayerClass } from "../mapper/wow-audit.mapper";
 import { DiscordId } from "../types";
 
 export abstract class WowAuditDelegate {
@@ -49,7 +49,7 @@ export abstract class WowAuditDelegate {
       character: name,
       realm,
       discordId: note,
-      className: className as WarcraftPlayerClass,
+      className: className as WowAuditPlayerClass,
       role,
     };
   }
@@ -70,10 +70,9 @@ interface WowAuditCharacter {
 export interface TeamCharacter {
   character: string;
   discordId: DiscordId;
-  className: WarcraftPlayerClass;
+  className: WowAuditPlayerClass;
   realm: string;
   role: string;
-  spec?: WarcraftPlayerSpec;
 }
 
 export interface Team {

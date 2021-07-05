@@ -107,3 +107,7 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.RallyingCry]: "ability_warrior_rallyingcry",
   [WarcraftRaidUtility.Darkness]: "ability_demonhunter_darkness",
 };
+
+export enum CustomIcon {
+  GroupNeedMore = "inv_misc_groupneedmore",
+}
