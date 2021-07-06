@@ -26,8 +26,8 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build, handleChangeGrouping
           <Avatar
             css={styles.icon}
             src={IconProvider.getCustomIcon(CustomIcon.GroupNeedMore)}
-            alt={common("roles.total")}
-            title={common("roles.total")}
+            alt={common("build.roles.total")}
+            title={common("build.roles.total")}
           />
           <Typography variant="h5">{build.players.length}</Typography>
         </Box>
