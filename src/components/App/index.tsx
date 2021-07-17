@@ -1,16 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import "../../utils/i18n";
-
-import React, { FC, Fragment, Suspense } from "react";
+import { FC, Fragment, Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
-
-import BuildPage from "../../pages/BuildPage";
-import ErrorBoundary from "../ErrorBoundary";
-import Loading from "../Loading";
 import useStyles from "./useStyles";
 import { Box } from "@material-ui/core";
-import EditBuildPage from "../../pages/EditBuildPage";
+
+const BuildPage = lazy(() => import("../../pages/BuildPage"));
+const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
+const Loading = lazy(() => import("../Loading"));
+const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
 
 const App: FC = () => {
   const style = useStyles();
