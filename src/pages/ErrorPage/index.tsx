@@ -18,7 +18,7 @@ const ErrorPage: FC<ErrorPageProps> = ({ error }) => {
   const history = useHistory();
 
   const handleGoBack = () => {
-    history.goBack();
+    history.back();
   };
   const handleReload = () => {
     errorBoundary?.reset();

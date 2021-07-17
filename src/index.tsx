@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import Providers from "./components/Providers";
@@ -20,7 +19,7 @@ ga4React
   .initialize()
   .then((ga4) => {
     ga4.pageview(window.location.pathname);
-    history.listen((location) => {
+    history.listen(({ location }) => {
       ga4.pageview(location.pathname);
     });
   })
