@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeOptions } from "@material-ui/core";
+import { createTheme, ThemeOptions } from "@material-ui/core";
 
 export type ThemeName = "dark" | "light";
 
@@ -83,5 +83,5 @@ const darkTheme: ThemeOptions = {
 };
 
 export default () => {
-  return createMuiTheme(process.env.DEFAULT_THEME === "LIGHT" ? lightTheme : darkTheme);
+  return createTheme(process.env.DEFAULT_THEME === "LIGHT" ? lightTheme : darkTheme);
 };

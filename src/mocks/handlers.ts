@@ -20,7 +20,7 @@ export default [
     const build = req.body as Build;
     build.buildId = Math.random().toString().replace(/[^\d]/g, "").substr(0, 8);
     builds[build.buildId] = build;
-    return res(delay(), status(200), json({
+    return res(json({
       buildId: build.buildId
     }));
   })

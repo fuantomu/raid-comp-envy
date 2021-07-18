@@ -11,7 +11,10 @@ if (process.env.REACT_APP_USE_MOCK === "true" && process.env.NODE_ENV === "devel
   // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
   const { worker } = require("./mocks/browser");
 
-  worker.start();
+  worker.start({
+    onUnhandledRequest: "bypass",
+    quiet: true
+  });
 }
 
 const ga4React = new GA4React("G-J8JWXZ1179" as string);
@@ -19,8 +22,8 @@ ga4React
   .initialize()
   .then((ga4) => {
     ga4.pageview(window.location.pathname);
-    history.listen(({ location }) => {
-      ga4.pageview(location.pathname);
+    history.listen(({ pathname }) => {
+      ga4.pageview(pathname);
     });
   })
   .catch((err) => {
