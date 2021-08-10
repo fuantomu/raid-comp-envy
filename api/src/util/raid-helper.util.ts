@@ -25,7 +25,7 @@ export abstract class RaidHelperUtil {
 
   private static parseInvite(line: string): PlayerSignup | void {
     const match = line.match(
-      /^(?:(?:(?<status>Tentative|Bench|Absence|Late),(?<classOrSpec>\w+))|(?:(?<className>\w+),(?<spec>\w+))),(?<name>[^,]+),(?<id>\d+),(?<stamp>[\d-:TZ]+)$/
+      /^(?:(?:(?<status>Tentative|Bench|Absence|Late),(?<classOrSpec>\w+))|(?:(?<className>\w+),(?<spec>\w+))),(?<name>[^,]+),(?<id>\d+),(?<stamp>[\d-:TZ]+)/
     );
     if (match && match.groups) {
       const { status, classOrSpec, className, spec, name, id } = match.groups;
