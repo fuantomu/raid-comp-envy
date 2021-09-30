@@ -21,9 +21,9 @@ export class DiscordController {
       [
         `<@&${requiredRole}> report:\n`,
         "**Add** the role to these users:",
-        roleCheck.add.map(({ user: { id } }) => `<@${id}>`),
+        ...roleCheck.add.map(({ user: { id } }) => `<@${id}>`),
         "\n**Remove** the role from these users:",
-        roleCheck.remove.map(({ user: { id } }) => `<@${id}>`),
+        ...roleCheck.remove.map(({ user: { id } }) => `<@${id}>`),
       ].join("\n")
     );
 
