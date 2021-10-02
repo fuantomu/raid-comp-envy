@@ -1,4 +1,5 @@
 swagger:
+  basePath: /api
   outputDirectory: ./dist
   entryFile: 
     - ./src/controller/*

@@ -6,5 +6,5 @@ docker run -d \
     -p 11004:3000 \
     -e WOWAUDIT_API_KEYS="%config.env.WOWAUDIT_API_KEYS%" \
     -e DISCORD_BOT_TOKEN="%config.env.DISCORD_BOT_TOKEN%" \
-    -v %config.env.GOOGLE_DATASTORE_CREDENTIALS%:/config/google-datastore.json
-    --name %deploy.container.name% $IMAGE_NAME
+    -v %config.env.GOOGLE_DATASTORE_CREDENTIALS%:/config/google-datastore.json \
+    --name %deploy.name% $IMAGE_NAME

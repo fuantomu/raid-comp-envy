@@ -20,7 +20,10 @@ export class ApiServer {
     Server.loadServices(this.app, "controller/*", __dirname);
 
     if (process.env.ENABLE_SWAGGER === "true") {
-      Server.swagger(this.app, { filePath: "./dist/swagger.json" });
+      Server.swagger(this.app, {
+        filePath: "./dist/swagger.json",
+        endpoint: "swagger"
+      });
     }
 
     this.app.use("*", undefinedHandler);
