@@ -1,12 +1,15 @@
-FROM node:lts-alpine3.12
+FROM node:lts-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --only=production
+COPY api/src   ./src
+COPY api/*     ./
 
-# Bundle app source
-COPY ./dist ./dist
-COPY ./.env* .
+RUN npm ci && npm run build
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+EXPOSE 3000
 
 CMD [ "npm", "run", "start:in:docker" ]

@@ -1,5 +1,5 @@
 import * as sha256 from "sha256";
-import { BuildModel, BuildType } from "../model/build.model";
+import { BuildCreateType, BuildModel, BuildType } from "../model/build.model";
 import { RaidHelper } from "../service/raid-helper.service";
 import { BuildId, BuildResponse, EntityType } from "../types";
 import { AsyncFactory } from "../util/async-factory";
@@ -31,11 +31,12 @@ export abstract class BuildDelegate {
     }
   }
 
-  public static async createBuild({ name, players }: BuildType): Promise<BuildResponse> {
+  public static async createBuild({ name, players }: BuildCreateType): Promise<BuildResponse> {
     const build = new BuildModel({
       buildId: sha256(`${Math.random()}_${new Date()}`).substr(0, 8),
       name: name.substr(0, 500),
       players: players,
+      lastSeen: new Date(),
     });
     await build.save();
     return {
