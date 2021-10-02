@@ -4,7 +4,7 @@ import { GET, Path } from "typescript-rest";
 export class HealthController {
   @GET
   @Path("/")
-  public async getBuild() {
+  public getBuild(): { status: string } {
     return { status: "OK" };
   }
 }

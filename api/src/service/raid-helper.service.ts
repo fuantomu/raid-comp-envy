@@ -100,6 +100,7 @@ export class RaidHelper {
       buildId: "",
       name,
       players: this.filterPlayers(team, players),
+      lastSeen: new Date(),
     };
   }
 

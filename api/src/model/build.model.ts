@@ -1,23 +1,26 @@
 import Schema from "gstore-node/lib/schema";
-import { GroupId } from "../consts";
+import { GroupId, InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../consts";
 import { DatastoreConnector } from "../datastore-connector";
 import { BuildId } from "../types";
 
 const gstore = DatastoreConnector.getInstance();
 
-export interface BuildType {
-  buildId: BuildId;
+export interface BuildCreateType {
   name: string;
   players: Array<PlayerType>;
-  lastSeen?: Date;
+}
+
+export interface BuildType extends BuildCreateType {
+  buildId: BuildId;
+  lastSeen: Date;
 }
 
 export interface PlayerType {
   name: string;
   realm?: string;
-  class: string;
-  spec?: string;
-  status: string;
+  class: WarcraftPlayerClass;
+  spec?: WarcraftPlayerSpec;
+  status: InviteStatus;
   group?: GroupId;
 }
 

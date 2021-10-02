@@ -1,2 +1,14 @@
 node_modules
 npm-debug.log
+
+dist/
+reports/
+
+.eslint
+.gitignore
+.git/
+nodemon.json
+README.md
+jest.config.js
+docker-compose.yml
+docker-compose-api.yml
