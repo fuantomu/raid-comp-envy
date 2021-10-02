@@ -1,4 +1,4 @@
-import { GET, Path, QueryParam, Return } from "typescript-rest";
+import { GET, Path, QueryParam } from "typescript-rest";
 import { DiscordDelegate } from "../delegate/discord.delegate";
 import { RoleCheckService } from "../service/raid-check.service";
 
@@ -12,7 +12,7 @@ export class DiscordController {
     @QueryParam("channelId") channelId: string
   ) {
     if (!requiredRole || !guildId || !channelId) {
-      return Return.NoResponse;
+      return;
     }
     const roleCheck = await RoleCheckService.getRoleCheck(guildId, requiredRole);
 
@@ -27,6 +27,6 @@ export class DiscordController {
       ].join("\n")
     );
 
-    return Return.NoResponse;
+    return;
   }
 }

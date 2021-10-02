@@ -6,7 +6,7 @@ import { getBuildResponseData, postBuildRequestData, postBuildResponseData } fro
 
 export const baseURL =
   process.env.REACT_APP_USE_MOCK === "false" && process.env.NODE_ENV === "development"
-    ? "http://localhost:8084"
+    ? "http://localhost:8080"
     : "/api";
 
 const errorMap: Record<string, AppErrorId> = {
