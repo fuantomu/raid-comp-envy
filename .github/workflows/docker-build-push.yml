@@ -1,0 +1,36 @@
+name: BE Docker Image CI
+
+on:
+  pull_request_target:
+    types:
+      - opened
+    branches:
+      - master
+    paths:
+      - 'api/**'
+  push:
+      branches:
+        - 'master'
+      paths:
+        - 'api/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      dockerImage: eu.gcr.io/personalweb-279207/raid-comp
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Docker Login
+      if: github.ref == 'refs/heads/master'
+      env:
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+      run: echo $DOCKER_PASSWORD | docker login -u _json_key --password-stdin https://eu.gcr.io
+    
+    - name: Docker Build
+      run: docker build -f ./api/Dockerfile -t "${{ env.dockerImage }}:build-${{ github.run_id }}" -t "${{ env.dockerImage }}:latest" ./api
+      
+    - name: Docker Push
+      if: github.ref == 'refs/heads/master'
+      run: docker image push --all-tags "${{ env.dockerImage }}"
