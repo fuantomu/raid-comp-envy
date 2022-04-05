@@ -1,5 +1,5 @@
 swagger:
-  basePath: /api
+  basePath: /api/swagger
   outputDirectory: ./dist
   entryFile: 
     - ./src/controller/*
