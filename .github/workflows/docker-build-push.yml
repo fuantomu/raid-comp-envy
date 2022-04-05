@@ -29,7 +29,7 @@ jobs:
       run: echo $DOCKER_PASSWORD | docker login -u _json_key --password-stdin https://eu.gcr.io
     
     - name: Docker Build
-      run: docker build -f ./api/Dockerfile -t "${{ env.dockerImage }}:build-${{ github.run_id }}" -t "${{ env.dockerImage }}:latest" ./api
+      run: docker build -f ./api/Dockerfile -t "${{ env.dockerImage }}:build-${{ github.run_id }}" -t "${{ env.dockerImage }}:latest" .
       
     - name: Docker Push
       if: github.ref == 'refs/heads/master'
