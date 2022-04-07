@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Box } from "@material-ui/core";
-import { FC, Fragment, lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { FC, Fragment, lazy, Suspense, useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "../../utils/i18n";
+import useTrack from "../../utils/useTrack";
 import useStyles from "./useStyles";
 
 const BuildPage = lazy(() => import("../../pages/BuildPage"));
@@ -12,6 +13,13 @@ const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
 
 const App: FC = () => {
   const style = useStyles();
+  const location = useLocation();
+  const track = useTrack();
+
+  useEffect(() => {
+    track(location.pathname);
+  }, [track, location]);
+
   return (
     <Fragment>
       <Box css={style.content}>
@@ -36,3 +44,4 @@ const App: FC = () => {
 };
 
 export default App;
+
