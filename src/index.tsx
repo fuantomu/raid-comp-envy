@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import Providers from "./components/Providers";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { GA4React } from "ga-4-react";
 
@@ -34,9 +34,9 @@ ga4React
 
 ReactDOM.render(
   <Providers>
-    <Router history={history}>
+    <BrowserRouter>
       <App />
-    </Router>
+    </BrowserRouter>
   </Providers>,
   document.getElementById("app-root")
 );

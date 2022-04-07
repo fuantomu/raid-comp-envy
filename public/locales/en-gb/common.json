@@ -1,10 +1,4 @@
 {
-  "urls": {
-    "home": "/",
-    "build": "/build",
-    "buildGrouped": "/build/g",
-    "edit": "/edit"
-  },
   "loading": "Loading...",
   "build": {
     "groups": {

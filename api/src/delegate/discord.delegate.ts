@@ -23,12 +23,12 @@ export abstract class DiscordDelegate {
     });
   }
 
-  private static async fetchDiscordApi(apiPath: string) {
+  private static async fetchDiscordApi(apiPath: string): Promise<DiscordGuildMember[]> {
     return await fetch(DiscordDelegate.getDiscordBaseUrl() + apiPath, {
       headers: {
         Authorization: `Bot ${DiscordDelegate.getBotToken()}`,
       },
-    }).then((res) => res.json());
+    }).then((res) => res.json()) as Promise<DiscordGuildMember[]>;
   }
 
   private static async postDiscordApi(apiPath: string, body: Record<string, any>) {

@@ -2,8 +2,7 @@
 import { Box, Button, Container, Typography } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import { FC, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BuildRolesCount from "../../components/BuildRolesCount";
 import Loading from "../../components/Loading";
 import ModalExport from "../../components/ModalExport";
@@ -28,31 +27,30 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
   const [build, setBuild] = useState<Build>();
   const handleError = useErrorHandler();
   const styles = useStyles();
-  const history = useHistory();
-  const [common] = useTranslation("common");
+  const navigate = useNavigate();
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
   const handleChangeGrouping = () => {
     setShouldUpdate(!shouldUpdate);
     setIsLoading(true);
-    history.push(
-      `${common(
-        grouped ? "urls.build" : "urls.buildGrouped"
-      )}/${buildId}/${BuildHelper.humanReadableURL(build?.name!)}`
+    navigate(
+      `/build${grouped ? "" : "/g"}/${buildId}/${BuildHelper.humanReadableURL(build?.name!)}`
     );
   };
 
   const handleEditBuild = () => {
-    history.push(`${common("urls.build")}/${buildId}${common("urls.edit")}`);
+    navigate(`/build/${buildId}/edit`);
   };
 
   useEffect(() => {
-    getBuild(buildId)
-      .then(({ data }) => {
-        setBuild(data);
-        setIsLoading(false);
-      })
-      .catch(handleError);
+    if (buildId) {
+      getBuild(buildId)
+        .then(({ data }) => {
+          setBuild(data);
+          setIsLoading(false);
+        })
+        .catch(handleError);
+    }
   }, [shouldUpdate, buildId, handleError]);
 
   if (isLoading) {
@@ -93,3 +91,4 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
 };
 
 export default BuildPage;
+

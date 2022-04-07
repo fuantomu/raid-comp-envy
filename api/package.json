@@ -23,7 +23,7 @@
     "cross-env": "7.0.3",
     "dotenv": "16.0.0",
     "express": "4.17.3",
-    "gstore-node": "7.2.6",
+    "gstore-node": "8.0.0",
     "morgan": "1.10.0",
     "node-cron": "3.0.0",
     "node-fetch": "3.2.3",
@@ -35,7 +35,7 @@
     "underscore": "1.13.2"
   },
   "devDependencies": {
-    "@babel/core": "7.17.8",
+    "@babel/core": "7.17.9",
     "@babel/preset-env": "7.16.11",
     "@types/cors": "2.8.12",
     "@types/express": "4.17.13",

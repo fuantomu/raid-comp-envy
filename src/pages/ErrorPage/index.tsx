@@ -2,7 +2,7 @@
 import { Box, Button, Container, Typography } from "@material-ui/core";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useErrorBoundary } from "../../components/ErrorBoundary/context";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
@@ -15,10 +15,10 @@ const ErrorPage: FC<ErrorPageProps> = ({ error }) => {
   const errorBoundary = useErrorBoundary();
   const [common] = useTranslation("common");
   const styles = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleGoBack = () => {
-    history.goBack();
+    navigate(-1);
   };
   const handleReload = () => {
     errorBoundary?.reset();
@@ -56,3 +56,4 @@ const ErrorPage: FC<ErrorPageProps> = ({ error }) => {
 };
 
 export default ErrorPage;
+

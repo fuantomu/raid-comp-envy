@@ -1,25 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useEffect, useState } from "react";
-import Loading from "../../components/Loading";
-import { useHistory, useParams } from "react-router-dom";
-import { getBuild, postBuild } from "../../services/backend";
-import useErrorHandler from "../../utils/useErrorHandler";
-import { BuildPlayer } from "../../types";
-import RaidComposition from "../../components/RaidComposition";
 import { Box, Container } from "@material-ui/core";
-import RaidChecklist from "../../components/RaidChecklist";
-import useStyles from "./useStyles";
-import UUID from "../../utils/UUID";
-import BuildRolesCount from "../../components/BuildRolesCount";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppContextProvider } from "../../components/App/context";
+import BuildRolesCount from "../../components/BuildRolesCount";
+import BuildTitle from "../../components/BuildTitle";
+import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
 import ModalImport from "../../components/ModalImport";
-import { AppContextProvider } from "../../components/App/context";
 import ModalResetBuild from "../../components/ModalResetBuild";
 import ModalSaveBuild from "../../components/ModalSaveBuild";
-import BuildTitle from "../../components/BuildTitle";
-import { PlayerUtils } from "../../utils/PlayerUtils";
+import RaidChecklist from "../../components/RaidChecklist";
+import RaidComposition from "../../components/RaidComposition";
+import { getBuild, postBuild } from "../../services/backend";
+import { BuildPlayer, Build } from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
+import { PlayerUtils } from "../../utils/PlayerUtils";
+import useErrorHandler from "../../utils/useErrorHandler";
+import UUID from "../../utils/UUID";
+import useStyles from "./useStyles";
 
 export interface EditBuildPageProps {}
 
@@ -29,7 +29,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const styles = useStyles();
   const handleError = useErrorHandler();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [name, setName] = useState<string>(common("build.new"));
   const [players, setPlayers] = useState<BuildPlayer[]>([]);
   let openEditModal: any = () => {};
@@ -43,7 +43,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             PlayerUtils.getFullName(player)
         );
       }),
-      ...newPlayers.filter(player => player.name !== ""),
+      ...newPlayers.filter((player) => player.name !== ""),
     ]);
   };
 
@@ -52,7 +52,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       buildId,
       name: name ?? common("build.unnamed"),
       players,
-    };
+    } as Build;
   };
 
   const saveBuild = async () => {
@@ -60,7 +60,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setIsLoading(true);
     postBuild(getCurrentBuild())
       .then(({ data: { buildId } }) => {
-        history.push(`${common("urls.build")}/${buildId}/${BuildHelper.humanReadableURL(name)}`);
+        navigate(`/build/${buildId}/${BuildHelper.humanReadableURL(name)}`);
       })
       .catch(handleError);
   };
@@ -107,7 +107,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       <ModalAdd editPlayer={editPlayerModalFn} />
       <Container>
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
-          <BuildTitle css={styles.buildTitle} key={UUID()} title={name} onChange={handleTitleChange} />
+          <BuildTitle
+            css={styles.buildTitle}
+            key={UUID()}
+            title={name}
+            onChange={handleTitleChange}
+          />
           <BuildRolesCount key={UUID()} handleChangeGrouping={() => {}} build={getCurrentBuild()} />
         </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
