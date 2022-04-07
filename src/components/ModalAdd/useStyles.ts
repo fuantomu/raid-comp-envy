@@ -70,6 +70,11 @@ export default () => {
       & > button.Mui-selected {
         background-color: ${hexToRgba(palette.primary.dark, 0.6)};
       }
+
+      & button.MuiButtonBase-root.MuiToggleButton-root {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        padding: 11px;
+      }
     `
   };
 };
