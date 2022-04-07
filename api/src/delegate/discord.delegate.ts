@@ -1,5 +1,8 @@
-import fetch from "node-fetch";
+import { RequestInfo, RequestInit } from "node-fetch";
 import { DiscordGuildMember } from "./model/discord.types";
+
+const fetch = (url: RequestInfo, init?: RequestInit) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
 export abstract class DiscordDelegate {
   private static getBotToken(): string {
@@ -24,11 +27,11 @@ export abstract class DiscordDelegate {
   }
 
   private static async fetchDiscordApi(apiPath: string): Promise<DiscordGuildMember[]> {
-    return await fetch(DiscordDelegate.getDiscordBaseUrl() + apiPath, {
+    return (await fetch(DiscordDelegate.getDiscordBaseUrl() + apiPath, {
       headers: {
         Authorization: `Bot ${DiscordDelegate.getBotToken()}`,
       },
-    }).then((res) => res.json()) as Promise<DiscordGuildMember[]>;
+    }).then((res) => res.json())) as Promise<DiscordGuildMember[]>;
   }
 
   private static async postDiscordApi(apiPath: string, body: Record<string, any>) {

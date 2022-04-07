@@ -1,6 +1,9 @@
-import fetch from "node-fetch";
+import { RequestInfo, RequestInit } from "node-fetch";
 import { WowAuditPlayerClass } from "../mapper/wow-audit.mapper";
 import { DiscordId } from "../types";
+
+const fetch = (url: RequestInfo, init?: RequestInit) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
 export abstract class WowAuditDelegate {
   public static async getTeams(): Promise<Team[]> {
