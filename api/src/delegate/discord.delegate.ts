@@ -1,8 +1,5 @@
-import { RequestInfo, RequestInit } from "node-fetch";
+import fetch from "node-fetch";
 import { DiscordGuildMember } from "./model/discord.types";
-
-const fetch = (url: RequestInfo, init?: RequestInit) =>
-  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
 export abstract class DiscordDelegate {
   private static getBotToken(): string {
