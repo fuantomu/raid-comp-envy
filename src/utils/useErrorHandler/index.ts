@@ -7,7 +7,7 @@ export default () => {
   const [, setError] = useState();
 
   return useCallback(
-    (error) => {
+    (error: any) => {
       setError(() => {
         throw error;
       });
