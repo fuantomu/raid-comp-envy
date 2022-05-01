@@ -12,12 +12,12 @@
     "i18next": "21.6.16",
     "i18next-http-backend": "1.4.0",
     "msw": "0.39.2",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
     "react-i18next": "11.16.7",
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
-    "typescript": "4.6.3"
+    "typescript": "4.6.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,13 +47,13 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "18.0.6",
-    "@types/react-dom": "18.0.2",
+    "@types/react": "18.0.8",
+    "@types/react-dom": "18.0.3",
     "@types/react-router-dom": "5.3.3",
     "@types/uuid": "8.3.4",
-    "@typescript-eslint/eslint-plugin": "5.20.0",
-    "@typescript-eslint/parser": "5.20.0",
-    "eslint": "8.13.0",
+    "@typescript-eslint/eslint-plugin": "5.21.0",
+    "@typescript-eslint/parser": "5.21.0",
+    "eslint": "8.14.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-react-app": "7.0.1",
     "uuid": "8.3.2"
