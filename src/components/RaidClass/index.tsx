@@ -1,15 +1,17 @@
 /** @jsxImportSource @emotion/react */
 
-import { Avatar, Box, Typography } from "@material-ui/core";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { WarcraftPlayerClass } from "../../consts";
-import { IconProvider } from "../../utils/IconProvider";
-import useStyles from "./useStyles";
-import useChecklistStyles from "../RaidChecklist/useStyles";
 import { BuildPlayer } from "../../types";
+import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
+import useChecklistStyles from "../RaidChecklist/useStyles";
 import TooltipPlayers from "../TooltipPlayers";
+import useStyles from "./useStyles";
 
 export interface RaidClassProps {
   className: WarcraftPlayerClass;

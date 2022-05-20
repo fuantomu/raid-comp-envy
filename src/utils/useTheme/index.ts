@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from "@material-ui/core";
+import { createTheme, ThemeOptions } from "@mui/material/styles";
 
 export type ThemeName = "dark" | "light";
 
@@ -13,7 +13,7 @@ export enum Spacing {
 }
 
 const mainTheme: ThemeOptions = {
-  spacing: (factor) => {
+  spacing: (factor?: number) => {
     let size;
     switch (factor) {
       case Spacing.xxs:

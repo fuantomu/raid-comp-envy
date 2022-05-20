@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { Avatar, Box, Typography } from "@material-ui/core";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Build } from "../../types";

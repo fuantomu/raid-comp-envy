@@ -2,11 +2,11 @@
 
 import { FC } from "react";
 import { InviteStatus } from "../../consts";
-import HelpIcon from "@material-ui/icons/Help";
-import InsertInvitationIcon from "@material-ui/icons/InsertInvitation";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import EventAvailableIcon from "@material-ui/icons/EventAvailable";
-import EventBusyIcon from "@material-ui/icons/EventBusy";
+import HelpIcon from "@mui/icons-material/Help";
+import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import EventBusyIcon from "@mui/icons-material/EventBusy";
 import { css } from "@emotion/react";
 import useTheme from "../../utils/useTheme";
 import { useTranslation } from "react-i18next";

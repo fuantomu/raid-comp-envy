@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box } from "@material-ui/core";
+import Box from "@mui/material/Box";
 import { FC } from "react";
 import { Build } from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";

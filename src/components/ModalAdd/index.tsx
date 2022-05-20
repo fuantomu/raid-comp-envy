@@ -1,19 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { Avatar, Box, Button, Modal, Typography, Input } from "@material-ui/core";
+import AddIcon from "@mui/icons-material/Add";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Input from "@mui/material/Input";
+import Modal from "@mui/material/Modal";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Typography from "@mui/material/Typography";
 import { ChangeEvent, FC, MouseEvent, useState } from "react";
-import AddIcon from "@material-ui/icons/Add";
-import useStyles from "./useStyles";
 import { useTranslation } from "react-i18next";
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import UUID from "../../utils/UUID";
-import { IconProvider } from "../../utils/IconProvider";
-import { WarcraftPlayerClassSpecs } from "../../utils/RoleProvider/consts";
-import AttendanceIcon from "../AttendanceIcon";
-import { useAppContext } from "../App/context";
 import { BuildPlayer, GroupId } from "../../types";
+import { IconProvider } from "../../utils/IconProvider";
 import { PlayerUtils } from "../../utils/PlayerUtils";
+import { WarcraftPlayerClassSpecs } from "../../utils/RoleProvider/consts";
+import UUID from "../../utils/UUID";
+import { useAppContext } from "../App/context";
+import AttendanceIcon from "../AttendanceIcon";
+import useStyles from "./useStyles";
 
 export interface ModalAddProps {
   editPlayer?: (callback: (player: BuildPlayer) => void) => void;
@@ -119,7 +124,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const renderClassToggle = () => {
     return (
       <Box>
-        <ToggleButtonGroup css={styles.buttonGroups} value={className} exclusive onChange={handleSelectClass}>
+        <ToggleButtonGroup
+          css={styles.buttonGroups}
+          value={className}
+          exclusive
+          onChange={handleSelectClass}
+        >
           {Object.keys(WarcraftPlayerClass).map((className) => (
             <ToggleButton value={className} key={UUID()} title={common(`classes.${className}`)}>
               <Avatar
@@ -136,7 +146,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const renderSpecToggle = () => {
     return (
       <Box>
-        <ToggleButtonGroup css={styles.buttonGroups} value={spec} exclusive onChange={handleSelectSpec}>
+        <ToggleButtonGroup
+          css={styles.buttonGroups}
+          value={spec}
+          exclusive
+          onChange={handleSelectSpec}
+        >
           {WarcraftPlayerClassSpecs[className].map((spec) => (
             <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
               <Avatar css={styles.icon} src={IconProvider.getSpecIcon(spec)} />
@@ -150,7 +165,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const renderStatusToggle = () => {
     return (
       <Box>
-        <ToggleButtonGroup css={styles.buttonGroups} value={status} exclusive onChange={handleSelectStatus}>
+        <ToggleButtonGroup
+          css={styles.buttonGroups}
+          value={status}
+          exclusive
+          onChange={handleSelectStatus}
+        >
           {Object.values(InviteStatus).map((status) => (
             <ToggleButton value={status} key={UUID()} title={common(`status.${status}`)}>
               <AttendanceIcon status={status} />
@@ -165,7 +185,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     const groups = ["none", 1, 2, 3, 4, 5, 6, 7, 8];
     return (
       <Box>
-        <ToggleButtonGroup css={styles.buttonGroups} value={groupId} exclusive onChange={handleSelectGroup}>
+        <ToggleButtonGroup
+          css={styles.buttonGroups}
+          value={groupId}
+          exclusive
+          onChange={handleSelectGroup}
+        >
           {groups.map((groupId) => (
             <ToggleButton value={groupId} key={UUID()}>
               <Typography css={styles.groupSelectElement}>

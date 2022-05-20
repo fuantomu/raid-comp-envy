@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Tooltip } from "@material-ui/core";
+import Tooltip from "@mui/material/Tooltip";
 import { FC, ReactElement } from "react";
 import { BuildPlayer } from "../../types";
 

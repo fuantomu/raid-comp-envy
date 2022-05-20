@@ -1,5 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Button, Container, Typography } from "@material-ui/core";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
