@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { Button } from "@material-ui/core";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Button from "@mui/material/Button";
 import { FC } from "react";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
+import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
 
 export interface ModalResetBuildProps {}
 

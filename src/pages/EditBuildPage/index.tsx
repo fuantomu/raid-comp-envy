@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Container } from "@material-ui/core";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,7 +15,7 @@ import ModalSaveBuild from "../../components/ModalSaveBuild";
 import RaidChecklist from "../../components/RaidChecklist";
 import RaidComposition from "../../components/RaidComposition";
 import { getBuild, postBuild } from "../../services/backend";
-import { BuildPlayer, Build } from "../../types";
+import { Build, BuildPlayer } from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import { PlayerUtils } from "../../utils/PlayerUtils";
 import useErrorHandler from "../../utils/useErrorHandler";

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import Input from "@mui/material/Input";
 import { ChangeEvent, FC, FocusEventHandler } from "react";
 import useStyles from "./useStyles";
-import { Input } from "@material-ui/core";
 
 export interface BuildTitleProps {
   title: string;

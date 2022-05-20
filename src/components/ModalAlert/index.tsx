@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Button, Modal } from "@material-ui/core";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
 import { FC, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useStyles from "../ModalAlert/useStyles";

@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Button } from "@material-ui/core";
+import SaveIcon from "@mui/icons-material/Save";
+import Button from "@mui/material/Button";
 import { FC } from "react";
-import ModalAlert from "../ModalAlert";
 import { useTranslation } from "react-i18next";
-import SaveIcon from "@material-ui/icons/Save";
-import { useAppContext } from "../App/context";
-import AppError from "../../utils/AppError";
 import { AppErrorId } from "../../consts";
+import AppError from "../../utils/AppError";
+import { useAppContext } from "../App/context";
+import ModalAlert from "../ModalAlert";
 
 export interface ModalSaveBuildProps {}
 
@@ -33,7 +33,7 @@ const ModalSaveBuild: FC<ModalSaveBuildProps> = () => {
 
   return (
     <>
-      <Button color="default" variant="contained" size="large" onClick={handleSaveClick}>
+      <Button color="success" variant="contained" size="large" onClick={handleSaveClick}>
         <SaveIcon />
       </Button>
       <ModalAlert

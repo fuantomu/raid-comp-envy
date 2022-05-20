@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box } from "@material-ui/core";
+import Box from "@mui/material/Box";
 import { FC, Fragment, lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "../../utils/i18n";

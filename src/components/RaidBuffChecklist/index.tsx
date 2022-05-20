@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import { FC } from "react";
-import { Build } from "../../types";
-import { Card, CardContent, Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { WarcraftRaidBuff } from "../../utils/RoleProvider/consts";
-import RaidBuff from "../RaidBuff";
+import { Build } from "../../types";
 import { RoleProvider } from "../../utils/RoleProvider";
+import { WarcraftRaidBuff } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
+import RaidBuff from "../RaidBuff";
 
 export interface RaidBuffChecklistProps {
   build: Build;
