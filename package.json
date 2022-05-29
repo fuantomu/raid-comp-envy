@@ -9,7 +9,7 @@
     "@mui/material": "5.8.1",
     "axios": "0.27.2",
     "ga-4-react": "0.1.281",
-    "i18next": "21.8.4",
+    "i18next": "21.8.5",
     "i18next-http-backend": "1.4.1",
     "msw": "0.41.1",
     "react": "18.1.0",
