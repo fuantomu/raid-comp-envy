@@ -94,7 +94,7 @@ export class RaidHelper {
   private createRHTeamBuild(players: PlayerSignup[], team: Team, buildTitle?: string): BuildType {
     let name = `${buildTitle ?? "Raid Helper Import"}`;
     if (team) {
-      name = name + ` - ${team.name}`;
+      name = name + (team.name ? ` - ${team.name}` : "");
     }
     return {
       buildId: "",
@@ -107,11 +107,11 @@ export class RaidHelper {
   public createBuildFromRHByTeams(raw: string): BuildType[] {
     const { name: eventName, players } = RaidHelperUtil.parseRHCSV(raw);
     const all: Team = {
-      name: "All",
+      name: "",
       players: this.teams.map((t) => t.players).flat(),
       filter: false,
     };
-    return [all, ...this.teams]
+    return [all]
       .filter((team) => team.players.length > 0)
       .map((team) => this.createRHTeamBuild(players, team, eventName));
   }
