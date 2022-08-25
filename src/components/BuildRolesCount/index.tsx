@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
@@ -10,6 +9,7 @@ import { CustomIcon } from "../../utils/IconProvider/consts";
 import { RoleProvider } from "../../utils/RoleProvider";
 import { WarcraftRole } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
+import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 
 export interface BuildRolesCountProps {
@@ -25,8 +25,7 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build, handleChangeGrouping
     <Box key={UUID()} css={styles.roles} onClick={handleChangeGrouping}>
       {build.players.length > 0 && (
         <Box key={UUID()} css={styles.role}>
-          <Avatar
-            css={styles.icon}
+          <WarcraftIcon
             src={IconProvider.getCustomIcon(CustomIcon.GroupNeedMore)}
             alt={common("build.roles.total")}
             title={common("build.roles.total")}
@@ -42,8 +41,7 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build, handleChangeGrouping
         if (!count) return <></>;
         return (
           <Box key={UUID()} css={styles.role}>
-            <Avatar
-              css={styles.icon}
+            <WarcraftIcon
               src={IconProvider.getRoleIcon(role as WarcraftRole)}
               alt={label}
               title={label}

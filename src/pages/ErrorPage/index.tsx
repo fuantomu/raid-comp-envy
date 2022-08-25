@@ -59,4 +59,3 @@ const ErrorPage: FC<ErrorPageProps> = ({ error }) => {
 };
 
 export default ErrorPage;
-

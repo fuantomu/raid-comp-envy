@@ -9,7 +9,6 @@ export default (count: number = 0) => {
     palette,
     palette: { success, warning, error },
   } = theme;
-  const iconSize = spacing(Spacing.l);
 
   return {
     checklist: css`
@@ -29,14 +28,6 @@ export default (count: number = 0) => {
       &:hover {
         background-color: ${palette.secondary.dark};
       }
-    `,
-    icon: css`
-      width: ${iconSize}!important;
-      height: ${iconSize}!important;
-      border-radius: 20% !important;
-      border-width: 0.2ch;
-      border-style: solid;
-      border-color: black;
     `,
     name: css`
       font-weight: ${typography.fontWeightMedium}!important;

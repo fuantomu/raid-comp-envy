@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Component, ErrorInfo, ReactNode } from "react";
+import { AppErrorId } from "../../consts";
 
 import ErrorPage from "../../pages/ErrorPage";
 import AppError from "../../utils/AppError";
@@ -31,7 +32,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   componentDidCatch(error: ErrorType, errorInfo: ErrorInfo) {
     // TODO: Track error
     // eslint-disable-next-line no-console
-    console.log(error, errorInfo);
+    console.error(error, errorInfo);
   }
 
   handleReset = () => {
@@ -43,7 +44,8 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
     // If we have an error, work out what it is and how to show it
     if (error) {
-      return <ErrorPage error={error} />;
+      const err = error instanceof AppError ? error : new AppError(AppErrorId.Unspecific);
+      return <ErrorPage error={err} />;
     }
 
     // If we have no error, render children

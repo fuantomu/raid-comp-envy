@@ -5,7 +5,6 @@ import useTheme, { Spacing } from "../../utils/useTheme";
 export default (className: WarcraftPlayerClass) => {
   const theme = useTheme();
   const { palette, spacing } = theme;
-  const iconSize = theme.spacing(Spacing.l);
 
   return {
     player: css`
@@ -27,14 +26,6 @@ export default (className: WarcraftPlayerClass) => {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.2ch;
-    `,
-    icon: css`
-      width: ${iconSize}!important;
-      height: ${iconSize}!important;
-      border-radius: 20% !important;
-      border-width: 0.2ch;
-      border-style: solid;
-      border-color: black;
     `,
     name: css`
       font-weight: ${theme.typography.fontWeightMedium}!important;
