@@ -111,7 +111,7 @@ export class RaidHelper {
       players: this.teams.map((t) => t.players).flat(),
       filter: false,
     };
-    return [all]
+    return [all, ...(this.teams.length > 1 ? this.teams : [])]
       .filter((team) => team.players.length > 0)
       .map((team) => this.createRHTeamBuild(players, team, eventName));
   }
