@@ -19,6 +19,7 @@ export enum WarcraftPlayerClass {
   Shaman = "Shaman",
   Warlock = "Warlock",
   Warrior = "Warrior",
+  Evoker = "Evoker",
   Unknown = "Unknown"
 }
 
@@ -59,6 +60,8 @@ export enum WarcraftPlayerSpec {
   WarriorArms = "WarriorArms",
   WarriorFury = "WarriorFury",
   WarriorProtection = "WarriorProtection",
+  EvokerDevastation = "EvokerDevastation",
+  EvokerPreservation = "EvokerPreservation",
   Unknown = "Unknown",
 }
 
@@ -198,6 +201,10 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorArms,
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
+  ],
+  [WarcraftPlayerClass.Evoker]: [
+    WarcraftPlayerSpec.EvokerDevastation,
+    WarcraftPlayerSpec.EvokerPreservation,
   ],
   [WarcraftPlayerClass.Unknown]: [
     WarcraftPlayerSpec.Unknown

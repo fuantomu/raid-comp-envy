@@ -26,6 +26,7 @@ export const WarcraftClassIcon: {
   [WarcraftPlayerClass.Shaman]: "classicon_shaman",
   [WarcraftPlayerClass.Warlock]: "classicon_warlock",
   [WarcraftPlayerClass.Warrior]: "classicon_warrior",
+  [WarcraftPlayerClass.Evoker]: "classicon_evoker",
   [WarcraftPlayerClass.Unknown]: IconUnknown,
 };
 
@@ -68,6 +69,8 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.WarriorArms]: "ability_warrior_savageblow",
   [WarcraftPlayerSpec.WarriorFury]: "ability_warrior_innerrage",
   [WarcraftPlayerSpec.WarriorProtection]: "ability_warrior_defensivestance",
+  [WarcraftPlayerSpec.EvokerDevastation]: "classicon_evoker_devastation",
+  [WarcraftPlayerSpec.EvokerPreservation]: "classicon_evoker_preservation",
   [WarcraftPlayerSpec.Unknown]: IconUnknown,
 };
 

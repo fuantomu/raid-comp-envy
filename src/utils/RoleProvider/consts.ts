@@ -47,6 +47,8 @@ export const WarcraftSpecRole: {
   [WarcraftPlayerSpec.WarriorArms]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorFury]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank,
+  [WarcraftPlayerSpec.EvokerDevastation]: WarcraftRole.RangedDPS,
+  [WarcraftPlayerSpec.EvokerPreservation]: WarcraftRole.Healer,
   [WarcraftPlayerSpec.Unknown]: WarcraftRole.Unknown,
 };
 
@@ -75,6 +77,7 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.Warlock]: [],
   [WarcraftPlayerClass.Shaman]: [],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower],
+  [WarcraftPlayerClass.Evoker]: [],
   [WarcraftPlayerClass.Unknown]: [],
 };
 
@@ -120,6 +123,8 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior],
+  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassRaidBuffs.Evoker],
+  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassRaidBuffs.Evoker],
   [WarcraftPlayerSpec.Unknown]: [],
 };
 
@@ -161,6 +166,7 @@ export const WarcraftClassUtilities: {
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidUtility.RallyingCry],
+  [WarcraftPlayerClass.Evoker]: [],
   [WarcraftPlayerClass.Unknown]: [],
 };
 
@@ -223,6 +229,8 @@ export const WarcraftSpecUtilities: {
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
+  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassUtilities.Evoker],
+  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassUtilities.Evoker],
   [WarcraftPlayerSpec.Unknown]: [],
 };
 
@@ -289,7 +297,9 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
   ],
-  [WarcraftPlayerClass.Unknown]: [
-    WarcraftPlayerSpec.Unknown,
-  ]
+  [WarcraftPlayerClass.Evoker]: [
+    WarcraftPlayerSpec.EvokerDevastation,
+    WarcraftPlayerSpec.EvokerPreservation,
+  ],
+  [WarcraftPlayerClass.Unknown]: [WarcraftPlayerSpec.Unknown],
 };

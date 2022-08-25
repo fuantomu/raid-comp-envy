@@ -19,6 +19,7 @@ export enum WarcraftPlayerClass {
   Shaman = "Shaman",
   Warlock = "Warlock",
   Warrior = "Warrior",
+  Evoker = "Evoker",
   Unknown = "Unknown",
 }
 
@@ -67,6 +68,8 @@ export enum WarcraftPlayerSpec {
   WarriorArms = "WarriorArms",
   WarriorFury = "WarriorFury",
   WarriorProtection = "WarriorProtection",
+  EvokerDevastation = "EvokerDevastation",
+  EvokerPreservation = "EvokerPreservation",
   Unknown = "Unknown",
 }
 
@@ -85,5 +88,6 @@ export const WarcraftClassColour: {
   Shaman: "#0070DE",
   Warlock: "#8787ED",
   Warrior: "#C79C6E",
+  Evoker: "#33937f",
   Unknown: "#FFFFFF"
 };

@@ -88,6 +88,7 @@
     "Shaman": "Shaman",
     "Warlock": "Warlock",
     "Warrior": "Warrior",
+    "Evoker": "Evoker",
     "Unknown": "Unknown"
   },
   "specs": {
@@ -127,6 +128,8 @@
     "WarriorArms": "Arms",
     "WarriorFury": "Fury",
     "WarriorProtection": "Protection",
+    "EvokerDevastation": "Devastation",
+    "EvokerPreservation": "Preservation",
     "Unknown": "Unknown"
   },
   "buff": {
