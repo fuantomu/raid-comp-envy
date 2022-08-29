@@ -9,6 +9,8 @@ import { RoleProvider } from "../../utils/RoleProvider";
 import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
 import RaidUtility from "../RaidUtility";
+import UtilityInfoBadge from "../UtilityInfoBadge";
+import useInfoBadgeStyles from "../UtilityInfoBadge/useStyles";
 
 export interface RaidUtilityChecklistProps {
   build: Build;
@@ -17,9 +19,10 @@ export interface RaidUtilityChecklistProps {
 const buildUtilityChecklist = (build: Build) => {
   const raidBuffs = [];
   for (const utility in WarcraftRaidUtility) {
-    const playersWithUtility = build.players.filter(({ spec, class: className }) =>
-      RoleProvider.getSpecUtilities(spec).includes(utility as WarcraftRaidUtility) ||
-      RoleProvider.getClassUtilities(className).includes(utility as WarcraftRaidUtility)
+    const playersWithUtility = build.players.filter(
+      ({ spec, class: className }) =>
+        RoleProvider.getSpecUtilities(spec).includes(utility as WarcraftRaidUtility) ||
+        RoleProvider.getClassUtilities(className).includes(utility as WarcraftRaidUtility)
     );
     raidBuffs.push(
       <RaidUtility
@@ -34,9 +37,11 @@ const buildUtilityChecklist = (build: Build) => {
 
 const RaidUtilityChecklist: FC<RaidUtilityChecklistProps> = ({ build }) => {
   const [common] = useTranslation("common");
+  const infoBadgeStyles = useInfoBadgeStyles();
   return (
     <Card>
-      <CardContent>
+      <CardContent css={infoBadgeStyles.container}>
+        <UtilityInfoBadge />
         <Typography variant="subtitle1">{common("build.checklist.utilities")}</Typography>
         {buildUtilityChecklist(build)}
       </CardContent>
