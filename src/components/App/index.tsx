@@ -22,7 +22,7 @@ const App: FC = () => {
 
   return (
     <Fragment>
-      <Box css={style.content}>
+      <Box css={style.content} test-id="mui-root">
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>
@@ -44,4 +44,3 @@ const App: FC = () => {
 };
 
 export default App;
-
