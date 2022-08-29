@@ -22,11 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Tests
-        env:
-          CI: true
-        run: npm run test
-
       - name: Docker Login
         if: github.ref == 'refs/heads/master'
         env:
