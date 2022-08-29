@@ -2,6 +2,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
+import { useDrag } from "react-dnd";
+import { DragItemTypes } from "../../consts";
 import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
@@ -14,20 +16,22 @@ export interface PlayerProps extends BuildPlayer {
   onClick?: () => void;
 }
 
-const Player: FC<PlayerProps> = ({
-  name,
-  realm,
-  class: className,
-  spec,
-  status,
-  showRole,
-  onClick,
-}) => {
+const Player: FC<PlayerProps> = (props) => {
+  const { name, realm, class: className, spec, status, showRole, onClick } = props;
   const styles = useStyles(className);
-  const isClickable = typeof onClick != 'undefined';
+  const isClickable = typeof onClick != "undefined";
+  const [, drag] = useDrag(() => ({
+    type: DragItemTypes.PLAYER,
+    item: props,
+  }));
 
   return (
-    <Box key={UUID()} css={styles.player(isClickable)} onClick={onClick ? onClick : () => {}}>
+    <Box
+      key={UUID()}
+      css={styles.player(isClickable)}
+      onClick={onClick ? onClick : () => {}}
+      ref={isClickable ? drag : undefined}
+    >
       <Box css={styles.icons}>
         {showRole && <WarcraftIcon src={IconProvider.getSpecRoleIcon(spec)} />}
         <WarcraftIcon
