@@ -14,15 +14,14 @@ import useStyles from "./useStyles";
 
 export interface BuildRolesCountProps {
   build: Build;
-  handleChangeGrouping: () => void;
 }
 
-const BuildRolesCount: FC<BuildRolesCountProps> = ({ build, handleChangeGrouping }) => {
+const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
 
   return (
-    <Box key={UUID()} css={styles.roles} onClick={handleChangeGrouping}>
+    <Box key={UUID()} css={styles.roles}>
       {build.players.length > 0 && (
         <Box key={UUID()} css={styles.role}>
           <WarcraftIcon

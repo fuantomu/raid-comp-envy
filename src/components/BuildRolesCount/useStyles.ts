@@ -12,7 +12,6 @@ export default () => {
       gap: ${theme.spacing(Spacing.xs)};
       user-select: none;
       place-content: center;
-      cursor: pointer;
 
       @media only screen and (max-width: 650px) {
         & {

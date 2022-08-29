@@ -24,9 +24,10 @@ const Player: FC<PlayerProps> = ({
   onClick,
 }) => {
   const styles = useStyles(className);
+  const isClickable = typeof onClick != 'undefined';
 
   return (
-    <Box key={UUID()} css={styles.player} onClick={onClick ? onClick : () => {}}>
+    <Box key={UUID()} css={styles.player(isClickable)} onClick={onClick ? onClick : () => {}}>
       <Box css={styles.icons}>
         {showRole && <WarcraftIcon src={IconProvider.getSpecRoleIcon(spec)} />}
         <WarcraftIcon

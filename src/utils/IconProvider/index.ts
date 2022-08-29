@@ -64,4 +64,3 @@ export abstract class IconProvider {
     return IconProvider.getWarcraftIconURI(customIcon, size);
   }
 }
-

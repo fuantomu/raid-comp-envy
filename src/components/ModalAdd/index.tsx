@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import AddIcon from "@mui/icons-material/Add";
+import { Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
@@ -132,9 +133,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         >
           {Object.keys(WarcraftPlayerClass).map((className) => (
             <ToggleButton value={className} key={UUID()} title={common(`classes.${className}`)}>
-              <WarcraftIcon
-                src={IconProvider.getClassIcon(className as WarcraftPlayerClass)}
-              />
+              <WarcraftIcon src={IconProvider.getClassIcon(className as WarcraftPlayerClass)} />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -205,9 +204,11 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   return (
     <>
       {!editPlayer ? (
-        <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
-          <AddIcon />
-        </Button>
+        <Tooltip title={common("cta.addPlayer")} placement="top" arrow>
+          <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
+            <AddIcon />
+          </Button>
+        </Tooltip>
       ) : null}
       <Modal
         open={open}

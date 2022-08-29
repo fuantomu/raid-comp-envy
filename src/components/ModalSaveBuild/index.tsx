@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import SaveIcon from "@mui/icons-material/Save";
+import { Tooltip } from "@mui/material";
 import Button from "@mui/material/Button";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -33,9 +34,11 @@ const ModalSaveBuild: FC<ModalSaveBuildProps> = () => {
 
   return (
     <>
-      <Button color="success" variant="contained" size="large" onClick={handleSaveClick}>
-        <SaveIcon />
-      </Button>
+      <Tooltip title={common("cta.saveBuild")} placement="top" arrow>
+        <Button color="success" variant="contained" size="large" onClick={handleSaveClick}>
+          <SaveIcon />
+        </Button>
+      </Tooltip>
       <ModalAlert
         handleOpen={handleOpen}
         title={common("build.save.title")}
