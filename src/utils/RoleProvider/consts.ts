@@ -152,7 +152,10 @@ export const WarcraftClassUtilities: {
   [WarcraftPlayerClass.Mage]: [WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerClass.Monk]: [],
   [WarcraftPlayerClass.Priest]: [],
-  [WarcraftPlayerClass.Paladin]: [WarcraftRaidUtility.BlessingOfProtection],
+  [WarcraftPlayerClass.Paladin]: [
+    WarcraftRaidUtility.BlessingOfProtection,
+    WarcraftRaidUtility.CombatResurrection,
+  ],
   [WarcraftPlayerClass.Rogue]: [],
   [WarcraftPlayerClass.Warlock]: [
     WarcraftRaidUtility.CombatResurrection,
@@ -289,7 +292,5 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
   ],
-  [WarcraftPlayerClass.Unknown]: [
-    WarcraftPlayerSpec.Unknown,
-  ]
+  [WarcraftPlayerClass.Unknown]: [WarcraftPlayerSpec.Unknown],
 };
