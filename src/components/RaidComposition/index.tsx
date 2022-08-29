@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { FC } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { Build } from "../../types";
 import GroupsComposition from "./GroupsComposition";
 import RolesComposition from "./RolesComposition";
@@ -15,10 +17,14 @@ const RaidComposition: FC<RaidCompositionProps> = ({
   grouped,
   editing = false,
 }) => {
-  return grouped ? (
-    <GroupsComposition players={players} editing={editing} />
-  ) : (
-    <RolesComposition players={players} editing={editing} />
+  return (
+    <DndProvider backend={HTML5Backend}>
+      {grouped ? (
+        <GroupsComposition players={players} editing={editing} />
+      ) : (
+        <RolesComposition players={players} editing={editing} />
+      )}
+    </DndProvider>
   );
 };
 
