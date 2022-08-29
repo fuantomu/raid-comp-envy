@@ -71,7 +71,7 @@ export enum WarcraftPlayerSpec {
 }
 
 export const WarcraftClassColour: {
-  [className in WarcraftPlayerClass]: string
+  [className in WarcraftPlayerClass]: string;
 } = {
   DeathKnight: "#C41F3B",
   DemonHunter: "#A330C9",
@@ -85,5 +85,9 @@ export const WarcraftClassColour: {
   Shaman: "#0070DE",
   Warlock: "#8787ED",
   Warrior: "#C79C6E",
-  Unknown: "#FFFFFF"
+  Unknown: "#FFFFFF",
+};
+
+export const DragItemTypes = {
+  PLAYER: "player",
 };

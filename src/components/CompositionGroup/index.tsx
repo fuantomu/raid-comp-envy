@@ -4,7 +4,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
+import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
+import { DragItemTypes } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
@@ -27,13 +29,32 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
   const context = useAppContext();
+  const [, drop] = useDrop(
+    () => ({
+      accept: DragItemTypes.PLAYER,
+      drop: (player: BuildPlayer) => {
+        context?.importBuild([
+          {
+            name: player.name,
+            class: player.class,
+            spec: player.spec,
+            status: player.status,
+            group: groupId as GroupId,
+            realm: player.realm,
+            oldName: player.oldName,
+          },
+        ]);
+      },
+    }),
+    []
+  );
 
   if (players.length === 0 && !editing) {
     return <></>;
   }
 
   return (
-    <Card>
+    <Card ref={drop}>
       <CardContent>
         <Typography variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
