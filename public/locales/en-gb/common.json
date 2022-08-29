@@ -68,6 +68,15 @@
       }
     }
   },
+  "cta": {
+    "addPlayer": "Add a player",
+    "changeViewMode": "Change the view mode (groups/roles)",
+    "saveBuild": "Save build",
+    "editBuild": "Edit build",
+    "importBuild": "Import build",
+    "exportBuild": "Export build",
+    "resetBuild": "Clear build"
+  },
   "status": {
     "invited": "Invited",
     "tentative": "Tentative",

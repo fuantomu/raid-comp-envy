@@ -64,6 +64,7 @@ const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped
                   key={UUID()}
                   role={role as WarcraftRole}
                   players={buildRoles[role as WarcraftRole]}
+                  editing={editing}
                 />
               );
             })}
@@ -74,6 +75,7 @@ const RaidComposition: FC<RaidCompositionProps> = ({ build: { players }, grouped
               key={UUID()}
               role={WarcraftRole.Unknown}
               players={buildRoles[WarcraftRole.Unknown]}
+              editing={editing}
               spread
             />
           </Box>
