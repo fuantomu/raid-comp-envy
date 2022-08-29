@@ -19,6 +19,7 @@ export default () => {
       width: min(550px, 100%);
       justify-content: center;
       gap: ${theme.spacing(Spacing.m)};
+      flex-wrap: wrap;
 
       & > * {
         width: 10em;
