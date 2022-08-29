@@ -68,6 +68,15 @@
       }
     }
   },
+  "cta": {
+    "addPlayer": "Add a player",
+    "changeViewMode": "Change the view mode (groups/roles)",
+    "saveBuild": "Save build",
+    "editBuild": "Edit build",
+    "importBuild": "Import build",
+    "exportBuild": "Export build",
+    "resetBuild": "Clear build"
+  },
   "status": {
     "invited": "Invited",
     "tentative": "Tentative",
@@ -79,6 +88,7 @@
     "DeathKnight": "Death Knight",
     "DemonHunter": "Demon Hunter",
     "Druid": "Druid",
+    "Evoker": "Evoker",
     "Hunter": "Hunter",
     "Mage": "Mage",
     "Monk": "Monk",
@@ -88,7 +98,6 @@
     "Shaman": "Shaman",
     "Warlock": "Warlock",
     "Warrior": "Warrior",
-    "Evoker": "Evoker",
     "Unknown": "Unknown"
   },
   "specs": {
@@ -101,6 +110,8 @@
     "DruidFeral": "Feral",
     "DruidGuardian": "Guardian",
     "DruidRestoration": "Restoration",
+    "EvokerDevastation": "Devastation",
+    "EvokerPreservation": "Preservation",
     "HunterBeastmastery": "Beast Mastery",
     "HunterMarksmanship": "Marksmanship",
     "HunterSurvival": "Survival",
@@ -128,8 +139,6 @@
     "WarriorArms": "Arms",
     "WarriorFury": "Fury",
     "WarriorProtection": "Protection",
-    "EvokerDevastation": "Devastation",
-    "EvokerPreservation": "Preservation",
     "Unknown": "Unknown"
   },
   "buff": {

@@ -17,6 +17,7 @@ export const WarcraftClassIcon: {
   [WarcraftPlayerClass.DeathKnight]: "classicon_deathknight",
   [WarcraftPlayerClass.DemonHunter]: "classicon_demonhunter",
   [WarcraftPlayerClass.Druid]: "classicon_druid",
+  [WarcraftPlayerClass.Evoker]: "classicon_evoker",
   [WarcraftPlayerClass.Hunter]: "classicon_hunter",
   [WarcraftPlayerClass.Mage]: "classicon_mage",
   [WarcraftPlayerClass.Monk]: "classicon_monk",
@@ -26,7 +27,6 @@ export const WarcraftClassIcon: {
   [WarcraftPlayerClass.Shaman]: "classicon_shaman",
   [WarcraftPlayerClass.Warlock]: "classicon_warlock",
   [WarcraftPlayerClass.Warrior]: "classicon_warrior",
-  [WarcraftPlayerClass.Evoker]: "classicon_evoker",
   [WarcraftPlayerClass.Unknown]: IconUnknown,
 };
 
@@ -42,6 +42,8 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.DruidFeral]: "ability_druid_catform",
   [WarcraftPlayerSpec.DruidGuardian]: "ability_racial_bearform",
   [WarcraftPlayerSpec.DruidRestoration]: "spell_nature_healingtouch",
+  [WarcraftPlayerSpec.EvokerDevastation]: "classicon_evoker_devastation",
+  [WarcraftPlayerSpec.EvokerPreservation]: "classicon_evoker_preservation",
   [WarcraftPlayerSpec.HunterBeastmastery]: "ability_hunter_bestialdiscipline",
   [WarcraftPlayerSpec.HunterMarksmanship]: "ability_hunter_focusedaim",
   [WarcraftPlayerSpec.HunterSurvival]: "ability_hunter_camouflage",
@@ -69,8 +71,6 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.WarriorArms]: "ability_warrior_savageblow",
   [WarcraftPlayerSpec.WarriorFury]: "ability_warrior_innerrage",
   [WarcraftPlayerSpec.WarriorProtection]: "ability_warrior_defensivestance",
-  [WarcraftPlayerSpec.EvokerDevastation]: "classicon_evoker_devastation",
-  [WarcraftPlayerSpec.EvokerPreservation]: "classicon_evoker_preservation",
   [WarcraftPlayerSpec.Unknown]: IconUnknown,
 };
 

@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppContextProvider } from "../../components/App/context";
 import BuildRolesCount from "../../components/BuildRolesCount";
 import BuildTitle from "../../components/BuildTitle";
+import ChangeViewModeButton from "../../components/ChangeViewModeButton";
 import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
 import ModalImport from "../../components/ModalImport";
@@ -33,6 +34,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const navigate = useNavigate();
   const [name, setName] = useState<string>(common("build.new"));
   const [players, setPlayers] = useState<BuildPlayer[]>([]);
+  const [grouped, setGrouped] = useState(false);
   let openEditModal: any = () => {};
 
   const importBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
@@ -85,6 +87,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   };
 
+  const handleChangeGrouping = () => {
+    setGrouped(!grouped);
+  };
+
   useEffect(() => {
     if (buildId) {
       getBuild(buildId)
@@ -114,19 +120,22 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             title={name}
             onChange={handleTitleChange}
           />
-          <BuildRolesCount key={UUID()} handleChangeGrouping={() => {}} build={getCurrentBuild()} />
+          <BuildRolesCount key={UUID()} build={getCurrentBuild()} />
         </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
           <ModalAdd />
-          <ModalImport />
+          <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
           <ModalSaveBuild />
-          <ModalResetBuild />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
-          <RaidComposition build={getCurrentBuild()} grouped editing />
+          <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidChecklist build={getCurrentBuild()} />
+        </Box>
+        <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
+          <ModalImport />
+          <ModalResetBuild />
         </Box>
       </Container>
     </AppContextProvider>

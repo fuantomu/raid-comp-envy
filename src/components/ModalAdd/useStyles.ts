@@ -5,7 +5,6 @@ import useTheme, { Spacing } from "../../utils/useTheme";
 export default () => {
   const theme = useTheme();
   const { palette, shadows, spacing } = theme;
-  const iconSize = spacing(Spacing.l);
 
   return {
     modal: css`
@@ -33,14 +32,6 @@ export default () => {
         margin-left: auto;
       }
     `,
-    icon: css`
-      width: ${iconSize}!important;
-      height: ${iconSize}!important;
-      border-radius: 20% !important;
-      border-width: 0.2ch;
-      border-style: solid;
-      border-color: black;
-    `,
     content: css`
       display: grid;
       place-items: center;
@@ -55,7 +46,7 @@ export default () => {
     nameInput: css`
       width: 100%;
       padding: ${spacing(Spacing.xs)};
-      
+
       input {
         text-align: center;
       }

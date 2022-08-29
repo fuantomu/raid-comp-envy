@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
@@ -8,6 +7,7 @@ import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import { WarcraftRaidBuff } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
+import WarcraftIcon from "../Icon";
 import useChecklistStyles from "../RaidChecklist/useStyles";
 import TooltipPlayers from "../TooltipPlayers";
 
@@ -24,7 +24,7 @@ const RaidBuff: FC<RaidBuffProps> = ({ buff, players }) => {
   return (
     <TooltipPlayers key={UUID()} players={players}>
       <Box css={styles.container}>
-        <Avatar css={styles.icon} src={IconProvider.getBuffIcon(buff)} />
+        <WarcraftIcon src={IconProvider.getBuffIcon(buff)} />
         <Typography css={styles.name}>{common(`buff.${buff}`)}</Typography>
         <Typography css={styles.count}>{count}</Typography>
       </Box>

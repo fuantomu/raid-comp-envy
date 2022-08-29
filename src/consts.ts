@@ -10,6 +10,7 @@ export enum WarcraftPlayerClass {
   DeathKnight = "DeathKnight",
   DemonHunter = "DemonHunter",
   Druid = "Druid",
+  Evoker = "Evoker",
   Hunter = "Hunter",
   Mage = "Mage",
   Monk = "Monk",
@@ -19,7 +20,6 @@ export enum WarcraftPlayerClass {
   Shaman = "Shaman",
   Warlock = "Warlock",
   Warrior = "Warrior",
-  Evoker = "Evoker",
   Unknown = "Unknown",
 }
 
@@ -41,6 +41,8 @@ export enum WarcraftPlayerSpec {
   DruidFeral = "DruidFeral",
   DruidGuardian = "DruidGuardian",
   DruidRestoration = "DruidRestoration",
+  EvokerDevastation = "EvokerDevastation",
+  EvokerPreservation = "EvokerPreservation",
   HunterBeastmastery = "HunterBeastmastery",
   HunterMarksmanship = "HunterMarksmanship",
   HunterSurvival = "HunterSurvival",
@@ -68,17 +70,16 @@ export enum WarcraftPlayerSpec {
   WarriorArms = "WarriorArms",
   WarriorFury = "WarriorFury",
   WarriorProtection = "WarriorProtection",
-  EvokerDevastation = "EvokerDevastation",
-  EvokerPreservation = "EvokerPreservation",
   Unknown = "Unknown",
 }
 
 export const WarcraftClassColour: {
-  [className in WarcraftPlayerClass]: string
+  [className in WarcraftPlayerClass]: string;
 } = {
   DeathKnight: "#C41F3B",
   DemonHunter: "#A330C9",
   Druid: "#FF7D0A",
+  Evoker: "#33937f",
   Hunter: "#A9D271",
   Mage: "#40C7EB",
   Monk: "#00FF96",
@@ -88,6 +89,9 @@ export const WarcraftClassColour: {
   Shaman: "#0070DE",
   Warlock: "#8787ED",
   Warrior: "#C79C6E",
-  Evoker: "#33937f",
-  Unknown: "#FFFFFF"
+  Unknown: "#FFFFFF",
+};
+
+export const DragItemTypes = {
+  PLAYER: "player",
 };

@@ -10,6 +10,7 @@ export enum WarcraftPlayerClass {
   DeathKnight = "DeathKnight",
   DemonHunter = "DemonHunter",
   Druid = "Druid",
+  Evoker = "Evoker",
   Hunter = "Hunter",
   Mage = "Mage",
   Monk = "Monk",
@@ -19,7 +20,6 @@ export enum WarcraftPlayerClass {
   Shaman = "Shaman",
   Warlock = "Warlock",
   Warrior = "Warrior",
-  Evoker = "Evoker",
   Unknown = "Unknown"
 }
 
@@ -33,6 +33,8 @@ export enum WarcraftPlayerSpec {
   DruidFeral = "DruidFeral",
   DruidGuardian = "DruidGuardian",
   DruidRestoration = "DruidRestoration",
+  EvokerDevastation = "EvokerDevastation",
+  EvokerPreservation = "EvokerPreservation",
   HunterBeastmastery = "HunterBeastmastery",
   HunterMarksmanship = "HunterMarksmanship",
   HunterSurvival = "HunterSurvival",
@@ -60,8 +62,6 @@ export enum WarcraftPlayerSpec {
   WarriorArms = "WarriorArms",
   WarriorFury = "WarriorFury",
   WarriorProtection = "WarriorProtection",
-  EvokerDevastation = "EvokerDevastation",
-  EvokerPreservation = "EvokerPreservation",
   Unknown = "Unknown",
 }
 
@@ -157,6 +157,10 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.DruidGuardian,
     WarcraftPlayerSpec.DruidRestoration,
   ],
+  [WarcraftPlayerClass.Evoker]: [
+    WarcraftPlayerSpec.EvokerDevastation,
+    WarcraftPlayerSpec.EvokerPreservation,
+  ],
   [WarcraftPlayerClass.Hunter]: [
     WarcraftPlayerSpec.HunterBeastmastery,
     WarcraftPlayerSpec.HunterMarksmanship,
@@ -201,10 +205,6 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorArms,
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
-  ],
-  [WarcraftPlayerClass.Evoker]: [
-    WarcraftPlayerSpec.EvokerDevastation,
-    WarcraftPlayerSpec.EvokerPreservation,
   ],
   [WarcraftPlayerClass.Unknown]: [
     WarcraftPlayerSpec.Unknown

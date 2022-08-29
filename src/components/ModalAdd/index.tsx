@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import AddIcon from "@mui/icons-material/Add";
-import Avatar from "@mui/material/Avatar";
+import { Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
@@ -18,6 +18,7 @@ import { WarcraftPlayerClassSpecs } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import AttendanceIcon from "../AttendanceIcon";
+import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 
 export interface ModalAddProps {
@@ -132,10 +133,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         >
           {Object.keys(WarcraftPlayerClass).map((className) => (
             <ToggleButton value={className} key={UUID()} title={common(`classes.${className}`)}>
-              <Avatar
-                css={styles.icon}
-                src={IconProvider.getClassIcon(className as WarcraftPlayerClass)}
-              />
+              <WarcraftIcon src={IconProvider.getClassIcon(className as WarcraftPlayerClass)} />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -154,7 +152,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         >
           {WarcraftPlayerClassSpecs[className].map((spec) => (
             <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
-              <Avatar css={styles.icon} src={IconProvider.getSpecIcon(spec)} />
+              <WarcraftIcon src={IconProvider.getSpecIcon(spec)} />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -206,9 +204,11 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   return (
     <>
       {!editPlayer ? (
-        <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
-          <AddIcon />
-        </Button>
+        <Tooltip title={common("cta.addPlayer")} placement="top" arrow>
+          <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
+            <AddIcon />
+          </Button>
+        </Tooltip>
       ) : null}
       <Modal
         open={open}
@@ -235,7 +235,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
             {renderGroupsToggle()}
           </Box>
           <Box css={styles.buttons}>
-            <Button color="primary" variant="contained" onClick={handleAddPlayer}>
+            <Button color="success" variant="contained" onClick={handleAddPlayer}>
               {oldName ? common("build.edit.save") : common("build.add.add")}
             </Button>
             {oldName ? (

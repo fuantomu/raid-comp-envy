@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Tooltip } from "@mui/material";
 import Button from "@mui/material/Button";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -36,9 +37,11 @@ const ModalResetBuild: FC<ModalResetBuildProps> = () => {
         handleConfirm={handleConfirm}
         cancelButton
       />
-      <Button color="primary" size="large" variant="contained" onClick={handleButtonClick}>
-        <DeleteForeverIcon />
-      </Button>
+      <Tooltip title={common("cta.resetBuild")} placement="top" arrow>
+        <Button color="primary" size="large" variant="contained" onClick={handleButtonClick}>
+          <DeleteForeverIcon />
+        </Button>
+      </Tooltip>
     </>
   );
 };

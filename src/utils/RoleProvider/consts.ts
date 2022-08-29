@@ -68,6 +68,7 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.DeathKnight]: [],
   [WarcraftPlayerClass.DemonHunter]: [WarcraftRaidBuff.MagicDamage],
   [WarcraftPlayerClass.Druid]: [],
+  [WarcraftPlayerClass.Evoker]: [],
   [WarcraftPlayerClass.Hunter]: [],
   [WarcraftPlayerClass.Mage]: [WarcraftRaidBuff.Intellect],
   [WarcraftPlayerClass.Monk]: [WarcraftRaidBuff.PhysicalDamage],
@@ -77,7 +78,6 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.Warlock]: [],
   [WarcraftPlayerClass.Shaman]: [],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower],
-  [WarcraftPlayerClass.Evoker]: [],
   [WarcraftPlayerClass.Unknown]: [],
 };
 
@@ -93,6 +93,8 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidBuffs.Druid],
   [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidBuffs.Druid],
   [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassRaidBuffs.Druid],
+  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassRaidBuffs.Evoker],
+  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassRaidBuffs.Evoker],
   [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassRaidBuffs.Hunter],
   [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassRaidBuffs.Hunter],
   [WarcraftPlayerSpec.HunterSurvival]: [...WarcraftClassRaidBuffs.Hunter],
@@ -123,8 +125,6 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior],
-  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassRaidBuffs.Evoker],
-  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassRaidBuffs.Evoker],
   [WarcraftPlayerSpec.Unknown]: [],
 };
 
@@ -153,6 +153,7 @@ export const WarcraftClassUtilities: {
     WarcraftRaidUtility.CombatResurrection,
     WarcraftRaidUtility.MovementSpeed,
   ],
+  [WarcraftPlayerClass.Evoker]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Hunter]: [WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerClass.Mage]: [WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerClass.Monk]: [],
@@ -166,7 +167,6 @@ export const WarcraftClassUtilities: {
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidUtility.RallyingCry],
-  [WarcraftPlayerClass.Evoker]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Unknown]: [],
 };
 
@@ -193,6 +193,9 @@ export const WarcraftSpecUtilities: {
     ...WarcraftClassUtilities.Druid,
     WarcraftRaidUtility.Innervate,
   ],
+
+  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassUtilities.Evoker],
+  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassUtilities.Evoker],
 
   [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassUtilities.Hunter],
   [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassUtilities.Hunter],
@@ -229,8 +232,6 @@ export const WarcraftSpecUtilities: {
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
-  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassUtilities.Evoker],
-  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassUtilities.Evoker],
   [WarcraftPlayerSpec.Unknown]: [],
 };
 
@@ -251,6 +252,10 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.DruidFeral,
     WarcraftPlayerSpec.DruidGuardian,
     WarcraftPlayerSpec.DruidRestoration,
+  ],
+  [WarcraftPlayerClass.Evoker]: [
+    WarcraftPlayerSpec.EvokerDevastation,
+    WarcraftPlayerSpec.EvokerPreservation,
   ],
   [WarcraftPlayerClass.Hunter]: [
     WarcraftPlayerSpec.HunterBeastmastery,
@@ -296,10 +301,6 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorArms,
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
-  ],
-  [WarcraftPlayerClass.Evoker]: [
-    WarcraftPlayerSpec.EvokerDevastation,
-    WarcraftPlayerSpec.EvokerPreservation,
   ],
   [WarcraftPlayerClass.Unknown]: [WarcraftPlayerSpec.Unknown],
 };
