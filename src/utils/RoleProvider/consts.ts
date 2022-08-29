@@ -166,7 +166,7 @@ export const WarcraftClassUtilities: {
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidUtility.RallyingCry],
-  [WarcraftPlayerClass.Evoker]: [],
+  [WarcraftPlayerClass.Evoker]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Unknown]: [],
 };
 
