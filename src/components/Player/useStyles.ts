@@ -7,21 +7,24 @@ export default (className: WarcraftPlayerClass) => {
   const { palette, spacing } = theme;
 
   return {
-    player: css`
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: ${spacing(Spacing.m)};
-      padding: ${spacing(Spacing.xs)};
-      margin: ${spacing(Spacing.xxs)} 0;
-      background-color: ${palette.background.paper};
-      border-radius: ${spacing(Spacing.xxs)};
-      align-items: center;
-      user-select: none;
+    player: (isClickable: boolean) => {
+      return css`
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: ${spacing(Spacing.m)};
+        padding: ${spacing(Spacing.xs)};
+        margin: ${spacing(Spacing.xxs)} 0;
+        background-color: ${palette.background.paper};
+        border-radius: ${spacing(Spacing.xxs)};
+        align-items: center;
+        user-select: none;
+        cursor: ${isClickable && 'pointer'};
 
-      &:hover {
-        background-color: ${palette.secondary.dark};
-      }
-    `,
+        &:hover {
+          background-color: ${palette.secondary.dark};
+        }
+      `;
+    },
     icons: css`
       display: grid;
       grid-template-columns: repeat(2, 1fr);

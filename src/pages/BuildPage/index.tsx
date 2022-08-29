@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import EditIcon from "@mui/icons-material/Edit";
+import { Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { FC, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import BuildRolesCount from "../../components/BuildRolesCount";
+import ChangeViewModeButton from "../../components/ChangeViewModeButton";
 import Loading from "../../components/Loading";
 import ModalExport from "../../components/ModalExport";
 import RaidChecklist from "../../components/RaidChecklist";
@@ -24,21 +27,21 @@ export interface BuildPageProps {
   grouped?: boolean;
 }
 
-const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
+const BuildPage: FC<BuildPageProps> = ({ grouped: baseGrouped }) => {
   const { buildId } = useParams<{ buildId: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [build, setBuild] = useState<Build>();
   const handleError = useErrorHandler();
   const styles = useStyles();
   const navigate = useNavigate();
-  const [shouldUpdate, setShouldUpdate] = useState(false);
+  const [common] = useTranslation("common");
+  const [grouped, setGrouped] = useState(!!baseGrouped);
 
   const handleChangeGrouping = () => {
-    setShouldUpdate(!shouldUpdate);
-    setIsLoading(true);
     navigate(
       `/build${grouped ? "" : "/g"}/${buildId}/${BuildHelper.humanReadableURL(build?.name!)}`
     );
+    setGrouped(!grouped);
   };
 
   const handleEditBuild = () => {
@@ -54,7 +57,7 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
         })
         .catch(handleError);
     }
-  }, [shouldUpdate, buildId, handleError]);
+  }, [buildId, handleError]);
 
   if (isLoading) {
     return <Loading />;
@@ -70,28 +73,27 @@ const BuildPage: FC<BuildPageProps> = ({ grouped }) => {
         <Typography variant="h4" gutterBottom css={styles.headerText}>
           {build.name}
         </Typography>
-        <BuildRolesCount
-          css={styles.rolesCount}
-          key={UUID()}
-          handleChangeGrouping={handleChangeGrouping}
-          build={build}
-        />
+        <BuildRolesCount css={styles.rolesCount} key={UUID()} build={build} />
+      </Box>
+      <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
+        <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping} />
       </Box>
       <Box key={UUID()} css={styles.gridBox}>
-        <RaidComposition build={build} grouped={!!grouped} />
+        <RaidComposition build={build} grouped={grouped} />
       </Box>
       <Box key={UUID()} css={styles.gridBox}>
         <RaidChecklist build={build} />
       </Box>
       <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
         <ModalExport build={build} />
-        <Button color="primary" variant="contained" size="large" onClick={handleEditBuild}>
-          <EditIcon />
-        </Button>
+        <Tooltip title={common("cta.editBuild")} placement="top" arrow>
+          <Button color="info" variant="contained" size="large" onClick={handleEditBuild}>
+            <EditIcon />
+          </Button>
+        </Tooltip>
       </Box>
     </Container>
   );
 };
 
 export default BuildPage;
-

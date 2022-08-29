@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import PublishIcon from "@mui/icons-material/Publish";
+import { Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
@@ -34,9 +35,11 @@ const ModalExport: FC<ModalExportProps> = ({ build }) => {
 
   return (
     <>
-      <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
-        <PublishIcon />
-      </Button>
+      <Tooltip title={common("cta.exportBuild")} placement="top" arrow>
+        <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
+          <PublishIcon />
+        </Button>
+      </Tooltip>
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.export.title")}</h2>

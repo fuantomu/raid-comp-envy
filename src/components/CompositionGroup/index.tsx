@@ -65,11 +65,11 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
               key={UUID()}
               {...player}
               showRole
-              onClick={() => {
-                if (editing) {
-                  context?.editPlayer(player);
-                }
-              }}
+              {...(editing
+                ? {
+                    onClick: () => context?.editPlayer(player),
+                  }
+                : {})}
             />
           ))}
         </Box>

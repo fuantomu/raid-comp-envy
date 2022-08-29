@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
+import { Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -34,9 +35,11 @@ const ModalImport: FC<ModalImportProps> = () => {
 
   return (
     <>
-      <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
-        <SystemUpdateAltIcon />
-      </Button>
+      <Tooltip title={common("cta.importBuild")} placement="top" arrow>
+        <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
+          <SystemUpdateAltIcon />
+        </Button>
+      </Tooltip>
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.import.title")}</h2>

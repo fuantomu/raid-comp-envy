@@ -27,7 +27,7 @@ const RolesComposition: FC<RolesCompositionProps> = ({ players, editing }) => {
                 key={UUID()}
                 role={role as WarcraftRole}
                 players={buildRoles[role as WarcraftRole]}
-                // editing={editing}
+                editing={editing}
               />
             );
           })}
@@ -38,7 +38,7 @@ const RolesComposition: FC<RolesCompositionProps> = ({ players, editing }) => {
             key={UUID()}
             role={WarcraftRole.Unknown}
             players={buildRoles[WarcraftRole.Unknown]}
-            // editing={editing}
+            editing={editing}
             spread
           />
         </Box>

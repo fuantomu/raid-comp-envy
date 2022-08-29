@@ -15,10 +15,14 @@ export default () => {
       word-break: break-word;
     `,
     buttons: css`
-      display: grid;
+      display: flex;
       width: min(550px, 100%);
-      grid-template-columns: repeat(4, 1fr);
+      justify-content: center;
       gap: ${theme.spacing(Spacing.m)};
+
+      & > * {
+        width: 10em;
+      }
     `,
     buildTitle: css`
       width: 100%;

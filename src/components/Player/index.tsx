@@ -19,13 +19,14 @@ export interface PlayerProps extends BuildPlayer {
 const Player: FC<PlayerProps> = (props) => {
   const { name, realm, class: className, spec, status, showRole, onClick } = props;
   const styles = useStyles(className);
+  const isClickable = typeof onClick != 'undefined';
   const [, drag] = useDrag(() => ({
     type: DragItemTypes.PLAYER,
     item: props,
   }));
 
   return (
-    <Box key={UUID()} css={styles.player} onClick={onClick ? onClick : () => {}} ref={drag}>
+    <Box key={UUID()} css={styles.player(isClickable)} onClick={onClick ? onClick : () => {}} ref={drag}>
       <Box css={styles.icons}>
         {showRole && <WarcraftIcon src={IconProvider.getSpecRoleIcon(spec)} />}
         <WarcraftIcon

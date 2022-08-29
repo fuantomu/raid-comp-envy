@@ -15,10 +15,14 @@ export default () => {
       word-break: break-word;
     `,
     buttons: css`
-      display: grid;
-      width: min(350px, 100%);
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      width: min(550px, 100%);
+      justify-content: center;
       gap: ${theme.spacing(Spacing.m)};
+
+      & > * {
+        width: 10em;
+      }
     `,
     rolesCount: css`
       place-self: center;
