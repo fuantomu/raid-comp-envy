@@ -7,12 +7,12 @@ on:
     branches:
       - master
     paths:
-      - 'api/**'
+      - "api/**"
   push:
-      branches:
-        - 'master'
-      paths:
-        - 'api/**'
+    branches:
+      - "master"
+    paths:
+      - "api/**"
 
 jobs:
   build:
@@ -20,17 +20,17 @@ jobs:
     env:
       dockerImage: europe-west1-docker.pkg.dev/personalweb-279207/stefanpuia/raid-comp
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Docker Login
-      if: github.ref == 'refs/heads/master'
-      env:
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-      run: echo $DOCKER_PASSWORD | docker login -u _json_key --password-stdin https://europe-west1-docker.pkg.dev
-    
-    - name: Docker Build
-      run: docker build -f ./api/Dockerfile -t "${{ env.dockerImage }}:build-${{ github.run_id }}" -t "${{ env.dockerImage }}:latest" .
-      
-    - name: Docker Push
-      if: github.ref == 'refs/heads/master'
-      run: docker image push --all-tags "${{ env.dockerImage }}"
+      - uses: actions/checkout@v3
+
+      - name: Docker Login
+        if: github.ref == 'refs/heads/master'
+        env:
+          DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        run: echo $DOCKER_PASSWORD | docker login -u _json_key --password-stdin https://europe-west1-docker.pkg.dev
+
+      - name: Docker Build
+        run: docker build -f ./api/Dockerfile -t "${{ env.dockerImage }}:build-${{ github.run_id }}" -t "${{ env.dockerImage }}:latest" .
+
+      - name: Docker Push
+        if: github.ref == 'refs/heads/master'
+        run: docker image push --all-tags "${{ env.dockerImage }}"
