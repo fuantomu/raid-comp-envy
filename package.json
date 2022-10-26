@@ -10,7 +10,7 @@
     "axios": "0.27.2",
     "ga-4-react": "0.1.281",
     "i18next": "21.10.0",
-    "i18next-http-backend": "1.4.4",
+    "i18next-http-backend": "1.4.5",
     "msw": "0.47.4",
     "react": "18.2.0",
     "react-dnd": "16.0.1",
