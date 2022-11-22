@@ -5,8 +5,8 @@
   "dependencies": {
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
-    "@mui/icons-material": "5.10.14",
-    "@mui/material": "5.10.14",
+    "@mui/icons-material": "5.10.15",
+    "@mui/material": "5.10.15",
     "axios": "0.27.2",
     "ga-4-react": "0.1.281",
     "i18next": "22.0.6",
