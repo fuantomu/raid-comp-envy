@@ -158,7 +158,10 @@ export const WarcraftClassUtilities: {
   [WarcraftPlayerClass.Mage]: [WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerClass.Monk]: [],
   [WarcraftPlayerClass.Priest]: [],
-  [WarcraftPlayerClass.Paladin]: [WarcraftRaidUtility.BlessingOfProtection],
+  [WarcraftPlayerClass.Paladin]: [
+    WarcraftRaidUtility.BlessingOfProtection,
+    WarcraftRaidUtility.CombatResurrection,
+  ],
   [WarcraftPlayerClass.Rogue]: [],
   [WarcraftPlayerClass.Warlock]: [
     WarcraftRaidUtility.CombatResurrection,
