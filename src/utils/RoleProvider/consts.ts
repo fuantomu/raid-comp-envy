@@ -47,6 +47,8 @@ export const WarcraftSpecRole: {
   [WarcraftPlayerSpec.WarriorArms]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorFury]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank,
+  [WarcraftPlayerSpec.EvokerDevastation]: WarcraftRole.RangedDPS,
+  [WarcraftPlayerSpec.EvokerPreservation]: WarcraftRole.Healer,
   [WarcraftPlayerSpec.Unknown]: WarcraftRole.Unknown,
 };
 
@@ -66,6 +68,7 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.DeathKnight]: [],
   [WarcraftPlayerClass.DemonHunter]: [WarcraftRaidBuff.MagicDamage],
   [WarcraftPlayerClass.Druid]: [],
+  [WarcraftPlayerClass.Evoker]: [],
   [WarcraftPlayerClass.Hunter]: [],
   [WarcraftPlayerClass.Mage]: [WarcraftRaidBuff.Intellect],
   [WarcraftPlayerClass.Monk]: [WarcraftRaidBuff.PhysicalDamage],
@@ -90,6 +93,8 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidBuffs.Druid],
   [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidBuffs.Druid],
   [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassRaidBuffs.Druid],
+  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassRaidBuffs.Evoker],
+  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassRaidBuffs.Evoker],
   [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassRaidBuffs.Hunter],
   [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassRaidBuffs.Hunter],
   [WarcraftPlayerSpec.HunterSurvival]: [...WarcraftClassRaidBuffs.Hunter],
@@ -148,6 +153,7 @@ export const WarcraftClassUtilities: {
     WarcraftRaidUtility.CombatResurrection,
     WarcraftRaidUtility.MovementSpeed,
   ],
+  [WarcraftPlayerClass.Evoker]: [WarcraftRaidUtility.Bloodlust, WarcraftRaidUtility.MovementSpeed],
   [WarcraftPlayerClass.Hunter]: [WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerClass.Mage]: [WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerClass.Monk]: [],
@@ -187,6 +193,9 @@ export const WarcraftSpecUtilities: {
     ...WarcraftClassUtilities.Druid,
     WarcraftRaidUtility.Innervate,
   ],
+
+  [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassUtilities.Evoker],
+  [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassUtilities.Evoker],
 
   [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassUtilities.Hunter],
   [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassUtilities.Hunter],
@@ -244,6 +253,10 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.DruidGuardian,
     WarcraftPlayerSpec.DruidRestoration,
   ],
+  [WarcraftPlayerClass.Evoker]: [
+    WarcraftPlayerSpec.EvokerDevastation,
+    WarcraftPlayerSpec.EvokerPreservation,
+  ],
   [WarcraftPlayerClass.Hunter]: [
     WarcraftPlayerSpec.HunterBeastmastery,
     WarcraftPlayerSpec.HunterMarksmanship,
@@ -289,7 +302,5 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
   ],
-  [WarcraftPlayerClass.Unknown]: [
-    WarcraftPlayerSpec.Unknown,
-  ]
+  [WarcraftPlayerClass.Unknown]: [WarcraftPlayerSpec.Unknown],
 };
