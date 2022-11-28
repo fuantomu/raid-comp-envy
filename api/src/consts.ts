@@ -10,6 +10,7 @@ export enum WarcraftPlayerClass {
   DeathKnight = "DeathKnight",
   DemonHunter = "DemonHunter",
   Druid = "Druid",
+  Evoker = "Evoker",
   Hunter = "Hunter",
   Mage = "Mage",
   Monk = "Monk",
@@ -32,6 +33,8 @@ export enum WarcraftPlayerSpec {
   DruidFeral = "DruidFeral",
   DruidGuardian = "DruidGuardian",
   DruidRestoration = "DruidRestoration",
+  EvokerDevastation = "EvokerDevastation",
+  EvokerPreservation = "EvokerPreservation",
   HunterBeastmastery = "HunterBeastmastery",
   HunterMarksmanship = "HunterMarksmanship",
   HunterSurvival = "HunterSurvival",
@@ -153,6 +156,10 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.DruidFeral,
     WarcraftPlayerSpec.DruidGuardian,
     WarcraftPlayerSpec.DruidRestoration,
+  ],
+  [WarcraftPlayerClass.Evoker]: [
+    WarcraftPlayerSpec.EvokerDevastation,
+    WarcraftPlayerSpec.EvokerPreservation,
   ],
   [WarcraftPlayerClass.Hunter]: [
     WarcraftPlayerSpec.HunterBeastmastery,

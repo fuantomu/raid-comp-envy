@@ -9,6 +9,8 @@ import { RoleProvider } from "../../utils/RoleProvider";
 import { WarcraftRaidBuff } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
 import RaidBuff from "../RaidBuff";
+import UtilityInfoBadge from "../UtilityInfoBadge";
+import useInfoBadgeStyles from "../UtilityInfoBadge/useStyles";
 
 export interface RaidBuffChecklistProps {
   build: Build;
@@ -31,9 +33,12 @@ const buildBuffChecklist = (build: Build) => {
 
 const RaidBuffChecklist: FC<RaidBuffChecklistProps> = ({ build }) => {
   const [common] = useTranslation("common");
+  const infoBadgeStyles = useInfoBadgeStyles();
+
   return (
     <Card>
-      <CardContent>
+      <CardContent css={infoBadgeStyles.container}>
+        <UtilityInfoBadge />
         <Typography variant="subtitle1">{common("build.checklist.buffs")}</Typography>
         {buildBuffChecklist(build)}
       </CardContent>

@@ -88,6 +88,7 @@
     "DeathKnight": "Death Knight",
     "DemonHunter": "Demon Hunter",
     "Druid": "Druid",
+    "Evoker": "Evoker",
     "Hunter": "Hunter",
     "Mage": "Mage",
     "Monk": "Monk",
@@ -109,6 +110,8 @@
     "DruidFeral": "Feral",
     "DruidGuardian": "Guardian",
     "DruidRestoration": "Restoration",
+    "EvokerDevastation": "Devastation",
+    "EvokerPreservation": "Preservation",
     "HunterBeastmastery": "Beast Mastery",
     "HunterMarksmanship": "Marksmanship",
     "HunterSurvival": "Survival",
@@ -162,6 +165,9 @@
   "buttons": {
     "ok": "OK",
     "cancel": "Cancel"
+  },
+  "warn": {
+    "talentBasedUtilities": "Warning: Some of these buffs and utilities have now been moved to talents. This list is assuming all players have those respective talents active."
   },
   "error": {
     "goBack": "Go Back",

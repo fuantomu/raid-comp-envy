@@ -2,7 +2,9 @@
     "eslint.options": {
         "configFile": "./.eslintrc.json"
     },
-    "cSpell.words": [],
+    "cSpell.words": [
+      "Evoker"
+    ],
     "javascript.preferences.importModuleSpecifierEnding": "js",
     "[typescript]": {
         "editor.codeActionsOnSave": {
