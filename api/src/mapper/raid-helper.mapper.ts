@@ -22,6 +22,7 @@ export const RHClassMap: {
   Shaman: WarcraftPlayerClass.Shaman,
   Warlock: WarcraftPlayerClass.Warlock,
   Warrior: WarcraftPlayerClass.Warrior,
+  Evoker: WarcraftPlayerClass.Evoker,
 };
 
 export const RHSpecMap: {
@@ -64,6 +65,8 @@ export const RHSpecMap: {
   Arms: WarcraftPlayerSpec.WarriorArms,
   Fury: WarcraftPlayerSpec.WarriorFury,
   Protection: WarcraftPlayerSpec.WarriorProtection,
+  Devastation: WarcraftPlayerSpec.EvokerDevastation,
+  Preservation: WarcraftPlayerSpec.EvokerPreservation,
 };
 
 export const RHSpecClassMap: {
@@ -106,6 +109,8 @@ export const RHSpecClassMap: {
   Arms: WarcraftPlayerClass.Warrior,
   Fury: WarcraftPlayerClass.Warrior,
   Protection: WarcraftPlayerClass.Warrior,
+  Devastation: WarcraftPlayerClass.Evoker,
+  Preservation: WarcraftPlayerClass.Evoker,
 };
 
 export const RHStatusMap: {

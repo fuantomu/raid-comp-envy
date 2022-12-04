@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
-  "ignoreDeps": ["node-fetch"],
+  "ignoreDeps": ["node-fetch", "i18next", "react-i18next"],
   "labels": ["dependencies"],
   "packageRules": [
     {

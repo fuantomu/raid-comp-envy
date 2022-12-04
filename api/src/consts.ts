@@ -90,6 +90,7 @@ export enum RaidHelperClass {
   Shaman = "Shaman",
   Warlock = "Warlock",
   Warrior = "Warrior",
+  Evoker = "Evoker",
 }
 
 export enum RaidHelperSpec {
@@ -130,6 +131,8 @@ export enum RaidHelperSpec {
   Arms = "Arms",
   Fury = "Fury",
   Protection = "Protection",
+  Devastation = "Devastation",
+  Preservation = "Preservation",
 }
 
 export enum RaidHelperStatus {
