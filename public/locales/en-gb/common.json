@@ -148,7 +148,8 @@
     "MovementSpeed": "Movement Speed",
     "PhysicalDamage": "Physical Damage",
     "MagicDamage": "Magic Damage",
-    "DamageReduction": "Damage Reduction"
+    "DamageReduction": "Damage Reduction",
+    "Versatility": "Versatility"
   },
   "utility": {
     "Bloodlust": "Bloodlust",

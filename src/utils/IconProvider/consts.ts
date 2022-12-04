@@ -94,6 +94,7 @@ export const WarcraftBuffIcon: {
   [WarcraftRaidBuff.PhysicalDamage]: "ability_monk_sparring",
   [WarcraftRaidBuff.MagicDamage]: "ability_demonhunter_empowerwards",
   [WarcraftRaidBuff.DamageReduction]: "spell_holy_devotionaura",
+  [WarcraftRaidBuff.Versatility]: "spell_nature_regeneration",
 };
 
 export const WarcraftUtilityIcon: {
