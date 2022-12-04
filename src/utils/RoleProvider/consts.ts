@@ -56,6 +56,7 @@ export enum WarcraftRaidBuff {
   Intellect = "Intellect",
   AttackPower = "AttackPower",
   Stamina = "Stamina",
+  Versatility = "Versatility",
   MovementSpeed = "MovementSpeed",
   PhysicalDamage = "PhysicalDamage",
   MagicDamage = "MagicDamage",
@@ -67,7 +68,7 @@ export const WarcraftClassRaidBuffs: {
 } = {
   [WarcraftPlayerClass.DeathKnight]: [],
   [WarcraftPlayerClass.DemonHunter]: [WarcraftRaidBuff.MagicDamage],
-  [WarcraftPlayerClass.Druid]: [],
+  [WarcraftPlayerClass.Druid]: [WarcraftRaidBuff.Versatility],
   [WarcraftPlayerClass.Evoker]: [],
   [WarcraftPlayerClass.Hunter]: [],
   [WarcraftPlayerClass.Mage]: [WarcraftRaidBuff.Intellect],
