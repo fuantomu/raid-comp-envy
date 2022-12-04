@@ -1,15 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import { WarcraftRaidBuff } from "../../utils/RoleProvider/consts";
-import UUID from "../../utils/UUID";
-import WarcraftIcon from "../Icon";
-import useChecklistStyles from "../RaidChecklist/useStyles";
-import TooltipPlayers from "../TooltipPlayers";
+import ChecklistItem from "../ChecklistItem";
 
 export interface RaidBuffProps {
   buff: WarcraftRaidBuff;
@@ -17,18 +12,14 @@ export interface RaidBuffProps {
 }
 
 const RaidBuff: FC<RaidBuffProps> = ({ buff, players }) => {
-  const count = players.length;
-  const styles = useChecklistStyles(count);
   const [common] = useTranslation("common");
 
   return (
-    <TooltipPlayers key={UUID()} players={players}>
-      <Box css={styles.container}>
-        <WarcraftIcon src={IconProvider.getBuffIcon(buff)} />
-        <Typography css={styles.name}>{common(`buff.${buff}`)}</Typography>
-        <Typography css={styles.count}>{count}</Typography>
-      </Box>
-    </TooltipPlayers>
+    <ChecklistItem
+      displayName={common(`buff.${buff}`)}
+      iconSource={IconProvider.getBuffIcon(buff)}
+      players={players}
+    />
   );
 };
 

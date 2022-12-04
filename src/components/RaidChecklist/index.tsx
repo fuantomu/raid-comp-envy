@@ -6,7 +6,7 @@ import { Build } from "../../types";
 import RaidBuffChecklist from "../RaidBuffChecklist";
 import RaidClassChecklist from "../RaidClassChecklist";
 import RaidUtilityChecklist from "../RaidUtilityChecklist";
-import useStyles from "./useStyles";
+import useStyles from "../ChecklistItem/useStyles";
 
 export interface RaidChecklistProps {
   build: Build;
