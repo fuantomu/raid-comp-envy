@@ -104,7 +104,7 @@ export enum RaidHelperSpec {
   Guardian = "Guardian",
   Restoration = "Restoration",
   Beastmastery = "Beastmastery",
-  Marksman = "Marksman",
+  Marksmanship = "Marksmanship",
   Survival = "Survival",
   Arcane = "Arcane",
   Fire = "Fire",
