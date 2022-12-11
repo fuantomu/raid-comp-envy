@@ -18,21 +18,24 @@ export default (className: WarcraftPlayerClass) => {
         border-radius: ${spacing(Spacing.xxs)};
         align-items: center;
         user-select: none;
-        cursor: ${isClickable && 'pointer'};
+        cursor: ${isClickable && "pointer"};
 
         &:hover {
           background-color: ${palette.secondary.dark};
         }
       `;
     },
-    icons: css`
+    icons: (showRole?: boolean) => css`
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(${showRole ? 2 : 1}, 1fr);
       gap: 0.2ch;
     `,
     name: css`
       font-weight: ${theme.typography.fontWeightMedium}!important;
       color: ${WarcraftClassColour[className]};
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     `,
   };
 };
