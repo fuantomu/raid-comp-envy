@@ -60,7 +60,7 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.PaladinProtection]: "ability_paladin_shieldofthetemplar",
   [WarcraftPlayerSpec.PaladinRetribution]: "spell_holy_auraoflight",
   [WarcraftPlayerSpec.RogueAssassination]: "ability_rogue_deadlybrew",
-  [WarcraftPlayerSpec.RogueOutlaw]: "inv_sword_30",
+  [WarcraftPlayerSpec.RogueOutlaw]: "ability_rogue_waylay",
   [WarcraftPlayerSpec.RogueSubtlety]: "ability_stealth",
   [WarcraftPlayerSpec.WarlockAffliction]: "spell_shadow_deathcoil",
   [WarcraftPlayerSpec.WarlockDemonology]: "spell_shadow_metamorphosis",
