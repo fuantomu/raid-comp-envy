@@ -82,6 +82,8 @@
     "tentative": "Tentative",
     "accepted": "Accepted",
     "declined": "Declined",
+    "backup": "Backup",
+    "benched": "Benched",
     "unknown": "Unknown"
   },
   "classes": {

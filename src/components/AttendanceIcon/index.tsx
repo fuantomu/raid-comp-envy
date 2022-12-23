@@ -7,6 +7,8 @@ import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import EventBusyIcon from "@mui/icons-material/EventBusy";
+import ChairIcon from '@mui/icons-material/Chair';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import { css } from "@emotion/react";
 import useTheme from "../../utils/useTheme";
 import { useTranslation } from "react-i18next";
@@ -56,6 +58,26 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
           titleAccess={common(`status.${status}`)}
           css={css`
             color: ${palette.error.main};
+          `}
+        />
+      );
+
+    case InviteStatus.Benched:
+      return (
+        <ChairIcon
+          titleAccess={common(`status.${status}`)}
+          css={css`
+            color: ${palette.error.light};
+          `}
+        />
+      );
+
+    case InviteStatus.Backup:
+      return (
+        <ChangeCircleIcon
+          titleAccess={common(`status.${status}`)}
+          css={css`
+            color: ${palette.success.light};
           `}
         />
       );
