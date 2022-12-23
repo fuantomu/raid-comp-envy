@@ -27,7 +27,9 @@ export enum InviteStatus {
   Invited = "invited",
   Tentative = "tentative",
   Accepted = "accepted",
+  Backup = "backup",
   Declined = "declined",
+  Benched = "benched",
   Unknown = "unknown",
 }
 
