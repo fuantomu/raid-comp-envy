@@ -15,6 +15,15 @@ export interface BuildType extends BuildCreateType {
   lastSeen: Date;
 }
 
+export interface BuildMeta {
+  name: string;
+  total: number;
+  tanks: number;
+  healers: number;
+  dps: number;
+  unknown?: number;
+}
+
 export interface PlayerType {
   name: string;
   realm?: string;

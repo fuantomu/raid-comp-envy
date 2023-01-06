@@ -1,18 +1,30 @@
 import { Errors, GET, Path, PathParam, POST } from "typescript-rest";
 import { BuildDelegate } from "../delegate/build.delegate";
-import { BuildCreateType, BuildType } from "../model/build.model";
+import { mapMeta } from "../mapper/build-meta.mapper";
+import { BuildCreateType, BuildMeta, BuildType } from "../model/build.model";
 import { BuildId, BuildResponse } from "../types";
 
 @Path("/build")
 export class BuildController {
-  @GET
-  @Path(":buildId")
-  public async getBuild(@PathParam("buildId") buildId: string): Promise<BuildType> {
+  private async getSingleBuild(buildId: string): Promise<BuildType> {
     const build = await BuildDelegate.findByBuildId(buildId);
     if (!build) {
       throw new Errors.NotFoundError();
     }
     return build;
+  }
+
+  @GET
+  @Path(":buildId")
+  public async getBuild(@PathParam("buildId") buildId: string): Promise<BuildType> {
+    return this.getSingleBuild(buildId);
+  }
+
+  @GET
+  @Path(":buildId/meta")
+  public async getBuildMeta(@PathParam("buildId") buildId: string): Promise<BuildMeta> {
+    const build = await this.getSingleBuild(buildId);
+    return mapMeta(build);
   }
 
   @POST
