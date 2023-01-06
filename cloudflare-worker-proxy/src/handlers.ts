@@ -3,7 +3,13 @@ import { BuildMeta, Env, HandlerParams } from "./types";
 
 const cloneRequest = (url: URL, request: Request) => {
   return new Request(url, {
-    ...request,
+    method: request.method,
+    headers: request.headers,
+    body: request.body,
+    cf: request.cf,
+    fetcher: request.fetcher,
+    redirect: request.redirect,
+    signal: request.signal,
   });
 };
 
@@ -14,7 +20,7 @@ const getBuildId = (url: URL): string => {
 
 export const handleApi = async ({ url, request, env }: HandlerParams): Promise<Response> => {
   const redirect = new URL(url.toString().replace(new RegExp(`^${url.origin}/api`), env.API_URL));
-  redirect.searchParams.append("key", env.API_KEY);
+  // redirect.searchParams.append("key", env.API_KEY);
   return fetch(cloneRequest(redirect, request));
 };
 
