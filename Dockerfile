@@ -7,13 +7,13 @@ COPY .env               ./
 COPY package.json       ./
 COPY package-lock.json  ./
 COPY tsconfig.json      ./
-RUN npm ci && npm run build
+RUN yarn install --frozen-lockfile && yarn build
 
 FROM node:lts-alpine AS api
 WORKDIR /app/api
 COPY api/src   ./src
 COPY api/*     ./
-RUN npm ci && npm run build
+RUN yarn install --frozen-lockfile && yarn build
 
 FROM eu.gcr.io/personalweb-279207/alpine-nginx-nodejs:3.9
 COPY --from=ui  /config/nginx.conf  /etc/nginx/conf.d/ui.conf
