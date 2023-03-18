@@ -3949,10 +3949,10 @@ jest-haste-map@^29.5.0:
   optionalDependencies:
     fsevents "^2.3.2"
 
-jest-html-reporter@3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/jest-html-reporter/-/jest-html-reporter-3.7.0.tgz#8bdd6d106c815767c65f88201a207ecb05e5e0f5"
-  integrity sha512-Bdr71uiCWidOkLvoV2xCvRCTaojjQTuaRplNeEWFeuxAleuHXh/dTuzq0zzwjRqgZjOA6Qoe8LGrkBIb7oXlzQ==
+jest-html-reporter@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jest-html-reporter/-/jest-html-reporter-3.7.1.tgz#134c1b4a874a1eef64b04123297ea545506232a4"
+  integrity sha512-gWD6ngP1I100kFjx3ChfmpwaugeMkEApg1ZcVMQMYKB7q2z+EzL7HP6C8a7M3n+2EB1BUJBlRrVGtr6aL4VuOw==
   dependencies:
     "@babel/core" "^7.9.0"
     "@babel/preset-env" "^7.8.7"
