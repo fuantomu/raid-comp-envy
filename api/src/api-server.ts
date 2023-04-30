@@ -68,7 +68,13 @@ export class ApiServer {
   private config(): void {
     // Native Express configuration
     this.app.use(cors({ origin: true, credentials: true }));
-    this.app.use(morgan("combined"));
+    this.app.use((req, res, next) => {
+      if (req.path !== '/health') {
+        morgan("combined")(req, res, next);
+      } else {
+        next();
+      }
+    });
     this.configureAuthenticator();
   }
 

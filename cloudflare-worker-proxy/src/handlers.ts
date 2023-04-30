@@ -31,7 +31,7 @@ const rewriteMeta = async (buildId: string, env: Env, response: Response) => {
     const meta = (await metaResponse.json()) as BuildMeta;
     rewriter = makeRewriter(
       `${meta.name}`,
-      `Raid Composition Tool\n${meta.total} players: ${meta.tanks} Tanks, ` +
+      `RaidComp: A raid composition tool for World of Warcraft\n${meta.total} players: ${meta.tanks} Tanks, ` +
         `${meta.healers} Healers, ${meta.dps} DPS` +
         (meta.unknown ? `, ${meta.unknown} Unknown` : "")
     );
@@ -45,9 +45,13 @@ export const handleFrontend = async ({ url, request, env }: HandlerParams): Prom
   const redirect = url.toString().replace(new RegExp(`^${url.origin}`), env.FRONTEND_URL);
   const response = await fetch(cloneRequest(new URL(redirect), request));
 
-  const buildId = getBuildId(url);
-  if (buildId) {
-    return rewriteMeta(buildId, env, response);
+  try {
+    const buildId = getBuildId(url);
+    if (buildId) {
+      return await rewriteMeta(buildId, env, response);
+    }
+  } catch (err) {
+    console.error(err);
   }
   return response;
 };
