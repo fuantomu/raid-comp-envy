@@ -43,15 +43,22 @@ const rewriteMeta = async (buildId: string, env: Env, response: Response) => {
 
 export const handleFrontend = async ({ url, request, env }: HandlerParams): Promise<Response> => {
   const redirect = url.toString().replace(new RegExp(`^${url.origin}`), env.FRONTEND_URL);
-  const response = await fetch(cloneRequest(new URL(redirect), request));
+  let response = await fetch(cloneRequest(new URL(redirect), request), {
+    cf: {
+      cacheTtl: 5,
+      cacheEverything: true,
+    },
+  });
 
   try {
     const buildId = getBuildId(url);
     if (buildId) {
-      return await rewriteMeta(buildId, env, response);
+      response = await rewriteMeta(buildId, env, response);
     }
   } catch (err) {
     console.error(err);
   }
+  response = new Response(response.body, response);
+  response.headers.set("Cache-Control", "max-age=1500");
   return response;
 };
