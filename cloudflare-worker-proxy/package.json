@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@cloudflare/workers-types": "4.20230717.0",
+    "@cloudflare/workers-types": "4.20230717.1",
     "wrangler": "3.3.0"
   },
   "scripts": {
