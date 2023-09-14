@@ -42,7 +42,7 @@
     "@types/jest": "29.5.4",
     "@types/morgan": "1.9.5",
     "@types/node-cron": "3.0.8",
-    "@types/node-fetch": "2.6.4",
+    "@types/node-fetch": "2.6.5",
     "@types/passport-jwt": "3.0.9",
     "@types/request": "2.48.8",
     "@types/sha256": "0.2.0",
