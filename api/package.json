@@ -45,7 +45,7 @@
     "@types/node-fetch": "2.6.7",
     "@types/passport-jwt": "3.0.11",
     "@types/request": "2.48.11",
-    "@types/sha256": "0.2.0",
+    "@types/sha256": "0.2.1",
     "@types/underscore": "1.11.11",
     "@typescript-eslint/parser": "5.62.0",
     "@babel/eslint-parser": "7.22.15",

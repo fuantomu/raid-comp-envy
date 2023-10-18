@@ -2235,10 +2235,10 @@
     "@types/mime" "*"
     "@types/node" "*"
 
-"@types/sha256@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@types/sha256/-/sha256-0.2.0.tgz#e91194d70f4eb67f08812e847feecf5146f4afdd"
-  integrity sha512-QYMr6HuxTQunFWRLZpGopbkgQFoFWOmKTBGgNSYiWMqU/CWnQSTo3edyHvgsRXsOWtOSOG/cmDptPzgCeOsQGw==
+"@types/sha256@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@types/sha256/-/sha256-0.2.1.tgz#7b6e347e0882fccb9f4ad6acb4a2c80ae847e399"
+  integrity sha512-ValOc4t7kVBoKo7FcySlX57AAJjr9bJDwqSziAcVXeTw6G8co0oOTKa3NtvixKnMDaDYV+8txMJ8sJ79gg+FTg==
   dependencies:
     "@types/node" "*"
 
