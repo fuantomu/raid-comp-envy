@@ -46,7 +46,7 @@
     "@types/passport-jwt": "3.0.13",
     "@types/request": "2.48.12",
     "@types/sha256": "0.2.1",
-    "@types/underscore": "1.11.12",
+    "@types/underscore": "1.11.13",
     "@typescript-eslint/parser": "5.62.0",
     "@babel/eslint-parser": "7.22.15",
     "babel-jest": "29.7.0",
