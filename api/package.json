@@ -44,7 +44,7 @@
     "@types/node-cron": "3.0.10",
     "@types/node-fetch": "2.6.9",
     "@types/passport-jwt": "3.0.13",
-    "@types/request": "2.48.11",
+    "@types/request": "2.48.12",
     "@types/sha256": "0.2.1",
     "@types/underscore": "1.11.12",
     "@typescript-eslint/parser": "5.62.0",
