@@ -1,10 +1,11 @@
 ### get build
 GET {{host}}/builds/6896a4ec
-
+Ocp-Apim-Subscription-Key: {{subKey}}
 
 ### create build
 POST {{host}}/builds
 Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{subKey}}
 
 {
   "buildId": "e7d35f7c",
@@ -31,6 +32,7 @@ Content-Type: application/json
 ### import builds
 POST {{host}}/build/import/raid-helper
 Content-Type: application/json
+Ocp-Apim-Subscription-Key: {{subKey}}
 
 {
   "raw": "Name,Date,Time,Description,Created by,Link\nAberrus Monday Raid,21-8-2023,19:30,\"\",Steph,https://discordapp.com/channels/redacted/redacted/redacted\n\nRole,Spec,Name,ID,Timestamp,Status\nEvoker,Devastation,Blacklily,redacted,2023-08-15T00:06:48,active\nWarlock,Destruction,Eyevy/NeptÃºne,redacted,2023-08-16T08:57:31,active\nMage,Frost,Avita/Auriol,redacted,2023-08-16T21:37:20,active\nMonk,Windwalker,Angrr/Baorbaor,redacted,2023-08-14T21:45:21,active\nHunter,Marksmanship,Linkidudie,redacted,2023-08-16T08:08:47,active\nShaman,Restoration1,Orukas,redacted,2023-08-16T03:28:03,active\nDruid,Restoration,Rymesyte/Mudokon,redacted,2023-08-14T21:40:46,active\nRogue,Assassination,Deadlyz/Softcow,redacted,2023-08-14T21:37:22,active\nAbsence,Absence,Holydotcom,redacted,2023-08-14T21:31:14,active\nPriest,Shadow,Selena(Priska)Selenya#21657,redacted,2023-08-16T16:50:03,active\nAbsence,Absence,SephBlades,redacted,2023-08-14T23:22:58,active\nMage,Fire,Disco,redacted,2023-08-14T22:11:02,active\nPaladin,Holy1,muaraan,redacted,2023-08-14T23:50:21,active\nWarrior,Fury,Zarcrain,redacted,2023-08-16T10:36:39,active"

@@ -16,3 +16,4 @@ out/
 
 local.settings.json
 .env.ps1
+http-client.private.env.json
