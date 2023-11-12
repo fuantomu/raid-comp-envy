@@ -2,7 +2,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
-import { useTranslation } from "react-i18next";
 import { BuildPlayer } from "../../types";
 import UUID from "../../utils/UUID";
 import WarcraftIcon from "../Icon";
@@ -29,7 +28,6 @@ const ChecklistItem: FC<ChecklistItemProps> = ({
     ...useChecklistStyles(count),
     ...stylesOverride,
   };
-  const [common] = useTranslation("common");
 
   return (
     <TooltipPlayers key={UUID()} players={players}>
