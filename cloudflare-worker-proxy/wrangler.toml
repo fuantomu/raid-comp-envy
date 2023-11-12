@@ -5,9 +5,9 @@ route = "raidcomp.uk/*"
 workers_dev = false
 
 [vars]
-FRONTEND_URL = "https://raid-comp.pages.dev/"
+FRONTEND_URL = "https://raid-comp.pages.dev"
 API_URL = "https://apim-raidcomp.azure-api.net/prod"
 
 [env.dev]
 route = "dev.raidcomp.uk/*"
-vars = { FRONTEND_URL = "https://dev.raid-comp.pages.dev/", API_URL = "https://apim-raidcomp.azure-api.net/dev" }
+vars = { FRONTEND_URL = "https://dev.raid-comp.pages.dev", API_URL = "https://apim-raidcomp.azure-api.net/dev" }

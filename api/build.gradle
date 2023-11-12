@@ -81,12 +81,6 @@ azurefunctions {
         os = "linux"
         javaVersion = "Java 17"
     }
-    appSettings {
-        AZURE_COSMOS_ENDPOINT = System.getenv("AZURE_COSMOS_ENDPOINT")
-        AZURE_COSMOS_KEY = System.getenv("AZURE_COSMOS_KEY")
-        AZURE_COSMOS_DATABASE = System.getenv("AZURE_COSMOS_DATABASE")
-        WOWAUDIT_API_KEY = System.getenv("WOWAUDIT_API_KEY")
-    }
 }
 
 
