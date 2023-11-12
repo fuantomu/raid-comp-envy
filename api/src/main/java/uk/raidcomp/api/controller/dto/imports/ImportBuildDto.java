@@ -1,4 +1,4 @@
-package uk.raidcomp.api.controller.dto;
+package uk.raidcomp.api.controller.dto.imports;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;

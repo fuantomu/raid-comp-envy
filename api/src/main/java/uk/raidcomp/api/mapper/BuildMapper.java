@@ -8,7 +8,7 @@ import uk.raidcomp.api.config.MapstructConfig;
 import uk.raidcomp.api.controller.dto.BuildMetaResponseDto;
 import uk.raidcomp.api.controller.dto.BuildResponseDto;
 import uk.raidcomp.api.controller.dto.CreateBuildResponseDto;
-import uk.raidcomp.api.controller.dto.ImportBuildResponseDto;
+import uk.raidcomp.api.controller.dto.imports.ImportBuildResponseDto;
 import uk.raidcomp.api.data.entity.BuildEntity;
 import uk.raidcomp.api.model.Build;
 import uk.raidcomp.api.model.Player;

@@ -5,9 +5,8 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import jakarta.validation.Valid;
-import java.util.List;
-import uk.raidcomp.api.controller.dto.ImportBuildDto;
-import uk.raidcomp.api.controller.dto.ImportBuildResponseDto;
+import uk.raidcomp.api.controller.dto.imports.ImportBuildDto;
+import uk.raidcomp.api.controller.dto.imports.ImportBuildsResponseDto;
 import uk.raidcomp.api.mapper.BuildMapper;
 import uk.raidcomp.raidhelper.RaidHelperDelegate;
 
@@ -23,9 +22,10 @@ public class BuildImportController {
   }
 
   @Post("/raid-helper")
-  public HttpResponse<List<ImportBuildResponseDto>> importFromRaidHelper(
+  public HttpResponse<ImportBuildsResponseDto> importFromRaidHelper(
       @Valid @Body ImportBuildDto body) {
     return HttpResponse.created(
-        delegate.createBuilds(body.raw()).stream().map(mapper::toImportDto).toList());
+        new ImportBuildsResponseDto(
+            delegate.createBuilds(body.raw()).stream().map(mapper::toImportDto).toList()));
   }
 }
