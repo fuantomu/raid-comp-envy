@@ -1,0 +1,91 @@
+plugins {
+    alias(libs.plugins.micronaut)
+    alias(libs.plugins.micronaut.aot)
+    alias(libs.plugins.azure.functions)
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor libs.lombok
+    annotationProcessor libs.micronaut.data.document.processor
+    annotationProcessor libs.micronaut.http.validation
+    annotationProcessor libs.micronaut.serde.processor
+    annotationProcessor libs.micronaut.validation.processor
+    annotationProcessor libs.mapstruct.processor
+
+    compileOnly libs.lombok
+
+    implementation libs.azure.functions.java.library
+    implementation libs.mapstruct
+    implementation libs.micronaut.azure.function
+    implementation libs.micronaut.data.azure.cosmos
+    implementation libs.micronaut.http.client
+    implementation libs.micronaut.serde.jackson
+    implementation libs.micronaut.validation
+    implementation libs.opencsv
+
+    runtimeOnly libs.logback.classic
+    runtimeOnly libs.snakeyaml
+
+    testImplementation libs.micronaut.http.client
+}
+
+version = "1.0"
+group = "uk.raidcomp"
+
+application {
+    mainClass.set("uk.raidcomp.api.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("azure_function")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("uk.raidcomp.*")
+    }
+    aot {
+        // Please review carefully the optimizations enabled below
+        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+    }
+}
+
+azurefunctions {
+    localDebug = "transport=dt_socket,server=y,suspend=n,address=5005"
+    resourceGroup = "raid-comp"
+    appName = "raidcomp-api"
+    pricingTier = "Consumption"
+    region = "uksouth"
+    authentication {
+        type = 'azure_cli'
+    }
+    deployment {
+        type = 'run_from_zip'
+    }
+    runtime {
+        os = "linux"
+       javaVersion = "Java 17"
+    }
+    appSettings {
+        AZURE_COSMOS_ENDPOINT = System.getenv("AZURE_COSMOS_ENDPOINT")
+        AZURE_COSMOS_KEY = System.getenv("AZURE_COSMOS_KEY")
+        AZURE_COSMOS_DATABASE = System.getenv("AZURE_COSMOS_DATABASE")
+    }
+}
+
+

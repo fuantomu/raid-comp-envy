@@ -1,0 +1,32 @@
+micronaut:
+  application:
+    name: raidcomp-api
+  server:
+    cors:
+      enabled: true
+      configurations:
+        hoppscotch:
+          allowed-origins:
+            - chrome-extension://amknoiejhlmhancpahfcfcfhllgkpbld
+        web:
+          allowed-origins:
+            - https://raidcomp.uk
+  http:
+    services:
+      wowaudit:
+        url: https://wowaudit.com
+
+
+azure:
+  cosmos:
+    default-gateway-mode: true
+    endpoint-discovery-enabled: false
+    endpoint: ${AZURE_COSMOS_ENDPOINT}
+    key: ${AZURE_COSMOS_KEY}
+    database:
+      database-name: ${AZURE_COSMOS_DATABASE}
+      packages: uk.raidcomp.api
+      update-policy: create_if_not_exists
+
+wowaudit:
+  keys: ${WOWAUDIT_API_KEY}

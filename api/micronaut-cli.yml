@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: uk
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [app-name, azure-function, azure-function-http, gradle, http-client-test, java, java-application, junit, logback, micronaut-aot, micronaut-build, micronaut-http-validation, properties, readme, serialization-jackson]
