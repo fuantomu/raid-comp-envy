@@ -6,7 +6,7 @@ import { getBuildResponseData, postBuildRequestData, postBuildResponseData } fro
 
 export const baseURL =
   process.env.REACT_APP_USE_MOCK === "false" && process.env.NODE_ENV === "development"
-    ? "http://localhost:8080"
+    ? "http://localhost:7071"
     : "/api";
 
 const errorMap: Record<string, AppErrorId> = {
@@ -33,7 +33,7 @@ service.interceptors.response.use(undefined, (error: AxiosError) => {
 });
 
 export const getBuild = (buildId: BuildId, config?: AxiosRequestConfig) =>
-  service.get<getBuildResponseData>(`/build/${buildId}`, config);
+  service.get<getBuildResponseData>(`/builds/${buildId}`, config);
 
 export const postBuild = (data: postBuildRequestData, config?: AxiosRequestConfig) =>
-  service.post<postBuildResponseData>(`/build/create`, data, config);
+  service.post<postBuildResponseData>(`/builds`, data, config);
