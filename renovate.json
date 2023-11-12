@@ -1,12 +1,27 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "ignoreDeps": ["node-fetch", "i18next", "react-i18next"],
-  "labels": ["dependencies"],
+  "extends": [
+    "config:base"
+  ],
+  "ignoreDeps": [
+    "i18next",
+    "react-i18next"
+  ],
+  "labels": [
+    "dependencies"
+  ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "automerge": true
     }
+  ],
+  "baseBranches": [
+    "dev"
   ]
 }
