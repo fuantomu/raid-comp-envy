@@ -2,6 +2,7 @@ export interface Env {
   API_URL: string;
   API_KEY: string;
   FRONTEND_URL: string;
+  EXTRA_HEADERS?: string;
 }
 
 export interface HandlerParams {

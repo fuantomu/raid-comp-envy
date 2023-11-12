@@ -1,16 +1,27 @@
 import { makeRewriter } from "./html-rewriter";
 import { BuildMeta, Env, HandlerParams } from "./types";
 
-const cloneRequest = (url: URL, request: Request) => {
+const cloneRequest = (url: URL, request: Request, extraHeaders: Record<string, string> = {}) => {
+  const headers = new Headers(request.headers);
+  Object.entries((extraHeaders)).forEach(([k, v]) => headers.set(k, v));
   return new Request(url, {
     method: request.method,
-    headers: request.headers,
+    headers,
     body: request.body,
     cf: request.cf,
     fetcher: request.fetcher,
     redirect: request.redirect,
-    signal: request.signal,
+    signal: request.signal
   });
+};
+
+const getExtraHeaders = (env: Env): Record<string, string> => {
+  const extraHeaders = {};
+  for (const header of (env.EXTRA_HEADERS || "").split(";")) {
+    const parts = header.split(":");
+    extraHeaders[parts[0]] = parts[1];
+  }
+  return extraHeaders;
 };
 
 const getBuildId = (url: URL): string => {
@@ -20,20 +31,19 @@ const getBuildId = (url: URL): string => {
 
 export const handleApi = async ({ url, request, env }: HandlerParams): Promise<Response> => {
   const redirect = new URL(url.toString().replace(new RegExp(`^${url.origin}/api`), env.API_URL));
-  // redirect.searchParams.append("key", env.API_KEY);
-  return fetch(cloneRequest(redirect, request));
+  return fetch(cloneRequest(redirect, request, getExtraHeaders(env)));
 };
 
 const rewriteMeta = async (buildId: string, env: Env, response: Response) => {
-  const metaResponse = await fetch(`${env.API_URL}/build/${buildId}/meta`);
+  const metaResponse = await fetch(`${env.API_URL}/builds/${buildId}/meta`, { headers: getExtraHeaders(env) });
   let rewriter: HTMLRewriter;
   if (metaResponse.ok) {
     const meta = (await metaResponse.json()) as BuildMeta;
     rewriter = makeRewriter(
       `${meta.name}`,
       `RaidComp: A raid composition tool for World of Warcraft\n${meta.total} players: ${meta.tanks} Tanks, ` +
-        `${meta.healers} Healers, ${meta.dps} DPS` +
-        (meta.unknown ? `, ${meta.unknown} Unknown` : "")
+      `${meta.healers} Healers, ${meta.dps} DPS` +
+      (meta.unknown ? `, ${meta.unknown} Unknown` : "")
     );
   } else {
     rewriter = makeRewriter("Build not found");
@@ -46,8 +56,8 @@ export const handleFrontend = async ({ url, request, env }: HandlerParams): Prom
   let response = await fetch(cloneRequest(new URL(redirect), request), {
     cf: {
       cacheTtl: 5,
-      cacheEverything: true,
-    },
+      cacheEverything: true
+    }
   });
 
   try {
