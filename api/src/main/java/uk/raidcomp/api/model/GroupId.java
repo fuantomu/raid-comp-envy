@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public enum GroupId {
-  NONE("none", Integer.MIN_VALUE),
+  NONE("none"),
   GROUP1(1),
   GROUP2(2),
   GROUP3(3),
@@ -26,9 +26,9 @@ public enum GroupId {
   private final String stringValue;
   private final Integer intValue;
 
-  GroupId(final String stringValue, final Integer intValue) {
+  GroupId(final String stringValue) {
     this.stringValue = stringValue;
-    this.intValue = intValue;
+    this.intValue = null;
   }
 
   GroupId(final Integer intValue) {
@@ -37,7 +37,11 @@ public enum GroupId {
   }
 
   public static GroupId of(final int groupId) {
-    return Arrays.stream(values()).filter(e -> e.intValue == groupId).findFirst().orElseThrow();
+    return Arrays.stream(values())
+        .filter(e -> e.intValue != null)
+        .filter(e -> e.intValue == groupId)
+        .findFirst()
+        .orElseThrow();
   }
 
   @Singleton

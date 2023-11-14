@@ -27,7 +27,7 @@ public abstract class PlayerSignupMapper {
   @Mapping(target = "discordId", source = "id")
   @Mapping(target = "spec", source = ".", qualifiedByName = "mapSpec")
   @Mapping(target = "className", source = ".", qualifiedByName = "mapClass")
-  @Mapping(target = "status", source = "status", qualifiedByName = "mapStatus")
+  @Mapping(target = "status", source = "statusOrClass", qualifiedByName = "mapStatus")
   public abstract PlayerSignup toDomain(RaidHelperSignup signup);
 
   @Named("mapStatus")
