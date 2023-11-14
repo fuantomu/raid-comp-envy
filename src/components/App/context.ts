@@ -7,6 +7,7 @@ type AppContextApi = {
   resetBuild: () => Promise<void>;
   getCurrentBuild: () => Build;
   editPlayer: (player: BuildPlayer) => void;
+  loadRoster: (roster: BuildPlayer[]) => Promise<void>;
 };
 
 const AppContext = createContext<AppContextApi | null>(null);

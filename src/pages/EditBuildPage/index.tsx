@@ -14,14 +14,16 @@ import ModalImport from "../../components/ModalImport";
 import ModalResetBuild from "../../components/ModalResetBuild";
 import ModalSaveBuild from "../../components/ModalSaveBuild";
 import RaidChecklist from "../../components/RaidChecklist";
+import Roster from "../../components/Roster";
 import RaidComposition from "../../components/RaidComposition";
 import { getBuild, postBuild } from "../../services/backend";
-import { Build, BuildPlayer } from "../../types";
+import { Build, BuildPlayer} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import { PlayerUtils } from "../../utils/PlayerUtils";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
+import ModalLoadRoster from "../../components/ModalLoadRoster";
 
 export interface EditBuildPageProps {}
 
@@ -34,6 +36,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const navigate = useNavigate();
   const [name, setName] = useState<string>(common("build.new"));
   const [players, setPlayers] = useState<BuildPlayer[]>([]);
+  const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [grouped, setGrouped] = useState(false);
   let openEditModal: any = () => {};
 
@@ -55,6 +58,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       buildId,
       name: name ?? common("build.unnamed"),
       players,
+    } as Build;
+  };
+
+  const getCurrentRoster = () => {
+    return {
+      buildId,
+      name: common("build.roster"),
+      players: roster
     } as Build;
   };
 
@@ -87,6 +98,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   };
 
+  const loadRoster = async (newRoster: BuildPlayer[]): Promise<void> => {
+    setRoster([...newRoster]);
+    console.log("Current roster")
+    console.log(...newRoster)
+  };
+
   const handleChangeGrouping = () => {
     setGrouped(!grouped);
   };
@@ -110,7 +127,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer }}>
+    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
       <Container>
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
@@ -122,10 +139,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           />
           <BuildRolesCount key={UUID()} build={getCurrentBuild()} />
         </Box>
+        <Box key={UUID()} css={styles.gridBox}>
+          <Roster build={getCurrentRoster()} />
+        </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
           <ModalAdd />
           <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
           <ModalSaveBuild />
+          <ModalLoadRoster />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />

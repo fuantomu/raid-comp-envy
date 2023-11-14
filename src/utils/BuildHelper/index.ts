@@ -1,5 +1,6 @@
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
 import { Build, BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
+import { RosterProvider } from "../../utils/RosterProvider";
 import { PlayerUtils } from "../PlayerUtils";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
@@ -86,6 +87,45 @@ export abstract class BuildHelper {
       })
     }
 
+    return players;
+  }
+
+  private static fixTankClasses(className: string, spec: string): string{
+    switch(spec){
+      case "Protection": {
+        return "Warrior";
+      }
+      case "Protection1": {
+        return "Paladin"
+      }
+      default:
+        return className
+    }
+  }
+
+  public static async parseRaidHelper(id: string) {
+    const players: BuildPlayer[] = [];
+    const statusIgnore = ['Absence', 'Tentative', 'Late']
+    await RosterProvider.getRosterRaidPlayers(id).then((roster) => {
+      for (const player of roster) {
+        if ((statusIgnore.includes(player.spec)) || (statusIgnore.includes(player.class))){
+          continue
+        }
+
+        const spec = player.spec.split("_")[0].replace("1","")
+        const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
+
+        players.push({
+          name: player.name,
+          class: pclass as WarcraftPlayerClass,
+          spec: (pclass + spec) as WarcraftPlayerSpec,
+          status: InviteStatus.Invited,
+          group: "roster",
+          oldName: player.name
+      })
+    }
+
+    });
     return players;
   }
 

@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { WarcraftPlayerClass } from "../../consts";
+import { WarcraftPlayerClass} from "../../consts";
 import { Build } from "../../types";
 import UUID from "../../utils/UUID";
 import RaidClass from "../RaidClass";

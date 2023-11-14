@@ -1,11 +1,12 @@
 import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
 import { RoleProvider } from "../RoleProvider";
-import { WarcraftRaidBuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
+import { WarcraftRaidBuff, WarcraftRaidDebuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
 import {
   CustomIcon,
   IconUnknown,
   WarcraftBuffIcon,
   WarcraftClassIcon,
+  WarcraftDebuffIcon,
   WarcraftIconSize,
   WarcraftRoleIcon,
   WarcraftSpecIcon,
@@ -50,6 +51,12 @@ export abstract class IconProvider {
   public static getBuffIcon(buff: WarcraftRaidBuff, size?: WarcraftIconSize): string;
   public static getBuffIcon(buff?: WarcraftRaidBuff, size?: WarcraftIconSize): string {
     return IconProvider.getWarcraftIconURI(buff && WarcraftBuffIcon[buff], size);
+  }
+
+  public static getDebuffIcon(debuff?: WarcraftRaidDebuff): string;
+  public static getDebuffIcon(debuff: WarcraftRaidDebuff, size?: WarcraftIconSize): string;
+  public static getDebuffIcon(debuff?: WarcraftRaidDebuff, size?: WarcraftIconSize): string {
+    return IconProvider.getWarcraftIconURI(debuff && WarcraftDebuffIcon[debuff], size);
   }
 
   public static getUtilityIcon(utility?: WarcraftRaidUtility): string;

@@ -209,7 +209,7 @@ const players: BuildPlayer[] = [
   {
     name: "Lamyniella",
     class: WarcraftPlayerClass.Rogue,
-    spec: WarcraftPlayerSpec.RogueOutlaw,
+    spec: WarcraftPlayerSpec.RogueCombat,
     status: InviteStatus.Accepted,
     group: 6,
   },
@@ -244,7 +244,7 @@ const players: BuildPlayer[] = [
   {
     name: "Minirax",
     class: WarcraftPlayerClass.Rogue,
-    spec: WarcraftPlayerSpec.RogueOutlaw,
+    spec: WarcraftPlayerSpec.RogueCombat,
     status: InviteStatus.Accepted,
     group: 7,
   },

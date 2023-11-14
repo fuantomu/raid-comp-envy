@@ -9,7 +9,7 @@ export type AppErrorData = {
 };
 
 export type BuildId = string;
-export type GroupId = "none" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type GroupId = "none" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | "roster";
 
 export type BuildPlayer = {
   name: string;
@@ -19,6 +19,17 @@ export type BuildPlayer = {
   status: InviteStatus;
   group?: GroupId;
   oldName?: string;
+};
+
+export type RaidHelper = {
+  signups: Array<RaidHelperSignups>;
+};
+
+export type RaidHelperSignups = {
+  role: string;
+  name: string;
+  class: string;
+  spec: string
 };
 
 export type Build = {
