@@ -47,6 +47,7 @@ export const WarcraftSpecRole: {
   [WarcraftPlayerSpec.WarriorArms]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorFury]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank,
+  [WarcraftPlayerSpec.EvokerAugmentation]: WarcraftRole.RangedDPS,
   [WarcraftPlayerSpec.EvokerDevastation]: WarcraftRole.RangedDPS,
   [WarcraftPlayerSpec.EvokerPreservation]: WarcraftRole.Healer,
   [WarcraftPlayerSpec.Unknown]: WarcraftRole.Unknown,
@@ -95,6 +96,7 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidBuffs.Druid],
   [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassRaidBuffs.Druid],
   [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassRaidBuffs.Evoker],
+  [WarcraftPlayerSpec.EvokerAugmentation]: [...WarcraftClassRaidBuffs.Evoker],
   [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassRaidBuffs.Evoker],
   [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassRaidBuffs.Hunter],
   [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassRaidBuffs.Hunter],
@@ -198,6 +200,7 @@ export const WarcraftSpecUtilities: {
     WarcraftRaidUtility.Innervate,
   ],
 
+  [WarcraftPlayerSpec.EvokerAugmentation]: [...WarcraftClassUtilities.Evoker],
   [WarcraftPlayerSpec.EvokerDevastation]: [...WarcraftClassUtilities.Evoker],
   [WarcraftPlayerSpec.EvokerPreservation]: [...WarcraftClassUtilities.Evoker],
 
@@ -258,6 +261,7 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.DruidRestoration,
   ],
   [WarcraftPlayerClass.Evoker]: [
+    WarcraftPlayerSpec.EvokerAugmentation,
     WarcraftPlayerSpec.EvokerDevastation,
     WarcraftPlayerSpec.EvokerPreservation,
   ],

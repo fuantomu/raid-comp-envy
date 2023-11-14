@@ -27,6 +27,7 @@ public enum WarcraftPlayerSpec {
   DRUID_FERAL("DruidFeral", WarcraftPlayerClass.DRUID, MELEE_DPS),
   DRUID_GUARDIAN("DruidGuardian", WarcraftPlayerClass.DRUID, TANK),
   DRUID_RESTORATION("DruidRestoration", WarcraftPlayerClass.DRUID, HEALER),
+  EVOKER_AUGMENTATION("EvokerAugmentation", WarcraftPlayerClass.EVOKER, RANGED_DPS),
   EVOKER_DEVASTATION("EvokerDevastation", WarcraftPlayerClass.EVOKER, RANGED_DPS),
   EVOKER_PRESERVATION("EvokerPreservation", WarcraftPlayerClass.EVOKER, HEALER),
   HUNTER_BEASTMASTERY("HunterBeastmastery", WarcraftPlayerClass.HUNTER, RANGED_DPS),
