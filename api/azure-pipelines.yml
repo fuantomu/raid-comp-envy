@@ -118,10 +118,16 @@ stages:
         steps:
           - checkout: self
             persistCredentials: true
+            fetchDepth: 0
 
           - script: |
-              git checkout master
-              git merge dev --no-ff
+              git config --global user.email "$(Build.RequestedForEmail)"
+              git config --global user.name "$(Build.RequestedFor)"
+
+              git checkout --track origin/master
+
+              git merge origin/dev
               git tag "$(Build.BuildId)"
+
               git push origin master
-              git push origin "$(Build.BuildId)"
+            workingDirectory: $(Build.SourcesDirectory)
