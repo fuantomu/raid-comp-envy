@@ -1,0 +1,133 @@
+pr: none
+
+trigger:
+  paths:
+    include:
+      - "api"
+  branches:
+    include:
+      - "*"
+    exclude:
+      - "master"
+
+variables:
+  branchName: ${{ replace(variables['Build.SourceBranch'], 'refs/heads/', '') }}
+  isDev: ${{ eq(variables.branchName, 'dev') }}
+  workingDirectory: "$(Build.SourcesDirectory)/api"
+  GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
+  gradleCacheVersion: v1
+
+stages:
+  - stage: build
+    displayName: Build and test
+    jobs:
+      - job: gradleBuild
+        displayName: Build
+        steps:
+          - task: JavaToolInstaller@0
+            displayName: "Install JDK 17"
+            inputs:
+              versionSpec: "17"
+              jdkArchitectureOption: "x64"
+              jdkSourceOption: "PreInstalled"
+
+          - task: Cache@2
+            inputs:
+              key: '"$(gradleCacheVersion)" | "gradle" | "$(Agent.OS)" | $(workingDirectory)/**/build.gradle'
+              restoreKeys: |
+                "$(gradleCacheVersion)" | "gradle" | "$(Agent.OS)"
+                "$(gradleCacheVersion)" | "gradle"
+                "$(gradleCacheVersion)"
+              path: $(GRADLE_USER_HOME)
+            displayName: Configure gradle caching
+
+          - task: Gradle@3
+            displayName: "Gradle Check"
+            inputs:
+              workingDirectory: "$(workingDirectory)"
+              gradleWrapperFile: "$(workingDirectory)/gradlew"
+              tasks: "check azureFunctionsPackageZip"
+              testResultsFiles: "$(workingDirectory)/**/TEST-*.xml"
+              publishJUnitResults: true
+
+          # stop the Gradle daemon to ensure no files are left open (impacting the save cache operation later)
+          - script: |
+              ./gradlew --stop
+            workingDirectory: "$(workingDirectory)"
+            displayName: Stop the Gradle daemon
+
+          - task: CopyFiles@2
+            displayName: Copy artifacts
+            inputs:
+              contents: "**/build/azure-functions/*.zip"
+              targetFolder: $(Build.ArtifactStagingDirectory)
+
+          - task: PublishBuildArtifacts@1
+            displayName: Publish build artifacts
+            inputs:
+              pathToPublish: $(Build.ArtifactStagingDirectory)
+
+  - stage: deployDev
+    displayName: Deploy Dev
+    dependsOn: build
+    variables:
+      - group: deploy-dev
+    jobs:
+      - deployment: deployDev
+        displayName: Deploy Dev
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureFunctionApp@2
+                  inputs:
+                    connectedServiceNameARM: raid-comp-deployer
+                    appType: "functionAppLinux"
+                    appName: "raidcomp-api-dev"
+                    package: "$(Pipeline.Workspace)/**/*.zip"
+                    runtimeStack: "JAVA|17"
+                    deploymentMethod: "zipDeploy"
+
+  - stage: deploy
+    displayName: Deploy Prod
+    dependsOn: deployDev
+    condition: and(succeeded(), eq(variables.isDev, true))
+    variables:
+      - group: deploy-prod
+    jobs:
+      - deployment: deployProd
+        displayName: Deploy Prod
+        environment: prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureFunctionApp@2
+                  inputs:
+                    connectedServiceNameARM: raid-comp-deployer
+                    appType: "functionAppLinux"
+                    appName: "raidcomp-api-prod"
+                    package: "$(Pipeline.Workspace)/**/*.zip"
+                    runtimeStack: "JAVA|17"
+                    deploymentMethod: "zipDeploy"
+
+      - job: mergeMaster
+        displayName: Merge dev into master
+        dependsOn: deployProd
+        steps:
+          - checkout: self
+            persistCredentials: true
+            fetchDepth: 0
+
+          - script: |
+              git config --global user.email "$(Build.RequestedForEmail)"
+              git config --global user.name "$(Build.RequestedFor)"
+
+              git checkout --track origin/master
+
+              git merge origin/dev
+              git tag "$(Build.BuildId)"
+
+              git push origin master
+            workingDirectory: $(Build.SourcesDirectory)

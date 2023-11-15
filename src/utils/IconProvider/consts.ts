@@ -43,6 +43,7 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.DruidGuardian]: "ability_racial_bearform",
   [WarcraftPlayerSpec.DruidRestoration]: "spell_nature_healingtouch",
   [WarcraftPlayerSpec.EvokerDevastation]: "classicon_evoker_devastation",
+  [WarcraftPlayerSpec.EvokerAugmentation]: "classicon_evoker_augmentation",
   [WarcraftPlayerSpec.EvokerPreservation]: "classicon_evoker_preservation",
   [WarcraftPlayerSpec.HunterBeastmastery]: "ability_hunter_bestialdiscipline",
   [WarcraftPlayerSpec.HunterMarksmanship]: "ability_hunter_focusedaim",

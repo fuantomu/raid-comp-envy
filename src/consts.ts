@@ -44,6 +44,7 @@ export enum WarcraftPlayerSpec {
   DruidGuardian = "DruidGuardian",
   DruidRestoration = "DruidRestoration",
   EvokerDevastation = "EvokerDevastation",
+  EvokerAugmentation = "EvokerAugmentation",
   EvokerPreservation = "EvokerPreservation",
   HunterBeastmastery = "HunterBeastmastery",
   HunterMarksmanship = "HunterMarksmanship",
