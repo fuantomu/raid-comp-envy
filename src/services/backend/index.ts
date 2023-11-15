@@ -26,7 +26,7 @@ service.interceptors.response.use(undefined, (error: AxiosError) => {
   if (axios.isCancel(error)) {
     throw new AppError(AppErrorId.ApiCancelled);
   } else {
-    const status = error.response?.status.toString();
+    const status = (error as AxiosError).response?.status.toString();
 
     throw new AppError(status && status in errorMap ? errorMap[status] : AppErrorId.Unspecific);
   }
