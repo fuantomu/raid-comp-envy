@@ -140,6 +140,13 @@ export abstract class BuildHelper {
     return players;
   }
 
+  public static async parseSql(connectionString: string) {
+    const players: BuildPlayer[] = [];
+    const mariadb = require('mariadb')
+
+    return players;
+  }
+
   public static humanReadableURL(name: string) {
     return name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-");
   }

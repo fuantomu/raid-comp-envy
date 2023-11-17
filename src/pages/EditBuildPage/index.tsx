@@ -24,6 +24,7 @@ import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 import ModalLoadRoster from "../../components/ModalLoadRoster";
+import ModalLoadRosterSQL from "../../components/ModalLoadRosterSQL";
 
 export interface EditBuildPageProps {}
 
@@ -145,6 +146,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
           <ModalSaveBuild />
           <ModalLoadRoster />
+          <ModalLoadRosterSQL />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />
