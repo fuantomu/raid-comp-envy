@@ -6,4 +6,4 @@ public record RaidHelperSignup(
     String name,
     String id,
     String timestamp,
-    String status) {}
+    String unused) {}

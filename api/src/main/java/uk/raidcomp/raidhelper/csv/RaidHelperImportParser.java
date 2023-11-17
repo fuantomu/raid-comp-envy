@@ -21,7 +21,7 @@ public class RaidHelperImportParser {
   private RaidHelperEvent parseEvent(final String line, final List<RaidHelperSignup> signups) {
     final List<String> header = readLines(line).get(0);
     return new RaidHelperEvent(
-        header.get(0),
+        header.get(0).trim(),
         header.get(1),
         header.get(2),
         header.get(3),
@@ -36,12 +36,12 @@ public class RaidHelperImportParser {
         .map(
             signup ->
                 new RaidHelperSignup(
-                    signup.get(0),
-                    signup.get(1),
-                    signup.get(2),
-                    signup.get(3),
-                    signup.get(4),
-                    signup.get(5)))
+                    signup.get(0).trim(),
+                    signup.get(1).trim(),
+                    signup.get(2).trim(),
+                    signup.get(3).trim(),
+                    signup.get(4).trim(),
+                    signup.get(5).trim()))
         .toList();
   }
 

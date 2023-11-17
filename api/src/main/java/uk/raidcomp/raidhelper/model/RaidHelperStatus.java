@@ -20,6 +20,6 @@ public enum RaidHelperStatus {
   }
 
   public static Optional<RaidHelperStatus> findByValue(final String value) {
-    return Arrays.stream(values()).filter(e -> e.value.equals(value)).findFirst();
+    return Arrays.stream(values()).filter(e -> e.value.equalsIgnoreCase(value)).findFirst();
   }
 }

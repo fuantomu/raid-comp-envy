@@ -45,6 +45,7 @@ public enum RaidHelperSpec {
   FURY("Fury", WarcraftPlayerSpec.WARRIOR_FURY),
   PROTECTION("Protection", WarcraftPlayerSpec.WARRIOR_PROTECTION),
   DEVASTATION("Devastation", WarcraftPlayerSpec.EVOKER_DEVASTATION),
+  AUGMENTATION("Augmentation", WarcraftPlayerSpec.EVOKER_AUGMENTATION),
   PRESERVATION("Preservation", WarcraftPlayerSpec.EVOKER_PRESERVATION);
 
   private final String value;
