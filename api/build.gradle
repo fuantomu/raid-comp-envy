@@ -4,6 +4,11 @@ plugins {
     alias(libs.plugins.azure.functions)
 }
 
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly
+}
+
 repositories {
     mavenCentral()
 }
@@ -15,6 +20,25 @@ dependencies {
     annotationProcessor libs.micronaut.serde.processor
     annotationProcessor libs.micronaut.validation.processor
     annotationProcessor libs.mapstruct.processor
+
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-runtime")
+
+    annotationProcessor("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    compileOnly("org.graalvm.nativeimage:svm")
+
+    implementation("io.micronaut.flyway:micronaut-flyway")
+
+    implementation 'org.flywaydb:flyway-core:8.4.4'
+    implementation 'org.flywaydb:flyway-mysql:8.4.4'
+
+    runtimeOnly("mysql:mysql-connector-java")
 
     compileOnly libs.lombok
 
