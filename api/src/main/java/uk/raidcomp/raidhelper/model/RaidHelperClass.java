@@ -7,18 +7,15 @@ import uk.raidcomp.api.model.WarcraftPlayerClass;
 
 public enum RaidHelperClass {
   DK("DK", WarcraftPlayerClass.DEATH_KNIGHT),
-  DH("DH", WarcraftPlayerClass.DEMON_HUNTER),
   DRUID("Druid", WarcraftPlayerClass.DRUID),
   HUNTER("Hunter", WarcraftPlayerClass.HUNTER),
   MAGE("Mage", WarcraftPlayerClass.MAGE),
-  MONK("Monk", WarcraftPlayerClass.MONK),
   PALADIN("Paladin", WarcraftPlayerClass.PALADIN),
   PRIEST("Priest", WarcraftPlayerClass.PRIEST),
   ROGUE("Rogue", WarcraftPlayerClass.ROGUE),
   SHAMAN("Shaman", WarcraftPlayerClass.SHAMAN),
   WARLOCK("Warlock", WarcraftPlayerClass.WARLOCK),
-  WARRIOR("Warrior", WarcraftPlayerClass.WARRIOR),
-  EVOKER("Evoker", WarcraftPlayerClass.EVOKER);
+  WARRIOR("Warrior", WarcraftPlayerClass.WARRIOR);
 
   private final String value;
   @Getter private final WarcraftPlayerClass wowClass;

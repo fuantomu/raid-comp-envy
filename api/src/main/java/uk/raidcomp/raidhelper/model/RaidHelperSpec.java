@@ -10,8 +10,6 @@ public enum RaidHelperSpec {
   BLOOD("Blood", WarcraftPlayerSpec.DEATH_KNIGHT_BLOOD),
   FROST_1("Frost1", WarcraftPlayerSpec.DEATH_KNIGHT_FROST),
   UNHOLY("Unholy", WarcraftPlayerSpec.DEATH_KNIGHT_UNHOLY),
-  HAVOC("Havoc", WarcraftPlayerSpec.DEMON_HUNTER_HAVOC),
-  VENGEANCE("Vengeance", WarcraftPlayerSpec.DEMON_HUNTER_VENGEANCE),
   BALANCE("Balance", WarcraftPlayerSpec.DRUID_BALANCE),
   FERAL("Feral", WarcraftPlayerSpec.DRUID_FERAL),
   GUARDIAN("Guardian", WarcraftPlayerSpec.DRUID_GUARDIAN),
@@ -22,9 +20,6 @@ public enum RaidHelperSpec {
   ARCANE("Arcane", WarcraftPlayerSpec.MAGE_ARCANE),
   FIRE("Fire", WarcraftPlayerSpec.MAGE_FIRE),
   FROST("Frost", WarcraftPlayerSpec.MAGE_FROST),
-  BREWMASTER("Brewmaster", WarcraftPlayerSpec.MONK_BREWMASTER),
-  MISTWEAVER("Mistweaver", WarcraftPlayerSpec.MONK_MISTWEAVER),
-  WINDWALKER("Windwalker", WarcraftPlayerSpec.MONK_WINDWALKER),
   DISCIPLINE("Discipline", WarcraftPlayerSpec.PRIEST_DISCIPLINE),
   HOLY("Holy", WarcraftPlayerSpec.PRIEST_HOLY),
   SHADOW("Shadow", WarcraftPlayerSpec.PRIEST_SHADOW),
@@ -32,8 +27,7 @@ public enum RaidHelperSpec {
   PROTECTION_1("Protection1", WarcraftPlayerSpec.PALADIN_PROTECTION),
   RETRIBUTION("Retribution", WarcraftPlayerSpec.PALADIN_RETRIBUTION),
   ASSASSINATION("Assassination", WarcraftPlayerSpec.ROGUE_ASSASSINATION),
-  OUTLAW("Outlaw", WarcraftPlayerSpec.ROGUE_OUTLAW),
-  COMBAT("Combat", WarcraftPlayerSpec.ROGUE_OUTLAW),
+  COMBAT("Combat", WarcraftPlayerSpec.ROGUE_COMBAT),
   SUBTLETY("Subtlety", WarcraftPlayerSpec.ROGUE_SUBTLETY),
   AFFLICTION("Affliction", WarcraftPlayerSpec.WARLOCK_AFFLICTION),
   DEMONOLOGY("Demonology", WarcraftPlayerSpec.WARLOCK_DEMONOLOGY),
@@ -43,10 +37,7 @@ public enum RaidHelperSpec {
   RESTORATION_1("Restoration1", WarcraftPlayerSpec.SHAMAN_RESTORATION),
   ARMS("Arms", WarcraftPlayerSpec.WARRIOR_ARMS),
   FURY("Fury", WarcraftPlayerSpec.WARRIOR_FURY),
-  PROTECTION("Protection", WarcraftPlayerSpec.WARRIOR_PROTECTION),
-  DEVASTATION("Devastation", WarcraftPlayerSpec.EVOKER_DEVASTATION),
-  AUGMENTATION("Augmentation", WarcraftPlayerSpec.EVOKER_AUGMENTATION),
-  PRESERVATION("Preservation", WarcraftPlayerSpec.EVOKER_PRESERVATION);
+  PROTECTION("Protection", WarcraftPlayerSpec.WARRIOR_PROTECTION);
 
   private final String value;
   @Getter private final WarcraftPlayerSpec wowSpec;

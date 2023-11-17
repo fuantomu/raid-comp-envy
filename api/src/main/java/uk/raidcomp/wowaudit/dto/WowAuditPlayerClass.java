@@ -16,12 +16,9 @@ import uk.raidcomp.api.model.WarcraftPlayerClass;
 
 public enum WowAuditPlayerClass {
   DEATH_KNIGHT("Death Knight", WarcraftPlayerClass.DEATH_KNIGHT),
-  DEMON_HUNTER("Demon Hunter", WarcraftPlayerClass.DEMON_HUNTER),
   DRUID("Druid", WarcraftPlayerClass.DRUID),
-  EVOKER("Evoker", WarcraftPlayerClass.EVOKER),
   HUNTER("Hunter", WarcraftPlayerClass.HUNTER),
   MAGE("Mage", WarcraftPlayerClass.MAGE),
-  MONK("Monk", WarcraftPlayerClass.MONK),
   PALADIN("Paladin", WarcraftPlayerClass.PALADIN),
   PRIEST("Priest", WarcraftPlayerClass.PRIEST),
   ROGUE("Rogue", WarcraftPlayerClass.ROGUE),

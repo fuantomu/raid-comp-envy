@@ -13,12 +13,9 @@ import java.util.Arrays;
 
 public enum WarcraftPlayerClass {
   DEATH_KNIGHT("DeathKnight"),
-  DEMON_HUNTER("DemonHunter"),
   DRUID("Druid"),
-  EVOKER("Evoker"),
   HUNTER("Hunter"),
   MAGE("Mage"),
-  MONK("Monk"),
   PALADIN("Paladin"),
   PRIEST("Priest"),
   ROGUE("Rogue"),
