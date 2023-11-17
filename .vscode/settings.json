@@ -21,5 +21,6 @@
     "typescript.preferences.importModuleSpecifier": "relative",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
-    "files.trimFinalNewlines": true
+    "files.trimFinalNewlines": true,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
