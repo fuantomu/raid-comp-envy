@@ -107,23 +107,34 @@ export abstract class BuildHelper {
     const players: BuildPlayer[] = [];
     const statusIgnore = ['Absence', 'Tentative', 'Late']
     await RosterProvider.getRosterRaidPlayers(id).then((roster) => {
-      for (const player of roster) {
-        if ((statusIgnore.includes(player.spec)) || (statusIgnore.includes(player.class))){
-          continue
-        }
+      try {
+        for (const player of roster) {
+          if ((statusIgnore.includes(player.spec)) || (statusIgnore.includes(player.class))){
+            continue
+          }
 
-        const spec = player.spec.split("_")[0].replace("1","")
-        const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
+          const spec = player.spec.split("_")[0].replace("1","")
+          const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
 
+          players.push({
+            name: player.name,
+            class: pclass as WarcraftPlayerClass,
+            spec: (pclass + spec) as WarcraftPlayerSpec,
+            status: InviteStatus.Invited,
+            group: "roster",
+            realm: undefined,
+            oldName: player.name
+        })}
+      } catch (error) {
         players.push({
-          name: player.name,
-          class: pclass as WarcraftPlayerClass,
-          spec: (pclass + spec) as WarcraftPlayerSpec,
+          name: "ErrorInvalidID",
+          class: WarcraftPlayerClass.DeathKnight,
+          spec: WarcraftPlayerSpec.DeathKnightBlood,
           status: InviteStatus.Invited,
-          group: "roster",
-          oldName: player.name
+          group: "roster"
       })
-    }
+      }
+
 
     });
     return players;

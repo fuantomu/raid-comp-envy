@@ -15,23 +15,32 @@ export interface ModalLoadRosterProps {}
 const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
+  const [error, showError] = useState(false);
   const [common] = useTranslation("common");
   const appContext = useAppContext();
   const [disabled] = useState(false);
   let importTextarea = createRef<HTMLTextAreaElement>();
 
   const handleClose = () => {
+    showError(false)
     setOpen(false);
   };
 
   const handleOpen = () => {
+    showError(false)
     setOpen(true);
   };
 
   const handleImport = () => {
     BuildHelper.parseRaidHelper(importTextarea.current?.value ?? "").then((roster) => {
-      appContext?.loadRoster(roster);
-      setOpen(false);
+      if(roster[0].name === "ErrorInvalidID"){
+        showError(true)
+      }
+      else{
+        appContext?.loadRoster(roster);
+        showError(false)
+        setOpen(false);
+      }
     })
   };
 
@@ -47,6 +56,7 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
           <h2>{common("build.import.roster")}</h2>
           <textarea css={styles.textarea} disabled={disabled} ref={importTextarea}></textarea>
           <br />
+          <h4 style={{ color: 'red' }}>{error ? "Incorrect ID": null }</h4>
           <Box css={styles.buttons}>
             <Button color="primary" variant="contained" onClick={handleImport} disabled={disabled}>
               {common("build.import.import")}
