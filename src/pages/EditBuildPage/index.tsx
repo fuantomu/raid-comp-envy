@@ -100,8 +100,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const loadRoster = async (newRoster: BuildPlayer[]): Promise<void> => {
     setRoster([...newRoster]);
-    console.log("Current roster")
-    console.log(...newRoster)
   };
 
   const handleChangeGrouping = () => {
@@ -140,7 +138,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           <BuildRolesCount key={UUID()} build={getCurrentBuild()} />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
-          <Roster build={getCurrentRoster()} />
+          <Roster build={getCurrentRoster()} editing />
         </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
           <ModalAdd />
