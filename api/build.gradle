@@ -21,7 +21,7 @@ dependencies {
     implementation libs.azure.functions.java.library
     implementation libs.mapstruct
     implementation libs.micronaut.azure.function
-    implementation libs.micronaut.data.azure.cosmos
+    implementation libs.micronaut.data.jdbc
     implementation libs.micronaut.http.client
     implementation libs.micronaut.serde.jackson
     implementation libs.micronaut.validation
@@ -82,5 +82,3 @@ azurefunctions {
         javaVersion = "Java 17"
     }
 }
-
-
