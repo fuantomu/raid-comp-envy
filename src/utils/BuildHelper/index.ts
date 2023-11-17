@@ -142,7 +142,6 @@ export abstract class BuildHelper {
 
   public static async parseSql(connectionString: string) {
     const players: BuildPlayer[] = [];
-    const mariadb = require('mariadb')
 
     return players;
   }
