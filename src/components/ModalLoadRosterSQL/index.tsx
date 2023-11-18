@@ -35,7 +35,13 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
   };
 
   const handleImport = () => {
-    const connectionString = `SERVER=${sqlHost.current?.value ?? "localhost"};PORT=3306;DATABASE=${sqlDatabase};UID=${sqlUser};PWD=${sqlPassword}`
+    const connectionString = JSON.stringify({
+      "server": sqlHost.current?.value ?? "localhost",
+      "port": 3306,
+      "database": sqlDatabase.current?.value ?? "raidcomp_api",
+      "uid": sqlUser.current?.value,
+      "password": sqlPassword.current?.value,
+    });
     BuildHelper.parseSql(connectionString).then((roster) => {
       if(roster[0].name === "ErrorInvalidID"){
         showError(true)
@@ -61,7 +67,7 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
           <h3>Host name</h3>
           <input disabled={disabled} ref={sqlHost} defaultValue="localhost"></input>
           <h3>Database</h3>
-          <input disabled={disabled} ref={sqlDatabase}></input>
+          <input disabled={disabled} ref={sqlDatabase} defaultValue="raidcomp_api"></input>
           <h3>User name</h3>
           <input disabled={disabled} ref={sqlUser} defaultValue="root"></input>
           <h3>Password</h3>

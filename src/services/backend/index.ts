@@ -4,10 +4,7 @@ import { BuildId } from "../../types";
 import AppError from "../../utils/AppError";
 import { getBuildResponseData, postBuildRequestData, postBuildResponseData } from "./types";
 
-export const baseURL =
-  process.env.REACT_APP_USE_MOCK === "false" && process.env.NODE_ENV === "development"
-    ? "http://localhost:7071"
-    : "/api";
+export const baseURL = "http://localhost:8080/api";
 
 const errorMap: Record<string, AppErrorId> = {
   "403": AppErrorId.Api403,
@@ -18,6 +15,7 @@ const service = axios.create({
   baseURL,
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*"
   },
   withCredentials: true,
 });

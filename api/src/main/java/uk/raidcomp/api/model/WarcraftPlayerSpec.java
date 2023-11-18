@@ -63,6 +63,87 @@ public enum WarcraftPlayerSpec {
     this.role = role;
   }
 
+  public static WarcraftPlayerSpec findByValue(final String value, final String className) {
+    switch (value.toUpperCase()) {
+      case "BLOOD":
+        return DEATH_KNIGHT_BLOOD;
+      case "FROST":
+        if(className.toUpperCase() == "MAGE"){
+          return MAGE_FROST;
+        }
+        else{
+          return DEATH_KNIGHT_BLOOD;
+        }
+      case "UNHOLY":
+        return DEATH_KNIGHT_UNHOLY;
+      case "BALANCE":
+        return DRUID_BALANCE;
+      case "FERAL":
+        return DRUID_FERAL;
+      case "GUARDIAN":
+        return DRUID_GUARDIAN;
+      case "RESTORATION":
+        if(className.toUpperCase() == "DRUID"){
+          return DRUID_RESTORATION;
+        }
+        else{
+          return SHAMAN_RESTORATION;
+        }
+      case "BEASTMASTERY":
+        return HUNTER_BEASTMASTERY;
+      case "SURVIVAL":
+        return HUNTER_SURVIVAL;
+      case "MARKSMANSHIP":
+        return HUNTER_MARKSMANSHIP;
+      case "ARCANE":
+        return MAGE_ARCANE;
+      case "FIRE":
+        return MAGE_FIRE;
+      case "DISCIPLINE":
+        return PRIEST_DISCIPLINE;
+      case "SHADOW":
+        return PRIEST_SHADOW;
+      case "HOLY":
+        if(className.toUpperCase() == "PRIEST"){
+          return PRIEST_HOLY;
+        }
+        else{
+          return PALADIN_HOLY;
+        }
+      case "RETRIBUTION":
+        return PALADIN_RETRIBUTION;
+      case "PROTECTION":
+        if(className.toUpperCase() == "PALADIN"){
+          return PALADIN_PROTECTION;
+        }
+        else{
+          return WARRIOR_PROTECTION;
+        }
+      case "ASSASSINATION":
+        return ROGUE_ASSASSINATION;
+      case "COMBAT":
+        return ROGUE_COMBAT;
+      case "SUBTLETY":
+        return ROGUE_SUBTLETY;
+      case "AFFLICTION":
+        return WARLOCK_AFFLICTION;
+      case "DEMONOLOGY":
+        return WARLOCK_DEMONOLOGY;
+      case "DESTRUCTION":
+        return WARLOCK_DESTRUCTION;
+      case "ELEMENTAL":
+        return SHAMAN_ELEMENTAL;
+      case "ENHANCEMENT":
+        return SHAMAN_ENHANCEMENT;
+      case "FURY":
+        return WARRIOR_FURY;
+      case "ARMS":
+        return WARRIOR_ARMS;
+      default:
+        return UNKNOWN;
+    }
+  }
+
   @Singleton
   @Secondary
   public static class WarcraftPlayerSpecSerde implements Serde<WarcraftPlayerSpec> {

@@ -5,20 +5,19 @@ micronaut:
     cors:
       enabled: true
       configurations:
-        hoppscotch:
-          allowed-origins:
-            - chrome-extension://amknoiejhlmhancpahfcfcfhllgkpbld
         web:
-          allowed-origins:
-            - https://raidcomp.uk
-  http:
-    services:
-      wowaudit:
-        url: https://wowaudit.com
+          allowedOrigins:
+            - http://localhost
+            - http://localhost:3000
+            - http://localhost:8080
+            - http://localhost:3000/
+          allowedHeaders:
+                  - Content-Type
+                  - Authorization
 
 datasources:
   default:
-    url: jdbc:mysql://localhost/raidcomp_api?generateSimpleParameterMetadata=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false
+    url: jdbc:mysql://localhost:3306/raidcomp_api?generateSimpleParameterMetadata=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: admin

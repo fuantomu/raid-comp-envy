@@ -143,6 +143,34 @@ export abstract class BuildHelper {
   public static async parseSql(connectionString: string) {
     const players: BuildPlayer[] = [];
 
+    await RosterProvider.getRosterRaidPlayersSql(connectionString).then((roster) =>{
+      try {
+        for (const player of roster) {
+          //const spec = player.spec.split("_")[0].replace("1","")
+          //const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
+
+          players.push({
+            name: player.name,
+            class: player.class as WarcraftPlayerClass,
+            spec: player.spec as WarcraftPlayerSpec,
+            status: InviteStatus.Invited,
+            group: "roster",
+            realm: undefined,
+            oldName: player.name
+        })}
+      } catch (error) {
+        console.log(error)
+        players.push({
+          name: "ErrorInvalidID",
+          class: WarcraftPlayerClass.DeathKnight,
+          spec: WarcraftPlayerSpec.DeathKnightBlood,
+          status: InviteStatus.Invited,
+          group: "roster"
+      })
+      }
+
+
+    });
     return players;
   }
 

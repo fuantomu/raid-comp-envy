@@ -28,7 +28,7 @@ The application's build uses [Azure Functions Plugin for Gradle](https://plugins
 ./gradlew azureFunctionsRun
 ```
 
-And visit http://localhost:7071/api/raidcomp
+And visit http://localhost:8080/api/raidcomp
 
 ## Deploying the function
 
@@ -64,5 +64,3 @@ $ ./gradlew azureFunctionsDeploy
 ## Feature azure-function-http documentation
 
 - [Micronaut Azure Function documentation](https://micronaut-projects.github.io/micronaut-azure/latest/guide/index.html#azureHttpFunctions)
-
-

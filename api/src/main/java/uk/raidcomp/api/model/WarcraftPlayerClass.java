@@ -30,6 +30,33 @@ public enum WarcraftPlayerClass {
     this.value = value;
   }
 
+  public static WarcraftPlayerClass findByValue(final String value) {
+    switch (value.toUpperCase()) {
+      case "PALADIN":
+        return PALADIN;
+      case "DEATHKNIGHT":
+        return DEATH_KNIGHT;
+      case "DRUID":
+        return DRUID;
+      case "HUNTER":
+        return HUNTER;
+      case "MAGE":
+        return MAGE;
+      case "PRIEST":
+        return PRIEST;
+      case "ROGUE":
+        return ROGUE;
+      case "SHAMAN":
+        return SHAMAN;
+      case "WARLOCK":
+        return WARLOCK;
+      case "WARRIOR":
+        return WARRIOR;
+      default:
+        return UNKNOWN;
+    }
+  }
+
   @Singleton
   @Secondary
   public static class WarcraftPlayerClassSerde implements Serde<WarcraftPlayerClass> {
