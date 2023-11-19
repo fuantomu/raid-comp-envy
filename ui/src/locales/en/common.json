@@ -41,6 +41,12 @@
       "title": "Reset Build",
       "confirm": "Are you sure you want to reset this build?"
     },
+    "changeVersion": {
+      "title": "Change the game version",
+      "confirm": "Changing the game version will clear your build. Are you sure?",
+      "label": "Game version",
+      "current": "Current version"
+    },
     "save": {
       "title": "Save Build",
       "input": "Build Name",

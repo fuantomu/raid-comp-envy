@@ -86,5 +86,4 @@ export abstract class GameVersion {
 export enum GameVersionSlug {
 	LIVE = 'live',
 	WOTLK = 'wotlk',
-	UNSUPPORTED = '',
 }
