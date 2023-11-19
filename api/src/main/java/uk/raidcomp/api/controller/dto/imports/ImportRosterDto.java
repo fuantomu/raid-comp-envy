@@ -6,4 +6,4 @@ import jakarta.validation.constraints.NotBlank;
 
 @Serdeable
 @Introspected
-public record ImportRosterDto(@NotBlank String server, @NotBlank String port, @NotBlank String database, @NotBlank String uid, @NotBlank String password) {}
+public record ImportRosterDto(@NotBlank String server, @NotBlank String port, @NotBlank String database, @NotBlank String uid, @NotBlank String password, @NotBlank String table) {}

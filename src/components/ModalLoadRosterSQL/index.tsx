@@ -23,6 +23,7 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
   let sqlDatabase = createRef<HTMLInputElement>();
   let sqlUser = createRef<HTMLInputElement>();
   let sqlPassword = createRef<HTMLInputElement>();
+  let sqlTable = createRef<HTMLInputElement>();
 
   const handleClose = () => {
     showError(false)
@@ -41,6 +42,7 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
       "database": sqlDatabase.current?.value ?? "raidcomp_api",
       "uid": sqlUser.current?.value,
       "password": sqlPassword.current?.value,
+      "table": sqlTable.current?.value,
     });
     BuildHelper.parseSql(connectionString).then((roster) => {
       if(roster[0].name === "ErrorInvalidID"){
@@ -68,6 +70,8 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
           <input disabled={disabled} ref={sqlHost} defaultValue="localhost"></input>
           <h3>Database</h3>
           <input disabled={disabled} ref={sqlDatabase} defaultValue="raidcomp_api"></input>
+          <h3>Table</h3>
+          <input disabled={disabled} ref={sqlTable} defaultValue="player"></input>
           <h3>User name</h3>
           <input disabled={disabled} ref={sqlUser} defaultValue="root"></input>
           <h3>Password</h3>
