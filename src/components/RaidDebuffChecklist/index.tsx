@@ -20,9 +20,10 @@ const buildDebuffChecklist = (build: Build) => {
   const raidDebuffs = [];
   for (const debuff in WarcraftRaidDebuff) {
     const playersWithDebuff = build.players.filter(
-      ({ spec, class: className }) =>
-        RoleProvider.getSpecDebuffs(spec).includes(debuff as WarcraftRaidDebuff) ||
-        RoleProvider.getClassDebuff(className).includes(debuff as WarcraftRaidDebuff)
+      ({ spec, class: className, group }) =>
+        group !== 'roster' &&
+        (RoleProvider.getSpecDebuffs(spec).includes(debuff as WarcraftRaidDebuff) ||
+        RoleProvider.getClassDebuff(className).includes(debuff as WarcraftRaidDebuff))
     );
     raidDebuffs.push(
       <RaidDebuff key={UUID()} debuff={debuff as WarcraftRaidDebuff} players={playersWithDebuff} />

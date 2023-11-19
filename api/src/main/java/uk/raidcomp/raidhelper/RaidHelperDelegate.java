@@ -70,7 +70,7 @@ public class RaidHelperDelegate {
       GroupId group = GroupId.NONE;
       if (player.status().isActive()) {
         int groupId = (int) Math.floor(playerIndex / 5.0) + 1;
-        group = groupId > 8 ? GroupId.NONE : GroupId.of(groupId);
+        group = groupId > 5 ? GroupId.NONE : GroupId.of(groupId);
         playerIndex++;
       }
 

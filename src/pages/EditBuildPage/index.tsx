@@ -25,6 +25,7 @@ import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 import ModalLoadRoster from "../../components/ModalLoadRoster";
 import ModalLoadRosterSQL from "../../components/ModalLoadRosterSQL";
+import { InviteStatus } from "../../consts";
 
 export interface EditBuildPageProps {}
 
@@ -38,7 +39,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [name, setName] = useState<string>(common("build.new"));
   const [players, setPlayers] = useState<BuildPlayer[]>([]);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
-  const [grouped, setGrouped] = useState(false);
+  const [grouped, setGrouped] = useState(true);
   let openEditModal: any = () => {};
 
   const importBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
@@ -51,8 +52,27 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         );
       }),
       ...newPlayers.filter((player) => player.name !== ""),
-    ]);
+    ])
+    for(const player of newPlayers){
+      updateRosterStatus(player);
+    }
   };
+
+  const updateRosterStatus = (player: BuildPlayer) => {
+    for(const rosterPlayer of roster){
+      if(player.group === "roster" && rosterPlayer.name === player.name){
+        rosterPlayer.status = InviteStatus.Invited;
+      }
+      else{
+        if(rosterPlayer.name === player.name && rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){
+          rosterPlayer.status = InviteStatus.Accepted;
+        }
+        if(rosterPlayer.name === player.name && (rosterPlayer.class !== player.class || rosterPlayer.spec !== player.spec)){
+          rosterPlayer.status = InviteStatus.Declined;
+        }
+      }
+    }
+  }
 
   const getCurrentBuild = () => {
     return {
@@ -128,7 +148,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   return (
     <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
-      <Container>
+      <Container maxWidth="xl">
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
           <BuildTitle
             css={styles.buildTitle}
@@ -137,9 +157,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             onChange={handleTitleChange}
           />
           <BuildRolesCount key={UUID()} build={getCurrentBuild()} />
-        </Box>
-        <Box key={UUID()} css={styles.gridBox}>
-          <Roster build={getCurrentRoster()} editing />
         </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
           <ModalAdd />
@@ -150,6 +167,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />
+        </Box>
+        <Box key={UUID()} css={styles.gridBox}>
+          <Roster build={getCurrentRoster()} editing />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidChecklist build={getCurrentBuild()} />

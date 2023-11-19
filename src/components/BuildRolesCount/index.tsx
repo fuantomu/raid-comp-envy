@@ -29,13 +29,13 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
             alt={common("build.roles.total")}
             title={common("build.roles.total")}
           />
-          <Typography variant="h5">{build.players.length}</Typography>
+          <Typography variant="h5">{build.players.filter(({group }) => group !== 'roster').length}</Typography>
         </Box>
       )}
       {Object.keys(WarcraftRole).map((role) => {
         const label = common(`build.roles.${role}`);
         const count = build.players.filter(
-          ({ spec }) => RoleProvider.getSpecRole(spec) === role
+          ({ spec, group }) => RoleProvider.getSpecRole(spec) === role && group !== 'roster'
         ).length;
         if (!count) return <></>;
         return (

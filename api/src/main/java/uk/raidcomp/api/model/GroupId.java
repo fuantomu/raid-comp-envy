@@ -19,9 +19,6 @@ public enum GroupId {
   GROUP3(3),
   GROUP4(4),
   GROUP5(5),
-  GROUP6(6),
-  GROUP7(7),
-  GROUP8(8),
   ROSTER("roster"),;
 
   private final String stringValue;

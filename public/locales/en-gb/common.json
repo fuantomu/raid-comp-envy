@@ -9,9 +9,6 @@
       "group_3": "$t(build.groups.group) {{groupId}}",
       "group_4": "$t(build.groups.group) {{groupId}}",
       "group_5": "$t(build.groups.group) {{groupId}}",
-      "group_6": "$t(build.groups.group) {{groupId}}",
-      "group_7": "$t(build.groups.group) {{groupId}}",
-      "group_8": "$t(build.groups.group) {{groupId}}",
       "group_none": "Ungrouped"
     },
     "roles": {
@@ -62,9 +59,6 @@
         "group_3": "{{groupId}}",
         "group_4": "{{groupId}}",
         "group_5": "{{groupId}}",
-        "group_6": "{{groupId}}",
-        "group_7": "{{groupId}}",
-        "group_8": "{{groupId}}",
         "group_none": "Ungrouped"
       }
     }

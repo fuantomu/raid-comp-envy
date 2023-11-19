@@ -19,7 +19,7 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
   const [common] = useTranslation("common");
   const appContext = useAppContext();
   const [disabled] = useState(false);
-  let importTextarea = createRef<HTMLTextAreaElement>();
+  let importTextarea = createRef<HTMLInputElement>();
 
   const handleClose = () => {
     showError(false)
@@ -54,7 +54,8 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.import.roster")}</h2>
-          <textarea css={styles.textarea} disabled={disabled} ref={importTextarea}></textarea>
+          <h3>Raid-helper ID</h3>
+          <input disabled={disabled} ref={importTextarea}></input>
           <br />
           <h4 style={{ color: 'red' }}>{error ? "Incorrect ID": null }</h4>
           <Box css={styles.buttons}>

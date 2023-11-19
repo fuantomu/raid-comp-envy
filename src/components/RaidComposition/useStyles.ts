@@ -6,8 +6,8 @@ export default () => {
   return {
     grouped: css`
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: ${theme.spacing(Spacing.m)};
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: ${theme.spacing(Spacing.s)};
 
       @media only screen and (max-width: 650px) {
         & {

@@ -17,7 +17,7 @@ export abstract class BuildHelper {
     };
     for (const player of players) {
       let groupId: GroupId = player.group ?? "none";
-      groupId = groupId > 8 ? "none" : groupId;
+      groupId = groupId > 5 ? "none" : groupId;
       const group = groups[groupId];
       if (!group) {
         groups[groupId] = {
@@ -33,7 +33,7 @@ export abstract class BuildHelper {
 
   private static getEmptyGroups() {
     const groups: any = {};
-    for (let groupId = 1; groupId <= 8; groupId++) {
+    for (let groupId = 1; groupId <= 5; groupId++) {
       groups[groupId] = { groupId , players: [] };
     }
     return groups;

@@ -17,11 +17,11 @@ const RosterComposition: FC<RosterCompositionProps> = ({ players, editing }) => 
   const groups = BuildHelper.getGroups(players, editing);
   return (
     <>
-        <Box key={UUID()} css={styles.grouped}>
+      <Box key={UUID()} css={styles.grouped}>
         {Object.values(groups)
           .filter((group) => group?.groupId === "roster")
           .map((group) => {
-            if (!group) return <></>;
+            //if (!group) return <></>;
             const { groupId, players } = group;
             return (
               <RosterGroup
@@ -29,6 +29,7 @@ const RosterComposition: FC<RosterCompositionProps> = ({ players, editing }) => 
                 groupId={groupId}
                 players={players}
                 editing={editing}
+                spread
               />
             );
           })}

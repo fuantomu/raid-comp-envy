@@ -20,9 +20,10 @@ const buildBuffChecklist = (build: Build) => {
   const raidBuffs = [];
   for (const buff in WarcraftRaidBuff) {
     const playersWithBuff = build.players.filter(
-      ({ spec, class: className }) =>
-        RoleProvider.getSpecBuffs(spec).includes(buff as WarcraftRaidBuff) ||
-        RoleProvider.getClassBuff(className).includes(buff as WarcraftRaidBuff)
+      ({ spec, class: className, group }) =>
+        group !== 'roster' &&
+        (RoleProvider.getSpecBuffs(spec).includes(buff as WarcraftRaidBuff) ||
+        RoleProvider.getClassBuff(className).includes(buff as WarcraftRaidBuff))
     );
     raidBuffs.push(
       <RaidBuff key={UUID()} buff={buff as WarcraftRaidBuff} players={playersWithBuff} />
