@@ -9,7 +9,8 @@
       "group_3": "$t(build.groups.group) {{groupId}}",
       "group_4": "$t(build.groups.group) {{groupId}}",
       "group_5": "$t(build.groups.group) {{groupId}}",
-      "group_none": "Ungrouped"
+      "group_none": "Ungrouped",
+      "group_roster": "Roster"
     },
     "roles": {
       "total": "Total",
@@ -29,7 +30,9 @@
     "unnamed": "Unnamed Build",
     "import": {
       "title": "Import Build",
-      "import": "Import"
+      "import": "Import",
+      "roster": "Raid-helper Roster",
+      "sql": "SQL Roster"
     },
     "export": {
       "title": "Export Build",
@@ -70,7 +73,9 @@
     "editBuild": "Edit build",
     "importBuild": "Import build",
     "exportBuild": "Export build",
-    "resetBuild": "Clear build"
+    "resetBuild": "Clear build",
+    "importRosterRaidHelper": "Import Roster from Raid-helper",
+    "importRosterSql": "Import Roster from SQL"
   },
   "status": {
     "invited": "Invited",

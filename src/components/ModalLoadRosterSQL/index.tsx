@@ -56,14 +56,14 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
 
   return (
     <>
-      <Tooltip title={common("cta.importRoster.sql")} placement="top" arrow>
+      <Tooltip title={common("cta.importRosterSql")} placement="top" arrow>
         <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
           <SystemUpdateAltIcon />
         </Button>
       </Tooltip>
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
-          <h2>{common("build.import.roster.sql")}</h2>
+          <h2>{common("build.import.sql")}</h2>
           <h3>Host name</h3>
           <input disabled={disabled} ref={sqlHost} defaultValue="localhost"></input>
           <h3>Database</h3>

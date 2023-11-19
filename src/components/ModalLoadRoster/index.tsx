@@ -46,7 +46,7 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
 
   return (
     <>
-      <Tooltip title={common("cta.importRoster")} placement="top" arrow>
+      <Tooltip title={common("cta.importRosterRaidHelper")} placement="top" arrow>
         <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
           <SystemUpdateAltIcon />
         </Button>
