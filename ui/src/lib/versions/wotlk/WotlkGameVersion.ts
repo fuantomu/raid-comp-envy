@@ -1,16 +1,12 @@
-import { GameVersion, GameVersionSlug } from '$lib/versioning/GameVersion';
+import { GameVersion, GameVersionSlug } from "$lib/versioning/GameVersion";
+import { versionSource } from "$lib/versions/wotlk/source";
 
 export class WotlkGameVersion extends GameVersion {
-	constructor() {
-		super({
-			buffs: [],
-			specs: [],
-			classes: [],
-			utilities: [],
-		});
-	}
+  constructor() {
+    super(versionSource);
+  }
 
-	getSlug(): GameVersionSlug {
-		return GameVersionSlug.WOTLK;
-	}
+  getSlug(): GameVersionSlug {
+    return GameVersionSlug.WOTLK;
+  }
 }

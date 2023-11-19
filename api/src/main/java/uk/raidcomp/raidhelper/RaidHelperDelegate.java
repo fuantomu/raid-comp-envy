@@ -39,7 +39,7 @@ public class RaidHelperDelegate {
     final var importedBuild = importDelegate.getBuild(raw);
     return teams.stream()
         .map(team -> createTeamBuild(team, importedBuild))
-        .map(b -> buildDelegate.create(b.name(), b.players()))
+        .map(b -> buildDelegate.create(GameVersion.DEFAULT, b.name(), b.players()))
         .toList();
   }
 
@@ -48,7 +48,7 @@ public class RaidHelperDelegate {
     if (!team.name().isBlank()) {
       name = "%s - %s".formatted(name, team.name());
     }
-    return new Build(GameVersion.LIVE, null, name, filterPlayers(team, importedBuild.signups()));
+    return new Build(GameVersion.DEFAULT, null, name, filterPlayers(team, importedBuild.signups()));
   }
 
   private List<Player> filterPlayers(final Team team, final List<PlayerSignup> signups) {

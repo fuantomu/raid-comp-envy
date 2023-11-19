@@ -56,6 +56,7 @@ public class BuildController {
     return HttpResponse.created(
         buildMapper.toCreated(
             buildDelegate.create(
+                createBuildRequestDto.gameVersion(),
                 createBuildRequestDto.name(),
                 createBuildRequestDto.players().stream().map(playerMapper::toDomain).toList())));
   }

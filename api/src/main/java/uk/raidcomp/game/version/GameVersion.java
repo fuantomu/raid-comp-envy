@@ -14,7 +14,10 @@ import lombok.Getter;
 
 @Getter
 public enum GameVersion {
-  LIVE("live");
+  LIVE("live"),
+  WOTLK("wotlk");
+
+  public static final GameVersion DEFAULT = GameVersion.LIVE;
 
   private final String value;
 
