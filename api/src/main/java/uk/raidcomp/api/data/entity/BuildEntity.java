@@ -14,6 +14,8 @@ import lombok.Setter;
 public class BuildEntity {
   @Id private String id;
 
+  private String gameVersion;
+
   private String name;
 
   @DateCreated private Instant created;

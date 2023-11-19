@@ -1,6 +1,7 @@
 package uk.raidcomp.api.mapper;
 
 import java.util.Objects;
+import java.util.Optional;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -14,6 +15,7 @@ import uk.raidcomp.api.model.Build;
 import uk.raidcomp.api.model.Player;
 import uk.raidcomp.api.model.WarcraftPlayerSpec;
 import uk.raidcomp.api.model.WarcraftRole;
+import uk.raidcomp.game.version.GameVersion;
 
 import static uk.raidcomp.api.model.WarcraftRole.HEALER;
 import static uk.raidcomp.api.model.WarcraftRole.MELEE_DPS;
@@ -24,6 +26,7 @@ import static uk.raidcomp.api.model.WarcraftRole.UNKNOWN;
 @Mapper(config = MapstructConfig.class, uses = PlayerMapper.class)
 public abstract class BuildMapper {
 
+  @Mapping(target = "gameVersion", source = "gameVersion", qualifiedByName = "mapGameVersion")
   public abstract Build toDomain(BuildEntity entity);
 
   @Mapping(target = "buildId", source = "id")
@@ -52,6 +55,12 @@ public abstract class BuildMapper {
             .map(WarcraftPlayerSpec::getRole)
             .filter(role::equals)
             .count();
+  }
+
+  @Deprecated(forRemoval = true)
+  @Named("mapGameVersion")
+  protected GameVersion mapGameVersion(final String gameVersion) {
+    return Optional.ofNullable(gameVersion).map(GameVersion::of).orElse(GameVersion.LIVE);
   }
 
   @Named("mapDps")
