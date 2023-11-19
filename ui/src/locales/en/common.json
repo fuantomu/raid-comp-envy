@@ -71,6 +71,17 @@
         "group_8": "8",
         "group_none": "Ungrouped"
       }
+    },
+    "page": {
+      "edit": {
+        "title": "Editing {buildName} - RaidComp"
+      },
+      "new": {
+        "title": "New {version} Build - RaidComp"
+      },
+      "view": {
+        "title": "{buildName} - RaidComp"
+      }
     }
   },
   "cta": {
