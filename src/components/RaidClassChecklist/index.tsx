@@ -17,7 +17,7 @@ export interface RaidClassChecklistProps {
 const buildClassChecklist = (build: Build) => {
   const classNames = [];
   for (const className in WarcraftPlayerClass) {
-    const playersWithClass = build.players.filter((player, group) => player.class === className && player.group !== 'roster');
+    const playersWithClass = build.players.filter((player) => player.class === className && player.group !== 'roster');
     classNames.push(
       <RaidClass
         key={UUID()}
