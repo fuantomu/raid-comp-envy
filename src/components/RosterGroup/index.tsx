@@ -64,7 +64,6 @@ const RosterGroup: FC<RosterGroupProps> = ({
             <Player
               key={UUID()}
               {...player}
-              showRole
               {...(editing
                 ? {
                     onClick: () => context?.editPlayer(player),

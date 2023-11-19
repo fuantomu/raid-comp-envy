@@ -64,7 +64,6 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             <Player
               key={UUID()}
               {...player}
-              showRole
               {...(editing
                 ? {
                     onClick: () => context?.editPlayer(player),
