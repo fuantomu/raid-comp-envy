@@ -33,7 +33,7 @@ public class SqlHelperDelegate {
         ResultSet result = statement.executeQuery(query);
 
         while(result.next()){
-          PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("class")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("class")), InviteStatus.INVITED, null);
+          PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("class")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("class")), InviteStatus.UNKNOWN, null);
           teams.add(p);
         }
       }

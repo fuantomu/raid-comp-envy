@@ -45,13 +45,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const importBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
     setPlayers([
       ...players.filter((player) => {
+        player.status = InviteStatus.Unknown;
         return newPlayers.find(
           (newPlayer) =>
             (newPlayer.oldName ?? PlayerUtils.getFullName(newPlayer)) !==
             PlayerUtils.getFullName(player)
         );
       }),
-      ...newPlayers.filter((player) => player.name !== ""),
+      ...newPlayers.filter((player) => {player.status = InviteStatus.Unknown; return player.name !== "";}),
     ])
     for(const player of newPlayers){
       updateRosterStatus(player);
@@ -61,7 +62,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const updateRosterStatus = (player: BuildPlayer) => {
     for(const rosterPlayer of roster){
       if(player.group === "roster" && rosterPlayer.name === player.name){
-        rosterPlayer.status = InviteStatus.Invited;
+        rosterPlayer.status = InviteStatus.Unknown;
       }
       else{
         if(rosterPlayer.name === player.name && rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){

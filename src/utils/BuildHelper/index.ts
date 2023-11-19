@@ -120,7 +120,7 @@ export abstract class BuildHelper {
             name: player.name,
             class: pclass as WarcraftPlayerClass,
             spec: (pclass + spec) as WarcraftPlayerSpec,
-            status: InviteStatus.Invited,
+            status: InviteStatus.Unknown,
             group: "roster",
             realm: undefined,
             oldName: player.name

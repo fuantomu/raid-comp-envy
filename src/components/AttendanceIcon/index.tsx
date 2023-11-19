@@ -2,7 +2,6 @@
 
 import { FC } from "react";
 import { InviteStatus } from "../../consts";
-import HelpIcon from "@mui/icons-material/Help";
 import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
@@ -84,7 +83,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
 
     case InviteStatus.Unknown:
     default:
-      return <HelpIcon titleAccess={common(`status.${status}`)} />;
+      return <></>;
   }
 };
 
