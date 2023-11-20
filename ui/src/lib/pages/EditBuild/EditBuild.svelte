@@ -2,13 +2,14 @@
   import BottomBar from "./BottomBar.svelte";
   import RoleDisplay from "$lib/components/RoleDisplay/RoleDisplay.svelte";
   import { GameVersionFactory } from "$lib/versioning/GameVersionFactory";
-  import { build, context, displayGrouped, editing } from "$lib/store";
+  import { build, context, creatingBuild, displayGrouped, editing } from "$lib/store";
   import GroupDisplay from "$lib/components/GroupDisplay/GroupDisplay.svelte";
   import ChecklistDisplay from "$lib/components/ChecklistDisplay/ChecklistDisplay.svelte";
   import type { GameVersionSlug } from "$lib/versioning/GameVersion";
   import RoleCount from "$lib/components/RoleCount.svelte";
   import type { Build } from "$lib/service/api";
   import { _ } from "svelte-i18n";
+  import Loading from "$lib/components/Loading.svelte";
 
   export let gameVersion: GameVersionSlug;
   export let fetchedBuild: Build | null = null;
@@ -39,6 +40,10 @@
     <title>{$_("build.page.new.title", { values: { version: $_(`versions.${gameVersion}`) } })}</title>
   {/if}
 </svelte:head>
+
+{#if $creatingBuild}
+  <Loading />
+{/if}
 
 <div class="content">
   <div class="page">

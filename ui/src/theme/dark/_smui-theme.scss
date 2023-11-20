@@ -68,6 +68,16 @@ a:visited {
   border-top: solid 1px black;
 }
 
+.mdc-snackbar.error {
+  .mdc-snackbar__surface {
+    background-color: var(--palette-error-main)!important;
+    .mdc-snackbar__label {
+      color: var(--palette-text-primary)!important;
+    }
+  }
+
+}
+
 ::-webkit-scrollbar {
   width: 7px;
 }

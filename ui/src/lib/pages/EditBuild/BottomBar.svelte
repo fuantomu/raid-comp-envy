@@ -32,7 +32,6 @@
         delete_forever
       </IconButton>
       <Tooltip yPos="above">{$_("cta.resetBuild")}</Tooltip>
-      <ResetBuildDialog />
     </Wrapper>
     <Wrapper>
       <IconButton class="material-icons" aria-label="{$_('cta.reportBug')}"
@@ -49,7 +48,6 @@
         extension
       </IconButton>
       <Tooltip yPos="above">{$_("cta.changeGameVersion")}</Tooltip>
-      <ChangeGameVersionDialog />
     </Wrapper>
   </Section>
   <Section>
@@ -59,7 +57,6 @@
         <Icon class="material-icons">add</Icon>
       </Fab>
       <Tooltip yPos="above">{$_("cta.addPlayer")}</Tooltip>
-      <EditPlayerDialog />
     </Wrapper>
   </Section>
   <Section>
@@ -85,7 +82,11 @@
         save
       </IconButton>
       <Tooltip yPos="above">{$_("cta.saveBuild")}</Tooltip>
-      <SaveBuildDialog />
     </Wrapper>
   </Section>
+
 </BottomAppBar>
+<ResetBuildDialog />
+<ChangeGameVersionDialog />
+<EditPlayerDialog />
+<SaveBuildDialog />

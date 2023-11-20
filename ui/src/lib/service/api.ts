@@ -13,7 +13,7 @@ const service = axios.create({
 });
 
 if (isMockEnabled()) {
-	const mockAdapter = new MockAdapter(service);
+	const mockAdapter = new MockAdapter(service, { delayResponse: 1000 });
 	mockRoutes(mockAdapter);
 }
 

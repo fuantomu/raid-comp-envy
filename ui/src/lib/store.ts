@@ -18,4 +18,5 @@ export const changeGameVersionDialogOpen = writable<boolean>(false);
 export const saveBuildDialogOpen = writable<boolean>(false);
 export const editPlayerDialogOpen = writable<boolean>(false);
 export const editing = writable<boolean>(false);
+export const creatingBuild = writable<boolean>(false);
 export const currentlyEditingPlayerId = writable<string | null>();

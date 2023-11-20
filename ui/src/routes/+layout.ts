@@ -1,3 +1,3 @@
 import '../i18n';
 
-export const ssr = false;
+// export const ssr = false;

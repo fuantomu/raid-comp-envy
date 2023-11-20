@@ -1,26 +1,29 @@
 <script lang="ts">
-  import IconButton from "@smui/icon-button";
   import Snackbar from "@smui/snackbar";
   import Dialog, { Actions, Content, Title } from "@smui/dialog";
   import Button, { Label } from "@smui/button";
-  import { build, context, saveBuildDialogOpen } from "$lib/store";
+  import { build, context, creatingBuild, saveBuildDialogOpen } from "$lib/store";
   import Textfield from "@smui/textfield";
   import { _ } from "svelte-i18n";
   import { createBuild, mapToApi } from "$lib/service/api";
-  import { goto } from "$app/navigation";
 
   let buildName: string | null = $build.name || $_("build.new");
   let errorSnackbar: Snackbar;
   let error: string | null = null;
+
   const handleSave = () => {
     const newBuild = mapToApi({
       ...$build,
       name: buildName || $_("build.new"),
       gameVersion: $context.gameVersion.getSlug()
     });
+    $creatingBuild = true;
     createBuild(newBuild)
-      .then(({ data: { buildId } }) => goto(`/build/${buildId}`))
+      .then(({ data: { buildId } }) => {
+        window.location.href = `/build/${buildId}`;
+      })
       .catch(err => {
+        $creatingBuild = false;
         error = err.message;
         errorSnackbar.open();
       });
@@ -62,9 +65,6 @@
   {/if}
 </Dialog>
 
-<Snackbar bind:this={errorSnackbar}>
+<Snackbar bind:this={errorSnackbar} class="error">
   <Label>{error}</Label>
-  <Actions>
-    <IconButton class="material-icons" title="Dismiss">close</IconButton>
-  </Actions>
 </Snackbar>
