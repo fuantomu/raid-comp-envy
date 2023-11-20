@@ -4,7 +4,7 @@ import { BuildId } from "../../types";
 import AppError from "../../utils/AppError";
 import { getBuildResponseData, postBuildRequestData, postBuildResponseData } from "./types";
 
-export const baseURL = "http://localhost:8080/api";
+export const baseURL = "http://88.99.210.51:8080";
 
 const errorMap: Record<string, AppErrorId> = {
   "403": AppErrorId.Api403,

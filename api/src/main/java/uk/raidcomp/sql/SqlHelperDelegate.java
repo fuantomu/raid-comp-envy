@@ -28,7 +28,7 @@ public class SqlHelperDelegate {
       try{
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://"+connectionString.server()+":"+connectionString.port()+"/"+connectionString.database()+"?verifyServerCertificate=false&useSSL=false", connectionString.uid(), connectionString.password());
-        String query = "SELECT * from "+connectionString.table();
+        String query = "SELECT * from `"+connectionString.table()+"`";
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
 

@@ -14,7 +14,7 @@ export abstract class RosterProvider {
   }
 
   public static async getRosterRaidPlayersSql(connectionString: string) : Promise<BuildPlayer[]>{
-    return await fetch("http://localhost:8080/build/import/sql", {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((roster) => {
+    return await fetch("http://88.99.210.51:8080/build/import/sql", {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((roster) => {
       return roster.players
     })
   }
