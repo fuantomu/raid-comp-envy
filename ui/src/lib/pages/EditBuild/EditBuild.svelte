@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BottomBar from "./BottomBar.svelte";
+  import BottomBar from "./BottomBar/BottomBar.svelte";
   import RoleDisplay from "$lib/components/RoleDisplay/RoleDisplay.svelte";
   import { GameVersionFactory } from "$lib/versioning/GameVersionFactory";
   import { build, context, creatingBuild, displayGrouped, editing } from "$lib/store";

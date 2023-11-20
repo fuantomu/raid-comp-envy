@@ -85,6 +85,7 @@
     }
   },
   "cta": {
+    "openMenu": "Menu",
     "newBuild": "Create a new build",
     "addPlayer": "Add a player",
     "changeViewMode": "Change the view mode (groups/roles)",

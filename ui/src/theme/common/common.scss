@@ -63,3 +63,7 @@ button.button-disabled {
     padding-right: var(--spacing-xs);
   }
 }
+
+.mdc-deprecated-list-item.mdc-ripple-upgraded > i.material-icons {
+  margin-right: var(--spacing-s);
+}
