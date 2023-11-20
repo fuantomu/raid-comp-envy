@@ -5,58 +5,69 @@
   import { build, context, creatingBuild, displayGrouped, editing } from "$lib/store";
   import GroupDisplay from "$lib/components/GroupDisplay/GroupDisplay.svelte";
   import ChecklistDisplay from "$lib/components/ChecklistDisplay/ChecklistDisplay.svelte";
-  import type { GameVersionSlug } from "$lib/versioning/GameVersion";
   import RoleCount from "$lib/components/RoleCount.svelte";
-  import type { Build } from "$lib/service/api";
+  import { getBuild } from "$lib/service/api";
   import { _ } from "svelte-i18n";
   import Loading from "$lib/components/Loading.svelte";
+  import type { EditBuildPageParams } from "$lib/buildRouting";
+  import { routeToCorrectBuildUrl } from "$lib/buildRouting";
+  import ErrorPage from "$lib/pages/ErrorPage/ErrorPage.svelte";
 
-  export let gameVersion: GameVersionSlug;
-  export let fetchedBuild: Build | null = null;
+  export let params: EditBuildPageParams;
 
-  $context = GameVersionFactory.getContext(gameVersion);
   $editing = true;
+  $context = GameVersionFactory.getContext(params.gameVersion);
 
-  if (fetchedBuild !== null) {
-    $build = {
+  const fetchBuild = (async () => {
+    if (!params.buildId) {
+      build.set({
+        gameVersion: params.gameVersion,
+        buildId: "",
+        name: "",
+        players: []
+      });
+      return;
+    }
+    const fetchedBuild = (await getBuild(params.buildId)).data;
+    routeToCorrectBuildUrl(params.gameVersion, fetchedBuild, true);
+    build.set({
       ...fetchedBuild,
       players: fetchedBuild.players.map(p => $context.gameVersion.createPlayer(p)),
-      gameVersion: fetchedBuild.gameVersion ?? gameVersion
-    };
-  } else {
-    $build = {
-      gameVersion,
-      buildId: "",
-      name: "",
-      players: []
-    };
-  }
+      gameVersion: fetchedBuild.gameVersion ?? params.gameVersion
+    });
+  })();
 </script>
 
 <svelte:head>
   {#if $build.buildId}
     <title>{$_("build.page.edit.title", { values: { buildName: $build.name } })}</title>
   {:else}
-    <title>{$_("build.page.new.title", { values: { version: $_(`versions.${gameVersion}`) } })}</title>
+    <title>{$_("build.page.new.title", { values: { version: $_(`versions.${params.gameVersion}`) } })}</title>
   {/if}
 </svelte:head>
 
-{#if $creatingBuild}
+{#await fetchBuild}
   <Loading />
-{/if}
+{:then _}
+  {#if $creatingBuild}
+    <Loading />
+  {/if}
 
-<div class="content">
-  <div class="page">
-    {#if $displayGrouped}
-      <RoleCount />
-      <GroupDisplay />
-    {:else}
-      <RoleDisplay />
-    {/if}
-    <ChecklistDisplay />
+  <div class="content">
+    <div class="page">
+      {#if $displayGrouped}
+        <RoleCount />
+        <GroupDisplay />
+      {:else}
+        <RoleDisplay />
+      {/if}
+      <ChecklistDisplay />
+    </div>
   </div>
-</div>
-<BottomBar />
+  <BottomBar />
+{:catch error}
+  <ErrorPage {error} />
+{/await}
 
 <style>
     .page {

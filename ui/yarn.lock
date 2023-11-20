@@ -316,6 +316,11 @@
   dependencies:
     tslib "^2.4.0"
 
+"@haverstack/axios-fetch-adapter@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@haverstack/axios-fetch-adapter/-/axios-fetch-adapter-0.8.0.tgz#c9e80c29e565c65876c3312fa115d12f4cca4000"
+  integrity sha512-49/VcEVNusdkpaejbBx0EyESK2YR4L2oWfANp2FwYxJcE8gIfK86rcRhBt5RcGtZpTcfEwpflqyrT2S6yZnPDw==
+
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz#075dc9684f40a531d9b26b0822153c1e832ee297"

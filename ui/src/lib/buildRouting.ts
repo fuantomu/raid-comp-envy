@@ -1,44 +1,47 @@
-import { validateVersion } from '$lib/versioning/validate';
-import { getBuild } from '$lib/service/api';
-import { GameVersionSlug } from '$lib/versioning/GameVersion';
-import { goto } from '$app/navigation';
+import { validateVersion } from "$lib/versioning/validate";
+import type { Build } from "$lib/service/api";
+import { GameVersionSlug } from "$lib/versioning/GameVersion";
 
 type VersionedPageParams = {
-	gameVersion?: string;
+  gameVersion?: string;
 };
 
 type BuildPageParams = VersionedPageParams & {
-	buildId: string;
-	buildName?: string;
+  buildId: string;
+  buildName?: string;
 };
 
-export const constructParameters = (params: BuildPageParams) => {
-	return {
-		gameVersion: validateVersion(params.gameVersion),
-		buildId: params.buildId,
-		buildName: params.buildName,
-	};
+export type EditBuildPageParams = {
+  buildId?: string;
+  buildName?: string;
+  gameVersion: GameVersionSlug
+};
+
+export type ViewBuildPageParams = {
+  buildId: string;
+  buildName?: string;
+  gameVersion: GameVersionSlug
+};
+
+export const constructParameters = (params: BuildPageParams): ViewBuildPageParams => {
+  return {
+    gameVersion: validateVersion(params.gameVersion),
+    buildId: params.buildId,
+    buildName: params.buildName
+  };
 };
 
 export const constructCreateParameters = (params: { gameVersion?: string }) => {
-	return {
-		gameVersion: validateVersion(params.gameVersion),
-	};
+  return {
+    gameVersion: validateVersion(params.gameVersion)
+  };
 };
 
-export const routeToCorrectBuildUrl = async (params: BuildPageParams, edit?: boolean) => {
-	const parsed = constructParameters(params);
-	const build = (await getBuild(parsed.buildId)).data;
-
-	const buildUrl = `/build/${build.buildId}${edit ? '/edit' : ''}`;
-	if (!build.gameVersion && parsed.gameVersion !== GameVersionSlug.LIVE) {
-		await goto(`/${GameVersionSlug.LIVE}${buildUrl}`);
-	} else if (build.gameVersion && build.gameVersion !== parsed.gameVersion) {
-		await goto(`/${build.gameVersion}${buildUrl}`);
-	}
-
-	return {
-		...parsed,
-		build,
-	};
+export const routeToCorrectBuildUrl = (gameVersion: GameVersionSlug, build: Build, edit: boolean = false) => {
+  const buildUrl = `/build/${build.buildId}${edit ? "/edit" : ""}`;
+  if (!build.gameVersion && gameVersion !== GameVersionSlug.LIVE) {
+    window.location.href = `/${GameVersionSlug.LIVE}${buildUrl}`;
+  } else if (build.gameVersion && build.gameVersion !== gameVersion) {
+    window.location.href = `/${build.gameVersion}${buildUrl}`;
+  }
 };

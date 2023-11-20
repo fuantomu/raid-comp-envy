@@ -122,7 +122,7 @@
     "unspecific": "Unknown Error",
     "notFound": "Not Found",
     "apiCancelled": "Internal Error",
-    "api403": "403: Forbidden",
+    "api400": "400: Bad Request",
     "api404": "404: Not Found"
   }
 }

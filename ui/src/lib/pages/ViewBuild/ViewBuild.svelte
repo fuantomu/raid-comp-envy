@@ -4,44 +4,60 @@
   import { build, context, displayGrouped, editing } from "$lib/store";
   import GroupDisplay from "$lib/components/GroupDisplay/GroupDisplay.svelte";
   import ChecklistDisplay from "$lib/components/ChecklistDisplay/ChecklistDisplay.svelte";
-  import type { GameVersionSlug } from "$lib/versioning/GameVersion";
   import RoleCount from "$lib/components/RoleCount.svelte";
-  import type { Build } from "$lib/service/api";
+  import { getBuild } from "$lib/service/api";
   import BottomBar from "$lib/pages/ViewBuild/BottomBar.svelte";
   import WarcraftIcon from "$lib/components/WarcraftIcon.svelte";
+  import type { ViewBuildPageParams } from "$lib/buildRouting";
+  import { routeToCorrectBuildUrl } from "$lib/buildRouting";
+  import Loading from "$lib/components/Loading.svelte";
   import { _ } from "svelte-i18n";
+  import ErrorPage from "$lib/pages/ErrorPage/ErrorPage.svelte";
 
-  export let gameVersion: GameVersionSlug;
-  export let fetchedBuild: Build;
+  export let params: ViewBuildPageParams;
 
-  $context = GameVersionFactory.getContext(gameVersion);
   $editing = false;
+  $context = GameVersionFactory.getContext(params.gameVersion);
 
-  $build = {
-    ...fetchedBuild,
-    players: fetchedBuild.players.map(p => $context.gameVersion.createPlayer(p)),
-    gameVersion: fetchedBuild.gameVersion ?? gameVersion
-  };
+  const iconLabel = $_(`versions.${params.gameVersion}`);
+
+  const fetchBuild = (async () => {
+    const fetchedBuild = (await getBuild(params.buildId)).data;
+    routeToCorrectBuildUrl(params.gameVersion, fetchedBuild);
+    build.set({
+      ...fetchedBuild,
+      players: fetchedBuild.players.map(p => $context.gameVersion.createPlayer(p)),
+      gameVersion: fetchedBuild.gameVersion ?? params.gameVersion
+    });
+  })();
+
 </script>
 
 <svelte:head>
   <title>{$_("build.page.view.title", { values: { buildName: $build.name } })}</title>
 </svelte:head>
 
-<div class="page content">
-  <div class="title">
-    <WarcraftIcon src={$context.iconProvider.getVersionIcon()} label={$_(`versions.${gameVersion}`)} />
-    {$build.name}
+{#await fetchBuild}
+  <Loading />
+{:then _}
+  <div class="page content">
+    <div class="title">
+      <WarcraftIcon src={$context.iconProvider.getVersionIcon()} label={iconLabel} />
+      {$build.name}
+    </div>
+    {#if $displayGrouped}
+      <RoleCount />
+      <GroupDisplay />
+    {:else}
+      <RoleDisplay />
+    {/if}
+    <ChecklistDisplay />
   </div>
-  {#if $displayGrouped}
-    <RoleCount />
-    <GroupDisplay />
-  {:else}
-    <RoleDisplay />
-  {/if}
-  <ChecklistDisplay />
-</div>
-<BottomBar />
+  <BottomBar />
+{:catch error}
+  <ErrorPage {error} />
+{/await}
+
 
 <style>
     .page {
