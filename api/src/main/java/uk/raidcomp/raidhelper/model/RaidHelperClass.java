@@ -3,7 +3,7 @@ package uk.raidcomp.raidhelper.model;
 import java.util.Arrays;
 import java.util.Optional;
 import lombok.Getter;
-import uk.raidcomp.api.model.WarcraftPlayerClass;
+import uk.raidcomp.game.WarcraftPlayerClass;
 
 public enum RaidHelperClass {
   DK("DK", WarcraftPlayerClass.DEATH_KNIGHT),

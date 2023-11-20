@@ -12,7 +12,7 @@ import jakarta.inject.Singleton;
 import java.io.IOException;
 import java.util.Arrays;
 import lombok.Getter;
-import uk.raidcomp.api.model.WarcraftPlayerClass;
+import uk.raidcomp.game.WarcraftPlayerClass;
 
 public enum WowAuditPlayerClass {
   DEATH_KNIGHT("Death Knight", WarcraftPlayerClass.DEATH_KNIGHT),

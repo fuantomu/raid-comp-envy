@@ -13,15 +13,15 @@ import uk.raidcomp.api.controller.dto.imports.ImportBuildResponseDto;
 import uk.raidcomp.api.data.entity.BuildEntity;
 import uk.raidcomp.api.model.Build;
 import uk.raidcomp.api.model.Player;
-import uk.raidcomp.api.model.WarcraftPlayerSpec;
-import uk.raidcomp.api.model.WarcraftRole;
+import uk.raidcomp.game.WarcraftPlayerSpec;
+import uk.raidcomp.game.WarcraftRole;
 import uk.raidcomp.game.version.GameVersion;
 
-import static uk.raidcomp.api.model.WarcraftRole.HEALER;
-import static uk.raidcomp.api.model.WarcraftRole.MELEE_DPS;
-import static uk.raidcomp.api.model.WarcraftRole.RANGED_DPS;
-import static uk.raidcomp.api.model.WarcraftRole.TANK;
-import static uk.raidcomp.api.model.WarcraftRole.UNKNOWN;
+import static uk.raidcomp.game.WarcraftRole.HEALER;
+import static uk.raidcomp.game.WarcraftRole.MELEE_DPS;
+import static uk.raidcomp.game.WarcraftRole.RANGED_DPS;
+import static uk.raidcomp.game.WarcraftRole.TANK;
+import static uk.raidcomp.game.WarcraftRole.UNKNOWN;
 
 @Mapper(config = MapstructConfig.class, uses = PlayerMapper.class)
 public abstract class BuildMapper {

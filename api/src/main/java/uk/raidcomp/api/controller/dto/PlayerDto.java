@@ -9,10 +9,10 @@ import uk.raidcomp.api.model.GroupId;
 import uk.raidcomp.api.model.GroupId.GroupIdSerde;
 import uk.raidcomp.api.model.InviteStatus;
 import uk.raidcomp.api.model.InviteStatus.InviteStatusSerde;
-import uk.raidcomp.api.model.WarcraftPlayerClass;
-import uk.raidcomp.api.model.WarcraftPlayerClass.WarcraftPlayerClassSerde;
-import uk.raidcomp.api.model.WarcraftPlayerSpec;
-import uk.raidcomp.api.model.WarcraftPlayerSpec.WarcraftPlayerSpecSerde;
+import uk.raidcomp.game.WarcraftPlayerClass;
+import uk.raidcomp.game.WarcraftPlayerClass.WarcraftPlayerClassSerde;
+import uk.raidcomp.game.WarcraftPlayerSpec;
+import uk.raidcomp.game.WarcraftPlayerSpec.WarcraftPlayerSpecSerde;
 
 @Serdeable
 public record PlayerDto(

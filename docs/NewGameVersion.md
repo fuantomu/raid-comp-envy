@@ -5,6 +5,9 @@ To allow the creation of builds for a different game version, follow these steps
 ### API
 
 1. Add the version to the API enum `uk.raidcomp.game.version.GameVersion`
+2. Add any missing class/spec slug to the API enums:
+    * `uk.raidcomp.game.WarcraftPlayerClass`
+    * `uk.raidcomp.game.WarcraftPlayerSpec`
 
 ### UI
 

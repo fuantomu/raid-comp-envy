@@ -1,4 +1,4 @@
-package uk.raidcomp.api.model;
+package uk.raidcomp.game;
 
 import io.micronaut.context.annotation.Secondary;
 import io.micronaut.core.annotation.NonNull;

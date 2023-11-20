@@ -1,4 +1,4 @@
-package uk.raidcomp.api.model;
+package uk.raidcomp.game;
 
 import io.micronaut.context.annotation.Secondary;
 import io.micronaut.core.annotation.NonNull;
@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import lombok.Getter;
 
-import static uk.raidcomp.api.model.WarcraftRole.HEALER;
-import static uk.raidcomp.api.model.WarcraftRole.MELEE_DPS;
-import static uk.raidcomp.api.model.WarcraftRole.RANGED_DPS;
-import static uk.raidcomp.api.model.WarcraftRole.TANK;
+import static uk.raidcomp.game.WarcraftRole.HEALER;
+import static uk.raidcomp.game.WarcraftRole.MELEE_DPS;
+import static uk.raidcomp.game.WarcraftRole.RANGED_DPS;
+import static uk.raidcomp.game.WarcraftRole.TANK;
 
 public enum WarcraftPlayerSpec {
   DEATH_KNIGHT_BLOOD("DeathKnightBlood", WarcraftPlayerClass.DEATH_KNIGHT, TANK),

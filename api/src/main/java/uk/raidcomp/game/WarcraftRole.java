@@ -1,4 +1,4 @@
-package uk.raidcomp.api.model;
+package uk.raidcomp.game;
 
 public enum WarcraftRole {
   TANK,
