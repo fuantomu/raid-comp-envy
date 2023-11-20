@@ -31,7 +31,7 @@
       <Icon class="material-icons" style="color: var(--palette-info-main)">grid_view</Icon>
       <Text>{$_('cta.changeViewMode')}</Text>
     </Item>
-    <Item on:SMUI:action={() => ($resetBuildDialogOpen = true)}>
+    <Item on:SMUI:action={() => {}}>
       <Icon class="material-icons" style="color: var(--palette-warning-light)">system_update_alt</Icon>
       <Text>{$_('cta.importBuild')}</Text>
     </Item>
