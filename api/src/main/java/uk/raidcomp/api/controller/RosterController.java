@@ -11,6 +11,8 @@ import uk.raidcomp.api.controller.dto.save.SaveBuildDto;
 import uk.raidcomp.api.controller.dto.save.SaveBuildResponseDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildResponseDto;
+import uk.raidcomp.api.controller.dto.delete.DeleteBuildDto;
+import uk.raidcomp.api.controller.dto.delete.DeleteBuildResponseDto;
 import uk.raidcomp.api.mapper.BuildMapper;
 import uk.raidcomp.sql.SqlHelperDelegate;
 
@@ -39,5 +41,11 @@ public class RosterController {
   public HttpResponse<LoadBuildResponseDto> loadFromSql(
       @Valid @Body LoadBuildDto body) {
     return HttpResponse.created(new LoadBuildResponseDto(delegate.loadBuild(body)));
+  }
+
+  @Post("/delete")
+  public HttpResponse<DeleteBuildResponseDto> loadFromSql(
+      @Valid @Body DeleteBuildDto body) {
+    return HttpResponse.created(new DeleteBuildResponseDto(delegate.deleteBuild(body)));
   }
 }

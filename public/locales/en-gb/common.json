@@ -47,6 +47,10 @@
       "title": "Save Build",
       "emptyBuild": "There is nothing to save. Add some players first."
     },
+    "load": {
+      "title": "Load Build",
+      "emptyBuild": "Warning: Loading a build will overwrite the current players. Continue?"
+    },
     "edit": {
       "title": "Edit Player",
       "save": "Save",
@@ -75,7 +79,8 @@
     "exportBuild": "Export build",
     "resetBuild": "Clear build",
     "importRosterRaidHelper": "Import Roster from Raid-helper",
-    "importRosterSql": "Import Roster from SQL"
+    "importRosterSql": "Import Roster from SQL",
+    "loadBuild": "Load a saved build"
   },
   "status": {
     "invited": "Invited",

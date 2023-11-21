@@ -209,6 +209,14 @@ export abstract class BuildHelper {
     return players;
   }
 
+  public static async parseSqlDelete(connectionString : ConnectionString) {
+    connectionString.table = 'BuildEntity'
+
+    await RosterProvider.deleteBuildPlayersSql(JSON.stringify(connectionString)).then((response) => {
+      console.log(response)
+    })
+  }
+
   public static humanReadableURL(name: string) {
     return name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-");
   }

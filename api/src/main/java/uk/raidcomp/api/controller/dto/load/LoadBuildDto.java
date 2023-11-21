@@ -6,4 +6,4 @@ import jakarta.validation.constraints.NotBlank;
 
 @Serdeable
 @Introspected
-public record LoadBuildDto(@NotBlank String server, @NotBlank String port, @NotBlank String database, @NotBlank String uid, @NotBlank String password, @NotBlank String table) {}
+public record LoadBuildDto(@NotBlank String server, @NotBlank String port, @NotBlank String database, @NotBlank String uid, @NotBlank String password, @NotBlank String table, @NotBlank String build) {}

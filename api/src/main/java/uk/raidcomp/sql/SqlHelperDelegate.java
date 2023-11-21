@@ -16,6 +16,7 @@ import uk.raidcomp.api.controller.dto.PlayerDto;
 import uk.raidcomp.api.controller.dto.imports.ImportRosterDto;
 import uk.raidcomp.api.controller.dto.save.SaveBuildDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildDto;
+import uk.raidcomp.api.controller.dto.delete.DeleteBuildDto;
 import uk.raidcomp.api.delegate.BuildDelegate;
 import uk.raidcomp.api.model.InviteStatus;
 import uk.raidcomp.api.model.WarcraftPlayerClass;
@@ -40,7 +41,6 @@ public class SqlHelperDelegate {
         ResultSet result = statement.executeQuery(query);
 
         while(result.next()){
-          System.out.println(result.getMetaData());
           PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("class")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("class")), InviteStatus.UNKNOWN, null);
           teams.add(p);
         }
@@ -75,9 +75,9 @@ public class SqlHelperDelegate {
         }
         String query = "REPLACE INTO `"+connectionString.table()+"` (id, lastSeen, name, players) VALUES (?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, "Build");
+        statement.setString(1, "Build-"+connectionString.build());
         statement.setLong(2, new java.util.Date().getTime());
-        statement.setString(3, "currentBuild");
+        statement.setString(3, connectionString.build());
         statement.setString(4, playerJSON.toString());
 
         statement.execute();
@@ -98,7 +98,7 @@ public class SqlHelperDelegate {
       try{
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
-        String query = "SELECT * from `"+connectionString.table()+"` WHERE id = 'Build'";
+        String query = "SELECT * from `"+connectionString.table()+"` WHERE id = 'Build-"+connectionString.build()+"'";
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
 
@@ -116,6 +116,28 @@ public class SqlHelperDelegate {
       return players;
   }
 
+  public String deleteBuild(DeleteBuildDto connectionString) {
+    String result = "";
+      try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
+        String query = "DELETE from `"+connectionString.table()+"` WHERE id = 'Build-"+connectionString.build()+"'";
+        Statement statement = connection.createStatement();
+        System.out.println(query);
+        result += statement.executeUpdate(query);
+        System.out.println(result);
+
+      }
+      catch (SQLException se){
+        se.printStackTrace();
+      }
+      catch (ClassNotFoundException ce){
+        ce.printStackTrace();
+      }
+
+    return result;
+  }
+
   private String getConnectionString(SaveBuildDto Dto){
     return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
   }
@@ -125,6 +147,10 @@ public class SqlHelperDelegate {
   }
 
   private String getConnectionString(ImportRosterDto Dto){
+    return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
+  }
+
+  private String getConnectionString(DeleteBuildDto Dto){
     return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
   }
 

@@ -8,4 +8,4 @@ import java.util.List;
 
 @Serdeable
 @Introspected
-public record SaveBuildDto(@NotBlank String server, @NotBlank String port, @NotBlank String database, @NotBlank String uid, @NotBlank String password, @NotBlank String table, List<PlayerDto> players) {}
+public record SaveBuildDto(@NotBlank String server, @NotBlank String port, @NotBlank String database, @NotBlank String uid, @NotBlank String password, @NotBlank String table, List<PlayerDto> players, @NotBlank String build) {}

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AppContextProvider } from "../../components/App/context";
 import BuildRolesCount from "../../components/BuildRolesCount";
 import BuildTitle from "../../components/BuildTitle";
@@ -16,7 +16,7 @@ import ModalSaveBuild from "../../components/ModalSaveBuild";
 import RaidChecklist from "../../components/RaidChecklist";
 import Roster from "../../components/Roster";
 import RaidComposition from "../../components/RaidComposition";
-import { getBuild, postBuild } from "../../services/backend";
+import { getBuild } from "../../services/backend";
 import { Build, BuildPlayer} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import { PlayerUtils } from "../../utils/PlayerUtils";
@@ -25,6 +25,7 @@ import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 import ModalLoadRoster from "../../components/ModalLoadRoster";
 import ModalLoadRosterSQL from "../../components/ModalLoadRosterSQL";
+import ModalLoadBuild from "../../components/ModalLoadBuild";
 import { InviteStatus } from "../../consts";
 
 export interface EditBuildPageProps {}
@@ -35,7 +36,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const styles = useStyles();
   const handleError = useErrorHandler();
-  const navigate = useNavigate();
   const [name, setName] = useState<string>(common("build.new"));
   const [players, setPlayers] = useState<BuildPlayer[]>([]);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
@@ -49,7 +49,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     "uid": process.env.REACT_APP_SQL_USER,
     "password": process.env.REACT_APP_SQL_PASSWORD,
     "table": process.env.REACT_APP_SQL_TABLE,
-    "players" : undefined
+    "players" : undefined,
+    "build": "currentBuild"
   };
 
   const importBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
@@ -66,7 +67,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     ]
     setPlayers(playerBuild)
     updateRosterStatus(newPlayers, roster);
-    saveCurrentBuild(playerBuild)
+    saveCurrentBuild(playerBuild, name === "New Build"? "currentBuild": name)
   };
 
   const updateRosterStatus = async (players: BuildPlayer[], roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
@@ -90,7 +91,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return roster;
   }
 
-  const saveCurrentBuild = (playerBuild : BuildPlayer[]) => {
+  const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildName?: string) => {
+    const connectionString = CONNECTION_STRING;
+    connectionString.build = buildName?? "currentBuild";
     BuildHelper.parseSqlSave(CONNECTION_STRING, playerBuild);
   }
 
@@ -112,22 +115,24 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const saveBuild = async () => {
     if (!players.length) return;
-    setIsLoading(true);
-    postBuild(getCurrentBuild())
-      .then(({ data: { buildId } }) => {
-        navigate(`/build/${buildId}/${BuildHelper.humanReadableURL(name)}`);
-      })
-      .catch(handleError);
+    saveCurrentBuild(getCurrentBuild().players, name);
   };
 
   const resetBuild = async () => {
+    const connectionString = CONNECTION_STRING;
+    const currentBuild = localStorage.getItem('LastBuild')?? "currentBuild"
+    connectionString.build = currentBuild;
     setName(common("build.new"));
     setPlayers([]);
-    saveCurrentBuild([]);
+    await saveCurrentBuild([], currentBuild).then(() => {
+      BuildHelper.parseSqlDelete(connectionString)
+    });
+    localStorage.removeItem('LastBuild')
   };
 
   const handleTitleChange = (newName: string) => {
     setName(newName);
+    localStorage.setItem( 'LastBuild', newName)
   };
 
   const editPlayerModalFn = (callback: (player: BuildPlayer) => void) => {
@@ -139,6 +144,16 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       openEditModal(player);
     }
   };
+
+  const loadBuildSql = async(build: string): Promise<void> => {
+    const connectionString = CONNECTION_STRING;
+    connectionString.build = build;
+    BuildHelper.parseSqlLoad(connectionString).then((build) => {
+      if(build.length > 0){
+        loadBuild(build)}
+      }
+    )
+  }
 
   const loadRoster = async (newRoster: BuildPlayer[]): Promise<void> => {
     setRoster([...newRoster]);
@@ -162,20 +177,20 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         })
         .catch(handleError);
     } else {
+      const lastBuild = localStorage.getItem( 'LastBuild')?? 'New Build';
+      setName(lastBuild);
+      const connectionString = CONNECTION_STRING;
+      connectionString.build = lastBuild;
       BuildHelper.parseSqlLoad(CONNECTION_STRING).then((build) => {
-        if(build.length > 0 && build[0].name !== "ErrorInvalidID"){
           loadBuild(build).then(() => {
             BuildHelper.parseSqlImport(CONNECTION_STRING).then((roster) => {
-              if(roster.length > 0 && roster[0].name !== "ErrorInvalidID"){
                 loadRoster(roster).then(() => {
                   updateRosterStatus(build, roster).then((rosterUpdate) => {
                     setRoster(rosterUpdate);
                   });
                 });
-              }
             })
           });
-        }
       })
 
       setIsLoading(false);
@@ -187,7 +202,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster }}>
+    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
       <Container maxWidth="xl">
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
@@ -205,6 +220,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           <ModalSaveBuild />
           <ModalLoadRoster />
           <ModalLoadRosterSQL />
+          <ModalLoadBuild />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />

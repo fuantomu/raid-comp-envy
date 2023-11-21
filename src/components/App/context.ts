@@ -4,6 +4,7 @@ import { Build, BuildPlayer } from "../../types";
 type AppContextApi = {
   importBuild: (players: BuildPlayer[]) => Promise<void>;
   saveBuild: (build: Build) => Promise<void>;
+  loadBuildSql: (build: string) => Promise<void>;
   resetBuild: () => Promise<void>;
   getCurrentBuild: () => Build;
   editPlayer: (player: BuildPlayer) => void;
