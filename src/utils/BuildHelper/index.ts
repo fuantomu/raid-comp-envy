@@ -17,7 +17,6 @@ export abstract class BuildHelper {
     };
     for (const player of players) {
       let groupId: GroupId = player.group ?? "none";
-      groupId = groupId > 5 ? "none" : groupId;
       const group = groups[groupId];
       if (!group) {
         groups[groupId] = {
@@ -130,7 +129,7 @@ export abstract class BuildHelper {
           name: "ErrorInvalidID",
           class: WarcraftPlayerClass.DeathKnight,
           spec: WarcraftPlayerSpec.DeathKnightBlood,
-          status: InviteStatus.Invited,
+          status: InviteStatus.Unknown,
           group: "roster"
       })
       }
@@ -146,6 +145,7 @@ export abstract class BuildHelper {
 
     await RosterProvider.getRosterRaidPlayersSql(JSON.stringify(connectionString)).then((roster) =>{
       try {
+        console.log(roster)
         for (const player of roster) {
           //const spec = player.spec.split("_")[0].replace("1","")
           //const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
@@ -154,7 +154,7 @@ export abstract class BuildHelper {
             name: player.name,
             class: player.class as WarcraftPlayerClass,
             spec: player.spec as WarcraftPlayerSpec,
-            status: InviteStatus.Invited,
+            status: InviteStatus.Unknown,
             group: "roster",
             realm: undefined,
             oldName: player.name
@@ -165,7 +165,7 @@ export abstract class BuildHelper {
           name: "ErrorInvalidID",
           class: WarcraftPlayerClass.DeathKnight,
           spec: WarcraftPlayerSpec.DeathKnightBlood,
-          status: InviteStatus.Invited,
+          status: InviteStatus.Unknown,
           group: "roster"
       })
       }
@@ -175,8 +175,11 @@ export abstract class BuildHelper {
   }
 
   public static async parseSqlSave(connectionString : ConnectionString, players: BuildPlayer[]) {
-    connectionString.players = players;
-    connectionString.table = 'buildentity'
+    connectionString.players = players.filter((player) => {
+      return player.group !== 'roster'
+    });
+    connectionString.table = 'BuildEntity'
+
     await RosterProvider.saveBuildPlayersSql(JSON.stringify(connectionString)).then((response) => {
       console.log(response)
     })
@@ -184,21 +187,24 @@ export abstract class BuildHelper {
 
   public static async parseSqlLoad(connectionString: ConnectionString) {
     const players: BuildPlayer[] = [];
-    connectionString.table = 'buildentity'
+    connectionString.table = 'BuildEntity'
 
     await RosterProvider.loadBuildPlayersSql(JSON.stringify(connectionString)).then((roster) =>{
-      for (const player of JSON.parse(roster)){
-        const spec = player.spec.toLowerCase().split("_")
-        players.push({
-          name: player.name,
-          class: BuildHelper.capitalize(player.className.toLowerCase()) as WarcraftPlayerClass,
-          spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
-          status: InviteStatus.Unknown,
-          group: player.group.slice(-1),
-          realm: undefined,
-          oldName: player.name
-        })
+      if (roster){
+        for (const player of JSON.parse(roster)){
+          const spec = player.spec.toLowerCase().split("_")
+          players.push({
+            name: player.name,
+            class: BuildHelper.capitalize(player.className.toLowerCase()) as WarcraftPlayerClass,
+            spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
+            status: InviteStatus.Unknown,
+            group: player.group.slice(-1),
+            realm: undefined,
+            oldName: player.name
+          })
+        }
       }
+
     });
     return players;
   }

@@ -65,26 +65,29 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       ...newPlayers.filter((player) => {player.status = InviteStatus.Unknown; return player.name !== "";}),
     ]
     setPlayers(playerBuild)
-    for(const player of newPlayers){
-      updateRosterStatus(player);
-    }
+    updateRosterStatus(newPlayers, roster);
     saveCurrentBuild(playerBuild)
   };
 
-  const updateRosterStatus = (player: BuildPlayer) => {
-    for(const rosterPlayer of roster){
-      if(player.group === "roster" && rosterPlayer.name === player.name){
-        rosterPlayer.status = InviteStatus.Unknown;
-      }
-      else{
-        if(rosterPlayer.name === player.name && rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){
-          rosterPlayer.status = InviteStatus.Accepted;
+  const updateRosterStatus = async (players: BuildPlayer[], roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
+    for (const rosterPlayer of roster) {
+      const player = players.find((player) => player.name === rosterPlayer.name)
+      if(player){
+
+        if(player.group === "roster"){
+          rosterPlayer.status = InviteStatus.Unknown;
         }
-        if(rosterPlayer.name === player.name && (rosterPlayer.class !== player.class || rosterPlayer.spec !== player.spec)){
-          rosterPlayer.status = InviteStatus.Declined;
+        else{
+          if(rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){
+            rosterPlayer.status = InviteStatus.Accepted;
+          }
+          if(rosterPlayer.class !== player.class || rosterPlayer.spec !== player.spec){
+            rosterPlayer.status = InviteStatus.Declined;
+          }
         }
       }
     }
+    return roster;
   }
 
   const saveCurrentBuild = (playerBuild : BuildPlayer[]) => {
@@ -120,6 +123,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const resetBuild = async () => {
     setName(common("build.new"));
     setPlayers([]);
+    saveCurrentBuild([]);
   };
 
   const handleTitleChange = (newName: string) => {
@@ -158,18 +162,24 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         })
         .catch(handleError);
     } else {
-      BuildHelper.parseSqlImport(CONNECTION_STRING).then((roster) => {
-        if(roster.length > 0 && roster[0].name !== "ErrorInvalidID"){
-          loadRoster(roster);
+      BuildHelper.parseSqlLoad(CONNECTION_STRING).then((build) => {
+        if(build.length > 0 && build[0].name !== "ErrorInvalidID"){
+          loadBuild(build).then(() => {
+            BuildHelper.parseSqlImport(CONNECTION_STRING).then((roster) => {
+              if(roster.length > 0 && roster[0].name !== "ErrorInvalidID"){
+                loadRoster(roster).then(() => {
+                  updateRosterStatus(build, roster).then((rosterUpdate) => {
+                    setRoster(rosterUpdate);
+                  });
+                });
+              }
+            })
+          });
         }
       })
-      BuildHelper.parseSqlLoad(CONNECTION_STRING).then((roster) => {
-        if(roster.length > 0 && roster[0].name !== "ErrorInvalidID"){
-          loadBuild(roster);
-        }
-      })
+
       setIsLoading(false);
-    }
+    }// eslint-disable-next-line
   }, [buildId, handleError]);
 
   if (isLoading) {
