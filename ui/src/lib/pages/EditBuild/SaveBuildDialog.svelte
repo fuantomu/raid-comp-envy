@@ -49,7 +49,7 @@
         type="text"
         bind:value={buildName}
         label={$_("build.save.input")}
-        style="min-width: 250px; margin-bottom: var(--spacing-s)"
+        style="min-width: 250px; margin-bottom: var(--spacing-s); width: 100%"
       />
       <Turnstile on:turnstile-callback={({ detail: { token } }) => (turnstileToken = token)} forms={false}
                  siteKey={PUBLIC_TURNSTILE_SITE_KEY} />
