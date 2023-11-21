@@ -124,6 +124,7 @@
     "notFound": "Not Found",
     "apiCancelled": "Internal Error",
     "api400": "400: Bad Request",
+    "api403": "403: Unauthorized",
     "api404": "404: Not Found"
   }
 }

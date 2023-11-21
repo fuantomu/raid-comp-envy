@@ -8,6 +8,7 @@
   import { _ } from "svelte-i18n";
   import { createBuild, mapToApi } from "$lib/service/api";
   import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
+  import { ApiError } from "$lib/service/error";
 
   let buildName: string | null = $build.name || $_("build.new");
   let errorSnackbar: Snackbar;
@@ -30,7 +31,7 @@
       })
       .catch(err => {
         $creatingBuild = false;
-        error = err.message;
+        error = err instanceof ApiError ? $_(`error.${err.id}`) : err.message;
         errorSnackbar.open();
       });
   };

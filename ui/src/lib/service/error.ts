@@ -10,5 +10,6 @@ export enum AppErrorId {
   Unspecific = "unspecific",
   ApiCancelled = "apiCancelled",
   Api400 = "api400",
+  Api403 = "api403",
   Api404 = "api404",
 }

@@ -29,6 +29,8 @@ service.interceptors.response.use(
     let errorId: AppErrorId;
     if (status === 400) {
       errorId = AppErrorId.Api400;
+    } else if (status === 403) {
+      errorId = AppErrorId.Api403;
     } else if (status === 404) {
       errorId = AppErrorId.Api404;
     } else if (axios.isCancel(error)) {
