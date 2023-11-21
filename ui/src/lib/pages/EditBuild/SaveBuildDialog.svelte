@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Turnstile } from "svelte-turnstile";
   import Snackbar from "@smui/snackbar";
   import Dialog, { Actions, Content, Title } from "@smui/dialog";
   import Button, { Label } from "@smui/button";
@@ -6,10 +7,12 @@
   import Textfield from "@smui/textfield";
   import { _ } from "svelte-i18n";
   import { createBuild, mapToApi } from "$lib/service/api";
+  import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
 
   let buildName: string | null = $build.name || $_("build.new");
   let errorSnackbar: Snackbar;
   let error: string | null = null;
+  let turnstileToken: string = "";
 
   const handleSave = () => {
     const newBuild = mapToApi({
@@ -18,7 +21,10 @@
       gameVersion: $context.gameVersion.getSlug()
     });
     $creatingBuild = true;
-    createBuild(newBuild)
+    createBuild({
+      ...newBuild,
+      token: turnstileToken
+    })
       .then(({ data: { buildId } }) => {
         window.location.href = `/build/${buildId}`;
       })
@@ -42,8 +48,10 @@
         type="text"
         bind:value={buildName}
         label={$_("build.save.input")}
-        style="min-width: 250px;"
+        style="min-width: 250px; margin-bottom: var(--spacing-s)"
       />
+      <Turnstile on:turnstile-callback={({ detail: { token } }) => (turnstileToken = token)} forms={false}
+                 siteKey={PUBLIC_TURNSTILE_SITE_KEY} />
     </Content>
     <Actions>
       <Button class="button-cancel">

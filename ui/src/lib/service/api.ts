@@ -44,7 +44,7 @@ service.interceptors.response.use(
 export const getBuild = (buildId: string, config?: AxiosRequestConfig) =>
   service.get<Build>(`/builds/${buildId}`, config);
 
-export const createBuild = (data: Omit<Build, "buildId">, config?: AxiosRequestConfig) =>
+export const createBuild = (data: createBuildRequest, config?: AxiosRequestConfig) =>
   service.post<{ buildId: string }>(`/builds`, data, config);
 
 type GroupId = "none" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -79,3 +79,7 @@ export const mapToApi = (build: ModelBuild): Build => ({
     group: p.group
   }))
 });
+
+export type createBuildRequest = Omit<Build, "buildId"> & {
+  token: string;
+}

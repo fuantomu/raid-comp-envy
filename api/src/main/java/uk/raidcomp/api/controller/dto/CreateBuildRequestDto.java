@@ -15,6 +15,7 @@ import uk.raidcomp.game.version.GameVersion.GameVersionSerde;
 @Serdeable
 @Introspected
 public record CreateBuildRequestDto(
+    @NotBlank String token,
     @Deserializable(using = GameVersionSerde.class) @NotNull GameVersion gameVersion,
     @Size(min = 1, max = 500) @NotBlank String name,
     @Valid @Size(min = 1, max = 100) @NotNull @NotEmpty List<PlayerDto> players) {}

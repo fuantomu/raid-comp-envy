@@ -1,6 +1,6 @@
 import type MockAdapter from "axios-mock-adapter";
 import { liveBuildWithVersion, mockBuilds } from "./data";
-import type { Build } from "$lib/service/api";
+import type { Build, createBuildRequest } from "$lib/service/api";
 
 export const mockRoutes = (ma: MockAdapter) => {
   const buildMatcher = new RegExp("^/builds/(?<buildId>[^/]+)$");
@@ -22,10 +22,10 @@ export const mockRoutes = (ma: MockAdapter) => {
   });
 
   ma.onPost("/builds").reply((config) => {
-    const build = JSON.parse(config.data) as Build;
+    const build = JSON.parse(config.data) as createBuildRequest;
     if (build.name.includes("400")) {
       return [400, { message: "some error" }];
     }
-    return [201, { buildId: "foo" }];
+    return [201, { buildId: `foo ${build.token}` }];
   });
 };
