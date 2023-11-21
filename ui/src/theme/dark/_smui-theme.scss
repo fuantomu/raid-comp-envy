@@ -1,0 +1,95 @@
+@use 'sass:color';
+@use '@material/theme/color-palette';
+@use '@material/theme/index' as theme with (
+  $primary: #ad0a0a,
+  $secondary:#1d1d1d,
+  $surface: #1d1d1d,
+  $background: #242424,
+  $error: color-palette.$red-700
+);
+@use '../common/typography';
+@use '../common/common';
+@use '../common/game';
+
+:root {
+  --palette-background-default: #{theme.$background};
+  --palette-background-paper: #{theme.$surface};
+  --palette-text-primary: #{theme.$on-surface};
+  --palette-text-secondary: #ddd;
+  --palette-primary-main: #ad0a0a;
+  --palette-primary-light: #d41313;
+  --palette-primary-dark: #910404;
+  --palette-secondary-main: #616161;
+  --palette-secondary-light: #757575;
+  --palette-secondary-dark: #424242;
+
+  --palette-success-light: #{theme.$green-300};
+  --palette-success-main: #{theme.$green-500};
+  --palette-success-dark: #{theme.$green-700};
+
+  --palette-info-light: #{theme.$blue-400};
+  --palette-info-main: #{theme.$blue-600};
+  --palette-info-dark: #{theme.$blue-800};
+
+  --palette-warning-light: #{theme.$orange-500};
+  --palette-warning-main: #{theme.$orange-700};
+  --palette-warning-dark: #{theme.$orange-900};
+
+  --palette-error-light: #{theme.$red-400};
+  --palette-error-main: #{theme.$red-600};
+  --palette-error-dark: #{theme.$red-800};
+}
+
+html,
+body {
+  background-color: theme.$background;
+  color: theme.$on-surface;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #40b3ff;
+}
+
+a:visited {
+  color: color.scale(#40b3ff, $lightness: -35%);
+}
+
+.mdc-dialog .mdc-dialog__scrim {
+  background-color: rgba(color.scale(theme.$background, $lightness: -35%), .8) !important;
+}
+
+.mdc-segmented-button__segment--selected {
+  background-color: rgba(theme.$primary, .8) !important;
+}
+
+.smui-bottom-app-bar {
+  border-top: solid 1px black;
+}
+
+.mdc-snackbar.error {
+  .mdc-snackbar__surface {
+    background-color: var(--palette-error-main)!important;
+    .mdc-snackbar__label {
+      color: var(--palette-text-primary)!important;
+    }
+  }
+
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--palette-background-paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--palette-primary-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--palette-primary-main);
+}

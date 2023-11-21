@@ -3,8 +3,8 @@ package uk.raidcomp.raidhelper.model;
 import java.util.Arrays;
 import java.util.Optional;
 import lombok.Getter;
-import uk.raidcomp.api.model.WarcraftPlayerClass;
-import uk.raidcomp.api.model.WarcraftPlayerSpec;
+import uk.raidcomp.game.WarcraftPlayerClass;
+import uk.raidcomp.game.WarcraftPlayerSpec;
 
 public enum RaidHelperSpec {
   BLOOD("Blood", WarcraftPlayerSpec.DEATH_KNIGHT_BLOOD),

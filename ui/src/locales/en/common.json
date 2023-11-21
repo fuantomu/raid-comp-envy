@@ -1,0 +1,130 @@
+{
+  "loading": "Loading...",
+  "build": {
+    "groups": {
+      "group": "Group",
+      "group_1": "Group 1",
+      "group_2": "Group 2",
+      "group_3": "Group 3",
+      "group_4": "Group 4",
+      "group_5": "Group 5",
+      "group_6": "Group 6",
+      "group_7": "Group 7",
+      "group_8": "Group 8",
+      "group_none": "Ungrouped"
+    },
+    "roles": {
+      "total": "Total",
+      "Unknown": "Unknown",
+      "Tank": "Tank",
+      "Healer": "Healer",
+      "RangedDPS": "Ranged DPS",
+      "MeleeDPS": "Melee DPS"
+    },
+    "checklist": {
+      "classes": "Classes Checklist",
+      "buffs": "Buffs Checklist",
+      "utilities": "Utilities Checklist"
+    },
+    "new": "New Build",
+    "unnamed": "Unnamed Build",
+    "import": {
+      "title": "Import Build",
+      "import": "Import"
+    },
+    "export": {
+      "title": "Export Build",
+      "raid-comp": "Raid Composition",
+      "wowaudit": "wowaudit Invite Tool"
+    },
+    "reset": {
+      "title": "Reset Build",
+      "confirm": "Are you sure you want to reset this build?"
+    },
+    "changeVersion": {
+      "title": "Change the game version",
+      "confirm": "Changing the game version will clear your build. Are you sure?",
+      "label": "Game version",
+      "current": "Current version"
+    },
+    "save": {
+      "title": "Save Build",
+      "input": "Build Name",
+      "emptyBuild": "There is nothing to save. Add some players first."
+    },
+    "edit": {
+      "title": "Edit Player",
+      "save": "Save",
+      "remove": "Remove"
+    },
+    "add": {
+      "title": "Add Player",
+      "name": "Character Name",
+      "groups": {
+        "group_1": "1",
+        "group_2": "2",
+        "group_3": "3",
+        "group_4": "4",
+        "group_5": "5",
+        "group_6": "6",
+        "group_7": "7",
+        "group_8": "8",
+        "group_none": "Ungrouped"
+      }
+    },
+    "page": {
+      "edit": {
+        "title": "Editing {buildName} - RaidComp"
+      },
+      "new": {
+        "title": "New {version} Build - RaidComp"
+      },
+      "view": {
+        "title": "{buildName} - RaidComp"
+      }
+    }
+  },
+  "cta": {
+    "openMenu": "Menu",
+    "newBuild": "Create a new build",
+    "addPlayer": "Add a player",
+    "changeViewMode": "Change the view mode (groups/roles)",
+    "saveBuild": "Save build",
+    "editBuild": "Edit build",
+    "importBuild": "Import build",
+    "exportBuild": "Export build",
+    "resetBuild": "Clear build",
+    "reportBug": "Report a bug (Opens in a new window)",
+    "moreOptions": "More options",
+    "changeGameVersion": "Change game version"
+  },
+  "status": {
+    "invited": "Invited",
+    "tentative": "Tentative",
+    "accepted": "Accepted",
+    "declined": "Declined",
+    "backup": "Backup",
+    "benched": "Benched",
+    "unknown": "Unknown"
+  },
+  "buttons": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "add": "Add",
+    "remove": "Remove"
+  },
+  "warn": {
+    "talentBasedUtilities": "Warning: Some of these buffs and utilities may be part of talents. This list is assuming all players have those respective prerequisites completed."
+  },
+  "error": {
+    "goBack": "Go Back",
+    "reload": "Reload",
+    "unspecific": "Unknown Error",
+    "notFound": "Not Found",
+    "apiCancelled": "Internal Error",
+    "api400": "400: Bad Request",
+    "api403": "403: Unauthorized",
+    "api404": "404: Not Found"
+  }
+}

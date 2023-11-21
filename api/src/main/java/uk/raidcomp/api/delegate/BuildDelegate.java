@@ -6,14 +6,17 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import uk.raidcomp.api.data.entity.BuildEntity;
 import uk.raidcomp.api.data.repository.BuildRepository;
 import uk.raidcomp.api.mapper.BuildMapper;
 import uk.raidcomp.api.mapper.PlayerMapper;
 import uk.raidcomp.api.model.Build;
 import uk.raidcomp.api.model.Player;
+import uk.raidcomp.game.version.GameVersion;
 
 @Singleton
+@AllArgsConstructor
 public class BuildDelegate {
   public static final int MAX_BUILD_AGE = 30;
   public static final String PRUNE_SCHEDULE_CRON = "0 0 0 * * *";
@@ -21,15 +24,6 @@ public class BuildDelegate {
   private final BuildRepository repository;
   private final BuildMapper buildMapper;
   private final PlayerMapper playerMapper;
-
-  public BuildDelegate(
-      final BuildRepository repository,
-      final BuildMapper buildMapper,
-      final PlayerMapper playerMapper) {
-    this.repository = repository;
-    this.buildMapper = buildMapper;
-    this.playerMapper = playerMapper;
-  }
 
   private String generateBuildId() {
     final UUID randomId = UUID.randomUUID();
@@ -46,9 +40,11 @@ public class BuildDelegate {
     return build.map(buildMapper::toDomain);
   }
 
-  public Build create(final String name, final List<Player> players) {
+  public Build create(
+      final GameVersion gameVersion, final String name, final List<Player> players) {
     final BuildEntity build = new BuildEntity();
     build.setId(generateBuildId());
+    build.setGameVersion(gameVersion.getValue());
     build.setName(name);
     build.setPlayers(players.stream().map(playerMapper::toModel).toList());
     return buildMapper.toDomain(repository.save(build));

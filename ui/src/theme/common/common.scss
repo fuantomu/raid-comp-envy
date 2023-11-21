@@ -1,0 +1,69 @@
+.smui-bottom-app-bar {
+  position: fixed;
+  bottom: 0;
+}
+
+.mdc-layout-grid {
+  padding: var(--spacing-xs) 0!important;
+}
+
+:root {
+  --spacing-xxs: 0.3rem;
+  --spacing-xs: 0.5rem;
+  --spacing-s: 1rem;
+  --spacing-m: 1.5rem;
+  --spacing-l: 2rem;
+  --spacing-xl: 2.5rem;
+  --spacing-xxl: 3rem;
+
+  --bottom-bar-size: 84px;
+}
+
+button.button-danger {
+  background-color: var(--palette-error-main);
+  color: var(--palette-text-primary);
+
+  & > span {
+    color: var(--palette-text-primary);
+  }
+}
+
+button.button-cancel {
+  background-color: var(--palette-secondary-main);
+  color: var(--palette-text-secondary);
+
+  & > span {
+    color: var(--palette-text-secondary);
+  }
+}
+
+button.button-safe {
+  background-color: var(--palette-success-main);
+  color: var(--palette-text-primary);
+
+  & > span {
+    color: var(--palette-text-primary);
+  }
+}
+
+button.button-disabled {
+  background-color: var(--palette-secondary-dark);
+  color: var(--palette-text-primary);
+
+  & > span {
+    color: var(--palette-text-primary);
+  }
+}
+
+.container {
+  min-height: 100vh;
+
+  & > .content {
+    padding-left: var(--spacing-xs);
+    padding-right: var(--spacing-xs);
+  }
+}
+
+.mdc-deprecated-list-item.mdc-ripple-upgraded > i.material-icons {
+  margin-right: var(--spacing-s);
+}

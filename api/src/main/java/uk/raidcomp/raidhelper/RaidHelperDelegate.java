@@ -12,6 +12,7 @@ import uk.raidcomp.api.model.Player;
 import uk.raidcomp.api.model.imported.ImportedBuild;
 import uk.raidcomp.api.model.imported.PlayerName;
 import uk.raidcomp.api.model.imported.PlayerSignup;
+import uk.raidcomp.game.version.GameVersion;
 import uk.raidcomp.wowaudit.WowAuditDelegate;
 import uk.raidcomp.wowaudit.model.Team;
 import uk.raidcomp.wowaudit.model.TeamCharacter;
@@ -38,7 +39,7 @@ public class RaidHelperDelegate {
     final var importedBuild = importDelegate.getBuild(raw);
     return teams.stream()
         .map(team -> createTeamBuild(team, importedBuild))
-        .map(b -> buildDelegate.create(b.name(), b.players()))
+        .map(b -> buildDelegate.create(GameVersion.DEFAULT, b.name(), b.players()))
         .toList();
   }
 
@@ -47,7 +48,7 @@ public class RaidHelperDelegate {
     if (!team.name().isBlank()) {
       name = "%s - %s".formatted(name, team.name());
     }
-    return new Build(null, name, filterPlayers(team, importedBuild.signups()));
+    return new Build(GameVersion.DEFAULT, null, name, filterPlayers(team, importedBuild.signups()));
   }
 
   private List<Player> filterPlayers(final Team team, final List<PlayerSignup> signups) {
