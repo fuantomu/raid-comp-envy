@@ -21,6 +21,16 @@ export type BuildPlayer = {
   oldName?: string;
 };
 
+export type ConnectionString = {
+  server?: string;
+  port?: string;
+  database?: string;
+  uid?: string;
+  password?: string;
+  table?: string;
+  players?: Array<BuildPlayer>;
+};
+
 export type RaidHelper = {
   signups: Array<RaidHelperSignups>;
 };

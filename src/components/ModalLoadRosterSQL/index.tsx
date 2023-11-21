@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { BuildHelper } from "../../utils/BuildHelper";
 import { useAppContext } from "../App/context";
 import useStyles from "./useStyles";
+import { ConnectionString } from "../../types";
 
 export interface ModalLoadRosterProps {}
 
@@ -36,15 +37,16 @@ const ModalLoadRosterSQL: FC<ModalLoadRosterProps> = () => {
   };
 
   const handleImport = () => {
-    const connectionString = JSON.stringify({
+    const connectionString : ConnectionString = {
       "server": sqlHost.current?.value ?? process.env.REACT_APP_SQL_HOST,
-      "port": 3306,
+      "port": '3306',
       "database": sqlDatabase.current?.value ?? process.env.REACT_APP_SQL_DATABASE,
       "uid": sqlUser.current?.value ?? process.env.REACT_APP_SQL_USER,
       "password": sqlPassword.current?.value ?? process.env.REACT_APP_SQL_PASSWORD,
       "table": sqlTable.current?.value ?? process.env.REACT_APP_SQL_TABLE,
-    });
-    BuildHelper.parseSql(connectionString).then((roster) => {
+      "players": []
+    };
+    BuildHelper.parseSqlImport(connectionString).then((roster) => {
       if(roster[0].name === "ErrorInvalidID"){
         showError(true)
       }

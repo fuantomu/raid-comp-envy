@@ -7,6 +7,9 @@ micronaut:
       configurations:
         web:
           allowedOrigins:
+            - http://localhost
+            - http://localhost:3000
+            - http://localhost:8080
             - http://lasthope.eu
             - http://lasthope.eu:3000
             - http://lasthope.eu:8080
@@ -19,7 +22,7 @@ micronaut:
 
 datasources:
   default:
-    url: jdbc:mysql://lasthope.eu:3306/raidcomp_api?generateSimpleParameterMetadata=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false
+    url: jdbc:mysql://localhost:3306/raidcomp_api?generateSimpleParameterMetadata=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: admin

@@ -42,8 +42,18 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [grouped, setGrouped] = useState(true);
   let openEditModal: any = () => {};
 
+  const CONNECTION_STRING = {
+    "server": process.env.REACT_APP_SQL_HOST,
+    "port": '3306',
+    "database": process.env.REACT_APP_SQL_DATABASE,
+    "uid": process.env.REACT_APP_SQL_USER,
+    "password": process.env.REACT_APP_SQL_PASSWORD,
+    "table": process.env.REACT_APP_SQL_TABLE,
+    "players" : undefined
+  };
+
   const importBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
-    setPlayers([
+    const playerBuild = [
       ...players.filter((player) => {
         player.status = InviteStatus.Unknown;
         return newPlayers.find(
@@ -53,10 +63,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         );
       }),
       ...newPlayers.filter((player) => {player.status = InviteStatus.Unknown; return player.name !== "";}),
-    ])
+    ]
+    setPlayers(playerBuild)
     for(const player of newPlayers){
       updateRosterStatus(player);
     }
+    saveCurrentBuild(playerBuild)
   };
 
   const updateRosterStatus = (player: BuildPlayer) => {
@@ -73,6 +85,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         }
       }
     }
+  }
+
+  const saveCurrentBuild = (playerBuild : BuildPlayer[]) => {
+    BuildHelper.parseSqlSave(CONNECTION_STRING, playerBuild);
   }
 
   const getCurrentBuild = () => {
@@ -124,6 +140,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setRoster([...newRoster]);
   };
 
+  const loadBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
+    setPlayers([...newPlayers]);
+  };
+
   const handleChangeGrouping = () => {
     setGrouped(!grouped);
   };
@@ -138,17 +158,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         })
         .catch(handleError);
     } else {
-      const connectionString = JSON.stringify({
-        "server": process.env.REACT_APP_SQL_HOST,
-        "port": 3306,
-        "database": process.env.REACT_APP_SQL_DATABASE,
-        "uid": process.env.REACT_APP_SQL_USER,
-        "password": process.env.REACT_APP_SQL_PASSWORD,
-        "table": process.env.REACT_APP_SQL_TABLE,
-      });
-      BuildHelper.parseSql(connectionString).then((roster) => {
-        if(roster[0].name !== "ErrorInvalidID"){
+      BuildHelper.parseSqlImport(CONNECTION_STRING).then((roster) => {
+        if(roster.length > 0 && roster[0].name !== "ErrorInvalidID"){
           loadRoster(roster);
+        }
+      })
+      BuildHelper.parseSqlLoad(CONNECTION_STRING).then((roster) => {
+        if(roster.length > 0 && roster[0].name !== "ErrorInvalidID"){
+          loadBuild(roster);
         }
       })
       setIsLoading(false);

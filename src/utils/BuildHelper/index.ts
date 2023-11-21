@@ -1,5 +1,5 @@
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
-import { Build, BuildGroups, BuildPlayer, BuildRoles, GroupId } from "../../types";
+import { Build, BuildGroups, BuildPlayer, BuildRoles, ConnectionString, GroupId } from "../../types";
 import { RosterProvider } from "../../utils/RosterProvider";
 import { PlayerUtils } from "../PlayerUtils";
 import { RoleProvider } from "../RoleProvider";
@@ -140,10 +140,11 @@ export abstract class BuildHelper {
     return players;
   }
 
-  public static async parseSql(connectionString: string) {
+  public static async parseSqlImport(connectionString: ConnectionString) {
     const players: BuildPlayer[] = [];
+    connectionString.table = process.env.REACT_APP_SQL_TABLE
 
-    await RosterProvider.getRosterRaidPlayersSql(connectionString).then((roster) =>{
+    await RosterProvider.getRosterRaidPlayersSql(JSON.stringify(connectionString)).then((roster) =>{
       try {
         for (const player of roster) {
           //const spec = player.spec.split("_")[0].replace("1","")
@@ -159,7 +160,7 @@ export abstract class BuildHelper {
             oldName: player.name
         })}
       } catch (error) {
-        console.log(error)
+        //console.log(error)
         players.push({
           name: "ErrorInvalidID",
           class: WarcraftPlayerClass.DeathKnight,
@@ -169,12 +170,44 @@ export abstract class BuildHelper {
       })
       }
 
+    });
+    return players;
+  }
 
+  public static async parseSqlSave(connectionString : ConnectionString, players: BuildPlayer[]) {
+    connectionString.players = players;
+    connectionString.table = 'buildentity'
+    await RosterProvider.saveBuildPlayersSql(JSON.stringify(connectionString)).then((response) => {
+      console.log(response)
+    })
+  }
+
+  public static async parseSqlLoad(connectionString: ConnectionString) {
+    const players: BuildPlayer[] = [];
+    connectionString.table = 'buildentity'
+
+    await RosterProvider.loadBuildPlayersSql(JSON.stringify(connectionString)).then((roster) =>{
+      for (const player of JSON.parse(roster)){
+        const spec = player.spec.toLowerCase().split("_")
+        players.push({
+          name: player.name,
+          class: BuildHelper.capitalize(player.className.toLowerCase()) as WarcraftPlayerClass,
+          spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
+          status: InviteStatus.Unknown,
+          group: player.group.slice(-1),
+          realm: undefined,
+          oldName: player.name
+        })
+      }
     });
     return players;
   }
 
   public static humanReadableURL(name: string) {
     return name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-");
+  }
+
+  private static capitalize(str: string){
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }
