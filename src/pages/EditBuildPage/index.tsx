@@ -138,6 +138,19 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         })
         .catch(handleError);
     } else {
+      const connectionString = JSON.stringify({
+        "server": process.env.REACT_APP_SQL_HOST,
+        "port": 3306,
+        "database": process.env.REACT_APP_SQL_DATABASE,
+        "uid": process.env.REACT_APP_SQL_USER,
+        "password": process.env.REACT_APP_SQL_PASSWORD,
+        "table": process.env.REACT_APP_SQL_TABLE,
+      });
+      BuildHelper.parseSql(connectionString).then((roster) => {
+        if(roster[0].name !== "ErrorInvalidID"){
+          loadRoster(roster);
+        }
+      })
       setIsLoading(false);
     }
   }, [buildId, handleError]);

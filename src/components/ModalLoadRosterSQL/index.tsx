@@ -12,7 +12,7 @@ import useStyles from "./useStyles";
 
 export interface ModalLoadRosterProps {}
 
-const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
+const ModalLoadRosterSQL: FC<ModalLoadRosterProps> = () => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [error, showError] = useState(false);
@@ -37,12 +37,12 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
 
   const handleImport = () => {
     const connectionString = JSON.stringify({
-      "server": sqlHost.current?.value ?? "localhost",
+      "server": sqlHost.current?.value ?? process.env.REACT_APP_SQL_HOST,
       "port": 3306,
-      "database": sqlDatabase.current?.value ?? "raidcomp_api",
-      "uid": sqlUser.current?.value,
-      "password": sqlPassword.current?.value,
-      "table": sqlTable.current?.value,
+      "database": sqlDatabase.current?.value ?? process.env.REACT_APP_SQL_DATABASE,
+      "uid": sqlUser.current?.value ?? process.env.REACT_APP_SQL_USER,
+      "password": sqlPassword.current?.value ?? process.env.REACT_APP_SQL_PASSWORD,
+      "table": sqlTable.current?.value ?? process.env.REACT_APP_SQL_TABLE,
     });
     BuildHelper.parseSql(connectionString).then((roster) => {
       if(roster[0].name === "ErrorInvalidID"){
@@ -67,15 +67,15 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
         <Box css={styles.modal}>
           <h2>{common("build.import.sql")}</h2>
           <h3>Host name</h3>
-          <input disabled={disabled} ref={sqlHost} defaultValue="localhost"></input>
+          <input disabled={disabled} ref={sqlHost} defaultValue={process.env.REACT_APP_SQL_HOST}></input>
           <h3>Database</h3>
-          <input disabled={disabled} ref={sqlDatabase} defaultValue="raidcomp_api"></input>
+          <input disabled={disabled} ref={sqlDatabase} defaultValue={process.env.REACT_APP_SQL_DATABASE}></input>
           <h3>Table</h3>
-          <input disabled={disabled} ref={sqlTable} defaultValue="player"></input>
+          <input disabled={disabled} ref={sqlTable} defaultValue={process.env.REACT_APP_SQL_TABLE}></input>
           <h3>User name</h3>
-          <input disabled={disabled} ref={sqlUser} defaultValue="root"></input>
+          <input disabled={disabled} ref={sqlUser} defaultValue={process.env.REACT_APP_SQL_USER}></input>
           <h3>Password</h3>
-          <input disabled={disabled} ref={sqlPassword} defaultValue="admin"></input>
+          <input disabled={disabled} ref={sqlPassword} defaultValue={process.env.REACT_APP_SQL_PASSWORD}></input>
           <br />
           <h4 style={{ color: 'red' }}>{error ? "Incorrect ID": null }</h4>
           <Box css={styles.buttons}>
@@ -92,4 +92,4 @@ const ModalLoadRoster: FC<ModalLoadRosterProps> = () => {
   );
 };
 
-export default ModalLoadRoster;
+export default ModalLoadRosterSQL;
