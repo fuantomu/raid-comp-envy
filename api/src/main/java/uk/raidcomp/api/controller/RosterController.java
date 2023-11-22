@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import uk.raidcomp.api.controller.dto.imports.ImportRosterDto;
 import uk.raidcomp.api.controller.dto.imports.ImportRosterResponseDto;
 import uk.raidcomp.api.controller.dto.save.SaveBuildDto;
+import uk.raidcomp.api.controller.dto.save.SaveRosterDto;
 import uk.raidcomp.api.controller.dto.save.SaveBuildResponseDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildResponseDto;
@@ -32,9 +33,15 @@ public class RosterController {
   }
 
   @Post("/save")
-  public HttpResponse<SaveBuildResponseDto> saveToSql(
+  public HttpResponse<SaveBuildResponseDto> saveBuildToSql(
       @Valid @Body SaveBuildDto body) {
     return HttpResponse.created(new SaveBuildResponseDto(delegate.saveBuild(body)));
+  }
+
+  @Post("/saveRoster")
+  public HttpResponse<SaveBuildResponseDto> saveRosterToSql(
+      @Valid @Body SaveRosterDto body) {
+    return HttpResponse.created(new SaveBuildResponseDto(delegate.saveRoster(body)));
   }
 
   @Post("/load")

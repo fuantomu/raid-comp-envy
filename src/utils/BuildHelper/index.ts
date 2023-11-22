@@ -145,7 +145,6 @@ export abstract class BuildHelper {
 
     await RosterProvider.getRosterRaidPlayersSql(JSON.stringify(connectionString)).then((roster) =>{
       try {
-        console.log(roster)
         for (const player of roster) {
           //const spec = player.spec.split("_")[0].replace("1","")
           //const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
@@ -160,27 +159,28 @@ export abstract class BuildHelper {
             oldName: player.name
         })}
       } catch (error) {
-        //console.log(error)
-        players.push({
-          name: "ErrorInvalidID",
-          class: WarcraftPlayerClass.DeathKnight,
-          spec: WarcraftPlayerSpec.DeathKnightBlood,
-          status: InviteStatus.Unknown,
-          group: "roster"
-      })
+
       }
 
     });
     return players;
   }
 
-  public static async parseSqlSave(connectionString : ConnectionString, players: BuildPlayer[]) {
+  public static async parseSqlBuildSave(connectionString : ConnectionString, players: BuildPlayer[]) {
     connectionString.players = players.filter((player) => {
       return player.group !== 'roster'
     });
     connectionString.table = 'BuildEntity'
 
     await RosterProvider.saveBuildPlayersSql(JSON.stringify(connectionString)).then((response) => {
+      console.log(response)
+    })
+  }
+
+  public static async parseSqlRosterSave(connectionString : ConnectionString, players: BuildPlayer[]) {
+    connectionString.table = 'Player'
+
+    await RosterProvider.saveRosterPlayersSql(JSON.stringify(connectionString)).then((response) => {
       console.log(response)
     })
   }

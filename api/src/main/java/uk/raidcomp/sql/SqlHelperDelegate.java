@@ -3,18 +3,14 @@ package uk.raidcomp.sql;
 import io.micronaut.runtime.http.scope.RequestScope;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import org.hibernate.annotations.CurrentTimestamp;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.oracle.truffle.api.utilities.JSONHelper.JSONObjectBuilder;
 
 import uk.raidcomp.api.controller.dto.PlayerDto;
 import uk.raidcomp.api.controller.dto.imports.ImportRosterDto;
 import uk.raidcomp.api.controller.dto.save.SaveBuildDto;
+import uk.raidcomp.api.controller.dto.save.SaveRosterDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteBuildDto;
 import uk.raidcomp.api.delegate.BuildDelegate;
@@ -63,14 +59,14 @@ public class SqlHelperDelegate {
 
         JsonArray playerJSON = new JsonArray();
 
-        for(PlayerDto test : connectionString.players()){
+        for(PlayerDto player : connectionString.players()){
           JsonObject tempJson = new JsonObject();
-          tempJson.addProperty("name", test.name());
-          tempJson.addProperty("realm", test.realm());
-          tempJson.addProperty("className", test.className().name());
-          tempJson.addProperty("spec", test.spec().name());
-          tempJson.addProperty("status", test.status().name());
-          tempJson.addProperty("group", test.group().name());
+          tempJson.addProperty("name", player.name());
+          tempJson.addProperty("realm", player.realm());
+          tempJson.addProperty("className", player.className().name());
+          tempJson.addProperty("spec", player.spec().name());
+          tempJson.addProperty("status", player.status().name());
+          tempJson.addProperty("group", player.group().name());
           playerJSON.add(tempJson);
         }
         String query = "REPLACE INTO `"+connectionString.table()+"` (id, lastSeen, name, players) VALUES (?,?,?,?)";
@@ -81,6 +77,31 @@ public class SqlHelperDelegate {
         statement.setString(4, playerJSON.toString());
 
         statement.execute();
+      }
+      catch (SQLException se){
+        se.printStackTrace();
+      }
+      catch (ClassNotFoundException ce){
+        ce.printStackTrace();
+      }
+
+      return connectionString.players().size();
+  }
+
+  public Integer saveRoster(SaveRosterDto connectionString) {
+      try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
+
+        for(PlayerDto player : connectionString.players()){
+          String query = "REPLACE INTO `"+connectionString.table()+"` (name, realm, class, spec) VALUES (?,?,?,?)";
+          PreparedStatement statement = connection.prepareStatement(query);
+          statement.setString(1, player.name());
+          statement.setString(2, player.realm());
+          statement.setString(3, player.className().name());
+          statement.setString(4, player.spec().name().split("_")[1]);
+          statement.execute();
+        }
       }
       catch (SQLException se){
         se.printStackTrace();
@@ -139,6 +160,10 @@ public class SqlHelperDelegate {
   }
 
   private String getConnectionString(SaveBuildDto Dto){
+    return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
+  }
+
+  private String getConnectionString(SaveRosterDto Dto){
     return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
   }
 

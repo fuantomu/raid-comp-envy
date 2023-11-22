@@ -65,16 +65,31 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       }),
       ...newPlayers.filter((player) => {player.status = InviteStatus.Unknown; return player.name !== "";}),
     ]
-    setPlayers(playerBuild)
+    setPlayers([...playerBuild]);
+
     updateRosterStatus(newPlayers, roster);
-    saveCurrentBuild(playerBuild, name === "New Build"? "currentBuild": name)
+    saveCurrentBuild([...playerBuild], name === "New Build"? "currentBuild": name)
   };
+
+  const addToRoster = async (newPlayer: BuildPlayer): Promise<void> => {
+    const rosterBuild = [
+      ...roster.filter((player) => {
+        player.status = InviteStatus.Unknown;
+        return (newPlayer.oldName ?? PlayerUtils.getFullName(newPlayer)) !== PlayerUtils.getFullName(player)
+      })
+    ]
+    setRoster([...rosterBuild]);
+    updateRosterCharacters([newPlayer], roster).then(() => {
+        console.log(getCurrentRoster().players)
+        console.log(newPlayer)
+        saveRoster();
+    })
+  }
 
   const updateRosterStatus = async (players: BuildPlayer[], roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
     for (const rosterPlayer of roster) {
       const player = players.find((player) => player.name === rosterPlayer.name)
       if(player){
-
         if(player.group === "roster"){
           rosterPlayer.status = InviteStatus.Unknown;
         }
@@ -91,10 +106,34 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return roster;
   }
 
+  const updateRosterCharacters = async (players: BuildPlayer[], roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
+    for (const rosterPlayer of roster) {
+      const player = players.find((player) => player.oldName === rosterPlayer.name)
+      if(player){
+        if(rosterPlayer.name !== player.name){
+          rosterPlayer.name = player.name;
+        }
+        if(rosterPlayer.class !== player.class){
+          rosterPlayer.class = player.class;
+        }
+        if(rosterPlayer.spec !== player.spec){
+          rosterPlayer.spec = player.spec;
+        }
+      }
+    }
+    return roster;
+  }
+
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildName?: string) => {
     const connectionString = CONNECTION_STRING;
     connectionString.build = buildName?? "currentBuild";
-    BuildHelper.parseSqlSave(CONNECTION_STRING, playerBuild);
+    BuildHelper.parseSqlBuildSave(CONNECTION_STRING, playerBuild);
+  }
+
+  const saveCurrentRoster = async (playerBuild : BuildPlayer[], buildName?: string) => {
+    const connectionString = CONNECTION_STRING;
+    connectionString.build = buildName?? "currentBuild";
+    BuildHelper.parseSqlRosterSave(CONNECTION_STRING, playerBuild);
   }
 
   const getCurrentBuild = () => {
@@ -116,6 +155,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const saveBuild = async () => {
     if (!players.length) return;
     saveCurrentBuild(getCurrentBuild().players, name);
+  };
+
+  const saveRoster = async () => {
+    if (!players.length) return;
+    saveCurrentRoster(getCurrentRoster().players, name);
   };
 
   const resetBuild = async () => {
@@ -202,7 +246,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql }}>
+    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
       <Container maxWidth="xl">
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>

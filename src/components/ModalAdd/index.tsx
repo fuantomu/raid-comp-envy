@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import AddIcon from "@mui/icons-material/Add";
-import { Tooltip } from "@mui/material";
+import { Checkbox, FormControlLabel, Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
@@ -35,6 +35,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const [groupId, setGroupId] = useState(1 as GroupId);
   const [name, setName] = useState("");
   const [oldName, setOldName] = useState<string>();
+  const [checked, setChecked] = useState(false);
   const context = useAppContext();
   let playerName = name;
 
@@ -101,7 +102,21 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         oldName,
       },
     ]);
+    if(checked){
+      context?.addToRoster(
+        {
+          name: playerName,
+          class: className,
+          spec,
+          status,
+          group: groupId as GroupId,
+          realm,
+          oldName,
+        },
+      );
+    }
     setOpen(false);
+    setChecked(false);
   };
 
   const handleAddPlayer = () => {
@@ -116,10 +131,16 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setChecked(false);
   };
 
   const handleOpen = () => {
     setOpen(true);
+    setChecked(false);
+  };
+
+  const handleChange = () => {
+    setChecked(!checked);
   };
 
   const renderClassToggle = () => {
@@ -235,9 +256,19 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
             {renderGroupsToggle()}
           </Box>
           <Box css={styles.buttons}>
-            <Button color="success" variant="contained" onClick={handleAddPlayer}>
+             <FormControlLabel
+               control = {<Checkbox
+                name="checked"
+                checked={checked}
+                onChange={handleChange}
+              />}
+              label="Save to Roster"
+            />
+            {checked? (<Button color="success" variant="contained" onClick={handleAddPlayer}>
+              {oldName ? common("build.edit.save") : common("build.add.addRoster")}
+            </Button>) :(<Button color="success" variant="contained" onClick={handleAddPlayer}>
               {oldName ? common("build.edit.save") : common("build.add.add")}
-            </Button>
+            </Button>)}
             {oldName ? (
               <Button color="primary" variant="contained" onClick={handleRemovePlayer}>
                 {common("build.edit.remove")}
