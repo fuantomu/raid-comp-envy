@@ -7,6 +7,7 @@ export default () => {
   return {
     gridBox: css`
       margin: ${theme.spacing(Spacing.s)} auto !important;
+      maxHeight: 'm';
     `,
     header: css`
       display: grid;
@@ -27,6 +28,9 @@ export default () => {
     `,
     buildTitle: css`
       width: 100%;
+    `,
+    scroll: css`
+      overflow-y: scroll;
     `
   };
 };

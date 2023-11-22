@@ -267,11 +267,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
-      <Container sx={{ maxWidth:'100%', maxHeight:'100%', display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
-        <Box key={UUID()} css={styles.gridBox}>
+      <Container sx={{ maxWidth:'100%', height:'1100px', minHeight:'50%', display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
+        <Box key={UUID()} css={[styles.gridBox, styles.scroll]}>
             <Roster build={getCurrentRoster()} editing />
         </Box>
-        <Container sx={{ maxWidth:'87%' }} maxWidth={false}>
+        <Container sx={{ maxWidth:'87%'}} maxWidth={false}>
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
           <BuildTitle
             css={styles.buildTitle}
