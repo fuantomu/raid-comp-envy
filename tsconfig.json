@@ -41,7 +41,7 @@
       "import/no-extraneous-dependencies": [
         "error",
         {
-          "devDependencies": ["./src/mocks/**/*", "./.storybook/**/*"]
+          "devDependencies": ["./.storybook/**/*"]
         }
       ],
       "operator-linebreak": 0,
