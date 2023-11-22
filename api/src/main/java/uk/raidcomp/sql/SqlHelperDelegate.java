@@ -13,6 +13,7 @@ import uk.raidcomp.api.controller.dto.save.SaveBuildDto;
 import uk.raidcomp.api.controller.dto.save.SaveRosterDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteBuildDto;
+import uk.raidcomp.api.controller.dto.delete.DeleteRosterDto;
 import uk.raidcomp.api.delegate.BuildDelegate;
 import uk.raidcomp.api.model.InviteStatus;
 import uk.raidcomp.api.model.WarcraftPlayerClass;
@@ -144,10 +145,32 @@ public class SqlHelperDelegate {
         Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
         String query = "DELETE from `"+connectionString.table()+"` WHERE id = 'Build-"+connectionString.build()+"'";
         Statement statement = connection.createStatement();
-        System.out.println(query);
         result += statement.executeUpdate(query);
-        System.out.println(result);
 
+      }
+      catch (SQLException se){
+        se.printStackTrace();
+      }
+      catch (ClassNotFoundException ce){
+        ce.printStackTrace();
+      }
+
+    return result;
+  }
+
+  public String deleteRosterPlayers(DeleteRosterDto connectionString) {
+    String result = "";
+      try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
+        String query = "DELETE from `"+connectionString.table()+"` WHERE name = ? AND class = ? AND spec = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        for(PlayerDto player : connectionString.players()){
+          statement.setString(1,player.name());
+          statement.setString(2,player.className().name());
+          statement.setString(3,player.spec().name().split("_")[1]);
+          result += statement.executeUpdate();
+        }
       }
       catch (SQLException se){
         se.printStackTrace();
@@ -179,4 +202,7 @@ public class SqlHelperDelegate {
     return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
   }
 
+  private String getConnectionString(DeleteRosterDto Dto){
+    return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
+  }
 }

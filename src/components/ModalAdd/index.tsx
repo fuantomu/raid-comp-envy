@@ -89,7 +89,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     setName(playerName);
   };
 
-  const sendImportToContext = (nameOverride = name) => {
+  const sendImportToContext = (nameOverride = name, remove = false) => {
     const { name: playerName, realm } = PlayerUtils.splitFullName(nameOverride);
     context?.importBuild([
       {
@@ -103,17 +103,21 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
       },
     ]);
     if(checked){
-      context?.addToRoster(
-        {
-          name: playerName,
-          class: className,
-          spec,
-          status,
-          group: groupId as GroupId,
-          realm,
-          oldName,
-        },
-      );
+      const playerB = {
+        name: name?? oldName,
+        class: className,
+        spec,
+        status,
+        group: groupId as GroupId,
+        realm,
+        oldName,
+      }
+      if(remove){
+        context?.removeFromRoster(playerB);
+      }
+      else{
+        context?.addToRoster(playerB);
+      }
     }
     setOpen(false);
     setChecked(false);
@@ -126,7 +130,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   };
 
   const handleRemovePlayer = () => {
-    sendImportToContext("");
+    sendImportToContext("",true);
   };
 
   const handleClose = () => {

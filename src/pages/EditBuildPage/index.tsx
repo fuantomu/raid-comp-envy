@@ -73,16 +73,29 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const addToRoster = async (newPlayer: BuildPlayer): Promise<void> => {
     const rosterBuild = [
-      ...roster.filter((player) => {
+      ...roster.filter((player : BuildPlayer) => {
         player.status = InviteStatus.Unknown;
         return (newPlayer.oldName ?? PlayerUtils.getFullName(newPlayer)) !== PlayerUtils.getFullName(player)
-      })
+      }),
+      newPlayer
     ]
     setRoster([...rosterBuild]);
     updateRosterCharacters([newPlayer], roster).then(() => {
-        console.log(getCurrentRoster().players)
-        console.log(newPlayer)
-        saveRoster();
+        updateRosterStatus([newPlayer], roster);
+        saveCurrentRoster([newPlayer]);
+    })
+  }
+
+  const removeFromRoster = async (removedPlayer: BuildPlayer): Promise<void> => {
+    const rosterBuild = [
+      ...roster.filter((player : BuildPlayer) => {
+        player.status = InviteStatus.Unknown;
+        return (removedPlayer.oldName ?? PlayerUtils.getFullName(removedPlayer)) !== PlayerUtils.getFullName(player)
+      })
+    ]
+    setRoster([...rosterBuild]);
+    updateRosterCharacters([removedPlayer], roster).then(() => {
+        deleteFromRoster([removedPlayer]);
     })
   }
 
@@ -111,7 +124,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       const player = players.find((player) => player.oldName === rosterPlayer.name)
       if(player){
         if(rosterPlayer.name !== player.name){
-          rosterPlayer.name = player.name;
+          rosterPlayer.name = player.name?? player.oldName;
         }
         if(rosterPlayer.class !== player.class){
           rosterPlayer.class = player.class;
@@ -127,13 +140,15 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildName?: string) => {
     const connectionString = CONNECTION_STRING;
     connectionString.build = buildName?? "currentBuild";
-    BuildHelper.parseSqlBuildSave(CONNECTION_STRING, playerBuild);
+    BuildHelper.parseSqlBuildSave(connectionString, playerBuild);
   }
 
-  const saveCurrentRoster = async (playerBuild : BuildPlayer[], buildName?: string) => {
-    const connectionString = CONNECTION_STRING;
-    connectionString.build = buildName?? "currentBuild";
+  const saveCurrentRoster = async (playerBuild : BuildPlayer[]) => {
     BuildHelper.parseSqlRosterSave(CONNECTION_STRING, playerBuild);
+  }
+
+  const deleteFromRoster = async (playerBuild : BuildPlayer[]) => {
+    BuildHelper.parseSqlRosterDeletePlayers(CONNECTION_STRING, playerBuild);
   }
 
   const getCurrentBuild = () => {
@@ -155,11 +170,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const saveBuild = async () => {
     if (!players.length) return;
     saveCurrentBuild(getCurrentBuild().players, name);
-  };
-
-  const saveRoster = async () => {
-    if (!players.length) return;
-    saveCurrentRoster(getCurrentRoster().players, name);
   };
 
   const resetBuild = async () => {
@@ -214,7 +224,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   useEffect(() => {
     if (buildId) {
       getBuild(buildId)
-        .then(({ data: { name, players } }) => {
+        .then(({ data: { name , players } }) => {
           setName(name);
           setPlayers(players);
           setIsLoading(false);
@@ -246,7 +256,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster }}>
+    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
       <Container maxWidth="xl">
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>

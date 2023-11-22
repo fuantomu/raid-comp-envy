@@ -178,9 +178,19 @@ export abstract class BuildHelper {
   }
 
   public static async parseSqlRosterSave(connectionString : ConnectionString, players: BuildPlayer[]) {
-    connectionString.table = 'Player'
+    connectionString.table = 'Player';
+    connectionString.players = players;
 
     await RosterProvider.saveRosterPlayersSql(JSON.stringify(connectionString)).then((response) => {
+      console.log(response)
+    })
+  }
+
+  public static async parseSqlRosterDeletePlayers(connectionString : ConnectionString, players: BuildPlayer[]) {
+    connectionString.table = 'Player';
+    connectionString.players = players;
+
+    await RosterProvider.deleteRosterPlayersSql(JSON.stringify(connectionString)).then((response) => {
       console.log(response)
     })
   }
