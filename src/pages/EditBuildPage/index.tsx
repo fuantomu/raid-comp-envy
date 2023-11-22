@@ -106,6 +106,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         if(player.group === "roster"){
           rosterPlayer.status = InviteStatus.Unknown;
         }
+        else if(player.group === "bench"){
+          rosterPlayer.status = InviteStatus.Benched;
+        }
         else{
           if(rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){
             rosterPlayer.status = InviteStatus.Accepted;
@@ -258,7 +261,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   return (
     <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
-      <Container maxWidth="xl">
+
+      <Container sx={{ maxWidth:'100%', maxHeight:'100%', display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
+        <Box key={UUID()} css={[styles.gridBox, styles.header]}>
+            <Roster build={getCurrentRoster()} editing />
+        </Box>
+        <Container sx={{ maxWidth:'87%' }} maxWidth={false}>
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
           <BuildTitle
             css={styles.buildTitle}
@@ -268,6 +276,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           />
           <BuildRolesCount key={UUID()} build={getCurrentBuild()} />
         </Box>
+
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
           <ModalAdd />
           <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
@@ -289,6 +298,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           <ModalImport />
           <ModalResetBuild />
         </Box>
+        </Container>
       </Container>
     </AppContextProvider>
   );

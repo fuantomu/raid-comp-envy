@@ -6,19 +6,19 @@ export default () => {
 
   return {
     gridBox: css`
-      margin: ${theme.spacing(Spacing.m)} auto !important;
+      margin: ${theme.spacing(Spacing.s)} auto !important;
     `,
     header: css`
       display: grid;
       grid-template-columns: 1fr;
-      gap: ${theme.spacing(Spacing.m)};
+      gap: ${theme.spacing(Spacing.s)};
       word-break: break-word;
     `,
     buttons: css`
       display: flex;
       width: min(550px, 100%);
       justify-content: center;
-      gap: ${theme.spacing(Spacing.m)};
+      gap: ${theme.spacing(Spacing.s)};
       flex-wrap: wrap;
 
       & > * {
