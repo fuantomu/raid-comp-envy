@@ -21,7 +21,7 @@ const buildUtilityChecklist = (build: Build) => {
   for (const utility in WarcraftRaidUtility) {
     const playersWithUtility = build.players.filter(
       ({ spec, class: className, group }) =>
-        group !== 'roster' &&
+        group !== 'roster' && group !== 'bench' &&
         (RoleProvider.getSpecUtilities(spec).includes(utility as WarcraftRaidUtility) ||
         RoleProvider.getClassUtilities(className).includes(utility as WarcraftRaidUtility))
     );

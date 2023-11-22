@@ -103,17 +103,22 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     for (const rosterPlayer of roster) {
       const player = players.find((player) => player.name === rosterPlayer.name)
       if(player){
+        console.log(player)
         if(player.group === "roster"){
+          console.log("Status is roster")
           rosterPlayer.status = InviteStatus.Unknown;
         }
         else if(player.group === "bench"){
+          console.log("Status is bench")
           rosterPlayer.status = InviteStatus.Benched;
         }
         else{
           if(rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){
+            console.log("Status is accepted")
             rosterPlayer.status = InviteStatus.Accepted;
           }
           if(rosterPlayer.class !== player.class || rosterPlayer.spec !== player.spec){
+            console.log("Status is declined")
             rosterPlayer.status = InviteStatus.Declined;
           }
         }

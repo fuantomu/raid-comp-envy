@@ -21,7 +21,7 @@ const buildBuffChecklist = (build: Build) => {
   for (const buff in WarcraftRaidBuff) {
     const playersWithBuff = build.players.filter(
       ({ spec, class: className, group }) =>
-        group !== 'roster' &&
+        group !== 'roster' && group !== 'bench' &&
         (RoleProvider.getSpecBuffs(spec).includes(buff as WarcraftRaidBuff) ||
         RoleProvider.getClassBuff(className).includes(buff as WarcraftRaidBuff))
     );

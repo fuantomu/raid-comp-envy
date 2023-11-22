@@ -21,7 +21,6 @@ const RosterComposition: FC<RosterCompositionProps> = ({ players, editing }) => 
         {Object.values(groups)
           .filter((group) => group?.groupId === "roster")
           .map((group) => {
-            //if (!group) return <></>;
             const { groupId, players } = group;
             return (
               <RosterGroup

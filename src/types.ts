@@ -9,7 +9,7 @@ export type AppErrorData = {
 };
 
 export type BuildId = string;
-export type GroupId = "none" | 1 | 2 | 3 | 4 | 5 | "roster";
+export type GroupId = "none" | 1 | 2 | 3 | 4 | 5 | "roster" | "bench";
 
 export type BuildPlayer = {
   name: string;

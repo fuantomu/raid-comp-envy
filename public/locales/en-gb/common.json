@@ -10,7 +10,8 @@
       "group_4": "$t(build.groups.group) {{groupId}}",
       "group_5": "$t(build.groups.group) {{groupId}}",
       "group_none": "Ungrouped",
-      "group_roster": "Roster"
+      "group_roster": "Roster",
+      "group_bench": "Bench"
     },
     "roles": {
       "total": "Total",

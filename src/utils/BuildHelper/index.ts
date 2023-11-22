@@ -208,7 +208,7 @@ export abstract class BuildHelper {
             class: BuildHelper.capitalize(player.className.toLowerCase()) as WarcraftPlayerClass,
             spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
             status: InviteStatus.Unknown,
-            group: player.group.slice(-1),
+            group: player.group.toLowerCase() == 'bench'? 'bench' : player.group.slice(-1),
             realm: undefined,
             oldName: player.name
           })

@@ -19,7 +19,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing }) => 
     <>
       <Box key={UUID()} css={styles.grouped}>
         {Object.values(groups)
-          .filter((group) => group?.groupId !== "none" && group?.groupId !== "roster")
+          .filter((group) => group?.groupId !== "none" && group?.groupId !== "roster" && group?.groupId !== "bench")
           .map((group) => {
             if (!group) return <></>;
             const { groupId, players } = group;
@@ -32,18 +32,16 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing }) => 
               />
             );
           })}
-      </Box>
-      {groups["none"]?.players.length ? (
+        </Box>
         <Box key={UUID()} css={styles.ungrouped}>
           <CompositionGroup
             key={UUID()}
-            groupId={"none"}
-            players={groups["none"]?.players ?? []}
+            groupId={"bench"}
+            players={groups["bench"]?.players ?? []}
             spread
             editing={editing}
           />
         </Box>
-      ) : null}
     </>
   );
 };
