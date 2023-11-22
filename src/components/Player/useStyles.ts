@@ -11,10 +11,10 @@ export default (className: WarcraftPlayerClass) => {
       return css`
         display: grid;
         grid-template-columns: auto 1fr auto;
-        gap: ${spacing(Spacing.m)};
-        padding: ${spacing(Spacing.xs)};
+        gap: ${spacing(Spacing.xs)};
+        padding: ${spacing(Spacing.xxs)};
         margin: ${spacing(Spacing.xxs)} 0;
-        background-color: ${palette.background.paper};
+        background-color: ${palette.background.default};
         border-radius: ${spacing(Spacing.xxs)};
         align-items: center;
         user-select: none;
