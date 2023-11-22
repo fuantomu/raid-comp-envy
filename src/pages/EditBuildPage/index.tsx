@@ -263,7 +263,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ maxWidth:'100%', maxHeight:'100%', display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
-        <Box key={UUID()} css={[styles.gridBox, styles.header]}>
+        <Box key={UUID()} css={styles.gridBox}>
             <Roster build={getCurrentRoster()} editing />
         </Box>
         <Container sx={{ maxWidth:'87%' }} maxWidth={false}>
@@ -287,9 +287,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />
-        </Box>
-        <Box key={UUID()} css={styles.gridBox}>
-          <Roster build={getCurrentRoster()} editing />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidChecklist build={getCurrentBuild()} />
