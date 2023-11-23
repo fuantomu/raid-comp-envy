@@ -1,8 +1,9 @@
-import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import {
   WarcraftClassRaidBuffs,
   WarcraftClassRaidDebuffs,
   WarcraftClassUtilities,
+  WarcraftRaceUtilities,
   WarcraftRaidBuff,
   WarcraftRaidDebuff,
   WarcraftRaidUtility,
@@ -40,5 +41,9 @@ export abstract class RoleProvider {
 
   public static getClassUtilities(className?: WarcraftPlayerClass): WarcraftRaidUtility[] {
     return className ? WarcraftClassUtilities[className] : [];
+  }
+
+  public static getRaceUtilities(raceName?: WarcraftPlayerRace): WarcraftRaidUtility[] {
+    return raceName ? WarcraftRaceUtilities[raceName] : [];
   }
 }

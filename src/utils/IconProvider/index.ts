@@ -1,4 +1,4 @@
-import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRaidBuff, WarcraftRaidDebuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
 import {
@@ -8,6 +8,7 @@ import {
   WarcraftClassIcon,
   WarcraftDebuffIcon,
   WarcraftIconSize,
+  WarcraftRaceIcon,
   WarcraftRoleIcon,
   WarcraftSpecIcon,
   WarcraftUtilityIcon
@@ -33,6 +34,12 @@ export abstract class IconProvider {
   public static getClassIcon(className: WarcraftPlayerClass, size?: WarcraftIconSize): string;
   public static getClassIcon(className?: WarcraftPlayerClass, size?: WarcraftIconSize): string {
     return IconProvider.getWarcraftIconURI(className && WarcraftClassIcon[className], size);
+  }
+
+  public static getRaceIcon(raceName?: WarcraftPlayerRace): string;
+  public static getRaceIcon(raceName: WarcraftPlayerRace, size?: WarcraftIconSize): string;
+  public static getRaceIcon(raceName?: WarcraftPlayerRace, size?: WarcraftIconSize): string {
+    return IconProvider.getWarcraftIconURI(raceName && WarcraftRaceIcon[raceName], size);
   }
 
   public static getSpecRoleIcon(spec?: WarcraftPlayerSpec): string;

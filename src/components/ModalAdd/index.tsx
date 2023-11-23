@@ -10,7 +10,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
 import { createRef, ChangeEvent, FC, MouseEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
+import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import { PlayerUtils } from "../../utils/PlayerUtils";
@@ -31,6 +31,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const [open, setOpen] = useState(false);
   const [className, setClassName] = useState(WarcraftPlayerClass.Warrior);
   const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorArms);
+  const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
   const [status, setStatus] = useState(InviteStatus.Invited);
   const [groupId, setGroupId] = useState(1 as GroupId);
   const [main, setMain] = useState(String);
@@ -74,6 +75,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     }
   };
 
+  const handleSelectRace = (event: MouseEvent, newRace: string) => {
+    if (newRace !== null) {
+      setRace(newRace as WarcraftPlayerRace);
+    }
+  };
+
   const handleSelectGroup = (event: MouseEvent, newGroupId: string) => {
     if (newGroupId !== null) {
       setGroupId(newGroupId as GroupId);
@@ -102,6 +109,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         name: playerName,
         class: className,
         spec,
+        race: raceName,
         status,
         group: groupId as GroupId,
         realm,
@@ -114,6 +122,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         name: name?? oldName,
         class: className,
         spec,
+        race: raceName,
         status,
         group: groupId as GroupId,
         realm,
@@ -188,6 +197,25 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
           {WarcraftPlayerClassSpecs[className].map((spec) => (
             <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
               <WarcraftIcon src={IconProvider.getSpecIcon(spec)} />
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </Box>
+    );
+  };
+
+  const renderRaceToggle = () => {
+    return (
+      <Box>
+        <ToggleButtonGroup
+          css={styles.buttonGroups}
+          value={raceName}
+          exclusive
+          onChange={handleSelectRace}
+        >
+          {Object.keys(WarcraftPlayerRace).map((race) => (
+            <ToggleButton value={race} key={UUID()} title={common(`races.${race}`)}>
+              <WarcraftIcon src={IconProvider.getRaceIcon(race as WarcraftPlayerRace)} />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -275,6 +303,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
             </Box>
             {renderClassToggle()}
             {renderSpecToggle()}
+            {renderRaceToggle()}
             {renderStatusToggle()}
             {renderGroupsToggle()}
             {renderMain()}

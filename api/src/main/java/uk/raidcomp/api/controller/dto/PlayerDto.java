@@ -13,6 +13,8 @@ import uk.raidcomp.api.model.WarcraftPlayerClass;
 import uk.raidcomp.api.model.WarcraftPlayerClass.WarcraftPlayerClassSerde;
 import uk.raidcomp.api.model.WarcraftPlayerSpec;
 import uk.raidcomp.api.model.WarcraftPlayerSpec.WarcraftPlayerSpecSerde;
+import uk.raidcomp.api.model.WarcraftPlayerRace;
+import uk.raidcomp.api.model.WarcraftPlayerRace.WarcraftPlayerRaceSerde;
 
 @Serdeable
 public record PlayerDto(
@@ -21,6 +23,7 @@ public record PlayerDto(
     @NotNull @JsonProperty("class") @Deserializable(using = WarcraftPlayerClassSerde.class)
         WarcraftPlayerClass className,
     @Nullable @Deserializable(using = WarcraftPlayerSpecSerde.class) WarcraftPlayerSpec spec,
+    @Nullable @Deserializable(using = WarcraftPlayerRaceSerde.class) WarcraftPlayerRace race,
     @NotNull @Deserializable(using = InviteStatusSerde.class) InviteStatus status,
     @Nullable @Deserializable(using = GroupIdSerde.class) GroupId group,
     @Nullable String main) {}

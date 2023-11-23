@@ -39,6 +39,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             name: player.name,
             class: player.class,
             spec: player.spec,
+            race: player.race,
             status: player.status,
             group: groupId as GroupId,
             realm: player.realm,

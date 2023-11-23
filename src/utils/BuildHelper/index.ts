@@ -1,4 +1,4 @@
-import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
+import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import { Build, BuildGroups, BuildPlayer, BuildRoles, ConnectionString, GroupId } from "../../types";
 import { RosterProvider } from "../../utils/RosterProvider";
 import { PlayerUtils } from "../PlayerUtils";
@@ -151,6 +151,7 @@ export abstract class BuildHelper {
             name: player.name,
             class: player.class as WarcraftPlayerClass,
             spec: player.spec as WarcraftPlayerSpec,
+            race: player.race as WarcraftPlayerRace,
             status: InviteStatus.Unknown,
             group: "roster",
             realm: undefined,
@@ -203,6 +204,7 @@ export abstract class BuildHelper {
             name: player.name,
             class: BuildHelper.capitalize(player.className.toLowerCase()) as WarcraftPlayerClass,
             spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
+            race: BuildHelper.capitalize(player.race.toLowerCase()) as WarcraftPlayerRace,
             status: InviteStatus.Unknown,
             group: player.group.toLowerCase() === 'bench'? 'bench' : player.group.slice(-1),
             realm: undefined,

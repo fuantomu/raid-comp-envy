@@ -1,4 +1,4 @@
-import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "./consts";
+import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "./consts";
 import { WarcraftRole } from "./utils/RoleProvider/consts";
 
 export type AppErrorData = {
@@ -16,6 +16,7 @@ export type BuildPlayer = {
   realm?: string;
   class: WarcraftPlayerClass;
   spec?: WarcraftPlayerSpec;
+  race?: WarcraftPlayerRace;
   status: InviteStatus;
   group?: GroupId;
   oldName?: string;

@@ -21,6 +21,8 @@ public class PlayerEntity {
 
   private String spec;
 
+  private String race;
+
   private String status;
 
   private String groupId;

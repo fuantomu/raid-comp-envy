@@ -20,6 +20,22 @@ export enum WarcraftPlayerClass {
   Unknown = "Unknown",
 }
 
+export enum WarcraftPlayerRace {
+  Human = "Human",
+  Dwarf = "Dwarf",
+  Gnome = "Gnome",
+  Nightelf = "Nightelf",
+  Draenei = "Draenei",
+  Worgen = "Worgen",
+  Orc = "Orc",
+  Troll = "Troll",
+  Undead = "Undead",
+  Tauren = "Tauren",
+  Bloodelf = "Bloodelf",
+  Goblin = "Goblin",
+  Unknown = "Unknown",
+}
+
 export enum InviteStatus {
   Invited = "invited",
   Tentative = "tentative",

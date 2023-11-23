@@ -1,4 +1,4 @@
-import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import { WarcraftRaidBuff, WarcraftRaidDebuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
 
 export type WarcraftIcon = string;
@@ -25,6 +25,24 @@ export const WarcraftClassIcon: {
   [WarcraftPlayerClass.Warlock]: "classicon_warlock",
   [WarcraftPlayerClass.Warrior]: "classicon_warrior",
   [WarcraftPlayerClass.Unknown]: IconUnknown,
+};
+
+export const WarcraftRaceIcon: {
+  [className in WarcraftPlayerRace]: WarcraftIcon;
+} = {
+  [WarcraftPlayerRace.Human]: "achievement_character_human_female",
+  [WarcraftPlayerRace.Dwarf]: "achievement_character_dwarf_male",
+  [WarcraftPlayerRace.Gnome]: "achievement_character_gnome_male",
+  [WarcraftPlayerRace.Nightelf]: "achievement_character_nightelf_female",
+  [WarcraftPlayerRace.Draenei]: "achievement_character_draenei_female",
+  [WarcraftPlayerRace.Worgen]: "achievement_worganhead",
+  [WarcraftPlayerRace.Orc]: "achievement_character_orc_male",
+  [WarcraftPlayerRace.Troll]: "achievement_character_troll_male",
+  [WarcraftPlayerRace.Undead]: "achievement_character_undead_male",
+  [WarcraftPlayerRace.Tauren]: "achievement_character_tauren_male",
+  [WarcraftPlayerRace.Bloodelf]: "achievement_character_bloodelf_female",
+  [WarcraftPlayerRace.Goblin]: "achievement_goblinhead",
+  [WarcraftPlayerRace.Unknown]: IconUnknown,
 };
 
 export const WarcraftSpecIcon: {
@@ -116,6 +134,7 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.Innervate]: "spell_nature_lightning",
   [WarcraftRaidUtility.BlessingOfProtection]: "spell_holy_sealofprotection",
   [WarcraftRaidUtility.ManaTide]: "spell_frost_summonwaterelemental",
+  [WarcraftRaidUtility.DraeneiHit]: "inv_helmet_21",
 };
 
 export enum CustomIcon {

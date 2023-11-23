@@ -1,4 +1,4 @@
-import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 
 export enum WarcraftRole {
   Unknown = "Unknown",
@@ -186,7 +186,8 @@ export enum WarcraftRaidUtility {
   Healthstone = "Healthstone",
   Innervate = "Innervate",
   BlessingOfProtection = "BlessingOfProtection",
-  ManaTide = "ManaTide"
+  ManaTide = "ManaTide",
+  DraeneiHit = "DraeneiHit"
 }
 
 export const WarcraftClassUtilities: {
@@ -208,6 +209,24 @@ export const WarcraftClassUtilities: {
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerClass.Warrior]: [],
   [WarcraftPlayerClass.Unknown]: [],
+};
+
+export const WarcraftRaceUtilities: {
+  [className in WarcraftPlayerRace]: WarcraftRaidUtility[];
+} = {
+  [WarcraftPlayerRace.Human]: [],
+  [WarcraftPlayerRace.Dwarf]: [],
+  [WarcraftPlayerRace.Gnome]: [],
+  [WarcraftPlayerRace.Nightelf]: [],
+  [WarcraftPlayerRace.Draenei]: [WarcraftRaidUtility.DraeneiHit],
+  [WarcraftPlayerRace.Worgen]: [],
+  [WarcraftPlayerRace.Orc]: [],
+  [WarcraftPlayerRace.Troll]: [],
+  [WarcraftPlayerRace.Undead]: [],
+  [WarcraftPlayerRace.Tauren]: [],
+  [WarcraftPlayerRace.Bloodelf]: [],
+  [WarcraftPlayerRace.Goblin]: [],
+  [WarcraftPlayerRace.Unknown]: [],
 };
 
 export const WarcraftSpecUtilities: {

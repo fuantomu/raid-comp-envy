@@ -10,7 +10,7 @@ export default (className: WarcraftPlayerClass) => {
     player: (isClickable: boolean) => {
       return css`
         display: grid;
-        grid-template-columns: auto 1fr 20px 20px;
+        grid-template-columns: auto 28px 1fr 20px 20px;
         gap: ${spacing(Spacing.xs)};
         padding: ${spacing(Spacing.xxs)};
         margin: ${spacing(Spacing.xxs)} 0;

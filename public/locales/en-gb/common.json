@@ -172,7 +172,8 @@
     "Healthstone": "Healthstone",
     "Innervate": "Innervate",
     "BlessingOfProtection": "Blessing of Protection",
-    "ManaTide": "Mana Tide Totem"
+    "ManaTide": "Mana Tide Totem",
+    "DraeneiHit": "Heroic Presence"
   },
   "buttons": {
     "ok": "OK",

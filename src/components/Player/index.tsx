@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { FC, useState } from "react";
 import { useDrag} from "react-dnd";
 import { useTranslation } from "react-i18next";
-import { DragItemTypes } from "../../consts";
+import { DragItemTypes, WarcraftPlayerRace } from "../../consts";
 import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
@@ -22,7 +22,7 @@ export interface PlayerProps extends BuildPlayer {
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, realm, class: className, spec, status, showRole, onClick, alts=[]} = props;
+  const { name, realm, class: className, spec, status, race, showRole, onClick, alts=[]} = props;
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
@@ -46,6 +46,12 @@ const Player: FC<PlayerProps> = (props) => {
           <WarcraftIcon
             title={`${common(`specs.${spec}`)} ${common(`classes.${className}`)}`}
             src={spec ? IconProvider.getSpecIcon(spec) : IconProvider.getClassIcon(className)}
+          />
+        </Box>
+        <Box>
+          <WarcraftIcon
+            title={`${common(`races.${race}`)}`}
+            src={IconProvider.getRaceIcon(race?? WarcraftPlayerRace.Human)}
           />
         </Box>
         <Typography css={styles.name} title={fullName}>

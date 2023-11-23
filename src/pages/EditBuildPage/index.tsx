@@ -159,6 +159,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         if(rosterPlayer.spec !== player.spec){
           rosterPlayer.spec = player.spec;
         }
+        if(rosterPlayer.race !== player.race){
+          rosterPlayer.race = player.race;
+        }
         if(rosterPlayer.main !== player.main){
           rosterPlayer.main = player.main;
         }

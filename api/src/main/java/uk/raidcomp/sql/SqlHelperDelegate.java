@@ -18,6 +18,7 @@ import uk.raidcomp.api.delegate.BuildDelegate;
 import uk.raidcomp.api.model.InviteStatus;
 import uk.raidcomp.api.model.WarcraftPlayerClass;
 import uk.raidcomp.api.model.WarcraftPlayerSpec;
+import uk.raidcomp.api.model.WarcraftPlayerRace;
 
 import java.sql.*;
 
@@ -38,7 +39,7 @@ public class SqlHelperDelegate {
         ResultSet result = statement.executeQuery(query);
 
         while(result.next()){
-          PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("className")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("className")), InviteStatus.UNKNOWN, null, result.getString("main"));
+          PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("className")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("className")),WarcraftPlayerRace.findByValue(result.getString("race")), InviteStatus.UNKNOWN, null, result.getString("main"));
           teams.add(p);
         }
       }
@@ -66,6 +67,7 @@ public class SqlHelperDelegate {
           tempJson.addProperty("realm", player.realm());
           tempJson.addProperty("className", player.className().name());
           tempJson.addProperty("spec", player.spec().name());
+          tempJson.addProperty("race", player.race().name());
           tempJson.addProperty("status", player.status().name());
           tempJson.addProperty("group", player.group().name());
           tempJson.addProperty("main", player.main());
@@ -96,13 +98,14 @@ public class SqlHelperDelegate {
         Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
 
         for(PlayerDto player : connectionString.players()){
-          String query = "REPLACE INTO `"+connectionString.table()+"` (name, realm, className, spec, main) VALUES (?,?,?,?,?)";
+          String query = "REPLACE INTO `"+connectionString.table()+"` (name, realm, className, spec, race, main) VALUES (?,?,?,?,?,?)";
           PreparedStatement statement = connection.prepareStatement(query);
           statement.setString(1, player.name());
           statement.setString(2, player.realm());
           statement.setString(3, player.className().name());
           statement.setString(4, player.spec().name().split("_")[1]);
-          statement.setString(5, player.main());
+          statement.setString(5, player.race().name());
+          statement.setString(6, player.main());
           statement.execute();
         }
       }
