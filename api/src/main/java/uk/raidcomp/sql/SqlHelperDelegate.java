@@ -42,6 +42,8 @@ public class SqlHelperDelegate {
           PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("className")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("className")),WarcraftPlayerRace.findByValue(result.getString("race")), InviteStatus.UNKNOWN, null, result.getString("main"));
           teams.add(p);
         }
+
+        connection.close();
       }
       catch (SQLException se){
         se.printStackTrace();
@@ -49,6 +51,7 @@ public class SqlHelperDelegate {
       catch (ClassNotFoundException ce){
         ce.printStackTrace();
       }
+
 
       return teams;
   }
@@ -81,6 +84,8 @@ public class SqlHelperDelegate {
         statement.setString(4, playerJSON.toString());
 
         statement.execute();
+
+        connection.close();
       }
       catch (SQLException se){
         se.printStackTrace();
@@ -108,6 +113,8 @@ public class SqlHelperDelegate {
           statement.setString(6, player.main());
           statement.execute();
         }
+
+        connection.close();
       }
       catch (SQLException se){
         se.printStackTrace();
@@ -132,6 +139,8 @@ public class SqlHelperDelegate {
         while(result.next()){
           players = result.getString("players");
         }
+
+        connection.close();
       }
       catch (SQLException se){
         se.printStackTrace();
@@ -151,6 +160,8 @@ public class SqlHelperDelegate {
         String query = "DELETE from `"+connectionString.table()+"` WHERE id = 'Build-"+connectionString.build()+"'";
         Statement statement = connection.createStatement();
         result += statement.executeUpdate(query);
+
+        connection.close();
 
       }
       catch (SQLException se){
@@ -176,6 +187,8 @@ public class SqlHelperDelegate {
           statement.setString(3,player.spec().name().split("_")[1]);
           result += statement.executeUpdate();
         }
+
+        connection.close();
       }
       catch (SQLException se){
         se.printStackTrace();
