@@ -64,11 +64,11 @@ public enum WarcraftPlayerSpec {
   }
 
   public static WarcraftPlayerSpec findByValue(final String value, final String className) {
-    switch (value.toUpperCase()) {
+    switch (value) {
       case "BLOOD":
         return DEATH_KNIGHT_BLOOD;
       case "FROST":
-        if(className.toUpperCase() == "MAGE"){
+        if(className.equals("MAGE")){
           return MAGE_FROST;
         }
         else{
@@ -83,7 +83,7 @@ public enum WarcraftPlayerSpec {
       case "GUARDIAN":
         return DRUID_GUARDIAN;
       case "RESTORATION":
-        if(className.toUpperCase() == "DRUID"){
+        if(className.equals("DRUID")){
           return DRUID_RESTORATION;
         }
         else{
@@ -104,7 +104,7 @@ public enum WarcraftPlayerSpec {
       case "SHADOW":
         return PRIEST_SHADOW;
       case "HOLY":
-        if(className.toUpperCase() == "PRIEST"){
+        if(className.equals("PRIEST")){
           return PRIEST_HOLY;
         }
         else{
@@ -113,7 +113,7 @@ public enum WarcraftPlayerSpec {
       case "RETRIBUTION":
         return PALADIN_RETRIBUTION;
       case "PROTECTION":
-        if(className.toUpperCase() == "PALADIN"){
+        if(className.equals("PALADIN")){
           return PALADIN_PROTECTION;
         }
         else{
