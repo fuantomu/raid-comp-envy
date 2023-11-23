@@ -123,7 +123,7 @@ export abstract class BuildHelper {
             group: "roster",
             realm: undefined,
             oldName: player.name,
-            main: undefined
+            main: ""
         })}
       } catch (error) {
         players.push({
@@ -155,7 +155,7 @@ export abstract class BuildHelper {
             group: "roster",
             realm: undefined,
             oldName: player.name,
-            main: player.main
+            main: player.main?? ""
         })}
       } catch (error) {
 
@@ -207,7 +207,7 @@ export abstract class BuildHelper {
             group: player.group.toLowerCase() === 'bench'? 'bench' : player.group.slice(-1),
             realm: undefined,
             oldName: player.name,
-            main: player.main
+            main: player.main?? ""
           })
         }
       }

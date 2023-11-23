@@ -9,6 +9,7 @@ type AppContextApi = {
   loadBuildSql: (build: string) => Promise<void>;
   resetBuild: () => Promise<void>;
   getCurrentBuild: () => Build;
+  getCurrentRoster: () => Build;
   editPlayer: (player: BuildPlayer) => void;
   loadRoster: (roster: BuildPlayer[]) => Promise<void>;
 };

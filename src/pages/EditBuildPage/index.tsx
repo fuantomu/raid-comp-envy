@@ -54,6 +54,17 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   const importBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
+    for(const newPlayer of newPlayers){
+      console.log(players.find((player) => newPlayer.main === player.main && newPlayer.name !== player.name))
+      if(players.find((player) => newPlayer.main === player.main && newPlayer.name !== player.name && player.group !== 'roster')){
+        newPlayers = newPlayers.filter((player) => player.name !== newPlayer.name)
+      }
+    }
+
+    if(!newPlayers || newPlayers.length === 0){
+      return
+    }
+
     const playerBuild = [
       ...players.filter((player) => {
         player.status = InviteStatus.Unknown;
@@ -133,7 +144,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             rosterPlayer.status = InviteStatus.Declined;
           }
         }
-
       }
     }
     return roster;
@@ -276,7 +286,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster }}>
+    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ height:'1100px', minHeight: "80%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>

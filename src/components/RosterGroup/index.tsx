@@ -13,6 +13,7 @@ import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
 
+
 export interface RosterGroupProps {
   players: BuildPlayer[];
   groupId: GroupId;
@@ -60,8 +61,22 @@ const RosterGroup: FC<RosterGroupProps> = ({
         <Typography variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
-        <Box css={styles.spread}>
-          {players.map((player) => (
+        <Box key={UUID()} css={styles.spread}>
+          {players.filter((player) => player.main?.toLowerCase() === player.name.toLowerCase()).map((player) => (
+            <Player
+              key={UUID()}
+              {...player}
+              {...(editing
+                ? {
+                    onClick: () => context?.editPlayer(player),
+                  }
+                : {})}
+              alts={players.filter((altPlayer) => altPlayer.main?.toLowerCase() === player.name.toLowerCase() && altPlayer.name.toLowerCase() !== player.name.toLowerCase())}
+            />
+          ))}
+        </Box>
+        <Box key={UUID()} css={styles.spread}>
+          {players.filter((player) => !player.main?? undefined).map((player) => (
             <Player
               key={UUID()}
               {...player}
