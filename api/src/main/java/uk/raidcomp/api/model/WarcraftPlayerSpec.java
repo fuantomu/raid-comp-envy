@@ -18,9 +18,9 @@ import static uk.raidcomp.api.model.WarcraftRole.RANGED_DPS;
 import static uk.raidcomp.api.model.WarcraftRole.TANK;
 
 public enum WarcraftPlayerSpec {
-  DEATH_KNIGHT_BLOOD("DeathKnightBlood", WarcraftPlayerClass.DEATH_KNIGHT, TANK),
-  DEATH_KNIGHT_FROST("DeathKnightFrost", WarcraftPlayerClass.DEATH_KNIGHT, MELEE_DPS),
-  DEATH_KNIGHT_UNHOLY("DeathKnightUnholy", WarcraftPlayerClass.DEATH_KNIGHT, MELEE_DPS),
+  DEATHKNIGHT_BLOOD("DeathKnightBlood", WarcraftPlayerClass.DEATHKNIGHT, TANK),
+  DEATHKNIGHT_FROST("DeathKnightFrost", WarcraftPlayerClass.DEATHKNIGHT, MELEE_DPS),
+  DEATHKNIGHT_UNHOLY("DeathKnightUnholy", WarcraftPlayerClass.DEATHKNIGHT, MELEE_DPS),
   DRUID_BALANCE("DruidBalance", WarcraftPlayerClass.DRUID, RANGED_DPS),
   DRUID_FERAL("DruidFeral", WarcraftPlayerClass.DRUID, MELEE_DPS),
   DRUID_GUARDIAN("DruidGuardian", WarcraftPlayerClass.DRUID, TANK),
@@ -66,16 +66,16 @@ public enum WarcraftPlayerSpec {
   public static WarcraftPlayerSpec findByValue(final String value, final String className) {
     switch (value) {
       case "BLOOD":
-        return DEATH_KNIGHT_BLOOD;
+        return DEATHKNIGHT_BLOOD;
       case "FROST":
         if(className.equals("MAGE")){
           return MAGE_FROST;
         }
         else{
-          return DEATH_KNIGHT_BLOOD;
+          return DEATHKNIGHT_BLOOD;
         }
       case "UNHOLY":
-        return DEATH_KNIGHT_UNHOLY;
+        return DEATHKNIGHT_UNHOLY;
       case "BALANCE":
         return DRUID_BALANCE;
       case "FERAL":

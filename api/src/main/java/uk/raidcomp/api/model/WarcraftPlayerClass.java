@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public enum WarcraftPlayerClass {
-  DEATH_KNIGHT("DeathKnight"),
+  DEATHKNIGHT("DeathKnight"),
   DRUID("Druid"),
   HUNTER("Hunter"),
   MAGE("Mage"),
@@ -35,7 +35,7 @@ public enum WarcraftPlayerClass {
       case "PALADIN":
         return PALADIN;
       case "DEATHKNIGHT":
-        return DEATH_KNIGHT;
+        return DEATHKNIGHT;
       case "DRUID":
         return DRUID;
       case "HUNTER":
