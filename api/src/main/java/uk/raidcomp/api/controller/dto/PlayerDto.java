@@ -22,4 +22,5 @@ public record PlayerDto(
         WarcraftPlayerClass className,
     @Nullable @Deserializable(using = WarcraftPlayerSpecSerde.class) WarcraftPlayerSpec spec,
     @NotNull @Deserializable(using = InviteStatusSerde.class) InviteStatus status,
-    @Nullable @Deserializable(using = GroupIdSerde.class) GroupId group) {}
+    @Nullable @Deserializable(using = GroupIdSerde.class) GroupId group,
+    @Nullable String main) {}

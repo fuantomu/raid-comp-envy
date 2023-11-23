@@ -38,7 +38,7 @@ public class SqlHelperDelegate {
         ResultSet result = statement.executeQuery(query);
 
         while(result.next()){
-          PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("class")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("class")), InviteStatus.UNKNOWN, null);
+          PlayerDto p = new PlayerDto(result.getString("name"), null, WarcraftPlayerClass.findByValue(result.getString("className")), WarcraftPlayerSpec.findByValue(result.getString("spec"),result.getString("className")), InviteStatus.UNKNOWN, null, result.getString("main"));
           teams.add(p);
         }
       }
@@ -68,6 +68,7 @@ public class SqlHelperDelegate {
           tempJson.addProperty("spec", player.spec().name());
           tempJson.addProperty("status", player.status().name());
           tempJson.addProperty("group", player.group().name());
+          tempJson.addProperty("main", player.main());
           playerJSON.add(tempJson);
         }
         String query = "REPLACE INTO `"+connectionString.table()+"` (id, lastSeen, name, players) VALUES (?,?,?,?)";
@@ -95,12 +96,13 @@ public class SqlHelperDelegate {
         Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
 
         for(PlayerDto player : connectionString.players()){
-          String query = "REPLACE INTO `"+connectionString.table()+"` (name, realm, class, spec) VALUES (?,?,?,?)";
+          String query = "REPLACE INTO `"+connectionString.table()+"` (name, realm, className, spec, main) VALUES (?,?,?,?,?)";
           PreparedStatement statement = connection.prepareStatement(query);
           statement.setString(1, player.name());
           statement.setString(2, player.realm());
           statement.setString(3, player.className().name());
           statement.setString(4, player.spec().name().split("_")[1]);
+          statement.setString(5, player.main());
           statement.execute();
         }
       }
@@ -163,7 +165,7 @@ public class SqlHelperDelegate {
       try{
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
-        String query = "DELETE from `"+connectionString.table()+"` WHERE name = ? AND class = ? AND spec = ?";
+        String query = "DELETE from `"+connectionString.table()+"` WHERE name = ? AND className = ? AND spec = ?";
         PreparedStatement statement = connection.prepareStatement(query);
         for(PlayerDto player : connectionString.players()){
           statement.setString(1,player.name());

@@ -15,4 +15,5 @@ public record Player(
         WarcraftPlayerClass className,
     @Nullable @Serializable(using = WarcraftPlayerSpecSerde.class) WarcraftPlayerSpec spec,
     @Serializable(using = InviteStatusSerde.class) InviteStatus status,
-    @Nullable @Serializable(using = GroupIdSerde.class) GroupId groupId) {}
+    @Nullable @Serializable(using = GroupIdSerde.class) GroupId groupId,
+    @Nullable String main) {}

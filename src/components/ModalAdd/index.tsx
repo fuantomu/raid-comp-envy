@@ -8,7 +8,7 @@ import Modal from "@mui/material/Modal";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
-import { ChangeEvent, FC, MouseEvent, useState } from "react";
+import { createRef, ChangeEvent, FC, MouseEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
@@ -33,10 +33,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorArms);
   const [status, setStatus] = useState(InviteStatus.Invited);
   const [groupId, setGroupId] = useState(1 as GroupId);
+  const [main, setMain] = useState(String);
   const [name, setName] = useState("");
   const [oldName, setOldName] = useState<string>();
   const [checked, setChecked] = useState(false);
   const context = useAppContext();
+  let mainCharacter = createRef<HTMLInputElement>();
   let playerName = name;
 
   if (editPlayer) {
@@ -48,6 +50,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         setClassName(player.class);
         setStatus(player.status);
         setGroupId(player.group as GroupId);
+        if(player.main) {
+          setMain(player.main);
+        }
         if (player.spec) {
           setSpec(player.spec);
         }
@@ -85,6 +90,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     playerName = event.currentTarget.value;
   };
 
+
   const handleNameBlur = () => {
     setName(playerName);
   };
@@ -100,6 +106,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         group: groupId as GroupId,
         realm,
         oldName,
+        main: mainCharacter.current?.value?? main,
       },
     ]);
     if(checked){
@@ -111,6 +118,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         group: groupId as GroupId,
         realm,
         oldName,
+        main: mainCharacter.current?.value?? main,
       }
       if(remove){
         context?.removeFromRoster(playerB);
@@ -136,10 +144,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const handleClose = () => {
     setOpen(false);
     setChecked(false);
+    setMain("");
   };
 
   const handleOpen = () => {
     setOpen(true);
+    setMain("");
     setChecked(false);
   };
 
@@ -226,6 +236,15 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     );
   };
 
+  const renderMain = () => {
+    return (
+      <Box>
+        <label htmlFor="characterLabel">{common("build.add.main")}    </label>
+        <input name="characterLabel" defaultValue={main?? ""} ref={mainCharacter}></input>
+      </Box>
+    );
+  };
+
   return (
     <>
       {!editPlayer ? (
@@ -258,6 +277,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
             {renderSpecToggle()}
             {renderStatusToggle()}
             {renderGroupsToggle()}
+            {renderMain()}
           </Box>
           <Box css={styles.buttons}>
              <FormControlLabel
@@ -269,7 +289,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
               label="Save to Roster"
             />
             {checked? (<Button color="success" variant="contained" onClick={handleAddPlayer}>
-              {oldName ? common("build.edit.save") : common("build.add.addRoster")}
+              {oldName ? common("build.edit.save") : common("build.add.add")}
             </Button>) :(<Button color="success" variant="contained" onClick={handleAddPlayer}>
               {oldName ? common("build.edit.save") : common("build.add.add")}
             </Button>)}

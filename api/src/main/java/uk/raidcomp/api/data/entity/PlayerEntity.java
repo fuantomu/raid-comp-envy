@@ -3,10 +3,6 @@ package uk.raidcomp.api.data.entity;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
-import uk.raidcomp.api.model.GroupId;
-import uk.raidcomp.api.model.InviteStatus;
-import uk.raidcomp.api.model.WarcraftPlayerClass;
-import uk.raidcomp.api.model.WarcraftPlayerSpec;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
@@ -21,11 +17,13 @@ public class PlayerEntity {
 
   private String realm;
 
-  private WarcraftPlayerClass className;
+  private String className;
 
-  private WarcraftPlayerSpec spec;
+  private String spec;
 
-  private InviteStatus status;
+  private String status;
 
-  private GroupId groupId;
+  private String groupId;
+
+  private String main;
 }

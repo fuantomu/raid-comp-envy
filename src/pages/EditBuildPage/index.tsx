@@ -64,24 +64,41 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         );
       }),
       ...newPlayers.filter((player) => {player.status = InviteStatus.Unknown; return player.name !== "";}),
-    ]
+    ].sort((a,b) => a.name.localeCompare(b.name))
     setPlayers([...playerBuild]);
 
-    updateRosterStatus(newPlayers, roster);
+    const rosterBuild = [
+      ...newPlayers.filter(() => {
+        return newPlayers.find(
+          (newPlayer) =>
+            newPlayer.group === 'roster'
+        );
+      })
+    ].sort((a,b) => a.name.localeCompare(b.name))
+
+    if(rosterBuild.length > 0){
+      for (const rosterPlayer of rosterBuild){
+        addToRoster(rosterPlayer)
+      }
+    }
+    else{
+      updateRosterStatus(newPlayers, roster);
+    }
+
+
     saveCurrentBuild([...playerBuild], name === "New Build"? "currentBuild": name)
   };
 
   const addToRoster = async (newPlayer: BuildPlayer): Promise<void> => {
     const rosterBuild = [
       ...roster.filter((player : BuildPlayer) => {
-        player.status = InviteStatus.Unknown;
-        return (newPlayer.oldName ?? PlayerUtils.getFullName(newPlayer)) !== PlayerUtils.getFullName(player)
+        return (newPlayer.oldName ?? newPlayer.name) !== player.name
       }),
       newPlayer
-    ]
+    ].sort((a,b) => a.name.localeCompare(b.name))
     setRoster([...rosterBuild]);
-    updateRosterCharacters([newPlayer], roster).then(() => {
-        updateRosterStatus([newPlayer], roster);
+    updateRosterCharacters([newPlayer], rosterBuild).then(() => {
+        updateRosterStatus([newPlayer], rosterBuild);
         saveCurrentRoster([newPlayer]);
     })
   }
@@ -89,10 +106,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const removeFromRoster = async (removedPlayer: BuildPlayer): Promise<void> => {
     const rosterBuild = [
       ...roster.filter((player : BuildPlayer) => {
-        player.status = InviteStatus.Unknown;
         return (removedPlayer.oldName ?? PlayerUtils.getFullName(removedPlayer)) !== PlayerUtils.getFullName(player)
       })
-    ]
+    ].sort((a,b) => a.name.localeCompare(b.name))
     setRoster([...rosterBuild]);
     updateRosterCharacters([removedPlayer], roster).then(() => {
         deleteFromRoster([removedPlayer]);
@@ -103,25 +119,21 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     for (const rosterPlayer of roster) {
       const player = players.find((player) => player.name === rosterPlayer.name)
       if(player){
-        console.log(player)
         if(player.group === "roster"){
-          console.log("Status is roster")
           rosterPlayer.status = InviteStatus.Unknown;
         }
         else if(player.group === "bench"){
-          console.log("Status is bench")
           rosterPlayer.status = InviteStatus.Benched;
         }
         else{
           if(rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){
-            console.log("Status is accepted")
             rosterPlayer.status = InviteStatus.Accepted;
           }
           if(rosterPlayer.class !== player.class || rosterPlayer.spec !== player.spec){
-            console.log("Status is declined")
             rosterPlayer.status = InviteStatus.Declined;
           }
         }
+
       }
     }
     return roster;
@@ -131,14 +143,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     for (const rosterPlayer of roster) {
       const player = players.find((player) => player.oldName === rosterPlayer.name)
       if(player){
-        if(rosterPlayer.name !== player.name){
-          rosterPlayer.name = player.name?? player.oldName;
-        }
         if(rosterPlayer.class !== player.class){
           rosterPlayer.class = player.class;
         }
         if(rosterPlayer.spec !== player.spec){
           rosterPlayer.spec = player.spec;
+        }
+        if(rosterPlayer.main !== player.main){
+          rosterPlayer.main = player.main;
         }
       }
     }
@@ -267,11 +279,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
-      <Container sx={{ maxWidth:'100%', height:'1100px', minHeight:'50%', display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
-        <Box key={UUID()} css={[styles.gridBox, styles.scroll]}>
+      <Container sx={{ height:'1100px', minHeight: "80%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
+        <Box key={UUID()} minWidth={"25%"} css={[styles.gridBox, styles.scroll]}>
             <Roster build={getCurrentRoster()} editing />
         </Box>
-        <Container sx={{ maxWidth:'87%'}} maxWidth={false}>
+        <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
           <BuildTitle
             css={styles.buildTitle}

@@ -42,6 +42,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             group: groupId as GroupId,
             realm: player.realm,
             oldName: player.oldName,
+            main: player.main
           },
         ]);
       },

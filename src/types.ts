@@ -19,6 +19,7 @@ export type BuildPlayer = {
   status: InviteStatus;
   group?: GroupId;
   oldName?: string;
+  main?: string;
 };
 
 export type ConnectionString = {

@@ -122,7 +122,8 @@ export abstract class BuildHelper {
             status: InviteStatus.Unknown,
             group: "roster",
             realm: undefined,
-            oldName: player.name
+            oldName: player.name,
+            main: undefined
         })}
       } catch (error) {
         players.push({
@@ -146,9 +147,6 @@ export abstract class BuildHelper {
     await RosterProvider.getRosterRaidPlayersSql(JSON.stringify(connectionString)).then((roster) =>{
       try {
         for (const player of roster) {
-          //const spec = player.spec.split("_")[0].replace("1","")
-          //const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
-
           players.push({
             name: player.name,
             class: player.class as WarcraftPlayerClass,
@@ -156,7 +154,8 @@ export abstract class BuildHelper {
             status: InviteStatus.Unknown,
             group: "roster",
             realm: undefined,
-            oldName: player.name
+            oldName: player.name,
+            main: player.main
         })}
       } catch (error) {
 
@@ -173,25 +172,22 @@ export abstract class BuildHelper {
     connectionString.table = 'BuildEntity'
 
     await RosterProvider.saveBuildPlayersSql(JSON.stringify(connectionString)).then((response) => {
-      console.log(response)
     })
   }
 
   public static async parseSqlRosterSave(connectionString : ConnectionString, players: BuildPlayer[]) {
-    connectionString.table = 'Player';
+    connectionString.table = 'PlayerEntity';
     connectionString.players = players;
 
     await RosterProvider.saveRosterPlayersSql(JSON.stringify(connectionString)).then((response) => {
-      console.log(response)
     })
   }
 
   public static async parseSqlRosterDeletePlayers(connectionString : ConnectionString, players: BuildPlayer[]) {
-    connectionString.table = 'Player';
+    connectionString.table = 'PlayerEntity';
     connectionString.players = players;
 
     await RosterProvider.deleteRosterPlayersSql(JSON.stringify(connectionString)).then((response) => {
-      console.log(response)
     })
   }
 
@@ -210,7 +206,8 @@ export abstract class BuildHelper {
             status: InviteStatus.Unknown,
             group: player.group.toLowerCase() === 'bench'? 'bench' : player.group.slice(-1),
             realm: undefined,
-            oldName: player.name
+            oldName: player.name,
+            main: player.main
           })
         }
       }
@@ -223,7 +220,6 @@ export abstract class BuildHelper {
     connectionString.table = 'BuildEntity'
 
     await RosterProvider.deleteBuildPlayersSql(JSON.stringify(connectionString)).then((response) => {
-      console.log(response)
     })
   }
 

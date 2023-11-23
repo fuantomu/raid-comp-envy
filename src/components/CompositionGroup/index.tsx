@@ -42,6 +42,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             group: groupId as GroupId,
             realm: player.realm,
             oldName: player.oldName,
+            main: player.main
           },
         ]);
       },
