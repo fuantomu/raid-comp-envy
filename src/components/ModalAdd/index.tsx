@@ -36,6 +36,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const [groupId, setGroupId] = useState(1 as GroupId);
   const [main, setMain] = useState(String);
   const [name, setName] = useState("");
+  const [id, setId] = useState(String);
   const [oldName, setOldName] = useState<string>();
   const [checked, setChecked] = useState(false);
   const context = useAppContext();
@@ -46,6 +47,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     editPlayer((player) => {
       if (player) {
         const fullName = PlayerUtils.getFullName(player);
+        setId(player.id);
         setName(fullName);
         setOldName(fullName);
         setClassName(player.class);
@@ -56,6 +58,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         }
         if (player.spec) {
           setSpec(player.spec);
+        }
+        if (player.race) {
+          setRace(player.race);
         }
         setOpen(true);
       }
@@ -104,36 +109,25 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
 
   const sendImportToContext = (nameOverride = name, remove = false) => {
     const { name: playerName, realm } = PlayerUtils.splitFullName(nameOverride);
-    context?.importBuild([
-      {
-        name: playerName,
-        class: className,
-        spec,
-        race: raceName,
-        status,
-        group: groupId as GroupId,
-        realm,
-        oldName,
-        main: mainCharacter.current?.value?? main,
-      },
-    ]);
+    const playerInfo = {
+      id: id.length? id : UUID(),
+      name: playerName?? oldName,
+      class: className,
+      spec,
+      race: raceName,
+      status: InviteStatus.Unknown,
+      group: groupId as GroupId,
+      realm,
+      oldName,
+      main: mainCharacter.current?.value?? main,
+    }
+    context?.importPlayer(playerInfo);
     if(checked){
-      const playerB = {
-        name: name?? oldName,
-        class: className,
-        spec,
-        race: raceName,
-        status,
-        group: groupId as GroupId,
-        realm,
-        oldName,
-        main: mainCharacter.current?.value?? main,
-      }
       if(remove){
-        context?.removeFromRoster(playerB);
+        context?.removeFromRoster({...playerInfo, group : "roster" as GroupId});
       }
       else{
-        context?.addToRoster(playerB);
+        context?.addToRoster({...playerInfo, group : "roster" as GroupId});
       }
     }
     setOpen(false);
@@ -147,7 +141,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   };
 
   const handleRemovePlayer = () => {
-    sendImportToContext("",true);
+    sendImportToContext(name,true);
   };
 
   const handleClose = () => {

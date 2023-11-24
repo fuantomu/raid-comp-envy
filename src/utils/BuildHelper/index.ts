@@ -4,6 +4,7 @@ import { RosterProvider } from "../../utils/RosterProvider";
 import { PlayerUtils } from "../PlayerUtils";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
+import UUID from "../UUID";
 
 export abstract class BuildHelper {
   public static getGroups(players: BuildPlayer[], getEmpty: boolean = false): BuildGroups {
@@ -60,34 +61,6 @@ export abstract class BuildHelper {
     }).join("\n");
   }
 
-  public static parseImport(importString: string): BuildPlayer[] {
-    const lines = importString.split("\n");
-    const players: BuildPlayer[] = [];
-
-    for (const line of lines) {
-      let [name, className, spec, status] = line.split(",");
-      if (!name || !className) {
-        continue;
-      }
-      if (!(className in WarcraftPlayerClass)) {
-        continue;
-      }
-      if (spec && !(spec in WarcraftPlayerSpec)) {
-        spec = "";
-      }
-      if (status && !Object.values(InviteStatus).includes(status as InviteStatus)) {
-        status = InviteStatus.Unknown;
-      }
-      players.push({
-        ...PlayerUtils.splitFullName(name),
-        class: className as WarcraftPlayerClass,
-        status: status as InviteStatus,
-        spec: spec as WarcraftPlayerSpec
-      })
-    }
-
-    return players;
-  }
 
   private static fixTankClasses(className: string, spec: string): string{
     switch(spec){
@@ -116,6 +89,7 @@ export abstract class BuildHelper {
           const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
 
           players.push({
+            id: UUID(),
             name: player.name,
             class: pclass as WarcraftPlayerClass,
             spec: (pclass + spec) as WarcraftPlayerSpec,
@@ -127,6 +101,7 @@ export abstract class BuildHelper {
         })}
       } catch (error) {
         players.push({
+          id: UUID(),
           name: "ErrorInvalidID",
           class: WarcraftPlayerClass.DeathKnight,
           spec: WarcraftPlayerSpec.DeathKnightBlood,
@@ -148,6 +123,7 @@ export abstract class BuildHelper {
       try {
         for (const player of roster) {
           players.push({
+            id: player.id,
             name: player.name,
             class: player.class as WarcraftPlayerClass,
             spec: player.spec as WarcraftPlayerSpec,
@@ -159,7 +135,7 @@ export abstract class BuildHelper {
             main: player.main?? ""
         })}
       } catch (error) {
-
+        console.log(error)
       }
 
     });
@@ -196,11 +172,12 @@ export abstract class BuildHelper {
     const players: BuildPlayer[] = [];
     connectionString.table = 'BuildEntity'
 
-    await RosterProvider.loadBuildPlayersSql(JSON.stringify(connectionString)).then((roster) =>{
-      if (roster){
-        for (const player of JSON.parse(roster)){
+    await RosterProvider.loadBuildPlayersSql(JSON.stringify(connectionString)).then((build) =>{
+      if (build){
+        for (const player of JSON.parse(build)){
           const spec = player.spec.toLowerCase().split("_")
           players.push({
+            id: player.id,
             name: player.name,
             class: BuildHelper.capitalize(player.className.toLowerCase()) as WarcraftPlayerClass,
             spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,

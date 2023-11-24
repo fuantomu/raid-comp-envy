@@ -22,7 +22,7 @@ micronaut:
 
 datasources:
   default:
-    url: jdbc:mysql://localhost:3306/raidcomp_api?generateSimpleParameterMetadata=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false
+    url: jdbc:mysql://localhost:3306/raidcomp_api?generateSimpleParameterMetadata=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false&characterEncoding=utf8
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: admin

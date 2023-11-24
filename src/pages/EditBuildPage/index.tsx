@@ -19,7 +19,6 @@ import RaidComposition from "../../components/RaidComposition";
 import { getBuild } from "../../services/backend";
 import { Build, BuildPlayer} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
-import { PlayerUtils } from "../../utils/PlayerUtils";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
@@ -53,117 +52,119 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     "build": "currentBuild"
   };
 
-  const importBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
-    for(const newPlayer of newPlayers){
-      console.log(players.find((player) => newPlayer.main === player.main && newPlayer.name !== player.name))
-      if(players.find((player) => newPlayer.main === player.main && newPlayer.name !== player.name && player.group !== 'roster')){
-        newPlayers = newPlayers.filter((player) => player.name !== newPlayer.name)
+  const importPlayer = async (newPlayer: BuildPlayer): Promise<void> => {
+      const oldPlayer = players.find((player) => player.id === newPlayer.id)
+      const oldRosterPlayer = roster.find((player) => player.id === newPlayer.id)
+      let playerBuild = players;
+
+      if(oldPlayer){
+        console.log("Editing player "+JSON.stringify(oldPlayer))
+
+        if(newPlayer.group !== oldPlayer.group){
+          console.log("Moving player from group "+oldPlayer.group+" to "+newPlayer.group)
+        }
+
+        if(newPlayer.group !== 'roster'){
+          playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id),newPlayer]
+
+        }
+        else{
+          playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id)]
+        }
+        setPlayers(playerBuild)
+
       }
-    }
+      else if(oldRosterPlayer){
+        console.log("Editing roster player "+JSON.stringify(oldRosterPlayer))
 
-    if(!newPlayers || newPlayers.length === 0){
-      return
-    }
+        if(newPlayer.group !== oldRosterPlayer.group){
+          console.log("Moving roster player from group "+oldRosterPlayer.group+" to "+newPlayer.group)
+          const otherCharacters = getOtherCharacters(newPlayer,players);
 
-    const playerBuild = [
-      ...players.filter((player) => {
-        player.status = InviteStatus.Unknown;
-        return newPlayers.find(
-          (newPlayer) =>
-            (newPlayer.oldName ?? PlayerUtils.getFullName(newPlayer)) !==
-            PlayerUtils.getFullName(player)
-        );
-      }),
-      ...newPlayers.filter((player) => {player.status = InviteStatus.Unknown; return player.name !== "";}),
-    ].sort((a,b) => a.name.localeCompare(b.name))
-    setPlayers([...playerBuild]);
-
-    const rosterBuild = [
-      ...newPlayers.filter(() => {
-        return newPlayers.find(
-          (newPlayer) =>
-            newPlayer.group === 'roster'
-        );
-      })
-    ].sort((a,b) => a.name.localeCompare(b.name))
-
-    if(rosterBuild.length > 0){
-      for (const rosterPlayer of rosterBuild){
-        addToRoster(rosterPlayer)
+          if(otherCharacters.length > 0){
+            console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters))
+          }
+          else{
+            playerBuild = [...playerBuild.filter((player) => player.id !== oldRosterPlayer.id),newPlayer]
+            setPlayers(playerBuild)
+          }
+        }
       }
-    }
-    else{
-      updateRosterStatus(newPlayers, roster);
-    }
+      else{
+        console.log("Adding player "+JSON.stringify(newPlayer))
 
+        const otherCharacters = getOtherCharacters(newPlayer, players);
 
-    saveCurrentBuild([...playerBuild], name === "New Build"? "currentBuild": name)
+        if(otherCharacters.length > 0){
+          console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters))
+        }
+        else{
+          playerBuild = [...playerBuild,newPlayer]
+          setPlayers(playerBuild)
+        }
+      }
+      updateRosterStatus(newPlayer, roster)
+      saveCurrentBuild(playerBuild, name === "New Build"? "currentBuild": name)
   };
 
-  const addToRoster = async (newPlayer: BuildPlayer): Promise<void> => {
-    const rosterBuild = [
-      ...roster.filter((player : BuildPlayer) => {
-        return (newPlayer.oldName ?? newPlayer.name) !== player.name
-      }),
-      newPlayer
-    ].sort((a,b) => a.name.localeCompare(b.name))
-    setRoster([...rosterBuild]);
-    updateRosterCharacters([newPlayer], rosterBuild).then(() => {
-        updateRosterStatus([newPlayer], rosterBuild);
-        saveCurrentRoster([newPlayer]);
+  const getOtherCharacters = (player: BuildPlayer, players: BuildPlayer[]): BuildPlayer[] => {
+    return players.filter((otherPlayer) => {
+      return (otherPlayer.main === player.name || otherPlayer.name === player.main || otherPlayer.main === player.main) &&
+      otherPlayer.id !== player.id
     })
+  }
+
+  const addToRoster = async (newPlayer: BuildPlayer): Promise<void> => {
+    console.log("Adding player to roster "+JSON.stringify(newPlayer))
+    const newRoster = [...roster.filter((player) => player.id !== newPlayer.id),newPlayer]
+    setRoster(newRoster)
+    saveCurrentRoster(newRoster);
   }
 
   const removeFromRoster = async (removedPlayer: BuildPlayer): Promise<void> => {
     const rosterBuild = [
       ...roster.filter((player : BuildPlayer) => {
-        return (removedPlayer.oldName ?? PlayerUtils.getFullName(removedPlayer)) !== PlayerUtils.getFullName(player)
+        return removedPlayer.id !== player.id
       })
     ].sort((a,b) => a.name.localeCompare(b.name))
-    setRoster([...rosterBuild]);
-    updateRosterCharacters([removedPlayer], roster).then(() => {
-        deleteFromRoster([removedPlayer]);
+
+
+    const altCharacters = rosterBuild.filter((otherPlayer) => {
+      return otherPlayer.main === removedPlayer.name && otherPlayer.id !== removedPlayer.id
     })
+    console.log("Removing reference of main character for "+JSON.stringify(altCharacters))
+    for(const player of altCharacters){
+      player.main = "";
+    }
+
+    setRoster([...rosterBuild]);
+    deleteFromRoster([removedPlayer]);
   }
 
-  const updateRosterStatus = async (players: BuildPlayer[], roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
+  const updateRosterStatus = async (player: BuildPlayer, roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
     for (const rosterPlayer of roster) {
-      const player = players.find((player) => player.name === rosterPlayer.name)
-      if(player){
+      if(rosterPlayer.id === player.id){
         if(player.group === "roster"){
+          console.log("Updating status of "+JSON.stringify(rosterPlayer)+" to unknown");
           rosterPlayer.status = InviteStatus.Unknown;
+          const otherCharacters = getOtherCharacters(player, roster);
+          for(const otherCharacter of otherCharacters){
+            console.log("Updating status of "+JSON.stringify(otherCharacter)+" to unknown");
+            otherCharacter.status = InviteStatus.Unknown;
+          }
         }
         else if(player.group === "bench"){
+          console.log("Updating status of "+JSON.stringify(rosterPlayer)+" to benched");
           rosterPlayer.status = InviteStatus.Benched;
         }
         else{
-          if(rosterPlayer.class === player.class && rosterPlayer.spec === player.spec){
-            rosterPlayer.status = InviteStatus.Accepted;
+          console.log("Updating status of "+JSON.stringify(rosterPlayer)+" to accepted");
+          rosterPlayer.status = InviteStatus.Accepted;
+          const otherCharacters = getOtherCharacters(player, roster);
+          for(const otherCharacter of otherCharacters){
+            console.log("Updating status of "+JSON.stringify(otherCharacter)+" to declined");
+            otherCharacter.status = InviteStatus.Declined;
           }
-          if(rosterPlayer.class !== player.class || rosterPlayer.spec !== player.spec){
-            rosterPlayer.status = InviteStatus.Declined;
-          }
-        }
-      }
-    }
-    return roster;
-  }
-
-  const updateRosterCharacters = async (players: BuildPlayer[], roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
-    for (const rosterPlayer of roster) {
-      const player = players.find((player) => player.oldName === rosterPlayer.name)
-      if(player){
-        if(rosterPlayer.class !== player.class){
-          rosterPlayer.class = player.class;
-        }
-        if(rosterPlayer.spec !== player.spec){
-          rosterPlayer.spec = player.spec;
-        }
-        if(rosterPlayer.race !== player.race){
-          rosterPlayer.race = player.race;
-        }
-        if(rosterPlayer.main !== player.main){
-          rosterPlayer.main = player.main;
         }
       }
     }
@@ -173,6 +174,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildName?: string) => {
     const connectionString = CONNECTION_STRING;
     connectionString.build = buildName?? "currentBuild";
+    console.log(connectionString)
     BuildHelper.parseSqlBuildSave(connectionString, playerBuild);
   }
 
@@ -209,7 +211,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     const connectionString = CONNECTION_STRING;
     const currentBuild = localStorage.getItem('LastBuild')?? "currentBuild"
     connectionString.build = currentBuild;
-    setName(common("build.new"));
+    setName(currentBuild);
     setPlayers([]);
     await saveCurrentBuild([], currentBuild).then(() => {
       BuildHelper.parseSqlDelete(connectionString)
@@ -272,9 +274,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           loadBuild(build).then(() => {
             BuildHelper.parseSqlImport(CONNECTION_STRING).then((roster) => {
                 loadRoster(roster).then(() => {
-                  updateRosterStatus(build, roster).then((rosterUpdate) => {
-                    setRoster(rosterUpdate);
-                  });
+                  for(const player of build){
+                    updateRosterStatus(player, roster)
+                  }
                 });
             })
           });
@@ -289,7 +291,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importBuild, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster }}>
+    <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ height:'1100px', minHeight: "80%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>

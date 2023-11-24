@@ -29,7 +29,11 @@ const ModalImport: FC<ModalImportProps> = () => {
   };
 
   const handleImport = () => {
-    appContext?.importBuild(BuildHelper.parseImport(importTextarea.current?.value ?? ""));
+    BuildHelper.parseRaidHelper(importTextarea.current?.value ?? "").then((build) => {
+      for(const player of build){
+        appContext?.importPlayer(player);
+      }
+    })
     setOpen(false);
   };
 

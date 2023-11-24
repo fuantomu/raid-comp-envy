@@ -18,6 +18,7 @@ import uk.raidcomp.api.model.WarcraftPlayerRace.WarcraftPlayerRaceSerde;
 
 @Serdeable
 public record PlayerDto(
+    @NotNull String id,
     @NotNull String name,
     @Nullable String realm,
     @NotNull @JsonProperty("class") @Deserializable(using = WarcraftPlayerClassSerde.class)

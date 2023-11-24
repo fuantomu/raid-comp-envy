@@ -10,6 +10,7 @@ import uk.raidcomp.api.model.WarcraftPlayerSpec.WarcraftPlayerSpecSerde;
 import uk.raidcomp.api.model.WarcraftPlayerRace.WarcraftPlayerRaceSerde;
 
 public record Player(
+    String id,
     String name,
     @Nullable String realm,
     @JsonProperty("class") @Serializable(using = WarcraftPlayerClassSerde.class)

@@ -34,8 +34,9 @@ const RosterGroup: FC<RosterGroupProps> = ({
     () => ({
       accept: DragItemTypes.PLAYER,
       drop: (player: BuildPlayer) => {
-        context?.importBuild([
+        context?.importPlayer(
           {
+            id: player.id,
             name: player.name,
             class: player.class,
             spec: player.spec,
@@ -46,7 +47,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             oldName: player.oldName,
             main: player.main
           },
-        ]);
+        );
       },
     }),
     []

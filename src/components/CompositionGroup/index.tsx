@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
-import { DragItemTypes } from "../../consts";
+import { DragItemTypes, InviteStatus } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
@@ -33,19 +33,20 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
     () => ({
       accept: DragItemTypes.PLAYER,
       drop: (player: BuildPlayer) => {
-        context?.importBuild([
+        context?.importPlayer(
           {
+            id: player.id,
             name: player.name,
             class: player.class,
             spec: player.spec,
             race: player.race,
-            status: player.status,
+            status: InviteStatus.Unknown,
             group: groupId as GroupId,
             realm: player.realm,
             oldName: player.oldName,
             main: player.main
           },
-        ]);
+        );
       },
     }),
     []

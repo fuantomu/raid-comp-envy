@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { Build, BuildPlayer } from "../../types";
 
 type AppContextApi = {
-  importBuild: (players: BuildPlayer[]) => Promise<void>;
+  importPlayer: (player: BuildPlayer) => Promise<void>;
   addToRoster: (player: BuildPlayer) => Promise<void>;
   removeFromRoster: (player: BuildPlayer) => Promise<void>;
   saveBuild: (build: Build) => Promise<void>;

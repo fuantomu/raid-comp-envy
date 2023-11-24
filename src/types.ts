@@ -12,6 +12,7 @@ export type BuildId = string;
 export type GroupId = "none" | 1 | 2 | 3 | 4 | 5 | "roster" | "bench";
 
 export type BuildPlayer = {
+  id: string;
   name: string;
   realm?: string;
   class: WarcraftPlayerClass;

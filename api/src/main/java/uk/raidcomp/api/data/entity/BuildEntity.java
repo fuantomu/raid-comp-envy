@@ -6,7 +6,6 @@ import io.micronaut.data.annotation.MappedEntity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import static jakarta.persistence.GenerationType.AUTO;
 
 import java.time.Instant;
 import java.util.List;
@@ -23,7 +22,7 @@ import lombok.Setter;
 @Entity
 public class BuildEntity {
   @Id
-  @GeneratedValue(strategy = AUTO)
+  @GeneratedValue
   private String id;
 
   private String name;

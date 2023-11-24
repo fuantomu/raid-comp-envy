@@ -6,13 +6,16 @@ import lombok.Setter;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.GeneratedValue;
 @Getter
 @Setter
 @Serdeable
 @Entity
 public class PlayerEntity {
   @Id
+  @GeneratedValue
+  private String id;
+
   private String name;
 
   private String realm;
