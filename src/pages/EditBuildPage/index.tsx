@@ -26,6 +26,9 @@ import ModalLoadRoster from "../../components/ModalLoadRoster";
 import ModalLoadRosterSQL from "../../components/ModalLoadRosterSQL";
 import ModalLoadBuild from "../../components/ModalLoadBuild";
 import { InviteStatus } from "../../consts";
+import { WarcraftRole } from "../../utils/RoleProvider/consts";
+import { RoleProvider } from "../../utils/RoleProvider";
+import { SelectChangeEvent } from "@mui/material";
 
 export interface EditBuildPageProps {}
 
@@ -39,6 +42,15 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [players, setPlayers] = useState<BuildPlayer[]>([]);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [grouped, setGrouped] = useState(true);
+  const [sorting, setSorting] = useState('');
+
+  const sortFunctions : any = {
+    "NAME": function(a:BuildPlayer,b:BuildPlayer) { return a.name.localeCompare(b.name)},
+    "ROLETANK": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Tank)? -1 : 1},
+    "ROLEMELEE": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.MeleeDPS)? -1 : 1},
+    "ROLERANGED": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.RangedDPS)? -1 : 1},
+    "ROLEHEALER": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Healer)? -1 : 1}
+  }
   let openEditModal: any = () => {};
 
   const CONNECTION_STRING = {
@@ -49,7 +61,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     "password": process.env.REACT_APP_SQL_PASSWORD,
     "table": process.env.REACT_APP_SQL_TABLE,
     "players" : undefined,
-    "build": "currentBuild"
+    "build": "Current Build"
   };
 
   const importPlayer = async (newPlayer: BuildPlayer): Promise<void> => {
@@ -104,7 +116,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         }
       }
       updateRosterStatus(newPlayer, roster)
-      saveCurrentBuild(playerBuild, name === "New Build"? "currentBuild": name)
+      saveCurrentBuild(playerBuild, name === "Current Build"? "Current Build": name)
   };
 
   const getOtherCharacters = (player: BuildPlayer, players: BuildPlayer[]): BuildPlayer[] => {
@@ -126,7 +138,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       ...roster.filter((player : BuildPlayer) => {
         return removedPlayer.id !== player.id
       })
-    ].sort((a,b) => a.name.localeCompare(b.name))
+    ]
 
 
     const altCharacters = rosterBuild.filter((otherPlayer) => {
@@ -173,7 +185,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildName?: string) => {
     const connectionString = CONNECTION_STRING;
-    connectionString.build = buildName?? "currentBuild";
+    connectionString.build = buildName?? "Current Build";
     console.log(connectionString)
     BuildHelper.parseSqlBuildSave(connectionString, playerBuild);
   }
@@ -209,14 +221,13 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const resetBuild = async () => {
     const connectionString = CONNECTION_STRING;
-    const currentBuild = localStorage.getItem('LastBuild')?? "currentBuild"
+    const currentBuild = localStorage.getItem('LastBuild')?? "Current Build"
     connectionString.build = currentBuild;
     setName(currentBuild);
     setPlayers([]);
     await saveCurrentBuild([], currentBuild).then(() => {
       BuildHelper.parseSqlDelete(connectionString)
     });
-    localStorage.removeItem('LastBuild')
   };
 
   const handleTitleChange = (newName: string) => {
@@ -256,6 +267,15 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setGrouped(!grouped);
   };
 
+  const handleSorting = (e: SelectChangeEvent) => {
+    setSorting(e.target.value);
+    setRoster([...roster].sort(sortFunctions[e.target.value]))
+  };
+
+  const getCurrentSorting = () => {
+    return sorting?? "Alphabetical";
+  };
+
   useEffect(() => {
     if (buildId) {
       getBuild(buildId)
@@ -266,7 +286,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         })
         .catch(handleError);
     } else {
-      const lastBuild = localStorage.getItem( 'LastBuild')?? 'New Build';
+      const lastBuild = localStorage.getItem( 'LastBuild')?? 'Current Build';
       setName(lastBuild);
       const connectionString = CONNECTION_STRING;
       connectionString.build = lastBuild;
@@ -291,7 +311,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster }}>
+    <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ height:'1100px', minHeight: "80%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>

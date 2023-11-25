@@ -12,7 +12,7 @@ import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
-
+import { InputLabel, MenuItem, Select } from "@mui/material";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
@@ -20,6 +20,7 @@ export interface RosterGroupProps {
   spread?: boolean;
   editing?: boolean;
 }
+
 
 const RosterGroup: FC<RosterGroupProps> = ({
   groupId,
@@ -30,6 +31,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
   const context = useAppContext();
+
   const [, drop] = useDrop(
     () => ({
       accept: DragItemTypes.PLAYER,
@@ -60,9 +62,19 @@ const RosterGroup: FC<RosterGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
-        <Typography variant="subtitle1">
+        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 80px 1fr"}>
+        <Typography fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
+        <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
+        <Select defaultValue="NAME" value={context?.getCurrentSorting()} label="sorting" onChange={context?.handleSorting}>
+            <MenuItem id={"alphabetical"} value={"NAME"}>Alphabetical</MenuItem>
+            <MenuItem id={"tanks"} value={"ROLETANK"}>Tanks first</MenuItem>
+            <MenuItem id={"healer"} value={"ROLEHEALER"}>Healer first</MenuItem>
+            <MenuItem id={"melee"} value={"ROLEMELEE"}>Melee first</MenuItem>
+            <MenuItem id={"ranged"} value={"ROLERANGED"}>Ranged first</MenuItem>
+        </Select>
+        </Box>
         <Box key={UUID()} css={styles.spread}>
           {players.filter((player) => player.main?.toLowerCase() === player.name.toLowerCase()).map((player) => (
             <Player
