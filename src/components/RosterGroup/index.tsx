@@ -68,11 +68,11 @@ const RosterGroup: FC<RosterGroupProps> = ({
         </Typography>
         <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
         <Select defaultValue="NAME" value={context?.getCurrentSorting()} label="sorting" onChange={context?.handleSorting}>
-            <MenuItem id={"alphabetical"} value={"NAME"}>Alphabetical</MenuItem>
-            <MenuItem id={"tanks"} value={"ROLETANK"}>Tanks first</MenuItem>
-            <MenuItem id={"healer"} value={"ROLEHEALER"}>Healer first</MenuItem>
-            <MenuItem id={"melee"} value={"ROLEMELEE"}>Melee first</MenuItem>
-            <MenuItem id={"ranged"} value={"ROLERANGED"}>Ranged first</MenuItem>
+            <MenuItem id={"alphabetical"} value={"NAME"}>{common("sorting.alphabetical")}</MenuItem>
+            <MenuItem id={"tanks"} value={"ROLETANK"}>{common("sorting.tanks")}</MenuItem>
+            <MenuItem id={"healer"} value={"ROLEHEALER"}>{common("sorting.healer")}</MenuItem>
+            <MenuItem id={"melee"} value={"ROLEMELEE"}>{common("sorting.melee")}</MenuItem>
+            <MenuItem id={"ranged"} value={"ROLERANGED"}>{common("sorting.ranged")}</MenuItem>
         </Select>
         </Box>
         <Box key={UUID()} css={styles.spread}>

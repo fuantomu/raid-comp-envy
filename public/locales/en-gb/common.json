@@ -27,7 +27,7 @@
       "debuffs": "Debuffs Checklist",
       "utilities": "Utilities Checklist"
     },
-    "new": "New Build",
+    "new": "Current Build",
     "unnamed": "Unnamed Build",
     "import": {
       "title": "Import Build",
@@ -60,6 +60,7 @@
     "add": {
       "title": "Add Player",
       "add": "Add",
+      "main": "Main Character",
       "groups": {
         "group_each": "$t(build.add.groups.group_{{groupId}})",
         "group_1": "{{groupId}}",
@@ -139,6 +140,21 @@
     "WarriorProtection": "Protection",
     "Unknown": "Unknown"
   },
+  "races": {
+    "Human": "Human",
+    "Dwarf": "Dwarf",
+    "Gnome": "Gnome",
+    "Nightelf": "Nightelf",
+    "Draenei": "Draenei",
+    "Worgen": "Worgen",
+    "Orc": "Orc",
+    "Troll": "Troll",
+    "Undead": "Undead",
+    "Tauren": "Tauren",
+    "Bloodelf": "Bloodelf",
+    "Goblin": "Goblin",
+    "Unknown": "Unknown"
+  },
   "buff": {
     "MaxMana": "Maximum Mana +X",
     "AttackPower": "Attack Power +10%",
@@ -190,5 +206,12 @@
     "apiCancelled": "Internal Error",
     "api403": "403: Forbidden",
     "api404": "404: Not Found"
+  },
+  "sorting": {
+    "alphabetical": "Alphabetical",
+    "tanks": "Tanks first",
+    "healer": "Healer first",
+    "melee": "Melee first",
+    "ranged": "Ranged first"
   }
 }
