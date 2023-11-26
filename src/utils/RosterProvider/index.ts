@@ -40,4 +40,10 @@ export abstract class RosterProvider {
   public static async deleteRosterPlayersSql(connectionString: string) : Promise<Response>{
     return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/sql/deleteFromRoster`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => {return response})
   }
+
+  public static async loadBuildsSql(connectionString: string) : Promise<string[]>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/sql/loadBuilds`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((builds) => {
+      return builds.builds
+    })
+  }
 }

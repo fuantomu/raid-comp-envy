@@ -12,23 +12,21 @@ import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
 import ModalImport from "../../components/ModalImport";
 import ModalResetBuild from "../../components/ModalResetBuild";
-import ModalSaveBuild from "../../components/ModalSaveBuild";
 import RaidChecklist from "../../components/RaidChecklist";
 import Roster from "../../components/Roster";
 import RaidComposition from "../../components/RaidComposition";
 import { getBuild } from "../../services/backend";
-import { Build, BuildPlayer} from "../../types";
+import { Build, BuildPlayer, SelectOption} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
-import ModalLoadRoster from "../../components/ModalLoadRoster";
-import ModalLoadRosterSQL from "../../components/ModalLoadRosterSQL";
-import ModalLoadBuild from "../../components/ModalLoadBuild";
 import { InviteStatus } from "../../consts";
 import { WarcraftRole } from "../../utils/RoleProvider/consts";
 import { RoleProvider } from "../../utils/RoleProvider";
 import { SelectChangeEvent } from "@mui/material";
+import ModalCreateBuild from "../../components/ModalCreateBuild";
+import ModalDeleteBuild from "../../components/ModalDeleteBuild";
 
 export interface EditBuildPageProps {}
 
@@ -43,6 +41,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [grouped, setGrouped] = useState(true);
   const [sorting, setSorting] = useState('');
+  const [builds, setBuilds] = useState<SelectOption[]>([]);
 
   const sortFunctions : any = {
     "NAME": function(a:BuildPlayer,b:BuildPlayer) { return a.name.localeCompare(b.name)},
@@ -215,7 +214,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   const saveBuild = async () => {
-    if (!players.length) return;
     saveCurrentBuild(getCurrentBuild().players, name);
   };
 
@@ -228,11 +226,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     await saveCurrentBuild([], currentBuild).then(() => {
       BuildHelper.parseSqlDelete(connectionString)
     });
-  };
-
-  const handleTitleChange = (newName: string) => {
-    setName(newName);
-    localStorage.setItem( 'LastBuild', newName)
   };
 
   const editPlayerModalFn = (callback: (player: BuildPlayer) => void) => {
@@ -250,8 +243,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     connectionString.build = build;
     BuildHelper.parseSqlLoad(connectionString).then((build) => {
       if(build.length > 0){
-        loadBuild(build)}
+        loadBuild(build);
       }
+    }
     )
   }
 
@@ -272,8 +266,42 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setRoster([...roster].sort(sortFunctions[e.target.value]))
   };
 
+  const handleSelectBuild = (build: SelectOption) => {
+    console.log("Setting build to "+JSON.stringify(build.value))
+    setName(build.value);
+    localStorage.setItem( 'LastBuild', build.value)
+    loadBuildSql(build.value);
+  };
+
+  const addBuild = (build: string) => {
+    console.log("Adding build "+JSON.stringify(build))
+    const newBuild = {value:build,label:build}
+    setBuilds([...builds, newBuild])
+    setPlayers([])
+    handleSelectBuild(newBuild)
+    saveCurrentBuild([], build)
+  };
+
+  const deleteBuild = (build: string) => {
+    console.log("Deleting build "+JSON.stringify(build))
+    const deletedBuild = {value:build,label:build}
+    const newBuilds = [...builds.filter((build) => build.value !== deletedBuild.value)]
+    setBuilds(newBuilds)
+    setPlayers([])
+    handleSelectBuild(newBuilds[0])
+
+    const connectionString = CONNECTION_STRING;
+    connectionString.build = deletedBuild.value;
+
+    BuildHelper.parseSqlDelete(connectionString)
+  };
+
   const getCurrentSorting = () => {
     return sorting?? "Alphabetical";
+  };
+
+  const getBuilds = () => {
+    return builds.map((build) => {return build.value;})?? "Alphabetical";
   };
 
   useEffect(() => {
@@ -301,6 +329,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             })
           });
       })
+      BuildHelper.parseBuildsLoad(CONNECTION_STRING).then((loadedBuilds) => {
+        console.log("Builds "+loadedBuilds)
+        const buildObject: SelectOption[] = [];
+        for(const build of loadedBuilds){
+          buildObject.push({"value": build, "label":build})
+        }
+        setBuilds(buildObject)
+      })
 
       setIsLoading(false);
     }// eslint-disable-next-line
@@ -311,7 +347,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting }}>
+    <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ height:'1100px', minHeight: "80%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
@@ -321,10 +357,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
         <Box key={UUID()} css={[styles.gridBox, styles.header]}>
           <BuildTitle
-            css={styles.buildTitle}
             key={UUID()}
+            onChange={handleSelectBuild}
+            options={builds}
+            selected={builds.filter((build) => build.label === getCurrentBuild().name)[0]}
             title={name}
-            onChange={handleTitleChange}
           />
           <BuildRolesCount key={UUID()} build={getCurrentBuild()} />
         </Box>
@@ -332,10 +369,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
           <ModalAdd />
           <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
-          <ModalSaveBuild />
+          <ModalCreateBuild />
+          <ModalDeleteBuild />
+          {/*
           <ModalLoadRoster />
           <ModalLoadRosterSQL />
-          <ModalLoadBuild />
+          <ModalLoadBuild />*/}
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
           <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />
@@ -344,8 +383,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           <RaidChecklist build={getCurrentBuild()} />
         </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-          <ModalImport />
-          <ModalResetBuild />
+          {//<ModalImport />
+          }<ModalResetBuild />
         </Box>
         </Container>
       </Container>

@@ -57,6 +57,15 @@
       "save": "Save",
       "remove": "Remove"
     },
+    "create": {
+      "title": "Add a new build",
+      "save": "Save"
+    },
+    "delete": {
+      "title": "Delete the current build",
+      "confirm": "Are you sure you want to delete the build ",
+      "ok": "Delete"
+    },
     "add": {
       "title": "Add Player",
       "add": "Add",
@@ -82,7 +91,9 @@
     "resetBuild": "Clear build",
     "importRosterRaidHelper": "Import Roster from Raid-helper",
     "importRosterSql": "Import Roster from SQL",
-    "loadBuild": "Load a saved build"
+    "loadBuild": "Load a saved build",
+    "createBuild": "Create a new build",
+    "deleteBuild": "Delete the current build"
   },
   "status": {
     "invited": "Invited",

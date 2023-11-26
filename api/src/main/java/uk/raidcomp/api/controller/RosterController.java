@@ -12,6 +12,8 @@ import uk.raidcomp.api.controller.dto.save.SaveRosterDto;
 import uk.raidcomp.api.controller.dto.save.SaveBuildResponseDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildResponseDto;
+import uk.raidcomp.api.controller.dto.load.LoadBuildsDto;
+import uk.raidcomp.api.controller.dto.load.LoadBuildsResponseDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteBuildDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteBuildResponseDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteRosterDto;
@@ -53,7 +55,7 @@ public class RosterController {
   }
 
   @Post("/delete")
-  public HttpResponse<DeleteBuildResponseDto> loadFromSql(
+  public HttpResponse<DeleteBuildResponseDto> deleteFromSql(
       @Valid @Body DeleteBuildDto body) {
     return HttpResponse.created(new DeleteBuildResponseDto(delegate.deleteBuild(body)));
   }
@@ -62,5 +64,11 @@ public class RosterController {
   public HttpResponse<DeleteRosterResponseDto> deleteRosterPlayersFromSql(
       @Valid @Body DeleteRosterDto body) {
     return HttpResponse.created(new DeleteRosterResponseDto(delegate.deleteRosterPlayers(body)));
+  }
+
+  @Post("/loadBuilds")
+  public HttpResponse<LoadBuildsResponseDto> loadBuildsFromSql(
+      @Valid @Body LoadBuildsDto body) {
+    return HttpResponse.created(new LoadBuildsResponseDto(delegate.loadBuilds(body)));
   }
 }

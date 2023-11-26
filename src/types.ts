@@ -63,3 +63,8 @@ export type BuildGroups = {
 export type BuildRoles = {
   [role in WarcraftRole]: BuildPlayer[];
 };
+
+export type SelectOption = {
+  value: string;
+  label: string;
+};

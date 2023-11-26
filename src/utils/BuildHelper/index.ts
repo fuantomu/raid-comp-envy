@@ -202,6 +202,20 @@ export abstract class BuildHelper {
     })
   }
 
+  public static async parseBuildsLoad(connectionString : ConnectionString) {
+    connectionString.table = 'BuildEntity'
+    const builds: string[] = []
+
+    await RosterProvider.loadBuildsSql(JSON.stringify(connectionString)).then((response) => {
+      if(response){
+        for (const build of response){
+          builds.push(build)
+        }
+      }
+    })
+    return builds;
+  }
+
   public static humanReadableURL(name: string) {
     return name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-");
   }

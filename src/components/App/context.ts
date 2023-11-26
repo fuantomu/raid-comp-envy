@@ -1,6 +1,6 @@
 import { SelectChangeEvent } from "@mui/material";
 import { createContext, useContext } from "react";
-import { Build, BuildPlayer } from "../../types";
+import { Build, BuildPlayer, SelectOption } from "../../types";
 
 type AppContextApi = {
   importPlayer: (player: BuildPlayer) => Promise<void>;
@@ -15,6 +15,10 @@ type AppContextApi = {
   loadRoster: (roster: BuildPlayer[]) => Promise<void>;
   handleSorting: (sort: SelectChangeEvent) => void;
   getCurrentSorting: () => string;
+  handleSelectBuild: (sort: SelectOption) => void;
+  getBuilds: () => String[];
+  addBuild: (title: string) => void;
+  deleteBuild: (title: string) => void;
 };
 
 const AppContext = createContext<AppContextApi | null>(null);

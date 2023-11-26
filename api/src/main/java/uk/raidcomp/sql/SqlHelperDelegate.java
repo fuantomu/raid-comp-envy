@@ -12,6 +12,7 @@ import uk.raidcomp.api.controller.dto.imports.ImportRosterDto;
 import uk.raidcomp.api.controller.dto.save.SaveBuildDto;
 import uk.raidcomp.api.controller.dto.save.SaveRosterDto;
 import uk.raidcomp.api.controller.dto.load.LoadBuildDto;
+import uk.raidcomp.api.controller.dto.load.LoadBuildsDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteBuildDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteRosterDto;
 import uk.raidcomp.api.delegate.BuildDelegate;
@@ -197,6 +198,32 @@ public class SqlHelperDelegate {
     return result;
   }
 
+  public List<String> loadBuilds(LoadBuildsDto connectionString) {
+      final List<String> builds = new ArrayList<>();
+
+      try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(), connectionString.password());
+        String query = "SELECT * from `"+connectionString.table()+"`";
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(query);
+
+        while(result.next()){
+          builds.add(result.getString("name"));
+        }
+
+        connection.close();
+      }
+      catch (SQLException se){
+        se.printStackTrace();
+      }
+      catch (ClassNotFoundException ce){
+        ce.printStackTrace();
+      }
+
+      return builds;
+  }
+
   private String getConnectionString(SaveBuildDto Dto){
     return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
   }
@@ -218,6 +245,10 @@ public class SqlHelperDelegate {
   }
 
   private String getConnectionString(DeleteRosterDto Dto){
+    return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
+  }
+
+  private String getConnectionString(LoadBuildsDto Dto){
     return "jdbc:mysql://"+Dto.server()+":"+Dto.port()+"/"+Dto.database()+"?verifyServerCertificate=false&useSSL=false";
   }
 }

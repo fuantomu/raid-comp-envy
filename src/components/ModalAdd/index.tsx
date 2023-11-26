@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import AddIcon from "@mui/icons-material/Add";
 import { Checkbox, FormControlLabel, Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -20,6 +19,7 @@ import { useAppContext } from "../App/context";
 import AttendanceIcon from "../AttendanceIcon";
 import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export interface ModalAddProps {
   editPlayer?: (callback: (player: BuildPlayer) => void) => void;
@@ -272,7 +272,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
       {!editPlayer ? (
         <Tooltip title={common("cta.addPlayer")} placement="top" arrow>
           <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
-            <AddIcon />
+            <PersonAddIcon />
           </Button>
         </Tooltip>
       ) : null}
