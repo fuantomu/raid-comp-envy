@@ -268,7 +268,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setGrouped(!grouped);
   };
 
-  const handleSorting = (e: SelectChangeEvent) => {
+  const handleSorting = (e: any) => {
     setSorting(e.target.value);
     setRoster([...roster].sort(sortFunctions[e.target.value]))
   };

@@ -12,7 +12,7 @@ import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
-import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];

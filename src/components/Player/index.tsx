@@ -12,7 +12,7 @@ import AttendanceIcon from "../AttendanceIcon";
 import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 import { useAppContext } from "../App/context";
-import { ArrowLeft } from "@mui/icons-material";
+import { ArrowDropDown, ArrowLeft } from "@mui/icons-material";
 
 export interface PlayerProps extends BuildPlayer {
   showRole?: boolean;
@@ -59,9 +59,11 @@ const Player: FC<PlayerProps> = (props) => {
         </Typography>
         <AttendanceIcon status={status} />
 
-        <Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible); }}>
+        {!visible? (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible); }}>
           {alts.length > 0? (<ArrowLeft></ArrowLeft>): <></>}
-        </Box>
+        </Box>) : (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible); }}>
+          {alts.length > 0? (<ArrowDropDown></ArrowDropDown>): <></>}
+        </Box>)}
 
       </Box>
       {alts.length > 0 && visible? (

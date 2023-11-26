@@ -1,4 +1,3 @@
-import { SelectChangeEvent } from "@mui/material";
 import { createContext, useContext } from "react";
 import { Build, BuildPlayer, SelectOption } from "../../types";
 
@@ -13,7 +12,7 @@ type AppContextApi = {
   getCurrentRoster: () => Build;
   editPlayer: (player: BuildPlayer) => void;
   loadRoster: (roster: BuildPlayer[]) => Promise<void>;
-  handleSorting: (sort: SelectChangeEvent) => void;
+  handleSorting: (sort: any) => void;
   getCurrentSorting: () => string;
   handleSelectBuild: (sort: SelectOption) => void;
   getBuilds: () => String[];
