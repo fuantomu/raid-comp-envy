@@ -12,7 +12,7 @@ import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
-import { InputLabel, MenuItem, Select } from "@mui/material";
+import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
@@ -62,18 +62,23 @@ const RosterGroup: FC<RosterGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
-        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 80px 1fr"}>
+        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 1fr"}>
         <Typography fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
-        <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
-        <Select defaultValue="NAME" value={context?.getCurrentSorting()} label="sorting" onChange={context?.handleSorting}>
-            <MenuItem id={"alphabetical"} value={"NAME"}>{common("sorting.alphabetical")}</MenuItem>
-            <MenuItem id={"tanks"} value={"ROLETANK"}>{common("sorting.tanks")}</MenuItem>
-            <MenuItem id={"healer"} value={"ROLEHEALER"}>{common("sorting.healer")}</MenuItem>
-            <MenuItem id={"melee"} value={"ROLEMELEE"}>{common("sorting.melee")}</MenuItem>
-            <MenuItem id={"ranged"} value={"ROLERANGED"}>{common("sorting.ranged")}</MenuItem>
-        </Select>
+        <TextField
+          defaultValue="NAME"
+          value={context?.getCurrentSorting()}
+          onChange={context?.handleSorting}
+          select // tell TextField to render select
+          label="Sort by"
+        >
+          <MenuItem id={"alphabetical"} value={"NAME"}>{common("sorting.alphabetical")}</MenuItem>
+          <MenuItem id={"tanks"} value={"ROLETANK"}>{common("sorting.tanks")}</MenuItem>
+          <MenuItem id={"healer"} value={"ROLEHEALER"}>{common("sorting.healer")}</MenuItem>
+          <MenuItem id={"melee"} value={"ROLEMELEE"}>{common("sorting.melee")}</MenuItem>
+          <MenuItem id={"ranged"} value={"ROLERANGED"}>{common("sorting.ranged")}</MenuItem>
+        </TextField>
         </Box>
         <Box key={UUID()} css={styles.spread}>
           {players.filter((player) => player.main?.toLowerCase() === player.name.toLowerCase()).map((player) => (

@@ -184,7 +184,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildName?: string) => {
     const connectionString = CONNECTION_STRING;
     connectionString.build = buildName?? "Current Build";
-    console.log(connectionString)
     BuildHelper.parseSqlBuildSave(connectionString, playerBuild);
   }
 
@@ -340,7 +339,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           });
       })
       BuildHelper.parseBuildsLoad(CONNECTION_STRING).then((loadedBuilds) => {
-        console.log("Builds "+loadedBuilds)
         const buildObject: SelectOption[] = [];
         for(const build of loadedBuilds){
           buildObject.push({"value": build, "label":build})
