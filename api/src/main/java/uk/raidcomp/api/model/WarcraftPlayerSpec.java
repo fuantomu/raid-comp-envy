@@ -72,7 +72,7 @@ public enum WarcraftPlayerSpec {
           return MAGE_FROST;
         }
         else{
-          return DEATHKNIGHT_BLOOD;
+          return DEATHKNIGHT_FROST;
         }
       case "UNHOLY":
         return DEATHKNIGHT_UNHOLY;
