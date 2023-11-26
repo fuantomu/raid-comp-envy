@@ -2,7 +2,7 @@
 import { Box, Tooltip } from "@mui/material";
 import Modal from "@mui/material/Modal"
 import Button from "@mui/material/Button";
-import { FC, createRef, useState } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
 import FolderDeleteIcon from '@mui/icons-material/FolderDelete';

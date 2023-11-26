@@ -10,7 +10,6 @@ import BuildTitle from "../../components/BuildTitle";
 import ChangeViewModeButton from "../../components/ChangeViewModeButton";
 import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
-import ModalImport from "../../components/ModalImport";
 import ModalResetBuild from "../../components/ModalResetBuild";
 import RaidChecklist from "../../components/RaidChecklist";
 import Roster from "../../components/Roster";
@@ -242,9 +241,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     const connectionString = CONNECTION_STRING;
     connectionString.build = build;
     BuildHelper.parseSqlLoad(connectionString).then((build) => {
-      if(build.length > 0){
-        loadBuild(build);
-      }
+      loadBuild(build);
     }
     )
   }
@@ -255,6 +252,17 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const loadBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
     setPlayers([...newPlayers]);
+
+    for(const player of roster){
+      const playerInGroup = newPlayers.find((newPlayer) => newPlayer.id === player.id)
+      if(playerInGroup){
+        updateRosterStatus(playerInGroup, roster);
+      }
+      else{
+        player.status = InviteStatus.Unknown;
+      }
+
+    }
   };
 
   const handleChangeGrouping = () => {
@@ -270,7 +278,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     console.log("Setting build to "+JSON.stringify(build.value))
     setName(build.value);
     localStorage.setItem( 'LastBuild', build.value)
-    loadBuildSql(build.value);
+
+    loadBuildSql(build.value)
   };
 
   const addBuild = (build: string) => {
@@ -278,6 +287,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     const newBuild = {value:build,label:build}
     setBuilds([...builds, newBuild])
     setPlayers([])
+
     handleSelectBuild(newBuild)
     saveCurrentBuild([], build)
   };
@@ -286,8 +296,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     console.log("Deleting build "+JSON.stringify(build))
     const deletedBuild = {value:build,label:build}
     const newBuilds = [...builds.filter((build) => build.value !== deletedBuild.value)]
-    setBuilds(newBuilds)
     setPlayers([])
+
     handleSelectBuild(newBuilds[0])
 
     const connectionString = CONNECTION_STRING;
