@@ -19,9 +19,7 @@ export interface RaidUtilityChecklistProps {
 
 const buildUtilityChecklist = (build: Build, version: String) => {
   const raidBuffs = [];
-  console.log(version)
   for (const utility in RoleProvider.getVersionRaidUtility(version)) {
-    console.log(utility)
     const playersWithUtility = build.players.filter(
       ({ spec, class: className, race: raceName, group }) =>
         group !== 'roster' && group !== 'bench' &&
