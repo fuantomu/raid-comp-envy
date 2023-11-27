@@ -12,6 +12,9 @@ import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
+import { IconProvider } from "../../utils/IconProvider";
+import WarcraftIcon from "../Icon";
+import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 
 export interface CompositionGroupProps {
   players: BuildPlayer[];
@@ -59,9 +62,16 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
+        <Box display={"grid"} gridTemplateColumns={"1fr 20px"}>
         <Typography variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
+        {players.filter((player) => player.race === 'Draenei').length > 0 && localStorage.getItem("LastVersion") === 'Wotlk' ? (
+          <WarcraftIcon
+            title={`${common(`races.Draenei`)}`}
+            src={IconProvider.getUtilityIcon(WarcraftRaidUtility.DraeneiHit)}
+          />) : null}
+        </Box>
         <Box css={styles.spread}>
           {players.map((player) => (
             <Player
