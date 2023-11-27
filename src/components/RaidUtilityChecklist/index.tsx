@@ -14,30 +14,34 @@ import useInfoBadgeStyles from "../UtilityInfoBadge/useStyles";
 
 export interface RaidUtilityChecklistProps {
   build: Build;
+  version: String;
 }
 
-const buildUtilityChecklist = (build: Build) => {
+const buildUtilityChecklist = (build: Build, version: String) => {
   const raidBuffs = [];
-  for (const utility in WarcraftRaidUtility) {
+  console.log(version)
+  for (const utility in RoleProvider.getVersionRaidUtility(version)) {
+    console.log(utility)
     const playersWithUtility = build.players.filter(
       ({ spec, class: className, race: raceName, group }) =>
         group !== 'roster' && group !== 'bench' &&
-        (RoleProvider.getSpecUtilities(spec).includes(utility as WarcraftRaidUtility) ||
-        RoleProvider.getClassUtilities(className).includes(utility as WarcraftRaidUtility) ||
-        RoleProvider.getRaceUtilities(raceName).includes(utility as WarcraftRaidUtility))
+        (RoleProvider.getSpecUtilities(spec, version).includes(utility as WarcraftRaidUtility) ||
+        RoleProvider.getClassUtilities(className, version).includes(utility as WarcraftRaidUtility) ||
+        RoleProvider.getRaceUtilities(raceName, version).includes(utility as WarcraftRaidUtility))
     );
     raidBuffs.push(
       <RaidUtility
         key={UUID()}
         utility={utility as WarcraftRaidUtility}
         players={playersWithUtility}
+        version={version}
       />
     );
   }
   return raidBuffs;
 };
 
-const RaidUtilityChecklist: FC<RaidUtilityChecklistProps> = ({ build }) => {
+const RaidUtilityChecklist: FC<RaidUtilityChecklistProps> = ({ build, version }) => {
   const [common] = useTranslation("common");
   const infoBadgeStyles = useInfoBadgeStyles();
   return (
@@ -45,7 +49,7 @@ const RaidUtilityChecklist: FC<RaidUtilityChecklistProps> = ({ build }) => {
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
         <Typography variant="subtitle1">{common("build.checklist.utilities")}</Typography>
-        {buildUtilityChecklist(build)}
+        {buildUtilityChecklist(build, version)}
       </CardContent>
     </Card>
   );

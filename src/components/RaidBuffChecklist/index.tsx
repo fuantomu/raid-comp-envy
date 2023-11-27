@@ -14,25 +14,26 @@ import useInfoBadgeStyles from "../UtilityInfoBadge/useStyles";
 
 export interface RaidBuffChecklistProps {
   build: Build;
+  version: String;
 }
 
-const buildBuffChecklist = (build: Build) => {
+const buildBuffChecklist = (build: Build, version: String) => {
   const raidBuffs = [];
-  for (const buff in WarcraftRaidBuff) {
+  for (const buff in RoleProvider.getVersionBuffs(version)) {
     const playersWithBuff = build.players.filter(
       ({ spec, class: className, group }) =>
         group !== 'roster' && group !== 'bench' &&
-        (RoleProvider.getSpecBuffs(spec).includes(buff as WarcraftRaidBuff) ||
-        RoleProvider.getClassBuff(className).includes(buff as WarcraftRaidBuff))
+        (RoleProvider.getSpecBuffs(spec, version).includes(buff as WarcraftRaidBuff) ||
+        RoleProvider.getClassBuff(className, version).includes(buff as WarcraftRaidBuff))
     );
     raidBuffs.push(
-      <RaidBuff key={UUID()} buff={buff as WarcraftRaidBuff} players={playersWithBuff} />
+      <RaidBuff key={UUID()} buff={buff as WarcraftRaidBuff} players={playersWithBuff} version={version} />
     );
   }
   return raidBuffs;
 };
 
-const RaidBuffChecklist: FC<RaidBuffChecklistProps> = ({ build }) => {
+const RaidBuffChecklist: FC<RaidBuffChecklistProps> = ({ build, version }) => {
   const [common] = useTranslation("common");
   const infoBadgeStyles = useInfoBadgeStyles();
 
@@ -41,7 +42,7 @@ const RaidBuffChecklist: FC<RaidBuffChecklistProps> = ({ build }) => {
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
         <Typography variant="subtitle1">{common("build.checklist.buffs")}</Typography>
-        {buildBuffChecklist(build)}
+        {buildBuffChecklist(build, version)}
       </CardContent>
     </Card>
   );

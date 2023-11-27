@@ -11,16 +11,17 @@ import useStyles from "../ChecklistItem/useStyles";
 
 export interface RaidChecklistProps {
   build: Build;
+  version: String;
 }
 
-const RaidChecklist: FC<RaidChecklistProps> = ({ build }) => {
+const RaidChecklist: FC<RaidChecklistProps> = ({ build, version }) => {
   const styles = useStyles();
   return (
     <Box css={styles.checklist}>
       <RaidClassChecklist build={build} />
-      <RaidBuffChecklist build={build} />
-      <RaidDebuffChecklist build={build} />
-      <RaidUtilityChecklist build={build} />
+      <RaidBuffChecklist build={build} version={version} />
+      <RaidDebuffChecklist build={build} version={version}/>
+      <RaidUtilityChecklist build={build} version={version}/>
     </Box>
   );
 };

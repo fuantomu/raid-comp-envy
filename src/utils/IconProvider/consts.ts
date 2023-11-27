@@ -97,10 +97,13 @@ export const WarcraftBuffIcon: {
 } = {
   [WarcraftRaidBuff.MeleeHaste]: "spell_nature_windfury",
   [WarcraftRaidBuff.Crit]: "spell_nature_unyeildingstamina",
+  [WarcraftRaidBuff.AttackPower10]: "spell_holy_fistofjustice",
+  [WarcraftRaidBuff.AttackPower10Wotlk]: "ability_trueshot",
   [WarcraftRaidBuff.AttackPower]: "spell_holy_fistofjustice",
   [WarcraftRaidBuff.SpellHaste]: "spell_nature_forceofnature",
   [WarcraftRaidBuff.SpellPower10]: "spell_shadow_demonicpact",
   [WarcraftRaidBuff.SpellPower6]: "spell_holy_magicalsentry",
+  [WarcraftRaidBuff.SpellPower]: "spell_shadow_demonicpact",
   [WarcraftRaidBuff.IncDamage]: "ability_hunter_ferociousinspiration",
   [WarcraftRaidBuff.AllStats]: "spell_magic_magearmor",
   [WarcraftRaidBuff.StrengthAgility]: "inv_misc_horn_02",
@@ -108,7 +111,17 @@ export const WarcraftBuffIcon: {
   [WarcraftRaidBuff.MaxMana]: "spell_holy_magicalsentry",
   [WarcraftRaidBuff.Armor]: "spell_holy_devotionaura",
   [WarcraftRaidBuff.MP5]: "spell_nature_manaregentotem",
-  [WarcraftRaidBuff.Replenishment]: "spell_magic_managain"
+  [WarcraftRaidBuff.Replenishment]: "spell_magic_managain",
+  [WarcraftRaidBuff.Kings]: "spell_magic_greaterblessingofkings",
+  [WarcraftRaidBuff.Haste3]: "ability_paladin_swiftretribution",
+  [WarcraftRaidBuff.Intellect]: "spell_holy_magicalsentry",
+  [WarcraftRaidBuff.Spirit]: "spell_holy_divinespirit",
+  [WarcraftRaidBuff.MaxHealth]: "ability_warrior_rallyingcry",
+  [WarcraftRaidBuff.SpellCrit]: "spell_nature_forceofnature",
+  [WarcraftRaidBuff.MarkOfTheWild]: "spell_nature_regeneration",
+  [WarcraftRaidBuff.PhysicalCrit]: "spell_nature_unyeildingstamina",
+  [WarcraftRaidBuff.HealingReceived]: "ability_druid_treeoflife",
+  [WarcraftRaidBuff.MeleeHaste20]: "spell_nature_windfury"
 };
 
 export const WarcraftDebuffIcon: {
@@ -119,10 +132,18 @@ export const WarcraftDebuffIcon: {
   [WarcraftRaidDebuff.SpellCritReceived]: "spell_fire_soulburn",
   [WarcraftRaidDebuff.MeleeHaste]: "spell_nature_thunderclap",
   [WarcraftRaidDebuff.SpellDamageReceived]: "ability_creature_poison_06",
+  [WarcraftRaidDebuff.SpellDamageReceived13]: "spell_shadow_chilltouch",
   [WarcraftRaidDebuff.PhysicalDamageReceived]: "ability_warrior_bloodfrenzy",
   [WarcraftRaidDebuff.HealingReceived]: "ability_warrior_savageblow",
   [WarcraftRaidDebuff.PhysicalDamageDealt]: "ability_warrior_warcry",
   [WarcraftRaidDebuff.CastSpeed]: "spell_shadow_curseoftounges",
+  [WarcraftRaidDebuff.CastSpeed30]: "spell_nature_nullifydisease",
+  [WarcraftRaidDebuff.AttackPowerDown]: "ability_warrior_warcry",
+  [WarcraftRaidDebuff.ArmorDown20]: "ability_warrior_riposte",
+  [WarcraftRaidDebuff.ArmorDown5]: "spell_nature_faeriefire",
+  [WarcraftRaidDebuff.SpellHit]: "spell_shadow_misery",
+  [WarcraftRaidDebuff.CritChanceReceived]: "ability_creature_poison_06",
+  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot",
 };
 
 export const WarcraftUtilityIcon: {
@@ -135,8 +156,17 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.BlessingOfProtection]: "spell_holy_sealofprotection",
   [WarcraftRaidUtility.ManaTide]: "spell_frost_summonwaterelemental",
   [WarcraftRaidUtility.DraeneiHit]: "inv_helmet_21",
+  [WarcraftRaidUtility.TricksOfTheTrade]: "ability_rogue_tricksofthetrade",
+  [WarcraftRaidUtility.PowerInfusion]: "spell_holy_powerinfusion",
+  [WarcraftRaidUtility.UnholyFrenzy]: "spell_deathknight_bladedarmor",
+  [WarcraftRaidUtility.FocusMagic]: "spell_arcane_studentofmagic",
+  [WarcraftRaidUtility.DivineGuardian]: "spell_holy_powerwordbarrier",
+  [WarcraftRaidUtility.DamageReduction10]: "spell_holy_layonhands",
+  [WarcraftRaidUtility.DamageReduction3]: "spell_holy_greaterblessingofsanctuary",
 };
 
 export enum CustomIcon {
   GroupNeedMore = "inv_misc_groupneedmore",
+  WRATH = "achievement_boss_lichking",
+  CATACLYSM = "achievment_boss_madnessofdeathwing",
 }

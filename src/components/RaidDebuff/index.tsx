@@ -11,19 +11,20 @@ import { WarcraftPlayerSpec } from "../../consts";
 export interface RaidDebuffProps {
   debuff: WarcraftRaidDebuff;
   players: BuildPlayer[];
+  version: String;
 }
 
-const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff) => {
+const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff, version:String) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
-    if ((RoleProvider.getSpecDebuffs(spec as WarcraftPlayerSpec).includes(debuff as WarcraftRaidDebuff))){
+    if ((RoleProvider.getSpecDebuffs(spec as WarcraftPlayerSpec, version).includes(debuff as WarcraftRaidDebuff))){
       specs.push(spec as WarcraftPlayerSpec)
     }
   }
   return specs;
 };
 
-const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players }) => {
+const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players, version }) => {
   const [common] = useTranslation("common");
 
   return (
@@ -31,7 +32,7 @@ const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players }) => {
       displayName={common(`debuff.${debuff}`)}
       iconSource={IconProvider.getDebuffIcon(debuff)}
       players={players}
-      specs={buildDebuffSpeclist(debuff)}
+      specs={buildDebuffSpeclist(debuff, version)}
     />
   );
 };

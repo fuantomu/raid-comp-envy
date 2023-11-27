@@ -11,19 +11,20 @@ import { WarcraftPlayerSpec } from "../../consts";
 export interface RaidBuffProps {
   buff: WarcraftRaidBuff;
   players: BuildPlayer[];
+  version: String;
 }
 
-const buildBuffSpeclist = (buff: WarcraftRaidBuff) => {
+const buildBuffSpeclist = (buff: WarcraftRaidBuff, version: String) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
-    if ((RoleProvider.getSpecBuffs(spec as WarcraftPlayerSpec).includes(buff as WarcraftRaidBuff))){
+    if ((RoleProvider.getSpecBuffs(spec as WarcraftPlayerSpec, version).includes(buff as WarcraftRaidBuff))){
       specs.push(spec as WarcraftPlayerSpec)
     }
   }
   return specs;
 };
 
-const RaidBuff: FC<RaidBuffProps> = ({ buff, players }) => {
+const RaidBuff: FC<RaidBuffProps> = ({ buff, players, version }) => {
   const [common] = useTranslation("common");
 
   return (
@@ -31,7 +32,7 @@ const RaidBuff: FC<RaidBuffProps> = ({ buff, players }) => {
       displayName={common(`buff.${buff}`)}
       iconSource={IconProvider.getBuffIcon(buff)}
       players={players}
-      specs={buildBuffSpeclist(buff)}
+      specs={buildBuffSpeclist(buff, version)}
     />
   );
 };

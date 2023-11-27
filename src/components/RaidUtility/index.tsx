@@ -11,19 +11,20 @@ import { WarcraftPlayerSpec } from "../../consts";
 export interface RaidUtilityProps {
   utility: WarcraftRaidUtility;
   players: BuildPlayer[];
+  version: String;
 }
 
-const buildUtilitySpeclist = (utility: WarcraftRaidUtility) => {
+const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: String) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
-    if ((RoleProvider.getSpecUtilities(spec as WarcraftPlayerSpec).includes(utility as WarcraftRaidUtility))){
+    if ((RoleProvider.getSpecUtilities(spec as WarcraftPlayerSpec, version).includes(utility as WarcraftRaidUtility))){
       specs.push(spec as WarcraftPlayerSpec)
     }
   }
   return specs;
 };
 
-const RaidUtility: FC<RaidUtilityProps> = ({ utility, players }) => {
+const RaidUtility: FC<RaidUtilityProps> = ({ utility, players, version }) => {
   const [common] = useTranslation("common");
 
   return (
@@ -31,7 +32,7 @@ const RaidUtility: FC<RaidUtilityProps> = ({ utility, players }) => {
       displayName={common(`utility.${utility}`)}
       iconSource={IconProvider.getUtilityIcon(utility)}
       players={players}
-      specs={buildUtilitySpeclist(utility)}
+      specs={buildUtilitySpeclist(utility, version)}
     />
   );
 };

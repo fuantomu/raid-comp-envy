@@ -23,9 +23,11 @@ import useStyles from "./useStyles";
 import { InviteStatus } from "../../consts";
 import { WarcraftRole } from "../../utils/RoleProvider/consts";
 import { RoleProvider } from "../../utils/RoleProvider";
-import { SelectChangeEvent } from "@mui/material";
 import ModalCreateBuild from "../../components/ModalCreateBuild";
 import ModalDeleteBuild from "../../components/ModalDeleteBuild";
+import { Button, Tooltip } from "@mui/material";
+import cataclysm from "../../icons/Cataclysmlogo.webp";
+import wotlk from "../../icons/WrathLogo.webp";
 
 export interface EditBuildPageProps {}
 
@@ -41,6 +43,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [grouped, setGrouped] = useState(true);
   const [sorting, setSorting] = useState('');
   const [builds, setBuilds] = useState<SelectOption[]>([]);
+  const [version, setVersion] = useState("Cataclysm");
 
   const sortFunctions : any = {
     "NAME": function(a:BuildPlayer,b:BuildPlayer) { return a.name.localeCompare(b.name)},
@@ -268,6 +271,13 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setGrouped(!grouped);
   };
 
+  const handleChangeVersion = () => {
+    const newVersion = version === "Cataclysm"? "Wotlk" : "Cataclysm";
+    console.log("New version is "+newVersion);
+    setVersion(newVersion);
+    localStorage.setItem( 'LastVersion', newVersion);
+  };
+
   const handleSorting = (e: any) => {
     setSorting(e.target.value);
     setRoster([...roster].sort(sortFunctions[e.target.value]))
@@ -345,7 +355,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         }
         setBuilds(buildObject)
       })
-
+      setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm")
       setIsLoading(false);
     }// eslint-disable-next-line
   }, [buildId, handleError]);
@@ -388,11 +398,18 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />
         </Box>
         <Box key={UUID()} css={styles.gridBox}>
-          <RaidChecklist build={getCurrentBuild()} />
+          <RaidChecklist build={getCurrentBuild()} version={version} />
         </Box>
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
           {//<ModalImport />
           }<ModalResetBuild />
+        </Box>
+        <Box display={"flex"} justifyContent={"center"}>
+          <Button style={{height: '100px', width : '219px', marginTop:'50px', marginBottom:'50px'}} key={UUID()} onClick={handleChangeVersion}>
+            <Tooltip title={common(`version.${version}`)}>
+              <img width={"219"} height={"100"} alt={common(`version.${version}`)} src={version === 'Cataclysm'? cataclysm : wotlk}></img>
+            </Tooltip>
+          </Button>
         </Box>
         </Container>
       </Container>

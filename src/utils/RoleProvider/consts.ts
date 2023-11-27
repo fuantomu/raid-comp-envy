@@ -47,6 +47,7 @@ export const WarcraftSpecRole: {
 
 export enum WarcraftRaidBuff {
   MeleeHaste = "MeleeHaste",
+  MeleeHaste20 = "MeleeHaste20",
   Crit = "Crit",
   AttackPower = "AttackPower",
   SpellHaste = "SpellHaste",
@@ -60,7 +61,72 @@ export enum WarcraftRaidBuff {
   Armor = "Armor",
   MP5 = "MP5",
   Replenishment = "Replenishment",
+  Kings = "Kings",
+  SpellPower = "SpellPower",
+  Haste3 = "Haste3",
+  SpellCrit = "SpellCrit",
+  MarkOfTheWild = "MarkOfTheWild",
+  PhysicalCrit = "PhysicalCrit",
+  MaxHealth = "MaxHealth",
+  AttackPower10 = "AttackPower10",
+  AttackPower10Wotlk = "AttackPower10Wotlk",
+  Spirit = "Spirit",
+  HealingReceived = "HealingReceived",
+  Intellect = "Intellect",
 }
+
+export enum WarcraftRaidBuffCataclysm {
+  MeleeHaste = "MeleeHaste",
+  Crit = "Crit",
+  AttackPower10 = "AttackPower10",
+  SpellHaste = "SpellHaste",
+  SpellPower10 = "SpellPower10",
+  SpellPower6 = "SpellPower6",
+  IncDamage = "IncDamage",
+  AllStats = "AllStats",
+  StrengthAgility = "StrengthAgility",
+  Stamina = "Stamina",
+  MaxMana = "MaxMana",
+  Armor = "Armor",
+  MP5 = "MP5",
+  Replenishment = "Replenishment",
+}
+
+export enum WarcraftRaidBuffWotlk {
+  SpellHaste = "SpellHaste",
+  Kings = "Kings",
+  SpellPower = "SpellPower",
+  Haste3 = "Haste3",
+  SpellCrit = "SpellCrit",
+  AttackPower = "AttackPower",
+  MarkOfTheWild = "MarkOfTheWild",
+  PhysicalCrit = "PhysicalCrit",
+  MeleeHaste20 = "MeleeHaste20",
+  MaxHealth = "MaxHealth",
+  StrengthAgility = "StrengthAgility",
+  AttackPower10Wotlk = "AttackPower10Wotlk",
+  IncDamage = "IncDamage",
+  Spirit = "Spirit",
+  HealingReceived = "HealingReceivedBuff",
+  Intellect = "Intellect",
+  Stamina = "Stamina",
+}
+
+export const WarcraftClassRaidBuffsWotlk: {
+  [className in WarcraftPlayerClass]: WarcraftRaidBuff[];
+} = {
+  [WarcraftPlayerClass.DeathKnight]: [WarcraftRaidBuff.StrengthAgility],
+  [WarcraftPlayerClass.Druid]: [WarcraftRaidBuff.MarkOfTheWild],
+  [WarcraftPlayerClass.Hunter]: [],
+  [WarcraftPlayerClass.Mage]: [WarcraftRaidBuff.Intellect],
+  [WarcraftPlayerClass.Priest]: [WarcraftRaidBuff.Spirit,WarcraftRaidBuff.Stamina],
+  [WarcraftPlayerClass.Paladin]: [WarcraftRaidBuff.Kings,WarcraftRaidBuff.AttackPower,WarcraftRaidBuff.MP5],
+  [WarcraftPlayerClass.Rogue]: [],
+  [WarcraftPlayerClass.Warlock]: [],
+  [WarcraftPlayerClass.Shaman]: [WarcraftRaidBuff.StrengthAgility,WarcraftRaidBuff.MP5,WarcraftRaidBuff.MeleeHaste20,WarcraftRaidBuff.SpellHaste,WarcraftRaidBuff.SpellPower],
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower,WarcraftRaidBuff.MaxHealth],
+  [WarcraftPlayerClass.Unknown]: [],
+};
 
 export const WarcraftClassRaidBuffs: {
   [className in WarcraftPlayerClass]: WarcraftRaidBuff[];
@@ -76,6 +142,43 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidBuff.MeleeHaste,WarcraftRaidBuff.SpellHaste,WarcraftRaidBuff.SpellPower6,WarcraftRaidBuff.StrengthAgility,WarcraftRaidBuff.Armor,WarcraftRaidBuff.MP5],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.StrengthAgility,WarcraftRaidBuff.Stamina],
   [WarcraftPlayerClass.Unknown]: [],
+};
+
+export const WarcraftSpecRaidBuffsWotlk: {
+  [playerSpec in WarcraftPlayerSpec]: WarcraftRaidBuff[];
+} = {
+  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassRaidBuffsWotlk.DeathKnight,WarcraftRaidBuff.AttackPower10Wotlk,WarcraftRaidBuff.MeleeHaste20],
+  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassRaidBuffsWotlk.DeathKnight,WarcraftRaidBuff.MeleeHaste20],
+  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassRaidBuffsWotlk.DeathKnight],
+  [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassRaidBuffsWotlk.Druid,WarcraftRaidBuff.Haste3,WarcraftRaidBuff.SpellCrit],
+  [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidBuffsWotlk.Druid,WarcraftRaidBuff.PhysicalCrit],
+  [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidBuffsWotlk.Druid],
+  [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassRaidBuffsWotlk.Druid,WarcraftRaidBuff.HealingReceived],
+  [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassRaidBuffsWotlk.Hunter,WarcraftRaidBuff.IncDamage],
+  [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassRaidBuffsWotlk.Hunter,WarcraftRaidBuff.AttackPower10Wotlk],
+  [WarcraftPlayerSpec.HunterSurvival]: [...WarcraftClassRaidBuffsWotlk.Hunter,WarcraftRaidBuff.Replenishment],
+  [WarcraftPlayerSpec.MageArcane]: [...WarcraftClassRaidBuffsWotlk.Mage,WarcraftRaidBuff.IncDamage],
+  [WarcraftPlayerSpec.MageFire]: [...WarcraftClassRaidBuffsWotlk.Mage],
+  [WarcraftPlayerSpec.MageFrost]: [...WarcraftClassRaidBuffsWotlk.Mage,WarcraftRaidBuff.Replenishment],
+  [WarcraftPlayerSpec.PriestDiscipline]: [...WarcraftClassRaidBuffsWotlk.Priest],
+  [WarcraftPlayerSpec.PriestHoly]: [...WarcraftClassRaidBuffsWotlk.Priest],
+  [WarcraftPlayerSpec.PriestShadow]: [...WarcraftClassRaidBuffsWotlk.Priest,WarcraftRaidBuff.Replenishment],
+  [WarcraftPlayerSpec.PaladinHoly]: [...WarcraftClassRaidBuffsWotlk.Paladin,WarcraftRaidBuff.HealingReceived],
+  [WarcraftPlayerSpec.PaladinProtection]: [...WarcraftClassRaidBuffsWotlk.Paladin],
+  [WarcraftPlayerSpec.PaladinRetribution]: [...WarcraftClassRaidBuffsWotlk.Paladin,WarcraftRaidBuff.IncDamage,WarcraftRaidBuff.Haste3,WarcraftRaidBuff.Replenishment],
+  [WarcraftPlayerSpec.RogueAssassination]: [...WarcraftClassRaidBuffsWotlk.Rogue],
+  [WarcraftPlayerSpec.RogueCombat]: [...WarcraftClassRaidBuffsWotlk.Rogue],
+  [WarcraftPlayerSpec.RogueSubtlety]: [...WarcraftClassRaidBuffsWotlk.Rogue],
+  [WarcraftPlayerSpec.WarlockAffliction]: [...WarcraftClassRaidBuffsWotlk.Warlock,WarcraftRaidBuff.Intellect,WarcraftRaidBuff.Spirit],
+  [WarcraftPlayerSpec.WarlockDemonology]: [...WarcraftClassRaidBuffsWotlk.Warlock,WarcraftRaidBuff.SpellPower],
+  [WarcraftPlayerSpec.WarlockDestruction]: [...WarcraftClassRaidBuffsWotlk.Warlock,WarcraftRaidBuff.MaxHealth,WarcraftRaidBuff.Replenishment],
+  [WarcraftPlayerSpec.ShamanElemental]: [...WarcraftClassRaidBuffsWotlk.Shaman,WarcraftRaidBuff.SpellCrit],
+  [WarcraftPlayerSpec.ShamanEnhancement]: [...WarcraftClassRaidBuffsWotlk.Shaman,WarcraftRaidBuff.AttackPower10Wotlk],
+  [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassRaidBuffsWotlk.Shaman],
+  [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidBuffsWotlk.Warrior],
+  [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidBuffsWotlk.Warrior,WarcraftRaidBuff.PhysicalCrit],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffsWotlk.Warrior],
+  [WarcraftPlayerSpec.Unknown]: [],
 };
 
 export const WarcraftSpecRaidBuffs: {
@@ -121,11 +224,62 @@ export enum WarcraftRaidDebuff {
   SpellCritReceived = "SpellCritReceived",
   MeleeHaste = "MeleeHaste",
   SpellDamageReceived = "SpellDamageReceived",
+  SpellDamageReceived13 = "SpellDamageReceived13",
+  PhysicalDamageReceived = "PhysicalDamageReceived",
+  HealingReceived = "HealingReceived",
+  PhysicalDamageDealt = "PhysicalDamageDealt",
+  CastSpeed = "CastSpeed",
+  CastSpeed30 = "CastSpeed30",
+  AttackPowerDown = "AttackPowerDown",
+  ArmorDown5 = "ArmorDown5",
+  ArmorDown20 = "ArmorDown20",
+  CritChanceReceived = "CritChanceReceived",
+  PhysicalHitDown = "PhysicalHitDown",
+  SpellHit = "SpellHit"
+}
+
+export enum WarcraftRaidDebuffWotlk {
+  ArmorDown5 = "ArmorDown5",
+  ArmorDown20 = "ArmorDown20",
+  BleedDamageReceived = "BleedDamageReceived",
+  CritChanceReceived = "CritChanceReceived",
+  MeleeHaste = "MeleeHaste",
+  CastSpeed30 = "CastSpeed30",
+  PhysicalDamageReceived = "PhysicalDamageReceived",
+  SpellDamageReceived13 = "SpellDamageReceived13",
+  HealingReceived = "HealingReceived",
+  AttackPowerDown = "AttackPowerDown",
+  PhysicalHitDown = "PhysicalHitDown",
+  SpellHit = "SpellHit"
+}
+
+export enum WarcraftRaidDebuffCataclysm {
+  ArmorDown = "ArmorDown",
+  BleedDamageReceived = "BleedDamageReceived",
+  SpellCritReceived = "SpellCritReceived",
+  MeleeHaste = "MeleeHaste",
+  SpellDamageReceived = "SpellDamageReceived",
   PhysicalDamageReceived = "PhysicalDamageReceived",
   HealingReceived = "HealingReceived",
   PhysicalDamageDealt = "PhysicalDamageDealt",
   CastSpeed = "CastSpeed",
 }
+
+export const WarcraftClassRaidDebuffsWotlk: {
+  [className in WarcraftPlayerClass]: WarcraftRaidDebuff[];
+} = {
+  [WarcraftPlayerClass.DeathKnight]: [WarcraftRaidDebuff.MeleeHaste],
+  [WarcraftPlayerClass.Druid]: [WarcraftRaidDebuff.ArmorDown5],
+  [WarcraftPlayerClass.Hunter]: [WarcraftRaidDebuff.ArmorDown5,WarcraftRaidDebuff.PhysicalHitDown,WarcraftRaidDebuff.HealingReceived],
+  [WarcraftPlayerClass.Mage]: [],
+  [WarcraftPlayerClass.Priest]: [],
+  [WarcraftPlayerClass.Paladin]: [],
+  [WarcraftPlayerClass.Rogue]: [WarcraftRaidDebuff.ArmorDown20,WarcraftRaidDebuff.CastSpeed30,WarcraftRaidDebuff.HealingReceived],
+  [WarcraftPlayerClass.Warlock]: [WarcraftRaidDebuff.ArmorDown5,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.CastSpeed30,WarcraftRaidDebuff.SpellDamageReceived13],
+  [WarcraftPlayerClass.Shaman]: [],
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidDebuff.ArmorDown20,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.MeleeHaste],
+  [WarcraftPlayerClass.Unknown]: [],
+};
 
 export const WarcraftClassRaidDebuffs: {
   [className in WarcraftPlayerClass]: WarcraftRaidDebuff[];
@@ -141,6 +295,43 @@ export const WarcraftClassRaidDebuffs: {
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidDebuff.MeleeHaste],
   [WarcraftPlayerClass.Warrior]: [WarcraftRaidDebuff.ArmorDown,WarcraftRaidDebuff.PhysicalDamageDealt],
   [WarcraftPlayerClass.Unknown]: [],
+};
+
+export const WarcraftSpecRaidDebuffsWotlk: {
+  [playerSpec in WarcraftPlayerSpec]: WarcraftRaidDebuff[];
+} = {
+  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassRaidDebuffsWotlk.DeathKnight],
+  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassRaidDebuffsWotlk.DeathKnight],
+  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassRaidDebuffsWotlk.DeathKnight,WarcraftRaidDebuff.SpellDamageReceived13],
+  [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassRaidDebuffsWotlk.Druid,WarcraftRaidDebuff.PhysicalHitDown,WarcraftRaidDebuff.SpellDamageReceived13,WarcraftRaidDebuff.SpellHit],
+  [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidDebuffsWotlk.Druid,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.MeleeHaste,WarcraftRaidDebuff.BleedDamageReceived],
+  [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidDebuffsWotlk.Druid,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.BleedDamageReceived],
+  [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassRaidDebuffsWotlk.Druid],
+  [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassRaidDebuffsWotlk.Hunter,WarcraftRaidDebuff.ArmorDown20,WarcraftRaidDebuff.BleedDamageReceived,WarcraftRaidDebuff.CastSpeed30],
+  [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassRaidDebuffsWotlk.Hunter],
+  [WarcraftPlayerSpec.HunterSurvival]: [...WarcraftClassRaidDebuffsWotlk.Hunter],
+  [WarcraftPlayerSpec.MageArcane]: [...WarcraftClassRaidDebuffsWotlk.Mage,WarcraftRaidDebuff.CastSpeed30],
+  [WarcraftPlayerSpec.MageFire]: [...WarcraftClassRaidDebuffsWotlk.Mage,WarcraftRaidDebuff.SpellCritReceived],
+  [WarcraftPlayerSpec.MageFrost]: [...WarcraftClassRaidDebuffsWotlk.Mage,WarcraftRaidDebuff.SpellCritReceived],
+  [WarcraftPlayerSpec.PriestDiscipline]: [...WarcraftClassRaidDebuffsWotlk.Priest],
+  [WarcraftPlayerSpec.PriestHoly]: [...WarcraftClassRaidDebuffsWotlk.Priest],
+  [WarcraftPlayerSpec.PriestShadow]: [...WarcraftClassRaidDebuffsWotlk.Priest,WarcraftRaidDebuff.SpellHit],
+  [WarcraftPlayerSpec.PaladinHoly]: [...WarcraftClassRaidDebuffsWotlk.Paladin],
+  [WarcraftPlayerSpec.PaladinProtection]: [...WarcraftClassRaidDebuffsWotlk.Paladin,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.MeleeHaste],
+  [WarcraftPlayerSpec.PaladinRetribution]: [...WarcraftClassRaidDebuffsWotlk.Paladin,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.CritChanceReceived],
+  [WarcraftPlayerSpec.RogueAssassination]: [...WarcraftClassRaidDebuffsWotlk.Rogue,WarcraftRaidDebuff.CritChanceReceived],
+  [WarcraftPlayerSpec.RogueCombat]: [...WarcraftClassRaidDebuffsWotlk.Rogue,WarcraftRaidDebuff.PhysicalDamageReceived],
+  [WarcraftPlayerSpec.RogueSubtlety]: [...WarcraftClassRaidDebuffsWotlk.Rogue],
+  [WarcraftPlayerSpec.WarlockAffliction]: [...WarcraftClassRaidDebuffsWotlk.Warlock,WarcraftRaidDebuff.SpellCritReceived],
+  [WarcraftPlayerSpec.WarlockDemonology]: [...WarcraftClassRaidDebuffsWotlk.Warlock,WarcraftRaidDebuff.SpellCritReceived],
+  [WarcraftPlayerSpec.WarlockDestruction]: [...WarcraftClassRaidDebuffsWotlk.Warlock],
+  [WarcraftPlayerSpec.ShamanElemental]: [...WarcraftClassRaidDebuffsWotlk.Shaman,WarcraftRaidDebuff.CritChanceReceived],
+  [WarcraftPlayerSpec.ShamanEnhancement]: [...WarcraftClassRaidDebuffsWotlk.Shaman],
+  [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassRaidDebuffsWotlk.Shaman],
+  [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidDebuffsWotlk.Warrior,WarcraftRaidDebuff.BleedDamageReceived,WarcraftRaidDebuff.HealingReceived,WarcraftRaidDebuff.PhysicalDamageReceived],
+  [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidDebuffsWotlk.Warrior],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidDebuffsWotlk.Warrior],
+  [WarcraftPlayerSpec.Unknown]: [],
 };
 
 export const WarcraftSpecRaidDebuffs: {
@@ -187,7 +378,40 @@ export enum WarcraftRaidUtility {
   Innervate = "Innervate",
   BlessingOfProtection = "BlessingOfProtection",
   ManaTide = "ManaTide",
-  DraeneiHit = "DraeneiHit"
+  DraeneiHit = "DraeneiHit",
+  TricksOfTheTrade = "TricksOfTheTrade",
+  PowerInfusion = "PowerInfusion",
+  UnholyFrenzy = "UnholyFrenzy",
+  FocusMagic = "FocusMagic",
+  DivineGuardian = "DivineGuardian",
+  DamageReduction10 = "DamageReduction10",
+  DamageReduction3 = "DamageReduction3"
+}
+
+export enum WarcraftRaidUtilityWotlk {
+  Bloodlust = "Bloodlust",
+  CombatResurrection = "CombatResurrection",
+  Healthstone = "Healthstone",
+  Innervate = "Innervate",
+  BlessingOfProtection = "BlessingOfProtection",
+  ManaTide = "ManaTide",
+  DraeneiHit = "DraeneiHit",
+  TricksOfTheTrade = "TricksOfTheTrade",
+  PowerInfusion = "PowerInfusion",
+  UnholyFrenzy = "UnholyFrenzy",
+  FocusMagic = "FocusMagic",
+  DivineGuardian = "DivineGuardian",
+  DamageReduction10 = "DamageReduction10",
+  DamageReduction3 = "DamageReduction3"
+}
+
+export enum WarcraftRaidUtilityCataclysm {
+  Bloodlust = "Bloodlust",
+  CombatResurrection = "CombatResurrection",
+  Healthstone = "Healthstone",
+  Innervate = "Innervate",
+  BlessingOfProtection = "BlessingOfProtection",
+  ManaTide = "ManaTide"
 }
 
 export const WarcraftClassUtilities: {
@@ -211,7 +435,46 @@ export const WarcraftClassUtilities: {
   [WarcraftPlayerClass.Unknown]: [],
 };
 
+export const WarcraftClassUtilitiesWotlk: {
+  [className in WarcraftPlayerClass]: WarcraftRaidUtility[];
+} = {
+  [WarcraftPlayerClass.DeathKnight]: [],
+  [WarcraftPlayerClass.Druid]: [
+    WarcraftRaidUtility.CombatResurrection,
+  ],
+  [WarcraftPlayerClass.Hunter]: [],
+  [WarcraftPlayerClass.Mage]: [WarcraftRaidUtility.FocusMagic],
+  [WarcraftPlayerClass.Priest]: [],
+  [WarcraftPlayerClass.Paladin]: [WarcraftRaidUtility.BlessingOfProtection],
+  [WarcraftPlayerClass.Rogue]: [WarcraftRaidUtility.TricksOfTheTrade],
+  [WarcraftPlayerClass.Warlock]: [
+    WarcraftRaidUtility.CombatResurrection,
+    WarcraftRaidUtility.Healthstone,
+  ],
+  [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust],
+  [WarcraftPlayerClass.Warrior]: [],
+  [WarcraftPlayerClass.Unknown]: [],
+};
+
 export const WarcraftRaceUtilities: {
+  [className in WarcraftPlayerRace]: WarcraftRaidUtility[];
+} = {
+  [WarcraftPlayerRace.Human]: [],
+  [WarcraftPlayerRace.Dwarf]: [],
+  [WarcraftPlayerRace.Gnome]: [],
+  [WarcraftPlayerRace.Nightelf]: [],
+  [WarcraftPlayerRace.Draenei]: [],
+  [WarcraftPlayerRace.Worgen]: [],
+  [WarcraftPlayerRace.Orc]: [],
+  [WarcraftPlayerRace.Troll]: [],
+  [WarcraftPlayerRace.Undead]: [],
+  [WarcraftPlayerRace.Tauren]: [],
+  [WarcraftPlayerRace.Bloodelf]: [],
+  [WarcraftPlayerRace.Goblin]: [],
+  [WarcraftPlayerRace.Unknown]: [],
+};
+
+export const WarcraftRaceUtilitiesWotlk: {
   [className in WarcraftPlayerRace]: WarcraftRaidUtility[];
 } = {
   [WarcraftPlayerRace.Human]: [],
@@ -227,6 +490,58 @@ export const WarcraftRaceUtilities: {
   [WarcraftPlayerRace.Bloodelf]: [],
   [WarcraftPlayerRace.Goblin]: [],
   [WarcraftPlayerRace.Unknown]: [],
+};
+
+export const WarcraftSpecUtilitiesWotlk: {
+  [playerSpec in WarcraftPlayerSpec]: WarcraftRaidUtility[];
+} = {
+  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassUtilitiesWotlk.DeathKnight,WarcraftRaidUtility.UnholyFrenzy],
+  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassUtilitiesWotlk.DeathKnight],
+  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassUtilitiesWotlk.DeathKnight],
+
+  [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassUtilitiesWotlk.Druid,WarcraftRaidUtility.Innervate],
+  [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassUtilitiesWotlk.Druid,WarcraftRaidUtility.Innervate],
+  [WarcraftPlayerSpec.DruidGuardian]: [
+    ...WarcraftClassUtilitiesWotlk.Druid,
+    WarcraftRaidUtility.Innervate,
+  ],
+  [WarcraftPlayerSpec.DruidRestoration]: [
+    ...WarcraftClassUtilitiesWotlk.Druid,
+    WarcraftRaidUtility.Innervate,
+  ],
+
+  [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassUtilitiesWotlk.Hunter],
+  [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassUtilitiesWotlk.Hunter],
+  [WarcraftPlayerSpec.HunterSurvival]: [...WarcraftClassUtilitiesWotlk.Hunter],
+
+  [WarcraftPlayerSpec.MageArcane]: [...WarcraftClassUtilitiesWotlk.Mage],
+  [WarcraftPlayerSpec.MageFire]: [...WarcraftClassUtilitiesWotlk.Mage],
+  [WarcraftPlayerSpec.MageFrost]: [...WarcraftClassUtilitiesWotlk.Mage],
+
+  [WarcraftPlayerSpec.PriestDiscipline]: [...WarcraftClassUtilitiesWotlk.Priest,WarcraftRaidUtility.PowerInfusion,WarcraftRaidUtility.DamageReduction10],
+  [WarcraftPlayerSpec.PriestHoly]: [...WarcraftClassUtilitiesWotlk.Priest,WarcraftRaidUtility.DamageReduction3,WarcraftRaidUtility.DamageReduction10],
+  [WarcraftPlayerSpec.PriestShadow]: [...WarcraftClassUtilitiesWotlk.Priest],
+
+  [WarcraftPlayerSpec.PaladinHoly]: [...WarcraftClassUtilitiesWotlk.Paladin,WarcraftRaidUtility.DivineGuardian],
+  [WarcraftPlayerSpec.PaladinProtection]: [...WarcraftClassUtilitiesWotlk.Paladin,WarcraftRaidUtility.DivineGuardian,WarcraftRaidUtility.DamageReduction3],
+  [WarcraftPlayerSpec.PaladinRetribution]: [...WarcraftClassUtilitiesWotlk.Paladin],
+
+  [WarcraftPlayerSpec.RogueAssassination]: [...WarcraftClassUtilitiesWotlk.Rogue],
+  [WarcraftPlayerSpec.RogueCombat]: [...WarcraftClassUtilitiesWotlk.Rogue],
+  [WarcraftPlayerSpec.RogueSubtlety]: [...WarcraftClassUtilitiesWotlk.Rogue],
+
+  [WarcraftPlayerSpec.WarlockAffliction]: [...WarcraftClassUtilitiesWotlk.Warlock],
+  [WarcraftPlayerSpec.WarlockDemonology]: [...WarcraftClassUtilitiesWotlk.Warlock],
+  [WarcraftPlayerSpec.WarlockDestruction]: [...WarcraftClassUtilitiesWotlk.Warlock],
+
+  [WarcraftPlayerSpec.ShamanElemental]: [...WarcraftClassUtilitiesWotlk.Shaman],
+  [WarcraftPlayerSpec.ShamanEnhancement]: [...WarcraftClassUtilitiesWotlk.Shaman],
+  [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassUtilitiesWotlk.Shaman,WarcraftRaidUtility.ManaTide,WarcraftRaidUtility.DamageReduction10],
+
+  [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilitiesWotlk.Warrior],
+  [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilitiesWotlk.Warrior],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilitiesWotlk.Warrior],
+  [WarcraftPlayerSpec.Unknown]: [],
 };
 
 export const WarcraftSpecUtilities: {

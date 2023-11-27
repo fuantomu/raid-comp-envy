@@ -14,25 +14,26 @@ import useInfoBadgeStyles from "../UtilityInfoBadge/useStyles";
 
 export interface RaidDebuffChecklistProps {
   build: Build;
+  version: String;
 }
 
-const buildDebuffChecklist = (build: Build) => {
+const buildDebuffChecklist = (build: Build, version:String) => {
   const raidDebuffs = [];
-  for (const debuff in WarcraftRaidDebuff) {
+  for (const debuff in RoleProvider.getVersionDebuffs(version)) {
     const playersWithDebuff = build.players.filter(
       ({ spec, class: className, group }) =>
         group !== 'roster' && group !== 'bench' &&
-        (RoleProvider.getSpecDebuffs(spec).includes(debuff as WarcraftRaidDebuff) ||
-        RoleProvider.getClassDebuff(className).includes(debuff as WarcraftRaidDebuff))
+        (RoleProvider.getSpecDebuffs(spec, version).includes(debuff as WarcraftRaidDebuff) ||
+        RoleProvider.getClassDebuff(className, version).includes(debuff as WarcraftRaidDebuff))
     );
     raidDebuffs.push(
-      <RaidDebuff key={UUID()} debuff={debuff as WarcraftRaidDebuff} players={playersWithDebuff} />
+      <RaidDebuff key={UUID()} debuff={debuff as WarcraftRaidDebuff} players={playersWithDebuff} version={version} />
     );
   }
   return raidDebuffs;
 };
 
-const RaidDebuffChecklist: FC<RaidDebuffChecklistProps> = ({ build }) => {
+const RaidDebuffChecklist: FC<RaidDebuffChecklistProps> = ({ build, version }) => {
   const [common] = useTranslation("common");
   const infoBadgeStyles = useInfoBadgeStyles();
 
@@ -41,7 +42,7 @@ const RaidDebuffChecklist: FC<RaidDebuffChecklistProps> = ({ build }) => {
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
         <Typography variant="subtitle1">{common("build.checklist.debuffs")}</Typography>
-        {buildDebuffChecklist(build)}
+        {buildDebuffChecklist(build, version)}
       </CardContent>
     </Card>
   );

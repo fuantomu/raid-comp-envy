@@ -168,30 +168,51 @@
   },
   "buff": {
     "MaxMana": "Maximum Mana +X",
-    "AttackPower": "Attack Power +10%",
-    "Stamina": "Stamina +X",
+    "AttackPower": "Attackpower",
+    "SpellPower": "Spellpower",
+    "Stamina": "Stamina",
+    "Spirit": "Spirit",
+    "Intellect": "Intellect",
+    "Kings": "All Stats +5%",
+    "MarkOfTheWild": "All Stats",
+    "MaxHealth": "Maximum Health",
+    "AttackPower10": "Attackpower +10%",
+    "AttackPower10Wotlk": "Attackpower +10%",
+    "HealingReceived": "Healing Received +6%",
     "SpellHaste": "Spell Haste +5%",
-    "SpellPower10": "Spell Power +10%",
-    "SpellPower6": "Spell Power +6%",
+    "SpellPower10": "Spellpower +10%",
+    "SpellPower6": "Spellpower +6%",
+    "PhysicalCrit": "Physical Crit +5%",
+    "SpellCrit": "Spell Crit +5%",
     "IncDamage": "Increased Damage +3%",
     "MeleeHaste": "Melee Haste +10%",
+    "Haste3": "Haste +3%",
+    "MeleeHaste20": "Melee Haste +20%",
     "Crit": "Crit +5%",
     "AllStats": "Stats +5%",
-    "StrengthAgility": "Strength and Agility +X",
+    "StrengthAgility": "Strength and Agility",
     "Armor": "Armor +20%",
-    "MP5": "MP5 +X",
-    "Replenishment": "Replenishment 1%"
+    "MP5": "MP5",
+    "Replenishment": "Replenishment"
   },
   "debuff": {
     "ArmorDown": "Armor -X%",
+    "ArmorDown5": "Armor -5%",
+    "ArmorDown20": "Armor -20%",
     "BleedDamageReceived": "Bleed Damage taken +30%",
     "SpellCritReceived": "Spell Crit taken +5%",
     "MeleeHaste": "Melee Haste -20%",
     "SpellDamageReceived": "Spell Damage taken +8%",
+    "SpellDamageReceived13": "Spell Damage taken +13%",
+    "CritChanceReceived": "Crit Chance taken +3%",
+    "AttackPowerDown": "Attackpower down",
+    "PhysicalHitDown": "Physical Hit Chance -3%",
+    "SpellHit": "Spell Hit Chance +3%",
     "PhysicalDamageReceived": "Physical Damage taken +4%",
-    "HealingReceived": "Healing received -X%",
+    "HealingReceived": "Healing received -50%",
     "PhysicalDamageDealt": "Physical Damage dealt -10%",
-    "CastSpeed": "Cast Speed -50%"
+    "CastSpeed": "Cast Speed -50%",
+    "CastSpeed30": "Cast Speed -30%"
   },
   "utility": {
     "Bloodlust": "Bloodlust",
@@ -200,7 +221,14 @@
     "Innervate": "Innervate",
     "BlessingOfProtection": "Blessing of Protection",
     "ManaTide": "Mana Tide Totem",
-    "DraeneiHit": "Heroic Presence"
+    "DraeneiHit": "Heroic Presence",
+    "TricksOfTheTrade": "Tricks of the Trade",
+    "PowerInfusion": "Power Infusion",
+    "UnholyFrenzy": "Unholy Frenzy",
+    "FocusMagic": "Focus Magic",
+    "DivineGuardian": "Divine Guardian",
+    "DamageReduction10": "Damage Reduction 10%",
+    "DamageReduction3": "Damage Reduction 3%"
   },
   "buttons": {
     "ok": "OK",
@@ -224,5 +252,9 @@
     "healer": "Healer first",
     "melee": "Melee first",
     "ranged": "Ranged first"
+  },
+  "version": {
+    "Cataclysm": "Switch to Wrath of the Lich King",
+    "Wotlk": "Switch to Cataclysm"
   }
 }
