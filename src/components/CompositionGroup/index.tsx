@@ -21,6 +21,7 @@ export interface CompositionGroupProps {
   groupId: GroupId;
   spread?: boolean;
   editing?: boolean;
+  raid: Number;
 }
 
 const CompositionGroup: FC<CompositionGroupProps> = ({
@@ -28,6 +29,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
   players = [],
   spread = false,
   editing,
+  raid,
 }) => {
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
@@ -43,6 +45,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             class: player.class,
             spec: player.spec,
             race: player.race,
+            raid: player.raid,
             status: InviteStatus.Unknown,
             group: groupId as GroupId,
             realm: player.realm,
@@ -76,6 +79,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
           {players.map((player) => (
             <Player
               key={UUID()}
+              raid={raid}
               {...player}
               {...(editing
                 ? {

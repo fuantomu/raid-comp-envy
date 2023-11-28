@@ -10,9 +10,10 @@ import useStyles from "./useStyles";
 interface GroupsCompositionProps {
   players: BuildPlayer[];
   editing: boolean;
+  raid: Number;
 }
 
-const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing }) => {
+const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid }) => {
   const styles = useStyles();
   const groups = BuildHelper.getGroups(players, editing);
   return (
@@ -26,6 +27,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing }) => 
             return (
               <CompositionGroup
                 key={UUID()}
+                raid={raid}
                 groupId={groupId}
                 players={players}
                 editing={editing}
@@ -38,6 +40,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing }) => 
             key={UUID()}
             groupId={"bench"}
             players={groups["bench"]?.players ?? []}
+            raid={raid}
             spread
             editing={editing}
           />

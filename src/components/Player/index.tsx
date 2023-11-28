@@ -18,11 +18,12 @@ export interface PlayerProps extends BuildPlayer {
   showRole?: boolean;
   onClick?: () => void;
   alts?: BuildPlayer[];
+  rosterVisible?: boolean;
 }
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, realm, class: className, spec, status, race, showRole, onClick, alts=[]} = props;
+  const { name, realm, class: className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[]} = props;
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
@@ -59,19 +60,18 @@ const Player: FC<PlayerProps> = (props) => {
         </Typography>
         <AttendanceIcon status={status} />
 
-        {!visible? (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible); }}>
-          {alts.length > 0? (<ArrowLeft></ArrowLeft>): <></>}
-        </Box>) : (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible); }}>
-          {alts.length > 0? (<ArrowDropDown></ArrowDropDown>): <></>}
-        </Box>)}
+        {alts.length > 0? (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible);}}>
+          {(!visible && !rosterVisible)? (<ArrowLeft></ArrowLeft>): (<ArrowDropDown></ArrowDropDown>)}
+        </Box>) : <></>}
 
       </Box>
-      {alts.length > 0 && visible? (
+      {alts.length > 0 && (visible || rosterVisible) ? (
         <Box key={UUID()}>
           <></>
           {alts.map((player:BuildPlayer) => (
             <Player
               key={UUID()}
+              raid={raid}
               {...player}
               {...({onClick: () => context?.editPlayer(player)})}
             />

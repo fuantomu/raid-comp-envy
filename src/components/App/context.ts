@@ -14,7 +14,7 @@ type AppContextApi = {
   loadRoster: (roster: BuildPlayer[]) => Promise<void>;
   handleSorting: (sort: any) => void;
   getCurrentSorting: () => string;
-  handleSelectBuild: (sort: SelectOption) => void;
+  handleSelectBuild: (id: Number) => (sort: SelectOption) => void;
   getBuilds: () => String[];
   addBuild: (title: string) => void;
   deleteBuild: (title: string) => void;

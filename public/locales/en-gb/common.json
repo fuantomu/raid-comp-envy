@@ -79,6 +79,14 @@
         "group_5": "{{groupId}}",
         "group_none": "Ungrouped"
       }
+    },
+    "raid": {
+      "composition": "Composition",
+      "checklist": "Checklist",
+      "raid0": "Raid 1"
+    },
+    "roster": {
+      "expand": "Expand all"
     }
   },
   "cta": {

@@ -19,6 +19,7 @@ export interface CompositionRoleProps {
   players: BuildPlayer[];
   spread?: boolean;
   editing?: boolean;
+  raid: Number;
 }
 
 const CompositionRole: FC<CompositionRoleProps> = ({
@@ -26,15 +27,17 @@ const CompositionRole: FC<CompositionRoleProps> = ({
   players,
   spread = false,
   editing = false,
+  raid
 }) => {
   const context = useAppContext();
   const [common] = useTranslation("common");
   const styles = useStyles(spread);
 
-  const buildRolePlayers = (players: BuildPlayer[]) => {
+  const buildRolePlayers = (players: BuildPlayer[], raid: Number) => {
     return players.map((player) => (
       <Player
         key={UUID()}
+        raid={raid}
         {...player}
         {...(editing
           ? {
@@ -52,7 +55,7 @@ const CompositionRole: FC<CompositionRoleProps> = ({
           <WarcraftIcon src={IconProvider.getRoleIcon(role)} />
           <Typography variant="subtitle1">{common(`build.roles.${role}`)}</Typography>
         </Box>
-        <Box css={styles.spread}>{buildRolePlayers(players)}</Box>
+        <Box css={styles.spread}>{buildRolePlayers(players, raid)}</Box>
       </CardContent>
     </Card>
   );

@@ -5,15 +5,9 @@ import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { AppContextProvider } from "../../components/App/context";
-import BuildRolesCount from "../../components/BuildRolesCount";
-import BuildTitle from "../../components/BuildTitle";
-import ChangeViewModeButton from "../../components/ChangeViewModeButton";
 import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
-import ModalResetBuild from "../../components/ModalResetBuild";
-import RaidChecklist from "../../components/RaidChecklist";
 import Roster from "../../components/Roster";
-import RaidComposition from "../../components/RaidComposition";
 import { getBuild } from "../../services/backend";
 import { Build, BuildPlayer, SelectOption} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
@@ -23,11 +17,12 @@ import useStyles from "./useStyles";
 import { InviteStatus } from "../../consts";
 import { WarcraftRole } from "../../utils/RoleProvider/consts";
 import { RoleProvider } from "../../utils/RoleProvider";
-import ModalCreateBuild from "../../components/ModalCreateBuild";
-import ModalDeleteBuild from "../../components/ModalDeleteBuild";
 import { Button, Tooltip } from "@mui/material";
 import cataclysm from "../../icons/Cataclysmlogo.webp";
 import wotlk from "../../icons/WrathLogo.webp";
+import { createDragDropManager } from 'dnd-core'
+import Raid from "../../components/Raid";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export interface EditBuildPageProps {}
 
@@ -40,10 +35,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [name, setName] = useState<string>(common("build.new"));
   const [players, setPlayers] = useState<BuildPlayer[]>([]);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
-  const [grouped, setGrouped] = useState(true);
   const [sorting, setSorting] = useState('');
   const [builds, setBuilds] = useState<SelectOption[]>([]);
   const [version, setVersion] = useState("Cataclysm");
+  const manager = createDragDropManager(HTML5Backend)
+
 
   const sortFunctions : any = {
     "NAME": function(a:BuildPlayer,b:BuildPlayer) { return a.name.localeCompare(b.name)},
@@ -74,7 +70,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         console.log("Editing player "+JSON.stringify(oldPlayer))
 
         if(newPlayer.group !== oldPlayer.group){
-          console.log("Moving player from group "+oldPlayer.group+" to "+newPlayer.group)
+          console.log("Moving player from group "+oldPlayer.group+" to "+newPlayer.group+" in raid "+newPlayer.raid)
         }
 
         if(newPlayer.group !== 'roster'){
@@ -91,11 +87,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         console.log("Editing roster player "+JSON.stringify(oldRosterPlayer))
 
         if(newPlayer.group !== oldRosterPlayer.group){
-          console.log("Moving roster player from group "+oldRosterPlayer.group+" to "+newPlayer.group)
+          console.log("Moving roster player from group "+oldRosterPlayer.group+" to "+newPlayer.group+" in raid "+newPlayer.raid)
           const otherCharacters = getOtherCharacters(newPlayer,players);
 
           if(otherCharacters.length > 0){
-            console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters))
+            console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+newPlayer.raid)
           }
           else{
             playerBuild = [...playerBuild.filter((player) => player.id !== oldRosterPlayer.id),newPlayer]
@@ -104,12 +100,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         }
       }
       else{
-        console.log("Adding player "+JSON.stringify(newPlayer))
+        console.log("Adding player "+JSON.stringify(newPlayer)+" in raid "+newPlayer.raid)
 
         const otherCharacters = getOtherCharacters(newPlayer, players);
 
         if(otherCharacters.length > 0){
-          console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters))
+          console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+newPlayer.raid)
         }
         else{
           playerBuild = [...playerBuild,newPlayer]
@@ -267,10 +263,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   };
 
-  const handleChangeGrouping = () => {
-    setGrouped(!grouped);
-  };
-
   const handleChangeVersion = () => {
     const newVersion = version === "Cataclysm"? "Wotlk" : "Cataclysm";
     console.log("New version is "+newVersion);
@@ -283,7 +275,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setRoster([...roster].sort(sortFunctions[e.target.value]))
   };
 
-  const handleSelectBuild = (build: SelectOption) => {
+  const handleSelectBuild = (id: Number) => (build: SelectOption) => {
+    console.log("ID: "+id)
     console.log("Setting build to "+JSON.stringify(build.value))
     setName(build.value);
     localStorage.setItem( 'LastBuild', build.value)
@@ -297,7 +290,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setBuilds([...builds, newBuild])
     setPlayers([])
 
-    handleSelectBuild(newBuild)
+    handleSelectBuild(0)(newBuild)
     saveCurrentBuild([], build)
   };
 
@@ -307,7 +300,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     const newBuilds = [...builds.filter((build) => build.value !== deletedBuild.value)]
     setPlayers([])
 
-    handleSelectBuild(newBuilds[0])
+    handleSelectBuild(0)(newBuilds[0])
 
     const connectionString = CONNECTION_STRING;
     connectionString.build = deletedBuild.value;
@@ -368,49 +361,20 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
-      <Container sx={{ height:'1100px', minHeight: "80%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
+      <Container sx={{ minHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
         <Box key={UUID()} minWidth={"25%"} css={[styles.gridBox, styles.scroll]}>
-            <Roster build={getCurrentRoster()} editing />
+            <Roster manager={manager} build={getCurrentRoster()} editing />
         </Box>
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
-        <Box key={UUID()} css={[styles.gridBox, styles.header]}>
-          <BuildTitle
-            key={UUID()}
-            onChange={handleSelectBuild}
-            options={builds}
-            selected={builds.filter((build) => build.label === getCurrentBuild().name)[0]}
-            title={name}
-          />
-          <BuildRolesCount key={UUID()} build={getCurrentBuild()} />
-        </Box>
+          <Raid manager={manager} id={0} raidBuild={getCurrentBuild()} builds={builds} version={version} editing ></Raid>
+          <Box display={"flex"} justifyContent={"center"}>
+            <Button style={{height: '100px', width : '219px', marginTop:'50px', marginBottom:'50px'}} key={UUID()} onClick={handleChangeVersion}>
+              <Tooltip title={common(`version.${version}`)}>
+                <img width={"219"} height={"100"} alt={common(`version.${version}`)} src={version === 'Cataclysm'? cataclysm : wotlk}></img>
+              </Tooltip>
+            </Button>
+          </Box>
 
-        <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-          <ModalAdd />
-          <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
-          <ModalCreateBuild />
-          <ModalDeleteBuild />
-          {/*
-          <ModalLoadRoster />
-          <ModalLoadRosterSQL />
-          <ModalLoadBuild />*/}
-        </Box>
-        <Box key={UUID()} css={styles.gridBox}>
-          <RaidComposition build={getCurrentBuild()} editing grouped={grouped} />
-        </Box>
-        <Box key={UUID()} css={styles.gridBox}>
-          <RaidChecklist build={getCurrentBuild()} version={version} />
-        </Box>
-        <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-          {//<ModalImport />
-          }<ModalResetBuild />
-        </Box>
-        <Box display={"flex"} justifyContent={"center"}>
-          <Button style={{height: '100px', width : '219px', marginTop:'50px', marginBottom:'50px'}} key={UUID()} onClick={handleChangeVersion}>
-            <Tooltip title={common(`version.${version}`)}>
-              <img width={"219"} height={"100"} alt={common(`version.${version}`)} src={version === 'Cataclysm'? cataclysm : wotlk}></img>
-            </Tooltip>
-          </Button>
-        </Box>
         </Container>
       </Container>
     </AppContextProvider>

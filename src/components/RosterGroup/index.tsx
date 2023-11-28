@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
 import { DragItemTypes } from "../../consts";
@@ -12,7 +12,7 @@ import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
-import { MenuItem, TextField } from "@mui/material";
+import { Button, MenuItem, TextField } from "@mui/material";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
@@ -31,6 +31,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
   const context = useAppContext();
+  const [rosterVisible, setRosterVisible] = useState(false);
 
   const [, drop] = useDrop(
     () => ({
@@ -43,6 +44,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             class: player.class,
             spec: player.spec,
             race: player.race,
+            raid: player.raid,
             status: player.status,
             group: groupId as GroupId,
             realm: player.realm,
@@ -62,10 +64,13 @@ const RosterGroup: FC<RosterGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
-        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 1fr"}>
+        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 100px 1fr"}>
         <Typography fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
+        <Button sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { setRosterVisible(!rosterVisible) }}>
+            {common("build.roster.expand")}
+        </Button>
         <TextField
           defaultValue="NAME"
           value={context?.getCurrentSorting()}
@@ -90,6 +95,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
                     onClick: () => context?.editPlayer(player),
                   }
                 : {})}
+              rosterVisible={rosterVisible}
               alts={players.filter((altPlayer) => altPlayer.main?.toLowerCase() === player.name.toLowerCase() && altPlayer.name.toLowerCase() !== player.name.toLowerCase())}
             />
           ))}
