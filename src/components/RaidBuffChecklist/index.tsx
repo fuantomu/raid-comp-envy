@@ -20,15 +20,17 @@ export interface RaidBuffChecklistProps {
 const buildBuffChecklist = (build: Build, version: String) => {
   const raidBuffs = [];
   for (const buff in RoleProvider.getVersionBuffs(version)) {
-    const playersWithBuff = build.players.filter(
-      ({ spec, class: className, group }) =>
-        group !== 'roster' && group !== 'bench' &&
-        (RoleProvider.getSpecBuffs(spec, version).includes(buff as WarcraftRaidBuff) ||
-        RoleProvider.getClassBuff(className, version).includes(buff as WarcraftRaidBuff))
-    );
-    raidBuffs.push(
-      <RaidBuff key={UUID()} buff={buff as WarcraftRaidBuff} players={playersWithBuff} version={version} />
-    );
+    if(build.players.length > 0){
+      const playersWithBuff = build.players.filter(
+        ({ spec, class: className, group }) =>
+          group !== 'roster' && group !== 'bench' &&
+          (RoleProvider.getSpecBuffs(spec, version).includes(buff as WarcraftRaidBuff) ||
+          RoleProvider.getClassBuff(className, version).includes(buff as WarcraftRaidBuff))
+      );
+      raidBuffs.push(
+        <RaidBuff key={UUID()} buff={buff as WarcraftRaidBuff} players={playersWithBuff} version={version} />
+      );
+    }
   }
   return raidBuffs;
 };

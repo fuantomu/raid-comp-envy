@@ -7,7 +7,7 @@ export enum AppErrorId {
 }
 
 export enum WarcraftPlayerClass {
-  DeathKnight = "DeathKnight",
+  Deathknight = "Deathknight",
   Druid = "Druid",
   Hunter = "Hunter",
   Mage = "Mage",
@@ -47,9 +47,9 @@ export enum InviteStatus {
 }
 
 export enum WarcraftPlayerSpec {
-  DeathKnightBlood = "DeathKnightBlood",
-  DeathKnightFrost = "DeathKnightFrost",
-  DeathKnightUnholy = "DeathKnightUnholy",
+  DeathknightBlood = "DeathknightBlood",
+  DeathknightFrost = "DeathknightFrost",
+  DeathknightUnholy = "DeathknightUnholy",
   DruidBalance = "DruidBalance",
   DruidFeral = "DruidFeral",
   DruidGuardian = "DruidGuardian",
@@ -84,7 +84,7 @@ export enum WarcraftPlayerSpec {
 export const WarcraftClassColour: {
   [className in WarcraftPlayerClass]: string;
 } = {
-  DeathKnight: "#C41F3B",
+  Deathknight: "#C41F3B",
   Druid: "#FF7D0A",
   Hunter: "#A9D271",
   Mage: "#40C7EB",

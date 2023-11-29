@@ -113,7 +113,7 @@
     "unknown": "Unknown"
   },
   "classes": {
-    "DeathKnight": "Death Knight",
+    "Deathknight": "Death Knight",
     "Druid": "Druid",
     "Hunter": "Hunter",
     "Mage": "Mage",
@@ -126,9 +126,9 @@
     "Unknown": "Unknown"
   },
   "specs": {
-    "DeathKnightBlood": "Blood",
-    "DeathKnightFrost": "Frost",
-    "DeathKnightUnholy": "Unholy",
+    "DeathknightBlood": "Blood",
+    "DeathknightFrost": "Frost",
+    "DeathknightUnholy": "Unholy",
     "DruidBalance": "Balance",
     "DruidFeral": "Feral",
     "DruidGuardian": "Guardian",

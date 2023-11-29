@@ -11,9 +11,9 @@ export enum WarcraftRole {
 export const WarcraftSpecRole: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRole;
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: WarcraftRole.Tank,
-  [WarcraftPlayerSpec.DeathKnightFrost]: WarcraftRole.MeleeDPS,
-  [WarcraftPlayerSpec.DeathKnightUnholy]: WarcraftRole.MeleeDPS,
+  [WarcraftPlayerSpec.DeathknightBlood]: WarcraftRole.Tank,
+  [WarcraftPlayerSpec.DeathknightFrost]: WarcraftRole.MeleeDPS,
+  [WarcraftPlayerSpec.DeathknightUnholy]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.DruidBalance]: WarcraftRole.RangedDPS,
   [WarcraftPlayerSpec.DruidFeral]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.DruidGuardian]: WarcraftRole.Tank,
@@ -115,7 +115,7 @@ export enum WarcraftRaidBuffWotlk {
 export const WarcraftClassRaidBuffsWotlk: {
   [className in WarcraftPlayerClass]: WarcraftRaidBuff[];
 } = {
-  [WarcraftPlayerClass.DeathKnight]: [WarcraftRaidBuff.StrengthAgility],
+  [WarcraftPlayerClass.Deathknight]: [WarcraftRaidBuff.StrengthAgility],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidBuff.MarkOfTheWild],
   [WarcraftPlayerClass.Hunter]: [],
   [WarcraftPlayerClass.Mage]: [WarcraftRaidBuff.Intellect],
@@ -131,7 +131,7 @@ export const WarcraftClassRaidBuffsWotlk: {
 export const WarcraftClassRaidBuffs: {
   [className in WarcraftPlayerClass]: WarcraftRaidBuff[];
 } = {
-  [WarcraftPlayerClass.DeathKnight]: [WarcraftRaidBuff.StrengthAgility],
+  [WarcraftPlayerClass.Deathknight]: [WarcraftRaidBuff.StrengthAgility],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidBuff.AllStats],
   [WarcraftPlayerClass.Hunter]: [],
   [WarcraftPlayerClass.Mage]: [WarcraftRaidBuff.SpellPower6,WarcraftRaidBuff.MaxMana],
@@ -147,9 +147,9 @@ export const WarcraftClassRaidBuffs: {
 export const WarcraftSpecRaidBuffsWotlk: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRaidBuff[];
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassRaidBuffsWotlk.DeathKnight,WarcraftRaidBuff.AttackPower10Wotlk,WarcraftRaidBuff.MeleeHaste20],
-  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassRaidBuffsWotlk.DeathKnight,WarcraftRaidBuff.MeleeHaste20],
-  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassRaidBuffsWotlk.DeathKnight],
+  [WarcraftPlayerSpec.DeathknightBlood]: [...WarcraftClassRaidBuffsWotlk.Deathknight,WarcraftRaidBuff.AttackPower10Wotlk,WarcraftRaidBuff.MeleeHaste20],
+  [WarcraftPlayerSpec.DeathknightFrost]: [...WarcraftClassRaidBuffsWotlk.Deathknight,WarcraftRaidBuff.MeleeHaste20],
+  [WarcraftPlayerSpec.DeathknightUnholy]: [...WarcraftClassRaidBuffsWotlk.Deathknight],
   [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassRaidBuffsWotlk.Druid,WarcraftRaidBuff.Haste3,WarcraftRaidBuff.SpellCrit],
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidBuffsWotlk.Druid,WarcraftRaidBuff.PhysicalCrit],
   [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidBuffsWotlk.Druid],
@@ -184,9 +184,9 @@ export const WarcraftSpecRaidBuffsWotlk: {
 export const WarcraftSpecRaidBuffs: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRaidBuff[];
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassRaidBuffs.DeathKnight,WarcraftRaidBuff.AttackPower],
-  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassRaidBuffs.DeathKnight,WarcraftRaidBuff.MeleeHaste],
-  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassRaidBuffs.DeathKnight],
+  [WarcraftPlayerSpec.DeathknightBlood]: [...WarcraftClassRaidBuffs.Deathknight,WarcraftRaidBuff.AttackPower],
+  [WarcraftPlayerSpec.DeathknightFrost]: [...WarcraftClassRaidBuffs.Deathknight,WarcraftRaidBuff.MeleeHaste],
+  [WarcraftPlayerSpec.DeathknightUnholy]: [...WarcraftClassRaidBuffs.Deathknight],
   [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassRaidBuffs.Druid,WarcraftRaidBuff.SpellHaste],
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidBuffs.Druid,WarcraftRaidBuff.Crit],
   [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidBuffs.Druid],
@@ -268,7 +268,7 @@ export enum WarcraftRaidDebuffCataclysm {
 export const WarcraftClassRaidDebuffsWotlk: {
   [className in WarcraftPlayerClass]: WarcraftRaidDebuff[];
 } = {
-  [WarcraftPlayerClass.DeathKnight]: [WarcraftRaidDebuff.MeleeHaste],
+  [WarcraftPlayerClass.Deathknight]: [WarcraftRaidDebuff.MeleeHaste],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidDebuff.ArmorDown5],
   [WarcraftPlayerClass.Hunter]: [WarcraftRaidDebuff.ArmorDown5,WarcraftRaidDebuff.PhysicalHitDown,WarcraftRaidDebuff.HealingReceived],
   [WarcraftPlayerClass.Mage]: [],
@@ -284,7 +284,7 @@ export const WarcraftClassRaidDebuffsWotlk: {
 export const WarcraftClassRaidDebuffs: {
   [className in WarcraftPlayerClass]: WarcraftRaidDebuff[];
 } = {
-  [WarcraftPlayerClass.DeathKnight]: [WarcraftRaidDebuff.MeleeHaste,WarcraftRaidDebuff.CastSpeed],
+  [WarcraftPlayerClass.Deathknight]: [WarcraftRaidDebuff.MeleeHaste,WarcraftRaidDebuff.CastSpeed],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidDebuff.ArmorDown],
   [WarcraftPlayerClass.Hunter]: [WarcraftRaidDebuff.HealingReceived],
   [WarcraftPlayerClass.Mage]: [],
@@ -300,9 +300,9 @@ export const WarcraftClassRaidDebuffs: {
 export const WarcraftSpecRaidDebuffsWotlk: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRaidDebuff[];
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassRaidDebuffsWotlk.DeathKnight],
-  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassRaidDebuffsWotlk.DeathKnight],
-  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassRaidDebuffsWotlk.DeathKnight,WarcraftRaidDebuff.SpellDamageReceived13],
+  [WarcraftPlayerSpec.DeathknightBlood]: [...WarcraftClassRaidDebuffsWotlk.Deathknight],
+  [WarcraftPlayerSpec.DeathknightFrost]: [...WarcraftClassRaidDebuffsWotlk.Deathknight],
+  [WarcraftPlayerSpec.DeathknightUnholy]: [...WarcraftClassRaidDebuffsWotlk.Deathknight,WarcraftRaidDebuff.SpellDamageReceived13],
   [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassRaidDebuffsWotlk.Druid,WarcraftRaidDebuff.PhysicalHitDown,WarcraftRaidDebuff.SpellDamageReceived13,WarcraftRaidDebuff.SpellHit],
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidDebuffsWotlk.Druid,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.MeleeHaste,WarcraftRaidDebuff.BleedDamageReceived],
   [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidDebuffsWotlk.Druid,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.BleedDamageReceived],
@@ -337,9 +337,9 @@ export const WarcraftSpecRaidDebuffsWotlk: {
 export const WarcraftSpecRaidDebuffs: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRaidDebuff[];
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassRaidDebuffs.DeathKnight,WarcraftRaidDebuff.PhysicalDamageDealt],
-  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassRaidDebuffs.DeathKnight,WarcraftRaidDebuff.PhysicalDamageReceived],
-  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassRaidDebuffs.DeathKnight,WarcraftRaidDebuff.SpellDamageReceived],
+  [WarcraftPlayerSpec.DeathknightBlood]: [...WarcraftClassRaidDebuffs.Deathknight,WarcraftRaidDebuff.PhysicalDamageDealt],
+  [WarcraftPlayerSpec.DeathknightFrost]: [...WarcraftClassRaidDebuffs.Deathknight,WarcraftRaidDebuff.PhysicalDamageReceived],
+  [WarcraftPlayerSpec.DeathknightUnholy]: [...WarcraftClassRaidDebuffs.Deathknight,WarcraftRaidDebuff.SpellDamageReceived],
   [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassRaidDebuffs.Druid,WarcraftRaidDebuff.SpellDamageReceived],
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassRaidDebuffs.Druid,WarcraftRaidDebuff.BleedDamageReceived,WarcraftRaidDebuff.MeleeHaste,WarcraftRaidDebuff.PhysicalDamageDealt],
   [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidDebuffs.Druid],
@@ -417,7 +417,7 @@ export enum WarcraftRaidUtilityCataclysm {
 export const WarcraftClassUtilities: {
   [className in WarcraftPlayerClass]: WarcraftRaidUtility[];
 } = {
-  [WarcraftPlayerClass.DeathKnight]: [],
+  [WarcraftPlayerClass.Deathknight]: [],
   [WarcraftPlayerClass.Druid]: [
     WarcraftRaidUtility.CombatResurrection,
   ],
@@ -438,7 +438,7 @@ export const WarcraftClassUtilities: {
 export const WarcraftClassUtilitiesWotlk: {
   [className in WarcraftPlayerClass]: WarcraftRaidUtility[];
 } = {
-  [WarcraftPlayerClass.DeathKnight]: [],
+  [WarcraftPlayerClass.Deathknight]: [],
   [WarcraftPlayerClass.Druid]: [
     WarcraftRaidUtility.CombatResurrection,
   ],
@@ -495,9 +495,9 @@ export const WarcraftRaceUtilitiesWotlk: {
 export const WarcraftSpecUtilitiesWotlk: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRaidUtility[];
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassUtilitiesWotlk.DeathKnight,WarcraftRaidUtility.UnholyFrenzy],
-  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassUtilitiesWotlk.DeathKnight],
-  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassUtilitiesWotlk.DeathKnight],
+  [WarcraftPlayerSpec.DeathknightBlood]: [...WarcraftClassUtilitiesWotlk.Deathknight,WarcraftRaidUtility.UnholyFrenzy],
+  [WarcraftPlayerSpec.DeathknightFrost]: [...WarcraftClassUtilitiesWotlk.Deathknight],
+  [WarcraftPlayerSpec.DeathknightUnholy]: [...WarcraftClassUtilitiesWotlk.Deathknight],
 
   [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassUtilitiesWotlk.Druid,WarcraftRaidUtility.Innervate],
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassUtilitiesWotlk.Druid,WarcraftRaidUtility.Innervate],
@@ -547,9 +547,9 @@ export const WarcraftSpecUtilitiesWotlk: {
 export const WarcraftSpecUtilities: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRaidUtility[];
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: [...WarcraftClassUtilities.DeathKnight],
-  [WarcraftPlayerSpec.DeathKnightFrost]: [...WarcraftClassUtilities.DeathKnight],
-  [WarcraftPlayerSpec.DeathKnightUnholy]: [...WarcraftClassUtilities.DeathKnight],
+  [WarcraftPlayerSpec.DeathknightBlood]: [...WarcraftClassUtilities.Deathknight],
+  [WarcraftPlayerSpec.DeathknightFrost]: [...WarcraftClassUtilities.Deathknight],
+  [WarcraftPlayerSpec.DeathknightUnholy]: [...WarcraftClassUtilities.Deathknight],
 
   [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassUtilities.Druid],
   [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassUtilities.Druid],
@@ -599,10 +599,10 @@ export const WarcraftSpecUtilities: {
 export const WarcraftPlayerClassSpecs: {
   [className in WarcraftPlayerClass]: WarcraftPlayerSpec[];
 } = {
-  [WarcraftPlayerClass.DeathKnight]: [
-    WarcraftPlayerSpec.DeathKnightBlood,
-    WarcraftPlayerSpec.DeathKnightFrost,
-    WarcraftPlayerSpec.DeathKnightUnholy,
+  [WarcraftPlayerClass.Deathknight]: [
+    WarcraftPlayerSpec.DeathknightBlood,
+    WarcraftPlayerSpec.DeathknightFrost,
+    WarcraftPlayerSpec.DeathknightUnholy,
   ],
   [WarcraftPlayerClass.Druid]: [
     WarcraftPlayerSpec.DruidBalance,

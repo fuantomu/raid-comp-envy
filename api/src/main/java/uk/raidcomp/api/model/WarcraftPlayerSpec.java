@@ -18,9 +18,9 @@ import static uk.raidcomp.api.model.WarcraftRole.RANGED_DPS;
 import static uk.raidcomp.api.model.WarcraftRole.TANK;
 
 public enum WarcraftPlayerSpec {
-  DEATHKNIGHT_BLOOD("DeathKnightBlood", WarcraftPlayerClass.DEATHKNIGHT, TANK),
-  DEATHKNIGHT_FROST("DeathKnightFrost", WarcraftPlayerClass.DEATHKNIGHT, MELEE_DPS),
-  DEATHKNIGHT_UNHOLY("DeathKnightUnholy", WarcraftPlayerClass.DEATHKNIGHT, MELEE_DPS),
+  DEATHKNIGHT_BLOOD("DeathknightBlood", WarcraftPlayerClass.DEATHKNIGHT, TANK),
+  DEATHKNIGHT_FROST("DeathknightFrost", WarcraftPlayerClass.DEATHKNIGHT, MELEE_DPS),
+  DEATHKNIGHT_UNHOLY("DeathknightUnholy", WarcraftPlayerClass.DEATHKNIGHT, MELEE_DPS),
   DRUID_BALANCE("DruidBalance", WarcraftPlayerClass.DRUID, RANGED_DPS),
   DRUID_FERAL("DruidFeral", WarcraftPlayerClass.DRUID, MELEE_DPS),
   DRUID_GUARDIAN("DruidGuardian", WarcraftPlayerClass.DRUID, TANK),
@@ -53,8 +53,10 @@ public enum WarcraftPlayerSpec {
   ;
 
   private final String value;
-  @Getter private final WarcraftPlayerClass wowClass;
-  @Getter private final WarcraftRole role;
+  @Getter
+  private final WarcraftPlayerClass wowClass;
+  @Getter
+  private final WarcraftRole role;
 
   WarcraftPlayerSpec(
       final String value, final WarcraftPlayerClass wowClass, final WarcraftRole role) {
@@ -68,10 +70,9 @@ public enum WarcraftPlayerSpec {
       case "BLOOD":
         return DEATHKNIGHT_BLOOD;
       case "FROST":
-        if(className.equals("MAGE")){
+        if (className.equals("MAGE")) {
           return MAGE_FROST;
-        }
-        else{
+        } else {
           return DEATHKNIGHT_FROST;
         }
       case "UNHOLY":
@@ -83,10 +84,9 @@ public enum WarcraftPlayerSpec {
       case "GUARDIAN":
         return DRUID_GUARDIAN;
       case "RESTORATION":
-        if(className.equals("DRUID")){
+        if (className.equals("DRUID")) {
           return DRUID_RESTORATION;
-        }
-        else{
+        } else {
           return SHAMAN_RESTORATION;
         }
       case "BEASTMASTERY":
@@ -104,19 +104,17 @@ public enum WarcraftPlayerSpec {
       case "SHADOW":
         return PRIEST_SHADOW;
       case "HOLY":
-        if(className.equals("PRIEST")){
+        if (className.equals("PRIEST")) {
           return PRIEST_HOLY;
-        }
-        else{
+        } else {
           return PALADIN_HOLY;
         }
       case "RETRIBUTION":
         return PALADIN_RETRIBUTION;
       case "PROTECTION":
-        if(className.equals("PALADIN")){
+        if (className.equals("PALADIN")) {
           return PALADIN_PROTECTION;
-        }
-        else{
+        } else {
           return WARRIOR_PROTECTION;
         }
       case "ASSASSINATION":

@@ -14,7 +14,7 @@ export const IconUnknown: WarcraftIcon = "inv_misc_questionmark";
 export const WarcraftClassIcon: {
   [className in WarcraftPlayerClass]: WarcraftIcon;
 } = {
-  [WarcraftPlayerClass.DeathKnight]: "classicon_deathknight",
+  [WarcraftPlayerClass.Deathknight]: "classicon_deathknight",
   [WarcraftPlayerClass.Druid]: "classicon_druid",
   [WarcraftPlayerClass.Hunter]: "classicon_hunter",
   [WarcraftPlayerClass.Mage]: "classicon_mage",
@@ -48,9 +48,9 @@ export const WarcraftRaceIcon: {
 export const WarcraftSpecIcon: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftIcon;
 } = {
-  [WarcraftPlayerSpec.DeathKnightBlood]: "spell_deathknight_bloodpresence",
-  [WarcraftPlayerSpec.DeathKnightFrost]: "spell_deathknight_frostpresence",
-  [WarcraftPlayerSpec.DeathKnightUnholy]: "spell_deathknight_unholypresence",
+  [WarcraftPlayerSpec.DeathknightBlood]: "spell_deathknight_bloodpresence",
+  [WarcraftPlayerSpec.DeathknightFrost]: "spell_deathknight_frostpresence",
+  [WarcraftPlayerSpec.DeathknightUnholy]: "spell_deathknight_unholypresence",
   [WarcraftPlayerSpec.DruidBalance]: "spell_nature_starfall",
   [WarcraftPlayerSpec.DruidFeral]: "ability_druid_catform",
   [WarcraftPlayerSpec.DruidGuardian]: "ability_racial_bearform",

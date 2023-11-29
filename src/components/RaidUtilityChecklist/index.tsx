@@ -20,21 +20,23 @@ export interface RaidUtilityChecklistProps {
 const buildUtilityChecklist = (build: Build, version: String) => {
   const raidBuffs = [];
   for (const utility in RoleProvider.getVersionRaidUtility(version)) {
-    const playersWithUtility = build.players.filter(
-      ({ spec, class: className, race: raceName, group }) =>
-        group !== 'roster' && group !== 'bench' &&
-        (RoleProvider.getSpecUtilities(spec, version).includes(utility as WarcraftRaidUtility) ||
-        RoleProvider.getClassUtilities(className, version).includes(utility as WarcraftRaidUtility) ||
-        RoleProvider.getRaceUtilities(raceName, version).includes(utility as WarcraftRaidUtility))
-    );
-    raidBuffs.push(
-      <RaidUtility
-        key={UUID()}
-        utility={utility as WarcraftRaidUtility}
-        players={playersWithUtility}
-        version={version}
-      />
-    );
+    if(build.players.length > 0){
+      const playersWithUtility = build.players.filter(
+        ({ spec, class: className, race: raceName, group }) =>
+          group !== 'roster' && group !== 'bench' &&
+          (RoleProvider.getSpecUtilities(spec, version).includes(utility as WarcraftRaidUtility) ||
+          RoleProvider.getClassUtilities(className, version).includes(utility as WarcraftRaidUtility) ||
+          RoleProvider.getRaceUtilities(raceName, version).includes(utility as WarcraftRaidUtility))
+      );
+      raidBuffs.push(
+        <RaidUtility
+          key={UUID()}
+          utility={utility as WarcraftRaidUtility}
+          players={playersWithUtility}
+          version={version}
+        />
+      );
+    }
   }
   return raidBuffs;
 };

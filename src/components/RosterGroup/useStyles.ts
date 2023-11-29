@@ -8,7 +8,7 @@ export default (spread: boolean) => {
       spread &&
         css`
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, auto));
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           column-gap: ${theme.spacing(Spacing.xxs)};
         `,
     ],

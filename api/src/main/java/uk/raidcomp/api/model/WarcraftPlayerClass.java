@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public enum WarcraftPlayerClass {
-  DEATHKNIGHT("DeathKnight"),
+  DEATHKNIGHT("Deathknight"),
   DRUID("Druid"),
   HUNTER("Hunter"),
   MAGE("Mage"),

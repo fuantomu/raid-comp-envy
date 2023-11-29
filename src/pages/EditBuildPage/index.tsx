@@ -265,7 +265,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const handleChangeVersion = () => {
     const newVersion = version === "Cataclysm"? "Wotlk" : "Cataclysm";
-    console.log("New version is "+newVersion);
     setVersion(newVersion);
     localStorage.setItem( 'LastVersion', newVersion);
   };
@@ -361,8 +360,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
-      <Container sx={{ minHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
-        <Box key={UUID()} minWidth={"25%"} css={[styles.gridBox, styles.scroll]}>
+      <Container sx={{ maxHeight: "65%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
+        <Box key={UUID()} minWidth={"25%"} maxWidth={"35%"} css={[styles.gridBox, styles.scroll]}>
             <Roster manager={manager} build={getCurrentRoster()} editing />
         </Box>
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>

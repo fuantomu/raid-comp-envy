@@ -86,7 +86,7 @@ export abstract class BuildHelper {
           }
 
           const spec = player.spec.split("_")[0].replace("1","")
-          const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","DeathKnight")
+          const pclass = BuildHelper.fixTankClasses(player.class, player.spec).replace("DK","Deathknight")
 
           players.push({
             id: UUID(),
@@ -103,8 +103,8 @@ export abstract class BuildHelper {
         players.push({
           id: UUID(),
           name: "ErrorInvalidID",
-          class: WarcraftPlayerClass.DeathKnight,
-          spec: WarcraftPlayerSpec.DeathKnightBlood,
+          class: WarcraftPlayerClass.Deathknight,
+          spec: WarcraftPlayerSpec.DeathknightBlood,
           status: InviteStatus.Unknown,
           group: "roster"
       })
