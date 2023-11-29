@@ -70,7 +70,7 @@ const BuildPage: FC<BuildPageProps> = ({ grouped: baseGrouped }) => {
   return (
     <Container>
       <Box key={UUID()} css={[styles.gridBox, styles.header]}>
-        <Typography variant="h4" gutterBottom css={styles.headerText}>
+        <Typography style={{caretColor: "transparent"}} variant="h4" gutterBottom css={styles.headerText}>
           {build.name}
         </Typography>
         <BuildRolesCount css={styles.rolesCount} key={UUID()} build={build} />

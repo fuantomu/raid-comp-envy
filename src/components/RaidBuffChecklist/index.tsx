@@ -43,7 +43,7 @@ const RaidBuffChecklist: FC<RaidBuffChecklistProps> = ({ build, version }) => {
     <Card>
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
-        <Typography variant="subtitle1">{common("build.checklist.buffs")}</Typography>
+        <Typography style={{caretColor: "transparent"}} variant="subtitle1">{common("build.checklist.buffs")}</Typography>
         {buildBuffChecklist(build, version)}
       </CardContent>
     </Card>

@@ -66,7 +66,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
     <Card ref={drop}>
       <CardContent>
         <Box display={"grid"} gridTemplateColumns={"1fr 20px"}>
-        <Typography variant="subtitle1">
+        <Typography style={{caretColor: "transparent"}} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
         {players.filter((player) => player.race === 'Draenei').length > 0 && localStorage.getItem("LastVersion") === 'Wotlk' ? (

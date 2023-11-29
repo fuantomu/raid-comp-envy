@@ -50,7 +50,7 @@ const Raid: FC<RaidProps> = ({
         <Card key={UUID()}>
           <CardContent style={{border:"1", borderColor: "black", backgroundColor: "#242424"}}>
           <Box sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisible(!visible); }} display={"grid"} gridTemplateColumns={"1fr 1fr"}>
-              <Typography fontSize={"26px"} variant="subtitle1">
+              <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
                 {common(`build.raid.raid${id}`)}
               </Typography>
           </Box>
@@ -80,7 +80,7 @@ const Raid: FC<RaidProps> = ({
 
             <CardContent style={{border:"1", borderColor: "black", backgroundColor: "#242424"}}>
               <Box sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisibleComposition(!visibleComposition); }} display={"grid"} gridTemplateColumns={"1fr 1fr"}>
-                  <Typography fontSize={"26px"} variant="subtitle1">
+                  <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
                     {common("build.raid.composition")}
                   </Typography>
               </Box>
@@ -95,7 +95,7 @@ const Raid: FC<RaidProps> = ({
 
             <CardContent style={{backgroundColor: "#242424"}}>
               <Box sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisibleChecklist(!visibleChecklist); }} display={"grid"} gridTemplateColumns={"1fr 1fr"}>
-                  <Typography fontSize={"26px"} variant="subtitle1">
+                  <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
                     {common("build.raid.checklist")}
                   </Typography>
               </Box>

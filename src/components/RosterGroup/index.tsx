@@ -65,7 +65,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
     <Card ref={drop}>
       <CardContent>
         <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 100px 1fr"}>
-        <Typography fontSize={"26px"} variant="subtitle1">
+        <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
         <Button sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { setRosterVisible(!rosterVisible) }}>

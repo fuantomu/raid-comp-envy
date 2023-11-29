@@ -48,7 +48,7 @@ const RaidUtilityChecklist: FC<RaidUtilityChecklistProps> = ({ build, version })
     <Card>
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
-        <Typography variant="subtitle1">{common("build.checklist.utilities")}</Typography>
+        <Typography style={{caretColor: "transparent"}} variant="subtitle1">{common("build.checklist.utilities")}</Typography>
         {buildUtilityChecklist(build, version)}
       </CardContent>
     </Card>

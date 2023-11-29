@@ -36,7 +36,7 @@ const RaidClassChecklist: FC<RaidClassChecklistProps> = ({ build }) => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="subtitle1">{common("build.checklist.classes")}</Typography>
+        <Typography style={{caretColor: "transparent"}} variant="subtitle1">{common("build.checklist.classes")}</Typography>
         {buildClassChecklist(build)}
       </CardContent>
     </Card>

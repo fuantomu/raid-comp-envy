@@ -43,7 +43,7 @@ const RaidDebuffChecklist: FC<RaidDebuffChecklistProps> = ({ build, version }) =
     <Card>
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
-        <Typography variant="subtitle1">{common("build.checklist.debuffs")}</Typography>
+        <Typography style={{caretColor: "transparent"}} variant="subtitle1">{common("build.checklist.debuffs")}</Typography>
         {buildDebuffChecklist(build, version)}
       </CardContent>
     </Card>
