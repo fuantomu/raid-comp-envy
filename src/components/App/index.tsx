@@ -5,8 +5,6 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "../../utils/i18n";
 import useTrack from "../../utils/useTrack";
 import useStyles from "./useStyles";
-
-const BuildPage = lazy(() => import("../../pages/BuildPage"));
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -26,15 +24,7 @@ const App: FC = () => {
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>
-              <Route path="/" element={<EditBuildPage />} />
-              <Route path="/build" element={<EditBuildPage />} />
-
-              <Route path="/build/:buildId" element={<BuildPage />} />
-              <Route path="/build/:buildId/edit" element={<EditBuildPage />} />
-              <Route path="/build/:buildId/:name" element={<BuildPage />} />
-
-              <Route path="/build/g/:buildId" element={<BuildPage grouped />} />
-              <Route path="/build/g/:buildId/:name" element={<BuildPage grouped />} />
+              <Route path="*" element={<EditBuildPage />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>

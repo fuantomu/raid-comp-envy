@@ -247,7 +247,7 @@
   },
   "error": {
     "goBack": "Go Back",
-    "reload": "Reload",
+    "reload": "Reset and reload",
     "unspecific": "Unknown Error",
     "notFound": "Not Found",
     "apiCancelled": "Internal Error",

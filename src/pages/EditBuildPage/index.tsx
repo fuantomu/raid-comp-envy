@@ -3,12 +3,10 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
 import { AppContextProvider } from "../../components/App/context";
 import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
 import Roster from "../../components/Roster";
-import { getBuild } from "../../services/backend";
 import { Build, BuildPlayer, SelectOption} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
@@ -28,7 +26,6 @@ export interface EditBuildPageProps {}
 
 const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [common] = useTranslation("common");
-  const { buildId } = useParams<{ buildId: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const styles = useStyles();
   const handleError = useErrorHandler();
@@ -196,7 +193,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const getCurrentBuild = () => {
     return {
-      buildId,
       name: name ?? common("build.unnamed"),
       players,
     } as Build;
@@ -204,7 +200,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const getCurrentRoster = () => {
     return {
-      buildId,
       name: common("build.roster"),
       players: roster
     } as Build;
@@ -316,20 +311,13 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   useEffect(() => {
-    if (buildId) {
-      getBuild(buildId)
-        .then(({ data: { name , players } }) => {
-          setName(name);
-          setPlayers(players);
-          setIsLoading(false);
-        })
-        .catch(handleError);
-    } else {
-      const lastBuild = localStorage.getItem( 'LastBuild')?? 'Current Build';
-      setName(lastBuild);
+    const lastBuild = localStorage.getItem( 'LastBuild')?? 'Current Build';
+    if (lastBuild) {
+
       const connectionString = CONNECTION_STRING;
       connectionString.build = lastBuild;
       BuildHelper.parseSqlLoad(CONNECTION_STRING).then((build) => {
+          setName(lastBuild);
           loadBuild(build).then(() => {
             BuildHelper.parseSqlImport(CONNECTION_STRING).then((roster) => {
                 loadRoster(roster).then(() => {
@@ -339,7 +327,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
                 });
             })
           });
-      })
+      }).catch(handleError);
       BuildHelper.parseBuildsLoad(CONNECTION_STRING).then((loadedBuilds) => {
         const buildObject: SelectOption[] = [];
         for(const build of loadedBuilds){
@@ -347,10 +335,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         }
         setBuilds(buildObject)
       })
-      setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm")
+      setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm");
       setIsLoading(false);
-    }// eslint-disable-next-line
-  }, [buildId, handleError]);
+    }
+  }, [handleError]);
 
   if (isLoading) {
     return <Loading />;
