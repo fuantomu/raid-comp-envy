@@ -110,6 +110,7 @@ export enum WarcraftRaidBuffWotlk {
   HealingReceived = "HealingReceivedBuff",
   Intellect = "Intellect",
   Stamina = "Stamina",
+  Replenishment = "Replenishment",
 }
 
 export const WarcraftClassRaidBuffsWotlk: {

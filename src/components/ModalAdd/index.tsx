@@ -140,6 +140,10 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     }
   };
 
+  const handleViewPlayer = () => {
+    window.open(`${process.env.REACT_APP_DASHBOARD_BASEURL}/user.php?user=${playerName}`,"_blank")
+  };
+
   const handleRemovePlayer = () => {
     sendImportToContext(name,true);
   };
@@ -311,11 +315,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
               />}
               label="Save to Roster"
             />
-            {checked? (<Button color="success" variant="contained" onClick={handleAddPlayer}>
+            <Button color="info" variant="contained" onClick={handleViewPlayer}>
+              {common("build.add.view")}
+            </Button>
+            <Button color="success" variant="contained" onClick={handleAddPlayer}>
               {oldName ? common("build.edit.save") : common("build.add.add")}
-            </Button>) :(<Button color="success" variant="contained" onClick={handleAddPlayer}>
-              {oldName ? common("build.edit.save") : common("build.add.add")}
-            </Button>)}
+            </Button>
             {oldName ? (
               <Button color="primary" variant="contained" onClick={handleRemovePlayer}>
                 {common("build.edit.remove")}

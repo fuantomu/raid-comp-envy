@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Box from "@mui/material/Box";
-import { FC, Fragment, lazy, Suspense, useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { FC, Fragment, lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
 import "../../utils/i18n";
 import useStyles from "./useStyles";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));

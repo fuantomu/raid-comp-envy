@@ -78,7 +78,8 @@
         "group_4": "{{groupId}}",
         "group_5": "{{groupId}}",
         "group_none": "Ungrouped"
-      }
+      },
+      "view": "View on Dashboard"
     },
     "raid": {
       "composition": "Composition",
