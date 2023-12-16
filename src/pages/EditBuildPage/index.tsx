@@ -397,7 +397,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   const getBuilds = () => {
-    return builds.map((build) => {return build.value;})?? "Alphabetical";
+    return builds;
   };
 
   useEffect(() => {
@@ -449,8 +449,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
-      <Container sx={{ maxHeight: "65%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
-        <Box key={UUID()} minWidth={"25%"} maxWidth={"35%"} css={[styles.gridBox, styles.scroll]}>
+      <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
+        <Box key={UUID()} sx={{width:"35%"}} css={styles.gridBox}>
             <Roster manager={manager} build={getCurrentRoster()} editing />
         </Box>
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>

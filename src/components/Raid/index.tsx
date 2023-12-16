@@ -61,7 +61,7 @@ const Raid: FC<RaidProps> = ({
                 <BuildTitle
                   key={UUID()}
                   onChange={context?.handleSelectBuild(id)}
-                  options={builds}
+                  options={context?.getBuilds()??[]}
                   selected={builds.filter((build) => build.label === raidBuild.name)[0]}
                   title={raidBuild.name}
                 />

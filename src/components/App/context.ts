@@ -16,7 +16,7 @@ type AppContextApi = {
   handleSorting: (sort: any) => void;
   getCurrentSorting: () => string;
   handleSelectBuild: (buildId: number) => (sort: SelectOption) => void;
-  getBuilds: () => String[];
+  getBuilds: () => SelectOption[];
   addBuild: (title: string, buildId: number) => void;
   deleteBuild: (title: string, buildId: number) => void;
 };
