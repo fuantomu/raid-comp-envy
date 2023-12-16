@@ -28,6 +28,7 @@ const RosterComposition: FC<RosterCompositionProps> = ({ players, editing }) => 
                 groupId={groupId}
                 players={players}
                 editing={editing}
+                buildId={-1}
                 spread
               />
             );

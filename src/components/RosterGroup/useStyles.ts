@@ -12,5 +12,11 @@ export default (spread: boolean) => {
           column-gap: ${theme.spacing(Spacing.xxs)};
         `,
     ],
+    scroll: css`
+      overflow-y: scroll;
+    `,
+    gridBox: css`
+      margin: ${theme.spacing(Spacing.xs)} auto !important;
+    `,
   };
 };
