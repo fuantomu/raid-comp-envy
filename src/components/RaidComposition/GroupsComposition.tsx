@@ -20,7 +20,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid 
     <>
       <Box key={UUID()} css={styles.grouped}>
         {Object.values(groups)
-          .filter((group) => group?.groupId !== "none" && group?.groupId !== "roster" && group?.groupId !== "bench")
+          .filter((group) => group?.groupId !== "roster" && group?.groupId !== "bench")
           .map((group) => {
             if (!group) return <></>;
             const { groupId, players } = group;

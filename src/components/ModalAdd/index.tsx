@@ -252,7 +252,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
   };
 
   const renderGroupsToggle = () => {
-    const groups = ["none", 1, 2, 3, 4, 5];
+    const groups = [1, 2, 3, 4, 5];
     return (
       <Box>
         <ToggleButtonGroup

@@ -12,12 +12,12 @@ export abstract class BuildHelper {
     const groups: BuildGroups = {
       ...emptyGroups,
       none: {
-        groupId: "none",
+        groupId: "bench",
         players: [],
       },
     };
     for (const player of players) {
-      let groupId: GroupId = player.group ?? "none";
+      let groupId: GroupId = player.group?? "bench";
       const group = groups[groupId];
       if (!group) {
         groups[groupId] = {
