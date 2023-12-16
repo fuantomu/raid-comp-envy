@@ -70,7 +70,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
         <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
-        <Button sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { setRosterVisible(!rosterVisible) }}>
+        <Button sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { context?.setRosterExpanded(!context?.getRosterExpanded()) }}>
             {common("build.roster.expand")}
         </Button>
         <TextField
@@ -97,7 +97,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
                     onClick: () => context?.editPlayer(player),
                   }
                 : {})}
-              rosterVisible={rosterVisible}
+              rosterVisible={context?.getRosterExpanded()}
               alts={players.filter((altPlayer) => altPlayer.main?.toLowerCase() === player.name.toLowerCase() && altPlayer.name.toLowerCase() !== player.name.toLowerCase())}
             />
           ))}

@@ -37,6 +37,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [sorting, setSorting] = useState('');
   const [builds, setBuilds] = useState<SelectOption[]>([]);
   const [version, setVersion] = useState("Cataclysm");
+  const [rosterExpanded, setRosterExpanded] = useState(false)
   const manager = createDragDropManager(HTML5Backend)
 
 
@@ -400,6 +401,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return builds;
   };
 
+  const getRosterExpanded = () => {
+    return rosterExpanded;
+  };
+
   useEffect(() => {
     const build0 = localStorage.getItem( 'LastBuild-0')?? 'Current Build-0';
     const build1 = localStorage.getItem( 'LastBuild-1')?? 'Current Build-1';
@@ -446,7 +451,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
