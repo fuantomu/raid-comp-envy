@@ -112,7 +112,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
 
   const sendImportToContext = (nameOverride = name, remove = false) => {
     const { name: playerName, realm } = PlayerUtils.splitFullName(nameOverride);
-    console.log(buildId)
     const playerInfo = {
       id: id.length? id : UUID(),
       name: playerName?? oldName,
