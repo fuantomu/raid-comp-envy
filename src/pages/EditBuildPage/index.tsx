@@ -61,13 +61,13 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     "build": "Current Build"
   };
 
-  const setBuild = (buildId: number, build: BuildPlayer[]) => {
+  const setBuild = async (buildId: number, build: BuildPlayer[]) => {
     switch (buildId) {
       case 1:
-        setPlayersRaid2(build);
+        await setPlayersRaid2(build);
         break;
       default:
-        setPlayersRaid(build)
+        await setPlayersRaid(build)
         break;
     }
   }
@@ -246,27 +246,44 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     deleteFromRoster([removedPlayer]);
   }
 
-  const updateRosterStatus = async (player: BuildPlayer, roster: BuildPlayer[]) : Promise<BuildPlayer[]> => {
+  const updateRosterStatus = async (player: BuildPlayer, roster: BuildPlayer[], statusOverride?: InviteStatus) : Promise<BuildPlayer[]> => {
     for (const rosterPlayer of roster) {
       if(rosterPlayer.id === player.id){
-        if(player.group === "roster"){
-          rosterPlayer.status = InviteStatus.Unknown;
-        }
-        else if(player.group === "bench"){
-          rosterPlayer.status = InviteStatus.Benched;
-        }
-        else{
-          rosterPlayer.status = InviteStatus.Accepted;
+        if(typeof statusOverride !== "undefined"){
+          rosterPlayer.status = statusOverride
           const otherCharacters = getOtherCharacters(player, roster);
-          if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
-            console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
+          if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length >= 1){
             for(const otherCharacter of otherCharacters){
-              if(otherCharacter.status !== InviteStatus.Accepted){
-                otherCharacter.status = InviteStatus.Declined;
+              if(otherCharacter.status === InviteStatus.Declined){
+                  otherCharacter.status = InviteStatus.Unknown;
               }
             }
           }
         }
+        else{
+          if(player.group === "roster"){
+            rosterPlayer.status = InviteStatus.Unknown;
+          }
+          else if(player.group === "bench"){
+            rosterPlayer.status = InviteStatus.Benched;
+          }
+          else if(player.group){
+            rosterPlayer.status = InviteStatus.Accepted;
+            const otherCharacters = getOtherCharacters(player, roster);
+            if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
+              console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
+              for(const otherCharacter of otherCharacters){
+                if(otherCharacter.status !== InviteStatus.Accepted){
+                  otherCharacter.status = InviteStatus.Declined;
+                }
+              }
+            }
+          }
+          else{
+            rosterPlayer.status = InviteStatus.Unknown
+          }
+        }
+        break;
       }
     }
     return roster;
@@ -339,15 +356,19 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   const loadBuild = async (newPlayers: BuildPlayer[], buildId: number): Promise<void> => {
-    newPlayers.forEach((player)=> player.raid = buildId)
-    setBuild(buildId, newPlayers)
-
-    for(const player of roster){
-      const playerInGroup = newPlayers.find((newPlayer) => newPlayer.id === player.id)
-      if(playerInGroup){
-        updateRosterStatus(playerInGroup, roster);
+    newPlayers.forEach((player)=> player.raid = buildId);
+    const previousBuild = getBuildPlayers(buildId);
+    await setBuild(buildId, newPlayers).then(() => {
+      for(const player of previousBuild){
+        updateRosterStatus(player, roster, InviteStatus.Unknown)
       }
-    }
+      for(const player of roster){
+        const playerInGroup = newPlayers.find((newPlayer) => newPlayer.id === player.id);
+        if(playerInGroup){
+          updateRosterStatus(playerInGroup, roster);
+        }
+      }
+    })
   };
 
   const handleChangeVersion = () => {
@@ -404,6 +425,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const getRosterExpanded = () => {
     return rosterExpanded;
   };
+
+  const getAllPlayers = () => {
+    return [...playersRaid,...playersRaid2]
+  }
 
   useEffect(() => {
     const build0 = localStorage.getItem( 'LastBuild-0')?? 'Current Build-0';
