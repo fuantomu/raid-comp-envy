@@ -27,9 +27,6 @@ export default () => {
     `,
     buildTitle: css`
       width: 100%;
-    `,
-    scroll: css`
-      overflow-y: scroll;
     `
   };
 };

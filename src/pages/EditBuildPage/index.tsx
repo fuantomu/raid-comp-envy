@@ -40,6 +40,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [rosterExpanded, setRosterExpanded] = useState(false)
   const manager = createDragDropManager(HTML5Backend)
 
+  const _ = require('lodash');
+
 
   const sortFunctions : any = {
     "NAME": function(a:BuildPlayer,b:BuildPlayer) { return a.name.localeCompare(b.name)},
@@ -426,50 +428,97 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return rosterExpanded;
   };
 
-  const getAllPlayers = () => {
-    return [...playersRaid,...playersRaid2]
-  }
-
   useEffect(() => {
-    const build0 = localStorage.getItem( 'LastBuild-0')?? 'Current Build-0';
-    const build1 = localStorage.getItem( 'LastBuild-1')?? 'Current Build-1';
     const connectionString = CONNECTION_STRING;
+    if (isLoading){
+      const build0 = localStorage.getItem( 'LastBuild-0')?? 'Current Build-0';
+      const build1 = localStorage.getItem( 'LastBuild-1')?? 'Current Build-1';
 
-    BuildHelper.parseSqlImport(connectionString).then((roster) => {
-      loadRoster(roster).then(() => {
-        connectionString.build = build0;
-        BuildHelper.parseSqlLoad(connectionString).then((build) => {
-          setBuildName(build0,0);
-          loadBuild(build,0).then(() => {
-            for(const player of build){
-              updateRosterStatus(player, roster)
-            }
-          })
-        }).catch(handleError);
-
-        connectionString.build = build1;
-        BuildHelper.parseSqlLoad(connectionString).then((build) => {
-            setBuildName(build1,1);
-            loadBuild(build,1).then(() => {
+      BuildHelper.parseSqlImport(connectionString).then((roster) => {
+        loadRoster(roster).then(() => {
+          connectionString.build = build0;
+          BuildHelper.parseSqlLoad(connectionString).then((build) => {
+            setBuildName(build0,0);
+            loadBuild(build,0).then(() => {
               for(const player of build){
                 updateRosterStatus(player, roster)
               }
             })
-        }).catch(handleError);
+          }).catch(handleError);
+
+          connectionString.build = build1;
+          BuildHelper.parseSqlLoad(connectionString).then((build) => {
+              setBuildName(build1,1);
+              loadBuild(build,1).then(() => {
+                for(const player of build){
+                  updateRosterStatus(player, roster)
+                }
+              })
+          }).catch(handleError);
+        })
       })
-    })
 
-    BuildHelper.parseBuildsLoad(connectionString).then((loadedBuilds) => {
-      const buildObject: SelectOption[] = [];
-      for(const build of loadedBuilds){
-        buildObject.push({"value": build, "label":build})
-      }
-      setBuilds(buildObject)
-    })
-    setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm");
-    setIsLoading(false);
+      BuildHelper.parseBuildsLoad(connectionString).then((loadedBuilds) => {
+        const buildObject: SelectOption[] = [];
+        for(const build of loadedBuilds){
+          buildObject.push({"value": build, "label":build})
+        }
+        setBuilds(buildObject)
+      })
+      setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm");
+      setIsLoading(false);
+    }
+    const interval = setInterval(() => {
+      BuildHelper.parseSqlImport(connectionString).then((currentRoster) => {
+        const differences = _.differenceWith(currentRoster, roster, (a : BuildPlayer, b: BuildPlayer) => {
+          return _.isEqual(
+            _.omit(a, ['status']),
+            _.omit(b, ['status'])
+          )
+        })
+        if (differences.length > 0){
+          console.log("Roster has changed somewhere. Reloading")
+          setRoster(currentRoster)
+        }
+      })
+      connectionString.build = getBuildName(0);
+      BuildHelper.parseSqlLoad(connectionString).then((currentBuild) => {
+        const differences = _.differenceWith(currentBuild, playersRaid, (a : BuildPlayer, b: BuildPlayer) => {
+          return _.isEqual(
+            _.omit(a, ['status']),
+            _.omit(b, ['status'])
+          )
+        })
+        if (differences.length > 0){
+          console.log("Raid 1 has changed somewhere. Reloading")
+          setBuild(0, currentBuild).then(() => {
+            for(const player of currentBuild){
+              updateRosterStatus(player, roster)
+            }
+          })
+        }
+      }).catch(handleError);
+      connectionString.build = getBuildName(1);
+      BuildHelper.parseSqlLoad(connectionString).then((currentBuild) => {
+        const differences = _.differenceWith(currentBuild, playersRaid2, (a : BuildPlayer, b: BuildPlayer) => {
+          return _.isEqual(
+            _.omit(a, ['status']),
+            _.omit(b, ['status'])
+          )
+        })
+        if (differences.length > 0){
+          console.log("Raid 2 has changed somewhere. Reloading")
+          setBuild(1, currentBuild).then(() => {
+            for(const player of currentBuild){
+              updateRosterStatus(player, roster)
+            }
+          })
+        }
+      }).catch(handleError);
+    }, 2000);
 
-  }, [handleError]);
+    return () => clearInterval(interval);
+  }, [handleError,roster,playersRaid,playersRaid2]);
 
   if (isLoading) {
     return <Loading />;
@@ -481,10 +530,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
         <Box key={UUID()} sx={{width:"35%"}} css={styles.gridBox}>
-            <Roster manager={manager} build={getCurrentRoster()} editing />
+          <Roster manager={manager} build={getCurrentRoster()} editing />
         </Box>
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
           <Raid manager={manager} id={0} raidBuild={getCurrentBuild(0)} builds={builds} version={version} editing ></Raid>
+          <br></br>
           <Raid manager={manager} id={1} raidBuild={getCurrentBuild(1)} builds={builds} version={version} editing ></Raid>
           <Box display={"flex"} justifyContent={"center"}>
             <Button style={{height: '100px', width : '219px', marginTop:'50px', marginBottom:'50px'}} key={UUID()} onClick={handleChangeVersion}>
