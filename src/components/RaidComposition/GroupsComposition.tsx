@@ -10,7 +10,7 @@ import useStyles from "./useStyles";
 interface GroupsCompositionProps {
   players: BuildPlayer[];
   editing: boolean;
-  raid: Number;
+  raid: number;
 }
 
 const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid }) => {

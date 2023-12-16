@@ -21,7 +21,7 @@ export interface RaidProps {
   editing?: boolean;
   builds: SelectOption[];
   version: String;
-  id: Number;
+  id: number;
   manager: DragDropManager;
 }
 
@@ -67,10 +67,10 @@ const Raid: FC<RaidProps> = ({
                 />
                 <BuildRolesCount key={UUID()} build={raidBuild} />
                 <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                  <ModalAdd />
+                  <ModalAdd buildId={id}/>
                   <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
-                  <ModalCreateBuild />
-                  <ModalDeleteBuild />
+                  <ModalCreateBuild buildId={id}/>
+                  <ModalDeleteBuild buildId={id}/>
                 </Box>
               </Box>) : <></>
           }
@@ -102,7 +102,7 @@ const Raid: FC<RaidProps> = ({
               {visibleChecklist? (<Box key={UUID()} css={styles.gridBox} >
                   <RaidChecklist build={raidBuild} version={version} />
                   <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                    <ModalResetBuild />
+                    <ModalResetBuild buildId={id}/>
                   </Box>
               </Box>) : <></>}
             </CardContent>

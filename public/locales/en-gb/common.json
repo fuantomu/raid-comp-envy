@@ -84,7 +84,8 @@
     "raid": {
       "composition": "Composition",
       "checklist": "Checklist",
-      "raid0": "Raid 1"
+      "raid0": "Raid 1",
+      "raid1": "Raid 2"
     },
     "roster": {
       "expand": "Expand all"

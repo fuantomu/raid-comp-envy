@@ -7,9 +7,11 @@ import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
 import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
 
-export interface ModalResetBuildProps {}
+export interface ModalResetBuildProps {
+  buildId: number
+}
 
-const ModalResetBuild: FC<ModalResetBuildProps> = () => {
+const ModalResetBuild: FC<ModalResetBuildProps> = ({buildId}) => {
   const [common] = useTranslation("common");
   let handleModalOpen: any = () => {};
   const context = useAppContext();
@@ -24,7 +26,7 @@ const ModalResetBuild: FC<ModalResetBuildProps> = () => {
 
   const handleConfirm = async (response: ModalAlertResponse) => {
     if (response === ModalAlertResponse.OK) {
-      await context?.resetBuild();
+      await context?.resetBuild(buildId);
     }
   };
 

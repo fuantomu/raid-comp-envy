@@ -23,9 +23,10 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export interface ModalAddProps {
   editPlayer?: (callback: (player: BuildPlayer) => void) => void;
+  buildId?: number
 }
 
-const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
+const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
@@ -36,6 +37,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const [groupId, setGroupId] = useState(1 as GroupId);
   const [main, setMain] = useState(String);
   const [name, setName] = useState("");
+  const [raid, setRaid] = useState(Number);
   const [id, setId] = useState(String);
   const [oldName, setOldName] = useState<string>();
   const [checked, setChecked] = useState(false);
@@ -53,6 +55,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         setClassName(player.class);
         setStatus(player.status);
         setGroupId(player.group as GroupId);
+        setRaid(player.raid);
         if(player.main) {
           setMain(player.main);
         }
@@ -109,11 +112,13 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
 
   const sendImportToContext = (nameOverride = name, remove = false) => {
     const { name: playerName, realm } = PlayerUtils.splitFullName(nameOverride);
+    console.log(buildId)
     const playerInfo = {
       id: id.length? id : UUID(),
       name: playerName?? oldName,
       class: className,
       spec,
+      raid: buildId?? raid,
       race: raceName,
       status: InviteStatus.Unknown,
       group: groupId as GroupId,
@@ -121,7 +126,14 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
       oldName,
       main: mainCharacter.current?.value?? main,
     }
-    context?.importPlayer(playerInfo);
+
+    if(remove){
+      context?.deletePlayer(playerInfo, buildId?? raid);
+    }
+    else{
+      context?.importPlayer(playerInfo, buildId?? raid);
+    }
+
     if(checked){
       if(remove){
         context?.removeFromRoster({...playerInfo, group : "roster" as GroupId});
@@ -315,9 +327,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
               />}
               label="Save to Roster"
             />
-            <Button color="info" variant="contained" onClick={handleViewPlayer}>
+            {oldName ? <Button color="info" variant="contained" onClick={handleViewPlayer}>
               {common("build.add.view")}
-            </Button>
+            </Button>: null}
             <Button color="success" variant="contained" onClick={handleAddPlayer}>
               {oldName ? common("build.edit.save") : common("build.add.add")}
             </Button>

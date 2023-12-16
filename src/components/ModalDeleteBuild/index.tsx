@@ -9,17 +9,19 @@ import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
 import useStyles from "./useStyles";
 
 
-export interface ModalDeleteBuildProps {}
+export interface ModalDeleteBuildProps {
+  buildId: number
+}
 
-const ModalDeleteBuild: FC<ModalDeleteBuildProps> = () => {
+const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [common] = useTranslation("common");
   const context = useAppContext();
 
   const handleDelete = async () => {
-    console.log("Deleting build "+context?.getCurrentBuild().name);
-    context?.deleteBuild(context?.getCurrentBuild().name);
+    console.log("Deleting build "+context?.getCurrentBuild(buildId).name);
+    context?.deleteBuild(context?.getCurrentBuild(buildId).name, buildId);
   };
 
 
@@ -41,7 +43,7 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = () => {
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.delete.title")}</h2>
-          {common("build.delete.confirm") + "'" + context?.getCurrentBuild().name + "'?"}
+          {common("build.delete.confirm") + "'" + context?.getCurrentBuild(buildId).name + "'?"}
           <br />
           <Box css={styles.buttons}>
             <Button color="primary" variant="contained" onClick={handleDelete}>

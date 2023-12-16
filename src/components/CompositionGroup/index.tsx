@@ -21,7 +21,7 @@ export interface CompositionGroupProps {
   groupId: GroupId;
   spread?: boolean;
   editing?: boolean;
-  raid: Number;
+  raid: number;
 }
 
 const CompositionGroup: FC<CompositionGroupProps> = ({
@@ -45,13 +45,14 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             class: player.class,
             spec: player.spec,
             race: player.race,
-            raid: player.raid,
+            raid,
             status: InviteStatus.Unknown,
             group: groupId as GroupId,
             realm: player.realm,
             oldName: player.oldName,
             main: player.main
           },
+          raid
         );
       },
     }),

@@ -9,9 +9,11 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import useStyles from "./useStyles";
 
 
-export interface ModalCreateBuildProps {}
+export interface ModalCreateBuildProps {
+  buildId: number
+}
 
-const ModalCreateBuild: FC<ModalCreateBuildProps> = () => {
+const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [error, showError] = useState(false);
@@ -28,7 +30,7 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = () => {
       }
       else{
         console.log("Adding build "+currentTitle);
-        context?.addBuild(currentTitle);
+        context?.addBuild(currentTitle,buildId);
       }
     }
   };

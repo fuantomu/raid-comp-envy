@@ -9,20 +9,22 @@ import AppError from "../../utils/AppError";
 import { useAppContext } from "../App/context";
 import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
 
-export interface ModalLoadBuildProps {}
+export interface ModalLoadBuildProps {
+  buildId: number
+}
 
-const ModalLoadBuild: FC<ModalLoadBuildProps> = () => {
+const ModalLoadBuild: FC<ModalLoadBuildProps> = ({buildId}) => {
   const [common] = useTranslation("common");
   let openModal: any = () => {};
   const context = useAppContext();
 
   const handleLoadClick = async () => {
-    const build = context?.getCurrentBuild();
+    const build = context?.getCurrentBuild(buildId);
     if (build) {
       if (build.players.length) {
         return openModal();
       } else {
-        return await context?.loadBuildSql(build.name);
+        return await context?.loadBuildSql(build.name,buildId);
       }
     }
     throw new AppError(AppErrorId.Unspecific);
@@ -34,7 +36,7 @@ const ModalLoadBuild: FC<ModalLoadBuildProps> = () => {
 
   const handleConfirm = async (response: ModalAlertResponse) => {
     if (response === ModalAlertResponse.OK) {
-      await context?.loadBuildSql(context.getCurrentBuild().name);
+      await context?.loadBuildSql(context.getCurrentBuild(buildId).name,buildId);
     }
   };
 

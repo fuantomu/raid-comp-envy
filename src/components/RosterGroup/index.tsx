@@ -19,6 +19,7 @@ export interface RosterGroupProps {
   groupId: GroupId;
   spread?: boolean;
   editing?: boolean;
+  buildId: number;
 }
 
 
@@ -27,6 +28,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
   players = [],
   spread = false,
   editing,
+  buildId
 }) => {
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
@@ -50,7 +52,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             realm: player.realm,
             oldName: player.oldName,
             main: player.main
-          },
+          },buildId
         );
       },
     }),

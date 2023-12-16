@@ -95,6 +95,7 @@ export abstract class BuildHelper {
             spec: (pclass + spec) as WarcraftPlayerSpec,
             status: InviteStatus.Unknown,
             group: "roster",
+            raid: -1,
             realm: undefined,
             oldName: player.name,
             main: ""
@@ -104,6 +105,7 @@ export abstract class BuildHelper {
           id: UUID(),
           name: "ErrorInvalidID",
           class: WarcraftPlayerClass.Deathknight,
+          raid: -1,
           spec: WarcraftPlayerSpec.DeathknightBlood,
           status: InviteStatus.Unknown,
           group: "roster"
@@ -129,6 +131,7 @@ export abstract class BuildHelper {
             spec: player.spec as WarcraftPlayerSpec,
             race: player.race as WarcraftPlayerRace,
             status: InviteStatus.Unknown,
+            raid: -1,
             group: "roster",
             realm: undefined,
             oldName: player.name,
@@ -181,6 +184,7 @@ export abstract class BuildHelper {
             name: player.name,
             class: BuildHelper.capitalize(player.className.toLowerCase()) as WarcraftPlayerClass,
             spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
+            raid: -1,
             race: BuildHelper.capitalize(player.race? player.race.toLowerCase() : "human") as WarcraftPlayerRace,
             status: InviteStatus.Unknown,
             group: player.group.toLowerCase() === 'bench'? 'bench' : player.group.slice(-1),

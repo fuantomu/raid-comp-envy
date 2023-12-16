@@ -2,22 +2,23 @@ import { createContext, useContext } from "react";
 import { Build, BuildPlayer, SelectOption } from "../../types";
 
 type AppContextApi = {
-  importPlayer: (player: BuildPlayer) => Promise<void>;
+  importPlayer: (player: BuildPlayer, buildId: number) => Promise<void>;
+  deletePlayer: (player: BuildPlayer, buildId: number) => Promise<void>;
   addToRoster: (player: BuildPlayer) => Promise<void>;
   removeFromRoster: (player: BuildPlayer) => Promise<void>;
-  saveBuild: (build: Build) => Promise<void>;
-  loadBuildSql: (build: string) => Promise<void>;
-  resetBuild: () => Promise<void>;
-  getCurrentBuild: () => Build;
+  saveBuild: (buildId: number) => Promise<void>;
+  loadBuildSql: (build: string, buildId: number) => Promise<void>;
+  resetBuild: (buildId: number) => Promise<void>;
+  getCurrentBuild: (buildId: number) => Build;
   getCurrentRoster: () => Build;
   editPlayer: (player: BuildPlayer) => void;
   loadRoster: (roster: BuildPlayer[]) => Promise<void>;
   handleSorting: (sort: any) => void;
   getCurrentSorting: () => string;
-  handleSelectBuild: (id: Number) => (sort: SelectOption) => void;
+  handleSelectBuild: (buildId: number) => (sort: SelectOption) => void;
   getBuilds: () => String[];
-  addBuild: (title: string) => void;
-  deleteBuild: (title: string) => void;
+  addBuild: (title: string, buildId: number) => void;
+  deleteBuild: (title: string, buildId: number) => void;
 };
 
 const AppContext = createContext<AppContextApi | null>(null);

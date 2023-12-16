@@ -10,7 +10,7 @@ export interface RaidCompositionProps {
   grouped?: boolean;
   editing?: boolean;
   manager: DragDropManager;
-  raid: Number;
+  raid: number;
 }
 
 const RaidComposition: FC<RaidCompositionProps> = ({

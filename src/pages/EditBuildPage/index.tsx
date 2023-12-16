@@ -29,8 +29,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const styles = useStyles();
   const handleError = useErrorHandler();
-  const [name, setName] = useState<string>(common("build.new"));
-  const [players, setPlayers] = useState<BuildPlayer[]>([]);
+  const [nameRaid1, setNameRaid1] = useState<string>(common("build.new"));
+  const [nameRaid2, setNameRaid2] = useState<string>(common("build.new"));
+  const [playersRaid, setPlayersRaid] = useState<BuildPlayer[]>([]);
+  const [playersRaid2, setPlayersRaid2] = useState<BuildPlayer[]>([]);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [sorting, setSorting] = useState('');
   const [builds, setBuilds] = useState<SelectOption[]>([]);
@@ -58,65 +60,161 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     "build": "Current Build"
   };
 
-  const importPlayer = async (newPlayer: BuildPlayer): Promise<void> => {
-      const oldPlayer = players.find((player) => player.id === newPlayer.id)
-      const oldRosterPlayer = roster.find((player) => player.id === newPlayer.id)
-      let playerBuild = players;
+  const setBuild = (buildId: number, build: BuildPlayer[]) => {
+    switch (buildId) {
+      case 1:
+        setPlayersRaid2(build);
+        break;
+      default:
+        setPlayersRaid(build)
+        break;
+    }
+  }
 
-      if(oldPlayer){
-        console.log("Editing player "+JSON.stringify(oldPlayer))
+  const getBuildPlayers = (buildId: number) => {
+    switch (buildId) {
+      case 1:
+        return playersRaid2;
+      default:
+        return playersRaid;
+    }
+  }
 
-        if(newPlayer.group !== oldPlayer.group){
-          console.log("Moving player from group "+oldPlayer.group+" to "+newPlayer.group+" in raid "+newPlayer.raid)
-        }
+  const getOtherBuild = (buildId: number) => {
+    switch (buildId) {
+      case 1:
+        return playersRaid;
+      default:
+        return playersRaid2;
+    }
+  }
 
-        if(newPlayer.group !== 'roster'){
-          playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id),newPlayer]
+  const setBuildName = (newName:string, buildId: number) => {
+    switch (buildId) {
+      case 1:
+        setNameRaid2(newName);
+        break;
+      default:
+        setNameRaid1(newName)
+        break;
+    }
+  }
 
-        }
-        else{
-          playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id)]
-        }
-        setPlayers(playerBuild)
+  const getBuildName = (buildId: number) => {
+    switch (buildId) {
+      case 1:
+        return nameRaid2;
+      default:
+        return nameRaid1;
+    }
+  }
 
-      }
-      else if(oldRosterPlayer){
-        console.log("Editing roster player "+JSON.stringify(oldRosterPlayer))
+  const deletePlayer = async (deletedPlayer: BuildPlayer, buildId: number): Promise<void> => {
+    console.log(`Deleting player ${JSON.stringify(deletedPlayer)} in raid ${buildId}`)
+    const newPlayers = getBuildPlayers(buildId).filter((player) => player.id !== deletedPlayer.id)
+    setBuild(buildId, newPlayers)
+    updateRosterStatus(deletedPlayer, roster)
+    saveCurrentBuild(newPlayers, buildId, getBuildName(buildId))
+  }
 
-        if(newPlayer.group !== oldRosterPlayer.group){
-          console.log("Moving roster player from group "+oldRosterPlayer.group+" to "+newPlayer.group+" in raid "+newPlayer.raid)
-          const otherCharacters = getOtherCharacters(newPlayer,players);
+  const addPlayer = async (addedPlayer: BuildPlayer, buildId: number): Promise<void> => {
+    console.log(`Adding player ${JSON.stringify(addedPlayer)} in raid ${buildId}`)
+    const newPlayers = [...getBuildPlayers(buildId),addedPlayer]
+    setBuild(buildId, newPlayers)
+    updateRosterStatus(addedPlayer, roster)
+    saveCurrentBuild(newPlayers, buildId, getBuildName(buildId))
+  }
+
+  const importPlayer = async (newPlayer: BuildPlayer, buildId: number): Promise<void> => {
+      // Moving to raid
+      if(typeof buildId !== "undefined"){
+        const oldPlayer = getBuildPlayers(buildId).find((player) => player.id === newPlayer.id)
+        const oldPlayerOther = getOtherBuild(buildId).find((player) => player.id === newPlayer.id)
+
+        // Moving from one raid to the other
+        if (typeof oldPlayer === "undefined" && oldPlayerOther){
+          console.log(`Moving player ${JSON.stringify(newPlayer)} from ${oldPlayerOther.raid} to ${buildId}`)
+          const otherCharacters = getOtherCharacters(newPlayer,getBuildPlayers(buildId));
 
           if(otherCharacters.length > 0){
-            console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+newPlayer.raid)
+            console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+buildId)
           }
           else{
-            playerBuild = [...playerBuild.filter((player) => player.id !== oldRosterPlayer.id),newPlayer]
-            setPlayers(playerBuild)
+            addPlayer(newPlayer, buildId)
+            deletePlayer(newPlayer, oldPlayerOther.raid)
           }
         }
-      }
-      else{
-        console.log("Adding player "+JSON.stringify(newPlayer)+" in raid "+newPlayer.raid)
-
-        const otherCharacters = getOtherCharacters(newPlayer, players);
-
-        if(otherCharacters.length > 0){
-          console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+newPlayer.raid)
-        }
         else{
-          playerBuild = [...playerBuild,newPlayer]
-          setPlayers(playerBuild)
+          const oldRosterPlayer = roster.find((player) => player.id === newPlayer.id)
+          let playerBuild = getBuildPlayers(buildId);
+          if(oldPlayer){
+            console.log("Editing player "+JSON.stringify(oldPlayer))
+
+            if(newPlayer.group !== oldPlayer.group){
+              console.log("Moving player from group "+oldPlayer.group+" to "+newPlayer.group+" in raid "+ buildId)
+            }
+            newPlayer.raid = buildId
+
+            if(newPlayer.group !== 'roster'){
+              playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id),newPlayer]
+
+            }
+            else{
+              playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id)]
+            }
+            setBuild(buildId, playerBuild)
+          }
+          else if(oldRosterPlayer){
+            console.log("Editing roster player "+JSON.stringify(oldRosterPlayer))
+
+            if (getOtherBuild(buildId).find((otherBuildPlayer) => otherBuildPlayer.id === oldRosterPlayer.id) && newPlayer.group !== "roster"){
+              console.log("This character is already set in the other raid " + JSON.stringify(getOtherBuild(buildId)))
+            }
+            else{
+              if(newPlayer.group !== oldRosterPlayer.group){
+                console.log("Moving roster player from group "+oldRosterPlayer.group+" to "+newPlayer.group+" in raid "+ buildId)
+                const otherCharacters = getOtherCharacters(newPlayer,getBuildPlayers(buildId));
+
+                if(otherCharacters.length > 0){
+                  console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+buildId)
+                }
+                else{
+                  newPlayer.raid = buildId
+                  playerBuild = [...playerBuild.filter((player) => player.id !== oldRosterPlayer.id),newPlayer]
+                  setBuild(buildId, playerBuild)
+                }
+              }
+            }
+          }
+          else{
+            console.log("Adding player "+JSON.stringify(newPlayer)+" in raid "+buildId)
+
+            const otherCharacters = getOtherCharacters(newPlayer, getBuildPlayers(buildId));
+
+            if(otherCharacters.length > 0){
+              console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+buildId)
+            }
+            else{
+              newPlayer.raid = buildId
+              playerBuild = [...playerBuild,newPlayer]
+              setBuild(buildId, playerBuild)
+            }
+          }
+          updateRosterStatus(newPlayer, roster)
+          saveCurrentBuild(playerBuild, buildId, getBuildName(buildId))
         }
       }
-      updateRosterStatus(newPlayer, roster)
-      saveCurrentBuild(playerBuild, name === "Current Build"? "Current Build": name)
+      // Moving from raid to roster
+      else{
+        console.log(`Moving player ${JSON.stringify(newPlayer)} to roster`)
+        deletePlayer(newPlayer, newPlayer.raid)
+      }
   };
 
   const getOtherCharacters = (player: BuildPlayer, players: BuildPlayer[]): BuildPlayer[] => {
     return players.filter((otherPlayer) => {
       return (otherPlayer.main === player.name || otherPlayer.name === player.main || otherPlayer.main === player.main) &&
-      otherPlayer.id !== player.id
+      otherPlayer.id !== player.id && (otherPlayer.main?.length?? 0 > 0) && (player.main?.length?? 0 > 0)
     })
   }
 
@@ -151,25 +249,21 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     for (const rosterPlayer of roster) {
       if(rosterPlayer.id === player.id){
         if(player.group === "roster"){
-          console.log("Updating status of "+JSON.stringify(rosterPlayer)+" to unknown");
           rosterPlayer.status = InviteStatus.Unknown;
-          const otherCharacters = getOtherCharacters(player, roster);
-          for(const otherCharacter of otherCharacters){
-            console.log("Updating status of "+JSON.stringify(otherCharacter)+" to unknown");
-            otherCharacter.status = InviteStatus.Unknown;
-          }
         }
         else if(player.group === "bench"){
-          console.log("Updating status of "+JSON.stringify(rosterPlayer)+" to benched");
           rosterPlayer.status = InviteStatus.Benched;
         }
         else{
-          console.log("Updating status of "+JSON.stringify(rosterPlayer)+" to accepted");
           rosterPlayer.status = InviteStatus.Accepted;
           const otherCharacters = getOtherCharacters(player, roster);
-          for(const otherCharacter of otherCharacters){
-            console.log("Updating status of "+JSON.stringify(otherCharacter)+" to declined");
-            otherCharacter.status = InviteStatus.Declined;
+          if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
+            console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
+            for(const otherCharacter of otherCharacters){
+              if(otherCharacter.status !== InviteStatus.Accepted){
+                otherCharacter.status = InviteStatus.Declined;
+              }
+            }
           }
         }
       }
@@ -177,9 +271,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return roster;
   }
 
-  const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildName?: string) => {
+  const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildId: number, buildName?: string, ) => {
     const connectionString = CONNECTION_STRING;
-    connectionString.build = buildName?? "Current Build";
+    connectionString.build = buildName?? `Current Build-${buildId}`;
     BuildHelper.parseSqlBuildSave(connectionString, playerBuild);
   }
 
@@ -191,10 +285,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     BuildHelper.parseSqlRosterDeletePlayers(CONNECTION_STRING, playerBuild);
   }
 
-  const getCurrentBuild = () => {
+  const getCurrentBuild = (buildId: number) => {
     return {
-      name: name ?? common("build.unnamed"),
-      players,
+      name: getBuildName(buildId) ?? common("build.unnamed"),
+      players: getBuildPlayers(buildId),
     } as Build;
   };
 
@@ -205,17 +299,17 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     } as Build;
   };
 
-  const saveBuild = async () => {
-    saveCurrentBuild(getCurrentBuild().players, name);
+  const saveBuild = async (buildId: number) => {
+    saveCurrentBuild(getCurrentBuild(buildId).players, buildId, getBuildName(buildId));
   };
 
-  const resetBuild = async () => {
+  const resetBuild = async (buildId: number) => {
     const connectionString = CONNECTION_STRING;
-    const currentBuild = localStorage.getItem('LastBuild')?? "Current Build"
+    const currentBuild = localStorage.getItem(`LastBuild-${buildId}`)?? `Current Build-${buildId}`
     connectionString.build = currentBuild;
-    setName(currentBuild);
-    setPlayers([]);
-    await saveCurrentBuild([], currentBuild).then(() => {
+    setBuildName(currentBuild, buildId);
+    setBuild(buildId, [])
+    await saveCurrentBuild([], buildId, currentBuild).then(() => {
       BuildHelper.parseSqlDelete(connectionString)
     });
   };
@@ -230,11 +324,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   };
 
-  const loadBuildSql = async(build: string): Promise<void> => {
+  const loadBuildSql = async(build: string, buildId: number): Promise<void> => {
     const connectionString = CONNECTION_STRING;
     connectionString.build = build;
     BuildHelper.parseSqlLoad(connectionString).then((build) => {
-      loadBuild(build);
+      loadBuild(build, buildId);
     }
     )
   }
@@ -243,18 +337,15 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setRoster([...newRoster]);
   };
 
-  const loadBuild = async (newPlayers: BuildPlayer[]): Promise<void> => {
-    setPlayers([...newPlayers]);
+  const loadBuild = async (newPlayers: BuildPlayer[], buildId: number): Promise<void> => {
+    newPlayers.forEach((player)=> player.raid = buildId)
+    setBuild(buildId, newPlayers)
 
     for(const player of roster){
       const playerInGroup = newPlayers.find((newPlayer) => newPlayer.id === player.id)
       if(playerInGroup){
         updateRosterStatus(playerInGroup, roster);
       }
-      else{
-        player.status = InviteStatus.Unknown;
-      }
-
     }
   };
 
@@ -269,32 +360,31 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setRoster([...roster].sort(sortFunctions[e.target.value]))
   };
 
-  const handleSelectBuild = (id: Number) => (build: SelectOption) => {
-    console.log("ID: "+id)
+  const handleSelectBuild = (buildId: number) => (build: SelectOption) => {
     console.log("Setting build to "+JSON.stringify(build.value))
-    setName(build.value);
-    localStorage.setItem( 'LastBuild', build.value)
+    setBuildName(build.value, buildId);
+    localStorage.setItem( `LastBuild-${buildId}`, build.value)
 
-    loadBuildSql(build.value)
+    loadBuildSql(build.value, buildId)
   };
 
-  const addBuild = (build: string) => {
+  const addBuild = (build: string, buildId: number) => {
     console.log("Adding build "+JSON.stringify(build))
     const newBuild = {value:build,label:build}
     setBuilds([...builds, newBuild])
-    setPlayers([])
+    setBuild(buildId, [])
 
-    handleSelectBuild(0)(newBuild)
-    saveCurrentBuild([], build)
+    handleSelectBuild(buildId)(newBuild)
+    saveCurrentBuild([], buildId, build)
   };
 
-  const deleteBuild = (build: string) => {
+  const deleteBuild = (build: string, buildId: number) => {
     console.log("Deleting build "+JSON.stringify(build))
     const deletedBuild = {value:build,label:build}
     const newBuilds = [...builds.filter((build) => build.value !== deletedBuild.value)]
-    setPlayers([])
+    setBuild(buildId, [])
 
-    handleSelectBuild(0)(newBuilds[0])
+    handleSelectBuild(buildId)(newBuilds[0])
 
     const connectionString = CONNECTION_STRING;
     connectionString.build = deletedBuild.value;
@@ -311,33 +401,44 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   useEffect(() => {
-    const lastBuild = localStorage.getItem( 'LastBuild')?? 'Current Build';
-    if (lastBuild) {
+    const build0 = localStorage.getItem( 'LastBuild-0')?? 'Current Build-0';
+    const build1 = localStorage.getItem( 'LastBuild-1')?? 'Current Build-1';
+    const connectionString = CONNECTION_STRING;
 
-      const connectionString = CONNECTION_STRING;
-      connectionString.build = lastBuild;
-      BuildHelper.parseSqlLoad(CONNECTION_STRING).then((build) => {
-          setName(lastBuild);
-          loadBuild(build).then(() => {
-            BuildHelper.parseSqlImport(CONNECTION_STRING).then((roster) => {
-                loadRoster(roster).then(() => {
-                  for(const player of build){
-                    updateRosterStatus(player, roster)
-                  }
-                });
+    BuildHelper.parseSqlImport(connectionString).then((roster) => {
+      loadRoster(roster).then(() => {
+        connectionString.build = build0;
+        BuildHelper.parseSqlLoad(connectionString).then((build) => {
+          setBuildName(build0,0);
+          loadBuild(build,0).then(() => {
+            for(const player of build){
+              updateRosterStatus(player, roster)
+            }
+          })
+        }).catch(handleError);
+
+        connectionString.build = build1;
+        BuildHelper.parseSqlLoad(connectionString).then((build) => {
+            setBuildName(build1,1);
+            loadBuild(build,1).then(() => {
+              for(const player of build){
+                updateRosterStatus(player, roster)
+              }
             })
-          });
-      }).catch(handleError);
-      BuildHelper.parseBuildsLoad(CONNECTION_STRING).then((loadedBuilds) => {
-        const buildObject: SelectOption[] = [];
-        for(const build of loadedBuilds){
-          buildObject.push({"value": build, "label":build})
-        }
-        setBuilds(buildObject)
+        }).catch(handleError);
       })
-      setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm");
-      setIsLoading(false);
-    }
+    })
+
+    BuildHelper.parseBuildsLoad(connectionString).then((loadedBuilds) => {
+      const buildObject: SelectOption[] = [];
+      for(const build of loadedBuilds){
+        buildObject.push({"value": build, "label":build})
+      }
+      setBuilds(buildObject)
+    })
+    setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm");
+    setIsLoading(false);
+
   }, [handleError]);
 
   if (isLoading) {
@@ -345,7 +446,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ maxHeight: "65%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
@@ -353,7 +454,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             <Roster manager={manager} build={getCurrentRoster()} editing />
         </Box>
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
-          <Raid manager={manager} id={0} raidBuild={getCurrentBuild()} builds={builds} version={version} editing ></Raid>
+          <Raid manager={manager} id={0} raidBuild={getCurrentBuild(0)} builds={builds} version={version} editing ></Raid>
+          <Raid manager={manager} id={1} raidBuild={getCurrentBuild(1)} builds={builds} version={version} editing ></Raid>
           <Box display={"flex"} justifyContent={"center"}>
             <Button style={{height: '100px', width : '219px', marginTop:'50px', marginBottom:'50px'}} key={UUID()} onClick={handleChangeVersion}>
               <Tooltip title={common(`version.${version}`)}>

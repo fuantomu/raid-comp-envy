@@ -19,7 +19,7 @@ export interface CompositionRoleProps {
   players: BuildPlayer[];
   spread?: boolean;
   editing?: boolean;
-  raid: Number;
+  raid: number;
 }
 
 const CompositionRole: FC<CompositionRoleProps> = ({
@@ -33,7 +33,7 @@ const CompositionRole: FC<CompositionRoleProps> = ({
   const [common] = useTranslation("common");
   const styles = useStyles(spread);
 
-  const buildRolePlayers = (players: BuildPlayer[], raid: Number) => {
+  const buildRolePlayers = (players: BuildPlayer[], raid: number) => {
     return players.map((player) => (
       <Player
         key={UUID()}
