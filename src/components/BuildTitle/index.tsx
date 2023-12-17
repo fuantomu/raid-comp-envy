@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import { ActionMeta } from 'react-select';
 import Select from 'react-select';
 import { SelectOption } from "../../types";
+import { useAppContext } from "../App/context";
 
 
 export interface BuildTitleProps {
@@ -11,15 +12,22 @@ export interface BuildTitleProps {
   options: SelectOption[];
   selected: SelectOption;
   title: string;
+  buildId: number;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title }) => {
+const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
+  const context = useAppContext();
 
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
-    setSelectedOption(newValue);
-    if (newValue.value !== title) {
-      onChange(newValue);
+    if(context?.getOtherBuildName(buildId) === newValue.value){
+      console.log("This build is already set in another raid")
+    }
+    else{
+      setSelectedOption(newValue);
+      if (newValue.value !== title) {
+        onChange(newValue);
+      }
     }
   };
 

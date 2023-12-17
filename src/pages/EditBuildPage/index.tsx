@@ -94,6 +94,15 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   }
 
+  const getOtherBuildName = (buildId: number) => {
+    switch (buildId) {
+      case 1:
+        return nameRaid1;
+      default:
+        return nameRaid2;
+    }
+  }
+
   const setBuildName = (newName:string, buildId: number) => {
     switch (buildId) {
       case 1:
@@ -562,7 +571,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, getOtherBuildName }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>

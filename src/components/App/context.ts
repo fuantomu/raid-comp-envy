@@ -10,6 +10,7 @@ type AppContextApi = {
   loadBuildSql: (build: string, buildId: number) => Promise<void>;
   resetBuild: (buildId: number) => Promise<void>;
   getCurrentBuild: (buildId: number) => Build;
+  getOtherBuildName: (buildId: number) => string;
   getCurrentRoster: () => Build;
   setRosterExpanded: (state: boolean) => void;
   getRosterExpanded: () => boolean;

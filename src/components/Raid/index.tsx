@@ -64,6 +64,7 @@ const Raid: FC<RaidProps> = ({
                   options={context?.getBuilds()??[]}
                   selected={builds.filter((build) => build.label === raidBuild.name)[0]}
                   title={raidBuild.name}
+                  buildId={id}
                 />
                 <BuildRolesCount key={UUID()} build={raidBuild} />
                 <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>

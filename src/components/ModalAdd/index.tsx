@@ -125,7 +125,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
       oldName,
       main: mainCharacter.current?.value?? main,
     }
-
+    console.log(`buildId: ${buildId} - raid: ${raid}`)
     if(remove){
       context?.deletePlayer(playerInfo, buildId?? raid);
     }
