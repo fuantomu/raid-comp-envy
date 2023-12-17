@@ -21,7 +21,7 @@ import wotlk from "../../icons/WrathLogo.webp";
 import { createDragDropManager } from 'dnd-core'
 import Raid from "../../components/Raid";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import ModalPostDiscord from "../../components/ModalPostDiscord";
 
 export interface EditBuildPageProps {}
 
@@ -449,11 +449,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return rosterExpanded;
   };
 
-  const handlePostDiscord = (buildId: number) => {
-    console.log("Post Setup to discord")
-    BuildHelper.parsePostSetup(getBuildPlayers(buildId))
-  };
-
   const getPlayerAbsence = (player: string) => {
     return absence.filter((absentPlayer) => absentPlayer.player.name === player || absentPlayer.player.main === player)
   }
@@ -576,22 +571,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         </Box>
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
           <Raid manager={manager} id={0} raidBuild={getCurrentBuild(0)} builds={builds} version={version} editing ></Raid>
-          <Box display={"grid"} justifyContent={"center"}>
-            <Tooltip title={common("cta.postDiscord")} placement="top" arrow>
-              <Button color="info" variant="contained" size="large" style={{height: '30px', width: '130px'}} onClick={() => handlePostDiscord(0)}>
-                <SportsEsportsIcon />
-              </Button>
-            </Tooltip>
-          </Box>
+          <ModalPostDiscord buildId={0}></ModalPostDiscord>
           <br></br>
           <Raid manager={manager} id={1} raidBuild={getCurrentBuild(1)} builds={builds} version={version} editing ></Raid>
-          <Box display={"grid"} justifyContent={"center"}>
-            <Tooltip title={common("cta.postDiscord")} placement="top" arrow>
-              <Button color="info" variant="contained" size="large" style={{height: '30px', width: '130px'}} onClick={() => handlePostDiscord(1)}>
-                <SportsEsportsIcon />
-              </Button>
-            </Tooltip>
-          </Box>
+          <ModalPostDiscord buildId={1}></ModalPostDiscord>
           <br></br>
 
           <Box display={"flex"} justifyContent={"center"}>

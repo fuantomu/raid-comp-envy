@@ -220,14 +220,47 @@ export abstract class BuildHelper {
     return builds;
   }
 
-  public static async parsePostSetup(build : BuildPlayer[]) {
-    //TODO: Fix format
+  public static async parsePostSetup(build : Build, sheetUrl: string) {
+    //@Crenox
     const data = {
-      "content": JSON.stringify(build),
-      "username": "Test",
+      "content": "<@&840957996304826378> Raidsheet Aktualisierung " + new Date().toLocaleString('de-de'),
       "embeds": [{
-        "description": "TestDescription",
-        "title": "TestTitle"
+        "description": "",
+        "title": build.name,
+        "color": null,
+        "url": sheetUrl,
+        "fields": [
+          {
+              "name": "Group 1",
+              "value": build.players.filter(o => o.group as String === "1").map(p => BuildHelper.getClassEmoji(p.class) + " " + p.name).join("\r\n"),
+              "inline": true
+          },
+          {
+              "name": "Group 2",
+              "value": build.players.filter(o => o.group as String === "2").map(p => BuildHelper.getClassEmoji(p.class) + " " + p.name).join("\r\n"),
+              "inline": true
+          },
+          {
+              "name": "Group 3",
+              "value": build.players.filter(o => o.group as String === "3").map(p => BuildHelper.getClassEmoji(p.class) + " " + p.name).join("\r\n"),
+              "inline": true
+          },
+          {
+              "name": "Group 4",
+              "value": build.players.filter(o => o.group as String === "4").map(p => BuildHelper.getClassEmoji(p.class) + " " + p.name).join("\r\n"),
+              "inline": true
+          },
+          {
+              "name": "Group 5",
+              "value": build.players.filter(o => o.group as String === "5").map(p => BuildHelper.getClassEmoji(p.class) + " " + p.name).join("\r\n"),
+              "inline": true
+          },
+          {
+              "name": "Bench",
+              "value": build.players.filter(o => o.group as String === "bench").map(p => BuildHelper.getClassEmoji(p.class) + " " + p.name).join("\r\n"),
+              "inline": true
+          }
+        ]
       }]
     }
     await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
@@ -254,5 +287,30 @@ export abstract class BuildHelper {
 
   private static capitalize(str: string){
     return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  private static getClassEmoji(className: WarcraftPlayerClass){
+    switch(className){
+      case WarcraftPlayerClass.Warrior:
+        return "<:wowwarrior:1067068357964210206>"
+      case WarcraftPlayerClass.Deathknight:
+        return "<:wowdeathknight:1067068240326578206>"
+      case WarcraftPlayerClass.Shaman:
+        return "<:wowshaman:1067068361961394277>"
+      case WarcraftPlayerClass.Mage:
+        return "<:wowmage:1067068319846387753>"
+      case WarcraftPlayerClass.Hunter:
+        return "<:wowhunter:1067068309050245120>"
+      case WarcraftPlayerClass.Warlock:
+        return "<:wowwarlock:1067068363290968116>"
+      case WarcraftPlayerClass.Paladin:
+        return "<:wowpaladin:1067068329833005137>"
+      case WarcraftPlayerClass.Priest:
+        return "<:wowpriest:1067068342298476604>"
+      case WarcraftPlayerClass.Druid:
+        return "<:wowdruid:1067068296551202927>"
+      case WarcraftPlayerClass.Rogue:
+        return "<:wowrogue:1067068360396914698>"
+    }
   }
 }
