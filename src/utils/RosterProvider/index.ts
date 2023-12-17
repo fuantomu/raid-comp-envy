@@ -46,4 +46,8 @@ export abstract class RosterProvider {
       return builds.builds
     })
   }
+
+  public static async postSetup(build: string) : Promise<Response>{
+    return await fetch(`${process.env.REACT_APP_DISCORD_WEBHOOK}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: build}).then((response) => {return response})
+  }
 }

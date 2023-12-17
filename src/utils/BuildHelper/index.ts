@@ -220,6 +220,20 @@ export abstract class BuildHelper {
     return builds;
   }
 
+  public static async parsePostSetup(build : BuildPlayer[]) {
+    //TODO: Fix format
+    const data = {
+      "content": JSON.stringify(build),
+      "username": "Test",
+      "embeds": [{
+        "description": "TestDescription",
+        "title": "TestTitle"
+      }]
+    }
+    await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
+    })
+  }
+
   public static humanReadableURL(name: string) {
     return name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-");
   }
