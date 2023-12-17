@@ -7,5 +7,5 @@ import jakarta.validation.constraints.NotBlank;
 @Serdeable
 @Introspected
 public record LoadAbsenceDto(@NotBlank String server, @NotBlank String port, @NotBlank String database,
-    @NotBlank String uid, @NotBlank String password, @NotBlank String table, @NotBlank String name) {
+    @NotBlank String uid, @NotBlank String password, @NotBlank String table, String name) {
 }

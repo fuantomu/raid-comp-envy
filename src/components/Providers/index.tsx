@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import { FC, PropsWithChildren, StrictMode, Suspense } from "react";
+import { FC, PropsWithChildren, Suspense } from "react";
 import useTheme from "../../utils/useTheme";
 import GlobalStyles from "../GlobalStyles";
 

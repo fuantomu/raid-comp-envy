@@ -68,3 +68,10 @@ export type SelectOption = {
   value: string;
   label: string;
 };
+
+export type Absence = {
+  player: BuildPlayer;
+  startDate: number;
+  endDate: number;
+  reason?: string;
+};

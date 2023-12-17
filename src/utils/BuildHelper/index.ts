@@ -234,6 +234,20 @@ export abstract class BuildHelper {
     })
   }
 
+  public static async parseAbsenceLoad(connectionString : ConnectionString) {
+    connectionString.table = 'AbsenceEntity'
+    const absences : any[] = []
+
+    await RosterProvider.loadAbsence(JSON.stringify(connectionString)).then((response) => {
+      if(response){
+        for (const absence of response){
+          absences.push(absence)
+        }
+      }
+    })
+    return absences;
+  }
+
   public static humanReadableURL(name: string) {
     return name.substr(0, 50).toLowerCase().replace(/[^\w]/g, "-");
   }

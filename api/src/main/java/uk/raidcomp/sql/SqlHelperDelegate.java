@@ -256,13 +256,19 @@ public class SqlHelperDelegate {
       Class.forName("com.mysql.cj.jdbc.Driver");
       Connection connection = DriverManager.getConnection(getConnectionString(connectionString), connectionString.uid(),
           connectionString.password());
-      String query = "SELECT * from `" + connectionString.table() + "` WHERE name = '" + connectionString.name() + "'";
+      String query;
+      if (connectionString.name() == null) {
+        query = "SELECT * from `" + connectionString.table() + "`";
+      } else {
+        query = "SELECT * from `" + connectionString.table() + "` WHERE name = '" + connectionString.name() + "'";
+      }
+
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
 
       while (result.next()) {
         AbsenceDto p = new AbsenceDto(result.getString("id"), result.getString("name"), result.getLong("startDate"),
-            result.getLong("endDate"));
+            result.getLong("endDate"), result.getString("reason"));
         absence.add(p);
       }
 

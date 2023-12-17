@@ -58,7 +58,7 @@ const Player: FC<PlayerProps> = (props) => {
         <Typography css={styles.name} title={fullName}>
           {fullName}
         </Typography>
-        <AttendanceIcon status={status} />
+        <AttendanceIcon status={status} absence={context?.getPlayerAbsence(name)} />
 
         {alts.length > 0? (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible);}}>
           {(!visible && !rosterVisible)? (<ArrowLeft></ArrowLeft>): (<ArrowDropDown></ArrowDropDown>)}

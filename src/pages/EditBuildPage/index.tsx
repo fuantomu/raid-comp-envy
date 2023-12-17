@@ -7,7 +7,7 @@ import { AppContextProvider } from "../../components/App/context";
 import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
 import Roster from "../../components/Roster";
-import { Build, BuildPlayer, SelectOption} from "../../types";
+import { Absence, Build, BuildPlayer, SelectOption} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
@@ -39,6 +39,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [builds, setBuilds] = useState<SelectOption[]>([]);
   const [version, setVersion] = useState("Cataclysm");
   const [rosterExpanded, setRosterExpanded] = useState(false)
+  const [absence, setAbsence] = useState<Absence[]>([])
   const manager = createDragDropManager(HTML5Backend)
 
   const _ = require('lodash');
@@ -249,45 +250,64 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     deleteFromRoster([removedPlayer]);
   }
 
+  const isPlayerAbsent = (player: BuildPlayer) : boolean => {
+    const currentDate = new Date().getTime()
+    for(const absentPlayer of absence){
+      if(absentPlayer.player.name === player.name || absentPlayer.player.name === player.main){
+        if(absentPlayer.startDate <= currentDate && absentPlayer.endDate > currentDate){
+          return true;
+        }
+        return false;
+      }
+    }
+    return false;
+  }
+
   const updateRosterStatus = async (player: BuildPlayer, roster: BuildPlayer[], statusOverride?: InviteStatus) : Promise<BuildPlayer[]> => {
     for (const rosterPlayer of roster) {
-      if(rosterPlayer.id === player.id){
-        if(typeof statusOverride !== "undefined"){
-          rosterPlayer.status = statusOverride
-          const otherCharacters = getOtherCharacters(player, roster);
-          if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length >= 1){
-            for(const otherCharacter of otherCharacters){
-              if(otherCharacter.status === InviteStatus.Declined){
-                  otherCharacter.status = InviteStatus.Unknown;
-              }
-            }
-          }
-        }
-        else{
-          if(player.group === "roster"){
-            rosterPlayer.status = InviteStatus.Unknown;
-          }
-          else if(player.group === "bench"){
-            rosterPlayer.status = InviteStatus.Benched;
-          }
-          else if(player.group){
-            rosterPlayer.status = InviteStatus.Accepted;
+      if(isPlayerAbsent(rosterPlayer)){
+        rosterPlayer.status = InviteStatus.Tentative
+      }
+      else{
+        if(rosterPlayer.id === player.id){
+          if(typeof statusOverride !== "undefined"){
+            rosterPlayer.status = statusOverride
             const otherCharacters = getOtherCharacters(player, roster);
-            if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
-              console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
+            if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length >= 1){
               for(const otherCharacter of otherCharacters){
-                if(otherCharacter.status !== InviteStatus.Accepted){
-                  otherCharacter.status = InviteStatus.Declined;
+                if(otherCharacter.status === InviteStatus.Declined){
+                    otherCharacter.status = InviteStatus.Unknown;
                 }
               }
             }
           }
           else{
-            rosterPlayer.status = InviteStatus.Unknown
+            if(player.group === "roster"){
+              rosterPlayer.status = InviteStatus.Unknown;
+            }
+            else if(player.group === "bench"){
+              rosterPlayer.status = InviteStatus.Benched;
+            }
+            else if(player.group){
+              rosterPlayer.status = InviteStatus.Accepted;
+              const otherCharacters = getOtherCharacters(player, roster);
+              if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
+                console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
+                for(const otherCharacter of otherCharacters){
+                  if(otherCharacter.status !== InviteStatus.Accepted){
+                    otherCharacter.status = InviteStatus.Declined;
+                  }
+                }
+              }
+            }
+            else{
+              rosterPlayer.status = InviteStatus.Unknown
+            }
           }
+          break;
         }
-        break;
       }
+
     }
     return roster;
   }
@@ -434,6 +454,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     BuildHelper.parsePostSetup(getBuildPlayers(buildId))
   };
 
+  const getPlayerAbsence = (player: string) => {
+    return absence.filter((absentPlayer) => absentPlayer.player.name === player || absentPlayer.player.main === player)
+  }
+
   useEffect(() => {
     const connectionString = CONNECTION_STRING;
     if (isLoading){
@@ -461,6 +485,17 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
                 }
               })
           }).catch(handleError);
+
+          BuildHelper.parseAbsenceLoad(connectionString).then((loadedAbsences) => {
+            const absenceObject: Absence[] = [];
+            for(const absence of loadedAbsences){
+              const rosterPlayer = roster.find((player) => player.name === absence.name)
+              if(rosterPlayer){
+                absenceObject.push({player:rosterPlayer, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
+              }
+            }
+            setAbsence(absenceObject)
+          })
         })
       })
 
@@ -471,6 +506,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         }
         setBuilds(buildObject)
       })
+
       setVersion(localStorage.getItem( 'LastVersion')?? "Cataclysm");
       setIsLoading(false);
     }
@@ -524,14 +560,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [handleError,roster,playersRaid,playersRaid2]);
+  }, [handleError,roster,playersRaid,playersRaid2,absence]);
 
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, saveBuild, resetBuild, getCurrentBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>

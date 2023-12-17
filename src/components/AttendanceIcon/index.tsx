@@ -11,12 +11,15 @@ import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import { css } from "@emotion/react";
 import useTheme from "../../utils/useTheme";
 import { useTranslation } from "react-i18next";
+import { Absence } from "../../types";
+import { Typography } from "@mui/material";
 
 export interface AttendanceIconProps {
   status: InviteStatus;
+  absence?: Absence[];
 }
 
-const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
+const AttendanceIcon: FC<AttendanceIconProps> = ({ status, absence }) => {
   const [common] = useTranslation("common");
   const { palette } = useTheme();
 
@@ -32,9 +35,20 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status }) => {
       );
 
     case InviteStatus.Tentative:
+      let absentString = "Absent from:\n"
+      if(absence){
+        const currentDate = new Date().getTime();
+        const absentDates = absence.filter((absentTime) => absentTime.endDate >= currentDate)
+        for(const absentDate of absentDates){
+          absentString += `${new Date(absentDate.startDate).toLocaleDateString()} to ${new Date(absentDate.endDate).toLocaleDateString()}. Reason: ${absentDate.reason}\n`
+        }
+      }
       return (
         <CalendarTodayIcon
-          titleAccess={common(`status.${status}`)}
+          titleAccess={absence?
+            absentString:
+            common(`status.${status}`)
+          }
           css={css`
             color: ${palette.warning.main};
           `}

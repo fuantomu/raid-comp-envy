@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { Build, BuildPlayer, SelectOption } from "../../types";
+import { Absence, Build, BuildPlayer, SelectOption } from "../../types";
 
 type AppContextApi = {
   importPlayer: (player: BuildPlayer, buildId: number) => Promise<void>;
@@ -21,6 +21,7 @@ type AppContextApi = {
   getBuilds: () => SelectOption[];
   addBuild: (title: string, buildId: number) => void;
   deleteBuild: (title: string, buildId: number) => void;
+  getPlayerAbsence: (player: string) => Absence[];
 };
 
 const AppContext = createContext<AppContextApi | null>(null);
