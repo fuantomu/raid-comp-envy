@@ -5,12 +5,10 @@ import useTheme from "../../utils/useTheme";
 import GlobalStyles from "../GlobalStyles";
 
 const Providers: FC<PropsWithChildren<{}>> = ({ children }) => (
-  <StrictMode>
-    <Suspense fallback={null}>
-      <GlobalStyles />
-      <ThemeProvider theme={useTheme()}>{children}</ThemeProvider>
-    </Suspense>
-  </StrictMode>
+  <Suspense fallback={null}>
+    <GlobalStyles />
+    <ThemeProvider theme={useTheme()}>{children}</ThemeProvider>
+  </Suspense>
 );
 
 export default Providers;
