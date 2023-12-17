@@ -50,6 +50,3 @@ flyway:
       enabled: true
       baseline-on-migrate: true
       locations: classpath:db/migration
-
-wowaudit:
-  keys: ${WOWAUDIT_API_KEY}
