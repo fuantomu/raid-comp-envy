@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
 import { DragItemTypes } from "../../consts";
@@ -33,7 +33,6 @@ const RosterGroup: FC<RosterGroupProps> = ({
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
   const context = useAppContext();
-  const [rosterVisible, setRosterVisible] = useState(false);
 
   const [, drop] = useDrop(
     () => ({
