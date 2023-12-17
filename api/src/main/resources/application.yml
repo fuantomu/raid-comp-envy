@@ -9,12 +9,15 @@ micronaut:
           allowedOrigins:
             - http://localhost
             - http://localhost:3000
+            - http://localhost:4200
             - http://localhost:8080
             - http://lasthope.eu
             - http://lasthope.eu:3000
+            - http://lasthope.eu:4200
             - http://lasthope.eu:8080
             - http://88.99.210.51
             - http://88.99.210.51:3000
+            - http://88.99.210.51:4200
             - http://88.99.210.51:8080
           allowedHeaders:
                   - Content-Type
