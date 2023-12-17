@@ -266,5 +266,10 @@
   "version": {
     "Cataclysm": "Switch to Wrath of the Lich King",
     "Wotlk": "Switch to Cataclysm"
+  },
+  "discord":{
+    "send": "Send setup to Discord",
+    "url": "Set link to sheet",
+    "post": "Post setup"
   }
 }
