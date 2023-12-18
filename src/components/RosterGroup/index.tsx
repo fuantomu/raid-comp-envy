@@ -63,7 +63,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
   }
 
   return (
-    <Card>
+    <Card ref={drop}>
       <CardContent>
         <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 100px 1fr"}>
         <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
