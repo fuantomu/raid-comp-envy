@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
-import { DragItemTypes, InviteStatus } from "../../consts";
+import { DragItemTypes } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
@@ -46,7 +46,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             spec: player.spec,
             race: player.race,
             raid,
-            status: InviteStatus.Unknown,
+            status: player.status,
             group: groupId as GroupId,
             realm: player.realm,
             oldName: player.oldName,

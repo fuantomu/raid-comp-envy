@@ -125,6 +125,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const deletePlayer = async (deletedPlayer: BuildPlayer, buildId: number): Promise<void> => {
     console.log(`Deleting player ${JSON.stringify(deletedPlayer)} in raid ${buildId}`)
+    deletedPlayer.raid = -1
+    deletedPlayer.group = undefined
     const newPlayers = getBuildPlayers(buildId).filter((player) => player.id !== deletedPlayer.id)
     setBuild(buildId, newPlayers)
     updateRosterStatus(deletedPlayer, roster)
@@ -134,6 +136,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const addPlayer = async (addedPlayer: BuildPlayer, buildId: number): Promise<void> => {
     console.log(`Adding player ${JSON.stringify(addedPlayer)} in raid ${buildId}`)
     addedPlayer.raid = buildId
+    addedPlayer.status = InviteStatus.Unknown
     const newPlayers = [...getBuildPlayers(buildId),addedPlayer]
     setBuild(buildId, newPlayers)
     updateRosterStatus(addedPlayer, roster)
@@ -141,8 +144,14 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   const importPlayer = async (newPlayer: BuildPlayer, buildId: number): Promise<void> => {
+      if(newPlayer.status === InviteStatus.Tentative){
+        console.log("Player is absent and cannot participate in the raid")
+        return
+      }
+
       // Moving to raid
       if(typeof buildId !== "undefined"){
+
         const oldPlayer = getBuildPlayers(buildId).find((player) => player.id === newPlayer.id)
         const oldPlayerOther = getOtherBuild(buildId).find((player) => player.id === newPlayer.id)
 
@@ -153,11 +162,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
           if(otherCharacters.length > 0){
             console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+buildId)
+            return
           }
-          else{
-            addPlayer(newPlayer, buildId)
-            deletePlayer(newPlayer, oldPlayerOther.raid)
-          }
+
+          addPlayer(newPlayer, buildId)
+          deletePlayer(newPlayer, oldPlayerOther.raid)
         }
         else{
           const oldRosterPlayer = roster.find((player) => player.id === newPlayer.id)
@@ -273,53 +282,59 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return false;
   }
 
-  const updateRosterStatus = async (player: BuildPlayer, roster: BuildPlayer[], statusOverride?: InviteStatus) : Promise<BuildPlayer[]> => {
-    for (const rosterPlayer of roster) {
+  const updateRosterStatus = async (player: BuildPlayer, roster: BuildPlayer[], statusOverride?: InviteStatus) => {
+    const rosterPlayer = roster.find((p) => p.id === player.id)
+    if(rosterPlayer){
+      console.log(rosterPlayer)
+      console.log(player)
       if(isPlayerAbsent(rosterPlayer)){
         rosterPlayer.status = InviteStatus.Tentative
+        return
       }
-      else{
-        if(rosterPlayer.id === player.id){
-          if(typeof statusOverride !== "undefined"){
-            rosterPlayer.status = statusOverride
-            const otherCharacters = getOtherCharacters(player, roster);
-            if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length >= 1){
-              for(const otherCharacter of otherCharacters){
-                if(otherCharacter.status === InviteStatus.Declined){
-                    otherCharacter.status = InviteStatus.Unknown;
-                }
-              }
+      console.log("Player not absent")
+
+      if(typeof statusOverride !== "undefined"){
+        rosterPlayer.status = statusOverride
+        const otherCharacters = getOtherCharacters(player, roster);
+        if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length >= 1){
+          for(const otherCharacter of otherCharacters){
+            if(otherCharacter.status === InviteStatus.Declined){
+                otherCharacter.status = InviteStatus.Unknown;
             }
           }
-          else{
-            if(player.group === "roster"){
-              rosterPlayer.status = InviteStatus.Unknown;
-            }
-            else if(player.group === "bench"){
-              rosterPlayer.status = InviteStatus.Benched;
-            }
-            else if(player.group){
-              rosterPlayer.status = InviteStatus.Accepted;
-              const otherCharacters = getOtherCharacters(player, roster);
-              if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
-                console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
-                for(const otherCharacter of otherCharacters){
-                  if(otherCharacter.status !== InviteStatus.Accepted){
-                    otherCharacter.status = InviteStatus.Declined;
-                  }
-                }
-              }
-            }
-            else{
-              rosterPlayer.status = InviteStatus.Unknown
-            }
-          }
-          break;
         }
+        return
+      }
+      console.log("No override")
+
+      if(player.group === "roster"){
+        rosterPlayer.status = InviteStatus.Unknown;
+        return
+      }
+      console.log("Not roster")
+
+      if(player.group === "bench" && player.raid !== -1){
+        rosterPlayer.status = InviteStatus.Benched;
+        return
+      }
+      console.log("Not bench")
+
+      if(player.group){
+        rosterPlayer.status = InviteStatus.Accepted;
+        const otherCharacters = getOtherCharacters(player, roster);
+        if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
+          console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
+          for(const otherCharacter of otherCharacters){
+            if(otherCharacter.status !== InviteStatus.Accepted){
+              otherCharacter.status = InviteStatus.Declined;
+            }
+          }
+        }
+        return
       }
 
+      rosterPlayer.status = InviteStatus.Unknown
     }
-    return roster;
   }
 
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildId: number, buildName?: string, ) => {

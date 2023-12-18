@@ -119,7 +119,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
       spec,
       raid: raid,
       race: raceName,
-      status: InviteStatus.Unknown,
+      status: status,
       group: groupId as GroupId,
       realm,
       oldName,
