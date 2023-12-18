@@ -28,44 +28,53 @@ Always requires a connectionstring object with the following parameters
 
 # $BASE/roster/import
 Tries to import the roster from the given table
+
 Returns:
 * players (array, list of player objects)
 
 # $BASE/roster/save
 Tries to save the given roster
+
 Parameters:
 * players (array, list of player objects)
 
 # $BASE/roster/delete
 Tries to delete players from the roster
+
 Parameters:
 * players (array, list of player objects)
 
 # $BASE/save
 Tries to save a build
+
 Parameters:
 * players (array, list of player objects)
 * build (string, name of the build)
 
 # $BASE/load
 Tries to load a build
+
 Parameters:
 * build (string, name of the build)
+
 Returns:
 * players (string, player objects)
 
 # $BASE/delete
 Tries to delete a build
+
 Parameters:
 * build (string, name of the build)
 
 # $BASE/loadAll
 Tries to load all build names
+
 Returns:
 * builds (array, list of all build names)
 
 # $BASE/absence/save
 Tries to save an absence
+
 Parameters:
 * name (string, name of the player)
 * startDate (long, start time in milliseconds from 01.01.1970)
@@ -76,5 +85,6 @@ Parameters:
 Tries to load absences by name
 Parameters:
 * name (string, name of the player)
+
 Returns:
 * absence (Array, list of all absences)
