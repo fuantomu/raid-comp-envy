@@ -99,6 +99,7 @@ Parameters:
 
 # $BASE/absence/load
 Tries to load absences by name
+
 Parameters:
 * name (string, name of the player)
 

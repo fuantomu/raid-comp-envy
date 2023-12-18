@@ -25,11 +25,12 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
       {build.players.length > 0 && (
         <Box key={UUID()} css={styles.role}>
           <WarcraftIcon
+            key={UUID()}
             src={IconProvider.getCustomIcon(CustomIcon.GroupNeedMore)}
             alt={common("build.roles.total")}
             title={common("build.roles.total")}
           />
-          <Typography variant="h5">{build.players.filter(({group }) => group !== 'roster' && group !== 'bench').length}</Typography>
+          <Typography key={UUID()} variant="h5">{build.players.filter(({group }) => group !== 'roster' && group !== 'bench').length}</Typography>
         </Box>
       )}
       {Object.keys(WarcraftRole).map((role) => {
@@ -41,11 +42,12 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
         return (
           <Box key={UUID()} css={styles.role}>
             <WarcraftIcon
+              key={UUID()}
               src={IconProvider.getRoleIcon(role as WarcraftRole)}
               alt={label}
               title={label}
             />
-            <Typography variant="h5">{count}</Typography>
+            <Typography key={UUID()} variant="h5">{count}</Typography>
           </Box>
         );
       })}
