@@ -24,7 +24,7 @@ import uk.raidcomp.api.controller.dto.delete.DeleteRosterDto;
 import uk.raidcomp.api.controller.dto.delete.DeleteRosterResponseDto;
 import uk.raidcomp.sql.SqlHelperDelegate;
 
-@Controller("/build/sql")
+@Controller("/builds/")
 public class RosterController {
 
   private final SqlHelperDelegate delegate;
@@ -33,7 +33,7 @@ public class RosterController {
     this.delegate = delegate;
   }
 
-  @Post("/import")
+  @Post("/roster/import")
   public HttpResponse<ImportRosterResponseDto> importFromSql(
       @Valid @Body ImportRosterDto body) {
     return HttpResponse.created(new ImportRosterResponseDto(delegate.getRoster(body)));
@@ -45,7 +45,7 @@ public class RosterController {
     return HttpResponse.created(new SaveBuildResponseDto(delegate.saveBuild(body)));
   }
 
-  @Post("/saveRoster")
+  @Post("/roster/save")
   public HttpResponse<SaveBuildResponseDto> saveRosterToSql(
       @Valid @Body SaveRosterDto body) {
     return HttpResponse.created(new SaveBuildResponseDto(delegate.saveRoster(body)));
@@ -63,13 +63,13 @@ public class RosterController {
     return HttpResponse.created(new DeleteBuildResponseDto(delegate.deleteBuild(body)));
   }
 
-  @Post("/deleteFromRoster")
+  @Post("/roster/delete")
   public HttpResponse<DeleteRosterResponseDto> deleteRosterPlayersFromSql(
       @Valid @Body DeleteRosterDto body) {
     return HttpResponse.created(new DeleteRosterResponseDto(delegate.deleteRosterPlayers(body)));
   }
 
-  @Post("/loadBuilds")
+  @Post("/loadAll")
   public HttpResponse<LoadBuildsResponseDto> loadBuildsFromSql(
       @Valid @Body LoadBuildsDto body) {
     return HttpResponse.created(new LoadBuildsResponseDto(delegate.loadBuilds(body)));

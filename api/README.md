@@ -1,23 +1,11 @@
-## Micronaut 4.1.11 Documentation
-
-- [User Guide](https://docs.micronaut.io/4.1.11/guide/index.html)
-- [API Reference](https://docs.micronaut.io/4.1.11/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/4.1.11/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
-
 # Micronaut and Azure Function
 
 ## Prerequisites
 
 - Latest [Function Core Tools](https://aka.ms/azfunc-install)
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/)
+- [MariaDB Connector](https://mariadb.com/kb/en/about-mariadb-connector-j/)
 
-## Setup
-
-```cmd
-az login
-az account set -s <your subscription id>
 
 ## Build Tools
 
@@ -25,42 +13,68 @@ The application's build uses [Azure Functions Plugin for Gradle](https://plugins
 ## Running the function locally
 
 ```cmd
-./gradlew azureFunctionsRun
+./gradlew run
 ```
 
-And visit http://localhost:8080/api/raidcomp
+## Endpoints
+Base api: **localhost:8080/builds**
+Always requires a connectionstring object with the following parameters
+* server
+* port
+* database
+* uid
+* password
+* table
 
-## Deploying the function
+# $BASE/roster/import
+Tries to import the roster from the given table
+Returns:
+* players (array, list of player objects)
 
-To deploy the function run:
+# $BASE/roster/save
+Tries to save the given roster
+Parameters:
+* players (array, list of player objects)
 
-```bash
-$ ./gradlew azureFunctionsDeploy
-```
+# $BASE/roster/delete
+Tries to delete players from the roster
+Parameters:
+* players (array, list of player objects)
 
+# $BASE/save
+Tries to save a build
+Parameters:
+* players (array, list of player objects)
+* build (string, name of the build)
 
+# $BASE/load
+Tries to load a build
+Parameters:
+* build (string, name of the build)
+Returns:
+* players (string, player objects)
 
-- [Azure Functions Plugin for Gradle](https://plugins.gradle.org/plugin/com.microsoft.azure.azurefunctions)
-- [Azure Functions Plugin for Gradle](https://plugins.gradle.org/plugin/com.microsoft.azure.azurefunctions)
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-- [GraalVM Gradle Plugin documentation](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
-## Feature serialization-jackson documentation
+# $BASE/delete
+Tries to delete a build
+Parameters:
+* build (string, name of the build)
 
-- [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
+# $BASE/loadAll
+Tries to load all build names
+Returns:
+* builds (array, list of all build names)
 
+# $BASE/absence/save
+Tries to save an absence
+Parameters:
+* name (string, name of the player)
+* startDate (long, start time in milliseconds from 01.01.1970)
+* endDate (long, end time in milliseconds from 01.01.1970)
+* reason (string, absence reason)
 
-## Feature micronaut-aot documentation
-
-- [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
-
-
-## Feature azure-function documentation
-
-- [Micronaut Azure Function documentation](https://micronaut-projects.github.io/micronaut-azure/latest/guide/index.html#simpleAzureFunctions)
-
-- [https://docs.microsoft.com/azure](https://docs.microsoft.com/azure)
-
-
-## Feature azure-function-http documentation
-
-- [Micronaut Azure Function documentation](https://micronaut-projects.github.io/micronaut-azure/latest/guide/index.html#azureHttpFunctions)
+# $BASE/absence/load
+Tries to load absences by name
+Parameters:
+* name (string, name of the player)
+Returns:
+* absence (Array, list of all absences)
