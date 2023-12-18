@@ -17,8 +17,9 @@ The application's build uses [Azure Functions Plugin for Gradle](https://plugins
 ```
 
 ## Endpoints
-Base api: **localhost:8080/builds**
-Always requires a connectionstring object with the following parameters
+$BASE: **localhost:8080/builds**
+
+Always requires a connectionstring object with the following parameters:
 * server
 * port
 * database
