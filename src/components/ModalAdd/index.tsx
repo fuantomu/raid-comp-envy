@@ -23,10 +23,9 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export interface ModalAddProps {
   editPlayer?: (callback: (player: BuildPlayer) => void) => void;
-  buildId?: number
 }
 
-const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
+const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
@@ -44,6 +43,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
   const context = useAppContext();
   let mainCharacter = createRef<HTMLInputElement>();
   let playerName = name;
+
 
   if (editPlayer) {
     editPlayer((player) => {
@@ -117,7 +117,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
       name: playerName?? oldName,
       class: className,
       spec,
-      raid: buildId?? raid,
+      raid: raid,
       race: raceName,
       status: InviteStatus.Unknown,
       group: groupId as GroupId,
@@ -125,12 +125,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, buildId }) => {
       oldName,
       main: mainCharacter.current?.value?? main,
     }
-    console.log(`buildId: ${buildId} - raid: ${raid}`)
+
     if(remove){
-      context?.deletePlayer(playerInfo, buildId?? raid);
+      context?.deletePlayer(playerInfo, raid);
     }
     else{
-      context?.importPlayer(playerInfo, buildId?? raid);
+      context?.importPlayer(playerInfo, raid);
     }
 
     if(checked){

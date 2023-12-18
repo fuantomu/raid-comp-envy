@@ -68,7 +68,7 @@ const Raid: FC<RaidProps> = ({
                 />
                 <BuildRolesCount key={UUID()} build={raidBuild} />
                 <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                  <ModalAdd buildId={id}/>
+                  <ModalAdd/>
                   <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
                   <ModalCreateBuild buildId={id}/>
                   <ModalDeleteBuild buildId={id}/>

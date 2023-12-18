@@ -12,7 +12,6 @@ import { css } from "@emotion/react";
 import useTheme from "../../utils/useTheme";
 import { useTranslation } from "react-i18next";
 import { Absence } from "../../types";
-import { Typography } from "@mui/material";
 
 export interface AttendanceIconProps {
   status: InviteStatus;

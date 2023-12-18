@@ -24,7 +24,7 @@ export abstract class RosterProvider {
   }
 
   public static async loadBuildPlayersSql(connectionString: string) : Promise<string>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/load`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((roster) => {
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/load`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((roster) => {
       return roster.players
     })
   }
@@ -52,7 +52,7 @@ export abstract class RosterProvider {
   }
 
   public static async loadAbsence(connectionString: string) : Promise<Absence[]>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/sql/absence/load`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((absence) => {
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/absence/load`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((absence) => {
       return absence.absence
     })
   }

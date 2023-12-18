@@ -133,6 +133,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const addPlayer = async (addedPlayer: BuildPlayer, buildId: number): Promise<void> => {
     console.log(`Adding player ${JSON.stringify(addedPlayer)} in raid ${buildId}`)
+    addedPlayer.raid = buildId
     const newPlayers = [...getBuildPlayers(buildId),addedPlayer]
     setBuild(buildId, newPlayers)
     updateRosterStatus(addedPlayer, roster)
@@ -228,7 +229,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const getOtherCharacters = (player: BuildPlayer, players: BuildPlayer[]): BuildPlayer[] => {
     return players.filter((otherPlayer) => {
       return (otherPlayer.main === player.name || otherPlayer.name === player.main || otherPlayer.main === player.main) &&
-      otherPlayer.id !== player.id && (otherPlayer.main?.length?? 0 > 0) && (player.main?.length?? 0 > 0)
+      otherPlayer.id !== player.id && (otherPlayer.main??"".length > 0) && (player.main??"".length > 0)
     })
   }
 
@@ -475,6 +476,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             setBuildName(build0,0);
             loadBuild(build,0).then(() => {
               for(const player of build){
+                player.raid = 0;
                 updateRosterStatus(player, roster)
               }
             })
@@ -485,6 +487,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
               setBuildName(build1,1);
               loadBuild(build,1).then(() => {
                 for(const player of build){
+                  player.raid = 1;
                   updateRosterStatus(player, roster)
                 }
               })
@@ -522,7 +525,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             _.omit(b, ['status'])
           )
         })
-        if (differences.length > 0){
+        if (differences.length > 0 || currentRoster.length !== roster.length){
           console.log("Roster has changed somewhere. Reloading")
           setRoster(currentRoster)
         }
@@ -531,14 +534,15 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       BuildHelper.parseSqlLoad(connectionString).then((currentBuild) => {
         const differences = _.differenceWith(currentBuild, playersRaid, (a : BuildPlayer, b: BuildPlayer) => {
           return _.isEqual(
-            _.omit(a, ['status']),
-            _.omit(b, ['status'])
+            _.omit(a, ['status', 'raid']),
+            _.omit(b, ['status', 'raid'])
           )
         })
-        if (differences.length > 0){
+        if (differences.length > 0 || currentBuild.length !== playersRaid.length){
           console.log("Raid 1 has changed somewhere. Reloading")
           setBuild(0, currentBuild).then(() => {
             for(const player of currentBuild){
+              player.raid = 0;
               updateRosterStatus(player, roster)
             }
           })
@@ -548,14 +552,15 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       BuildHelper.parseSqlLoad(connectionString).then((currentBuild) => {
         const differences = _.differenceWith(currentBuild, playersRaid2, (a : BuildPlayer, b: BuildPlayer) => {
           return _.isEqual(
-            _.omit(a, ['status']),
-            _.omit(b, ['status'])
+            _.omit(a, ['status', 'raid']),
+            _.omit(b, ['status', 'raid'])
           )
         })
-        if (differences.length > 0){
+        if (differences.length > 0 || currentBuild.length !== playersRaid2.length){
           console.log("Raid 2 has changed somewhere. Reloading")
           setBuild(1, currentBuild).then(() => {
             for(const player of currentBuild){
+              player.raid = 1;
               updateRosterStatus(player, roster)
             }
           })
@@ -564,7 +569,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [handleError,roster,playersRaid,playersRaid2,absence]);
+  }, [handleError,roster,playersRaid,playersRaid2,absence,isLoading]);
 
   if (isLoading) {
     return <Loading />;
