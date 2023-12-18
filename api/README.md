@@ -26,6 +26,20 @@ Always requires a connectionstring object with the following parameters
 * password
 * table
 
+Example (Get a build)
+```
+POST to localhost:8080/builds/load with body:
+{
+  "server": "localhost",
+  "port": 8080,
+  "database": "raidcomp_api",
+  "uid": "admin",
+  "password": "admin",
+  "table": "BuildEntity",
+  "build": "TestBuild"
+}
+```
+
 # $BASE/roster/import
 Tries to import the roster from the given table
 
