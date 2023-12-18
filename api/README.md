@@ -31,7 +31,7 @@ Example (Get a build)
 POST to localhost:8080/builds/load with body:
 {
   "server": "localhost",
-  "port": 8080,
+  "port": 3306,
   "database": "raidcomp_api",
   "uid": "admin",
   "password": "admin",
