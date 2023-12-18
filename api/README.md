@@ -26,7 +26,8 @@ Always requires a connectionstring object with the following parameters
 * password
 * table
 
-Example (Get a build)
+### Example (Get a build)
+Change parameters with your sql server options
 ```
 POST to localhost:8080/builds/load with body:
 {
