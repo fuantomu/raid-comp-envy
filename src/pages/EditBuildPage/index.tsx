@@ -569,6 +569,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }, 2000);
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line
   }, [handleError,roster,playersRaid,playersRaid2,absence,isLoading]);
 
   if (isLoading) {
