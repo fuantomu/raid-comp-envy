@@ -17,91 +17,95 @@ The application's build uses [Azure Functions Plugin for Gradle](https://plugins
 ```
 
 ## Endpoints
-$BASE: **localhost:8080/builds**
-
-Always requires a connectionstring object with the following parameters:
-* server
-* port
-* database
-* uid
-* password
-* table
+$BASE: **localhost:8080/**
 
 ### Example (Get a build)
 Change parameters with your sql server options
 ```
-POST to localhost:8080/builds/load with body:
-{
-  "server": "localhost",
-  "port": 3306,
-  "database": "raidcomp_api",
-  "uid": "admin",
-  "password": "admin",
-  "table": "BuildEntity",
-  "build": "TestBuild"
-}
+GET localhost:8080/build/{buildId}
 ```
 
-# $BASE/roster/import
-Tries to import the roster from the given table
+# $BASE/player/
+
+## POST
+Tries to save/update multiple players
+
+Parameter:
+* players (array list of players)
+
+## GET
+Tries to get all players
 
 Returns:
-* players (array, list of player objects)
+* players (array list of players)
 
-# $BASE/roster/save
-Tries to save the given roster
+# $BASE/player/{playerId}
 
-Parameters:
-* players (array, list of player objects)
+## POST
+Tries to save/update a player with the given id
 
-# $BASE/roster/delete
-Tries to delete players from the roster
+Parameter:
+* player
 
-Parameters:
-* players (array, list of player objects)
-
-# $BASE/save
-Tries to save a build
-
-Parameters:
-* players (array, list of player objects)
-* build (string, name of the build)
-
-# $BASE/load
-Tries to load a build
-
-Parameters:
-* build (string, name of the build)
+## GET
+Tries to get a player with the given id
 
 Returns:
-* players (string, player objects)
+* player or 404
 
-# $BASE/delete
-Tries to delete a build
+# $BASE/player/delete/{playerId}
 
-Parameters:
-* build (string, name of the build)
+## POST
+Tries to delete a player with the given id
 
-# $BASE/loadAll
-Tries to load all build names
+# $BASE/build/
+
+## GET
+Tries to get all builds
 
 Returns:
-* builds (array, list of all build names)
+* builds (array list of all builds)
 
-# $BASE/absence/save
+# $BASE/build/{buildId}
+
+## POST
+Tries to save/update a build
+
+Parameter:
+* build
+
+## GET
+Tries to get a build with the given id
+
+Returns:
+* build
+
+# $BASE/build/delete/{buildId}
+Tries to delete a build with the given id
+
+# $BASE/absence/
+
+## POST
 Tries to save an absence
 
-Parameters:
-* name (string, name of the player)
-* startDate (long, start time in milliseconds from 01.01.1970)
-* endDate (long, end time in milliseconds from 01.01.1970)
-* reason (string, absence reason)
+Parameter:
+* absence
 
-# $BASE/absence/load
-Tries to load absences by name
-
-Parameters:
-* name (string, name of the player)
+## GET
+Tries to get all absences
 
 Returns:
-* absence (Array, list of all absences)
+* absences (array list of absences)
+
+# $BASE/absence/{absenceId}
+
+## GET
+Tries to get an absence with the given id
+
+Returns:
+* absence
+
+# $BASE/absence/delete/{absenceId}
+
+## POST
+Tries to delete an absence with the given id

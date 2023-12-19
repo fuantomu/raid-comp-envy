@@ -33,7 +33,7 @@ public class AbsenceController {
     return absenceRepository.findById(absenceId);
   }
 
-  @Delete("/{absenceId}")
+  @Post("/delete/{absenceId}")
   public void deleteAbsence(String absenceId) {
     absenceRepository.deleteById(absenceId);
   }

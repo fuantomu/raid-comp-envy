@@ -52,7 +52,14 @@ public class PlayerController {
     newPlayer.setSpec(body.player().spec().toString());
     newPlayer.setStatus(body.player().status().toString());
 
-    playerRepository.save(newPlayer);
+    Optional<PlayerEntity> player = playerRepository.findById(playerId);
+
+    if (player.isEmpty()) {
+      playerRepository.save(newPlayer);
+    } else {
+      playerRepository.update(newPlayer);
+    }
+
   }
 
   @Post("/")

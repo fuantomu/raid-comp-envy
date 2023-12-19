@@ -478,6 +478,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     const newBuilds = [...builds.filter((build) => build.value !== deletedBuild.value)]
     setBuilds(newBuilds);
 
+    // TODO: Builds are not deleted from option list until refresh/f5
     await setBuild(buildId, getEmptyBuild()).then(() => {
       setBuildName(common("build.new"), buildId)
       localStorage.removeItem(`LastBuild-${buildId}`)
