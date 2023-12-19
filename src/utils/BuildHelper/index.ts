@@ -170,6 +170,7 @@ export abstract class BuildHelper {
 
   public static async parsePostSetup(build : Build, sheetUrl: string) {
     //@Crenox
+    console.log(build)
     const data = {
       "content": "<@&840957996304826378> Raidsheet Aktualisierung " + new Date().toLocaleString('de-de'),
       "embeds": [{
@@ -180,32 +181,32 @@ export abstract class BuildHelper {
         "fields": [
           {
               "name": "Group 1",
-              "value": build.players.filter(o => o.group as String === "1").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group === 1).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 2",
-              "value": build.players.filter(o => o.group as String === "2").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group === 2).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 3",
-              "value": build.players.filter(o => o.group as String === "3").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group === 3).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 4",
-              "value": build.players.filter(o => o.group as String === "4").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group === 4).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 5",
-              "value": build.players.filter(o => o.group as String === "5").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group === 5).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Bench",
-              "value": build.players.filter(o => o.group as String === "bench").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group === "bench").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
               "inline": true
           }
         ]

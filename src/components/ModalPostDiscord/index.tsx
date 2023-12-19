@@ -36,7 +36,7 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId}) => {
   };
 
   const handlePostDiscord = (sheetUrl: string) => {
-    const build = context?.getCurrentBuild(buildId)
+    const build = context?.getBuild(buildId)
     if(build){
       BuildHelper.parsePostSetup(build, sheetUrl)
     }
