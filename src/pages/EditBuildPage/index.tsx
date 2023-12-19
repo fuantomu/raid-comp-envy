@@ -408,11 +408,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const resetBuild = async (buildId: number) => {
     const currentBuild = getBuild(buildId);
-    setBuildName(currentBuild.name, buildId);
-    setBuild(buildId, getEmptyBuild())
-    await saveCurrentBuild([], buildId, currentBuild.id).then(() => {
-      BuildHelper.parseDeleteBuild(`Build-${currentBuild.id}`)
-    });
+    currentBuild.players = []
+    setBuildPlayers(buildId,[])
+    saveBuild(currentBuild)
   };
 
   const editPlayerModalFn = (callback: (player: BuildPlayer) => void) => {
