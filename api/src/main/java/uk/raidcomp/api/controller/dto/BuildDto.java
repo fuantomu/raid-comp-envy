@@ -8,5 +8,6 @@ public record BuildDto(
     @NotNull String id,
     @NotNull long date,
     @NotNull String name,
-    @NotNull String players) {
+    @NotNull String players,
+    String buildId) {
 }

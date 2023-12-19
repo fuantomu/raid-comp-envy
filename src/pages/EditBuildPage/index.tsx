@@ -37,6 +37,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [playersRaid2, setPlayersRaid2] = useState<BuildPlayer[]>([]);
   const [buildRaid1, setBuildRaid1] = useState<Build>({} as Build);
   const [buildRaid2, setBuildRaid2] = useState<Build>({} as Build);
+  const [dateRaid1, setDateRaid1] = useState(0);
+  const [dateRaid2, setDateRaid2] = useState(0);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [sorting, setSorting] = useState('');
   const [builds, setBuilds] = useState<SelectOption[]>([]);
@@ -47,6 +49,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const _ = require('lodash');
 
+  //TODO: Sort by tanks, then healers, then melee dps, then ranged dps
   const sortFunctions : any = {
     "NAME": function(a:BuildPlayer,b:BuildPlayer) { return a.name.localeCompare(b.name)},
     "ROLETANK": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Tank)? -1 : 1},
@@ -136,6 +139,19 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       default:
         buildRaid1.name = newName
         setNameRaid1(newName)
+        break;
+    }
+  }
+
+  const setBuildDate = (newDate:number, buildId: number) => {
+    switch (buildId) {
+      case 1:
+        buildRaid2.date = newDate
+        setDateRaid2(newDate)
+        break;
+      default:
+        buildRaid1.date = newDate
+        setDateRaid1(newDate)
         break;
     }
   }
@@ -451,11 +467,20 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     setRoster([...roster].sort(sortFunctions[e.target.value]))
   };
 
-  const handleSelectBuild = (buildId: number) => (build: SelectOption) => {
-    console.log("Setting build to "+JSON.stringify(build))
-    localStorage.setItem( `LastBuild-${buildId}`, build.value)
-    setBuildName(build.label, buildId)
-    loadBuildSql(buildId)
+  const handleSelect = (buildId: number) => (value: any) => {
+
+    if(value.value){
+      console.log("Setting build to "+JSON.stringify(value))
+      localStorage.setItem( `LastBuild-${buildId}`, value.value)
+      setBuildName(value.label, buildId)
+      loadBuildSql(buildId)
+    }
+    else{
+      setBuildDate(buildId, value.valueOf());
+      const currentBuild = getBuild(buildId);
+      currentBuild.date = value.valueOf();
+      saveBuild(currentBuild);
+    }
   };
 
   const addBuild = async (build: string, buildId: number) => {
@@ -467,7 +492,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       const newBuildSelect = {value:newBuild.id,label:build}
       setBuilds([...builds, newBuildSelect])
       saveBuild(newBuild).then(() => {
-        handleSelectBuild(buildId)(newBuildSelect)
+        handleSelect(buildId)(newBuildSelect)
       })
     })
   };
@@ -633,7 +658,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelectBuild, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, getOtherBuildName }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, getOtherBuildName }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>

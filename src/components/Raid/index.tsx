@@ -31,7 +31,7 @@ const Raid: FC<RaidProps> = ({
   builds,
   version,
   id,
-  manager,
+  manager
 }) => {
   const [common] = useTranslation("common");
   const context = useAppContext();
@@ -60,15 +60,16 @@ const Raid: FC<RaidProps> = ({
 
                 <BuildTitle
                   key={UUID()}
-                  onChange={context?.handleSelectBuild(id)}
+                  onChange={context?.handleSelect(id)}
                   options={context?.getBuilds()??[]}
                   selected={builds.filter((build) => build.label === raidBuild.name)[0]}
                   title={raidBuild.name}
                   buildId={id}
+                  buildDate={raidBuild.date}
                 />
                 <BuildRolesCount key={UUID()} build={raidBuild} />
                 <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                  <ModalAdd/>
+                  <ModalAdd />
                   <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
                   <ModalCreateBuild buildId={id}/>
                   <ModalDeleteBuild buildId={id}/>

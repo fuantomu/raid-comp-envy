@@ -43,6 +43,7 @@ public class BuildController {
     newBuild.setName(body.name());
     newBuild.setPlayers(body.players());
     newBuild.setDate(body.date());
+    newBuild.setRaidId(body.raidId());
 
     Optional<BuildEntity> build = buildRepository.findById(buildId);
 

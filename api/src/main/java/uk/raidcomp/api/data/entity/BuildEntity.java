@@ -30,4 +30,6 @@ public class BuildEntity {
 
   @JdbcTypeCode(SqlTypes.LONGVARCHAR)
   private String players;
+
+  private String raidId;
 }

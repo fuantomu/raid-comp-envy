@@ -5,18 +5,22 @@ import { ActionMeta } from 'react-select';
 import Select from 'react-select';
 import { SelectOption } from "../../types";
 import { useAppContext } from "../App/context";
-
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 export interface BuildTitleProps {
-  onChange: (build: SelectOption) => void;
+  onChange: (value: any) => void;
   options: SelectOption[];
   selected: SelectOption;
   title: string;
   buildId: number;
+  buildDate?: number;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId }) => {
+const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId, buildDate }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
+  const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minute",0) : dayjs().set("minute", 0));
   const context = useAppContext();
 
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
@@ -31,13 +35,18 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
     }
   };
 
+  const handleDateChange = (newDate: Dayjs) => {
+    setDate(newDate);
+    onChange(newDate);
+  }
+
   const customStyles = {
     control: (provided :any, state:any) => ({
       ...provided,
       boxShadow: 'none',
       backgroundColor: "#1d1d1d",
       border: '1px solid black',
-      color: "white",
+      color: "black",
       width:"100%"
     }),
     singleValue: (provided :any, state:any) => ({
@@ -54,13 +63,22 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   }
 
   return (
-    <Box>
-    <Select
-            value={selectedOption}
-            options={options}
-            onChange={handleChange}
-            styles={customStyles}
-    ></Select>
+    <Box display={"grid"} gridTemplateColumns={"4fr 1fr"}>
+      <Select
+              value={selectedOption}
+              options={options}
+              onChange={handleChange}
+              styles={customStyles}
+      />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateTimePicker
+          ampm={false}
+          format="DD.MM.YYYY HH:mm"
+          label="Raid time"
+          value={date}
+          onChange={handleDateChange}
+        />
+      </LocalizationProvider>
     </Box>
   );
 };
