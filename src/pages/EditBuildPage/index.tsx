@@ -589,6 +589,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         })
       })
 
+      localStorage.getItem('LastVersion')?? localStorage.setItem("LastVersion", "Wotlk")
       setVersion(localStorage.getItem( 'LastVersion')?? "Wotlk");
       setIsLoading(false);
     }

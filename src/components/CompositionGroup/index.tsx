@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { FC } from "react";
 import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
-import { DragItemTypes } from "../../consts";
+import { DragItemTypes, WarcraftPlayerRace } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
@@ -69,7 +69,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
         <Typography style={{caretColor: "transparent"}} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
-        {players.filter((player) => player.race === 'Draenei').length > 0 && localStorage.getItem("LastVersion") === 'Wotlk' ? (
+        {players.filter((player) => player.race === WarcraftPlayerRace.Draenei).length > 0 && localStorage.getItem("LastVersion") === 'Wotlk' ? (
           <WarcraftIcon
             title={`${common(`races.Draenei`)}`}
             src={IconProvider.getUtilityIcon(WarcraftRaidUtility.DraeneiHit)}
