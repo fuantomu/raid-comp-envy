@@ -8,6 +8,7 @@ import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 import lombok.Getter;
@@ -31,5 +32,6 @@ public class BuildEntity {
   @JdbcTypeCode(SqlTypes.LONGVARCHAR)
   private String players;
 
+  @Column(name = "raidId")
   private String raidId;
 }
