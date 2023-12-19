@@ -42,13 +42,12 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
           {
             id: player.id,
             name: player.name,
-            class: player.class,
+            className: player.className,
             spec: player.spec,
             race: player.race,
             raid,
             status: player.status,
             group: groupId as GroupId,
-            realm: player.realm,
             oldName: player.oldName,
             main: player.main
           },

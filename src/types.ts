@@ -14,10 +14,9 @@ export type GroupId = 1 | 2 | 3 | 4 | 5 | "roster" | "bench";
 export type BuildPlayer = {
   id: string;
   name: string;
-  realm?: string;
-  class: WarcraftPlayerClass;
-  spec?: WarcraftPlayerSpec;
-  race?: WarcraftPlayerRace;
+  className: WarcraftPlayerClass;
+  spec: WarcraftPlayerSpec;
+  race: WarcraftPlayerRace;
   raid: number;
   status: InviteStatus;
   group?: GroupId;
@@ -25,30 +24,22 @@ export type BuildPlayer = {
   main?: string;
 };
 
-export type ConnectionString = {
-  server?: string;
-  port?: string;
-  database?: string;
-  uid?: string;
-  password?: string;
-  table?: string;
-  players?: Array<BuildPlayer>;
-};
-
-export type RaidHelper = {
-  signups: Array<RaidHelperSignups>;
-};
-
-export type RaidHelperSignups = {
-  role: string;
-  name: string;
-  class: string;
-  spec: string
-};
+export type BuildPlayerResponse = {
+  players: BuildPlayer[]
+}
 
 export type Build = {
+  id: string;
   name: string;
+  date: number;
   players: BuildPlayer[];
+};
+
+export type BuildResponse = {
+  id: string;
+  name: string;
+  date: number;
+  players: string;
 };
 
 export type BuildGroup = {

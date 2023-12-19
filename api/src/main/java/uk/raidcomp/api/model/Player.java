@@ -12,11 +12,10 @@ import uk.raidcomp.api.model.WarcraftPlayerRace.WarcraftPlayerRaceSerde;
 public record Player(
     String id,
     String name,
-    @Nullable String realm,
-    @JsonProperty("class") @Serializable(using = WarcraftPlayerClassSerde.class)
-        WarcraftPlayerClass className,
+    @JsonProperty("class") @Serializable(using = WarcraftPlayerClassSerde.class) WarcraftPlayerClass className,
     @Nullable @Serializable(using = WarcraftPlayerSpecSerde.class) WarcraftPlayerSpec spec,
     @Nullable @Serializable(using = WarcraftPlayerRaceSerde.class) WarcraftPlayerRace race,
     @Serializable(using = InviteStatusSerde.class) InviteStatus status,
     @Nullable @Serializable(using = GroupIdSerde.class) GroupId groupId,
-    @Nullable String main) {}
+    @Nullable String main) {
+}

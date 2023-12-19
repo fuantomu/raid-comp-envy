@@ -1,6 +1,5 @@
 package uk.raidcomp.api.controller.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.serde.annotation.Serdeable.Deserializable;
@@ -20,11 +19,10 @@ import uk.raidcomp.api.model.WarcraftPlayerRace.WarcraftPlayerRaceSerde;
 public record PlayerDto(
     @NotNull String id,
     @NotNull String name,
-    @Nullable String realm,
-    @NotNull @JsonProperty("class") @Deserializable(using = WarcraftPlayerClassSerde.class)
-        WarcraftPlayerClass className,
+    @NotNull @Deserializable(using = WarcraftPlayerClassSerde.class) WarcraftPlayerClass className,
     @Nullable @Deserializable(using = WarcraftPlayerSpecSerde.class) WarcraftPlayerSpec spec,
     @Nullable @Deserializable(using = WarcraftPlayerRaceSerde.class) WarcraftPlayerRace race,
     @NotNull @Deserializable(using = InviteStatusSerde.class) InviteStatus status,
     @Nullable @Deserializable(using = GroupIdSerde.class) GroupId group,
-    @Nullable String main) {}
+    @Nullable String main) {
+}

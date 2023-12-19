@@ -1,29 +1,33 @@
 package uk.raidcomp.api.data.entity;
 
-import io.micronaut.data.annotation.DateCreated;
+import java.util.UUID;
+
+import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 
 @Getter
 @Setter
+@MappedEntity("Absence")
+@Table(name = "Absence")
 @Serdeable
 @Entity
 public class AbsenceEntity {
   @Id
-  @GeneratedValue
-  private String id;
+  private String id = UUID.randomUUID().toString();
 
   private String name;
 
-  @DateCreated
+  @Column(name = "startDate")
   private long startDate;
 
-  @DateCreated
+  @Column(name = "endDate")
   private long endDate;
 
   private String reason;

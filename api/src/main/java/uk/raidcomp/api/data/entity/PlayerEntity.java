@@ -1,25 +1,30 @@
 package uk.raidcomp.api.data.entity;
 
-import io.micronaut.serde.annotation.Serdeable;
+import java.util.UUID;
+
+import io.micronaut.core.annotation.Introspected;
+import io.micronaut.data.annotation.MappedEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
+
 @Getter
 @Setter
-@Serdeable
+@MappedEntity("Player")
+@Table(name = "Player")
+@Introspected
 @Entity
 public class PlayerEntity {
   @Id
-  @GeneratedValue
-  private String id;
+  private String id = UUID.randomUUID().toString();
 
   private String name;
 
-  private String realm;
-
+  @Column(name = "className")
   private String className;
 
   private String spec;
@@ -28,6 +33,7 @@ public class PlayerEntity {
 
   private String status;
 
+  @Column(name = "groupId")
   private String groupId;
 
   private String main;

@@ -1,49 +1,54 @@
-import { Absence, BuildPlayer, RaidHelperSignups } from "../../types";
+import { Absence, BuildPlayer, BuildPlayerResponse, BuildResponse } from "../../types";
 
 export abstract class RosterProvider {
-  private static readonly RAIDHELPER_API_PATH = "https://raid-helper.dev/api/event";
-
-  private static getRosterRaidHelperURI(id?: string) {
-    return `${RosterProvider.RAIDHELPER_API_PATH}/${id}`;
-  }
-
-  public static async getRosterRaidPlayers(id?: string) : Promise<RaidHelperSignups[]> {
-    return fetch(RosterProvider.getRosterRaidHelperURI(id)).then((response) => response.json()).then((signups) => {
-      return signups.signups
+  public static async getPlayers() : Promise<BuildPlayer[]>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/player/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
+      if(response.ok){
+        return response.json()
+      }
+    }).then((roster) => {
+      return roster
     })
   }
 
-  public static async getRosterRaidPlayersSql(connectionString: string) : Promise<BuildPlayer[]>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/roster/import`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((roster) => {
-      return roster.players
+  public static async saveBuild(buildId: string, build: BuildResponse) : Promise<Response>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/${buildId}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: JSON.stringify(build)}).then((response) => {
+      return response
     })
   }
 
-  public static async saveBuildPlayersSql(connectionString: string) : Promise<Response>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/save`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => {return response})
-  }
-
-  public static async loadBuildPlayersSql(connectionString: string) : Promise<string>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/load`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((roster) => {
-      return roster.players
+  public static async getBuild(buildId: string) : Promise<BuildResponse>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/${buildId}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
+      if(response.ok){
+        return response.json()
+      }
+      if(response.status === 404){
+        return {"id":buildId} as BuildResponse
+      }
+    }).then((roster) => {
+      return roster
     })
   }
 
-  public static async deleteBuildPlayersSql(connectionString: string) : Promise<Response>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/delete`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => {return response})
+  public static async deleteBuild(buildId: string) : Promise<Response>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/delete/${buildId}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {
+      return response
+    })
   }
 
-  public static async saveRosterPlayersSql(connectionString: string) : Promise<Response>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/roster/save`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => {return response})
+  public static async saveRoster(roster: BuildPlayerResponse) : Promise<Response>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/player/`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: JSON.stringify(roster)}).then((response) => {
+      return response
+    })
   }
 
-  public static async deleteRosterPlayersSql(connectionString: string) : Promise<Response>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/roster/delete`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => {return response})
+  public static async deleteRosterPlayer(playerId: string) : Promise<Response>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/player/delete/${playerId}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {return response})
   }
 
-  public static async loadBuildsSql(connectionString: string) : Promise<string[]>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/loadAll`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((builds) => {
-      return builds.builds
+  public static async getBuilds() : Promise<BuildResponse[]>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/build/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => response.json()).then((builds) => {
+      return builds
     })
   }
 
@@ -51,9 +56,9 @@ export abstract class RosterProvider {
     return await fetch(`${process.env.REACT_APP_DISCORD_WEBHOOK}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: build}).then((response) => {return response})
   }
 
-  public static async loadAbsence(connectionString: string) : Promise<Absence[]>{
-    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/builds/absence/load`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: connectionString}).then((response) => response.json()).then((absence) => {
-      return absence.absence
+  public static async getAbsences() : Promise<Absence[]>{
+    return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/absence/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => response.json()).then((absence) => {
+      return absence
     })
   }
 }

@@ -23,7 +23,7 @@ export interface PlayerProps extends BuildPlayer {
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, realm, class: className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[]} = props;
+  const { name, className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[]} = props;
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
@@ -32,7 +32,7 @@ const Player: FC<PlayerProps> = (props) => {
     type: DragItemTypes.PLAYER,
     item: props,
   }));
-  const fullName = `${name}${realm ? `-${realm}` : ""}`;
+  const fullName = `${name}`;
 
   return (
     <Box>

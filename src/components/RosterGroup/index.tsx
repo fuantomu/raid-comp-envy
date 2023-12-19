@@ -42,13 +42,12 @@ const RosterGroup: FC<RosterGroupProps> = ({
           {
             id: player.id,
             name: player.name,
-            class: player.class,
+            className: player.className,
             spec: player.spec,
             race: player.race,
             raid: player.raid,
             status: player.status,
             group: groupId as GroupId,
-            realm: player.realm,
             oldName: player.oldName,
             main: player.main
           },buildId
@@ -102,7 +101,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
           ))}
         </Box>
         <Box key={UUID()} css={styles.spread}>
-          {players.filter((player) => !player.main?? undefined).map((player) => (
+          {players.filter((player) => player.main === undefined || player.main === "").map((player) => (
             <Player
               key={UUID()}
               {...player}

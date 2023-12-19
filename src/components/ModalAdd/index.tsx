@@ -29,10 +29,10 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
-  const [className, setClassName] = useState(WarcraftPlayerClass.Warrior);
-  const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorArms);
-  const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
-  const [status, setStatus] = useState(InviteStatus.Invited);
+  const [className, setClassName] = useState(WarcraftPlayerClass.Unknown);
+  const [spec, setSpec] = useState(WarcraftPlayerSpec.Unknown);
+  const [raceName, setRace] = useState(WarcraftPlayerRace.Unknown);
+  const [status, setStatus] = useState(InviteStatus.Unknown);
   const [groupId, setGroupId] = useState(1 as GroupId);
   const [main, setMain] = useState(String);
   const [name, setName] = useState("");
@@ -52,7 +52,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
         setId(player.id);
         setName(fullName);
         setOldName(fullName);
-        setClassName(player.class);
+        setClassName(player.className);
         setStatus(player.status);
         setGroupId(player.group as GroupId);
         setRaid(player.raid);
@@ -111,17 +111,16 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   };
 
   const sendImportToContext = (nameOverride = name, remove = false) => {
-    const { name: playerName, realm } = PlayerUtils.splitFullName(nameOverride);
+    const { name: playerName } = PlayerUtils.splitFullName(nameOverride);
     const playerInfo = {
       id: id.length? id : UUID(),
       name: playerName?? oldName,
-      class: className,
+      className: className,
       spec,
       raid: raid,
       race: raceName,
       status: status,
       group: groupId as GroupId,
-      realm,
       oldName,
       main: mainCharacter.current?.value?? main,
     }

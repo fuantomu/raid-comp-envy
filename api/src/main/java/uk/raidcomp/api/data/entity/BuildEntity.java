@@ -1,36 +1,33 @@
 package uk.raidcomp.api.data.entity;
 
-import io.micronaut.data.annotation.DateCreated;
-import io.micronaut.data.annotation.MappedEntity;
-
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-
-import java.time.Instant;
-import java.util.List;
-
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.serde.annotation.Serdeable;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@MappedEntity("builds")
+@MappedEntity("Build")
+@Table(name = "Build")
+@Serdeable
 @Entity
 public class BuildEntity {
   @Id
-  @GeneratedValue
   private String id;
 
+  @NonNull
   private String name;
 
-  @DateCreated private Instant created;
+  private long date;
 
-  @DateCreated private long lastSeen;
-
-  @JdbcTypeCode(SqlTypes.JSON)
-  private List<PlayerEntity> players;
+  @JdbcTypeCode(SqlTypes.LONGVARCHAR)
+  private String players;
 }

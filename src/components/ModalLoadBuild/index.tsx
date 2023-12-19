@@ -19,12 +19,12 @@ const ModalLoadBuild: FC<ModalLoadBuildProps> = ({buildId}) => {
   const context = useAppContext();
 
   const handleLoadClick = async () => {
-    const build = context?.getCurrentBuild(buildId);
+    const build = context?.getBuild(buildId);
     if (build) {
       if (build.players.length) {
         return openModal();
       } else {
-        return await context?.loadBuildSql(build.name,buildId);
+        return await context?.loadBuildSql(buildId);
       }
     }
     throw new AppError(AppErrorId.Unspecific);
@@ -36,7 +36,7 @@ const ModalLoadBuild: FC<ModalLoadBuildProps> = ({buildId}) => {
 
   const handleConfirm = async (response: ModalAlertResponse) => {
     if (response === ModalAlertResponse.OK) {
-      await context?.loadBuildSql(context.getCurrentBuild(buildId).name,buildId);
+      await context?.loadBuildSql(buildId);
     }
   };
 

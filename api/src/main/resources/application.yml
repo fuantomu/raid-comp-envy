@@ -20,8 +20,8 @@ micronaut:
             - http://88.99.210.51:4200
             - http://88.99.210.51:8080
           allowedHeaders:
-                  - Content-Type
-                  - Authorization
+              - Content-Type
+              - Authorization
 
 datasources:
   default:

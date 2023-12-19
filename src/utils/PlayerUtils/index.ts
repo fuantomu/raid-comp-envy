@@ -2,17 +2,15 @@ import { BuildPlayer } from "../../types";
 
 export abstract class PlayerUtils {
   public static getFullName(player: BuildPlayer) {
-    return player ? `${player.name}${player.realm ? `-${player.realm}` : ""}` : "";
+    return player ? `${player.name}` : ""
   }
 
   public static splitFullName(fullName: string): {
       name: string;
-      realm: string;
     } {
-    return (fullName ?? "").match(/^(?<name>.*?)(?:-(?<realm>\w.*))?$/)
+    return (fullName ?? "").match(/^(?<name>.*?)$/)
       ?.groups as {
       name: string;
-      realm: string;
     }
   }
-} 
+}

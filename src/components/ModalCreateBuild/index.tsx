@@ -25,7 +25,8 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId}) => {
     const builds = context?.getBuilds();
     if (builds) {
       const currentTitle = buildTitle.current?.value?? "";
-      if(builds.includes(currentTitle)){
+      const otherBuilds = builds.find((build) => build.value === currentTitle)
+      if(otherBuilds){
         showError(true);
       }
       else{

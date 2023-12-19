@@ -22,7 +22,7 @@ const buildDebuffChecklist = (build: Build, version:String) => {
   for (const debuff in RoleProvider.getVersionDebuffs(version)) {
     if(build.players.length > 0){
       const playersWithDebuff = build.players.filter(
-        ({ spec, class: className, group }) =>
+        ({ spec, className, group }) =>
           group !== 'roster' && group !== 'bench' &&
           (RoleProvider.getSpecDebuffs(spec, version).includes(debuff as WarcraftRaidDebuff) ||
           RoleProvider.getClassDebuff(className, version).includes(debuff as WarcraftRaidDebuff))

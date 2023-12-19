@@ -1,11 +1,13 @@
 package uk.raidcomp.api.controller.dto.save;
 
+import java.util.ArrayList;
+
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import uk.raidcomp.api.controller.dto.PlayerDto;
 
 @Serdeable
 @Introspected
-public record SaveBuildDto(String players, @NotBlank String name, @NotNull long date) {
+public record SavePlayersDto(@NotNull ArrayList<PlayerDto> players) {
 }

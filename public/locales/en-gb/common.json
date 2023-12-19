@@ -27,7 +27,7 @@
       "debuffs": "Debuffs Checklist",
       "utilities": "Utilities Checklist"
     },
-    "new": "Current Build",
+    "new": "New Build",
     "unnamed": "Unnamed Build",
     "import": {
       "title": "Import Build",
@@ -115,7 +115,7 @@
     "unknown": "Unknown"
   },
   "classes": {
-    "Deathknight": "Death Knight",
+    "Deathknight": "Deathknight",
     "Druid": "Druid",
     "Hunter": "Hunter",
     "Mage": "Mage",

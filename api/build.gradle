@@ -22,6 +22,7 @@ dependencies {
     annotationProcessor libs.mapstruct.processor
 
     annotationProcessor("io.micronaut:micronaut-http-validation")
+    implementation("io.micronaut.validation:micronaut-validation")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-runtime")

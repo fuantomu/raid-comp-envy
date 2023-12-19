@@ -20,12 +20,12 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   const context = useAppContext();
 
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
-    if(context?.getOtherBuildName(buildId) === newValue.value){
+    if(context?.getOtherBuildName(buildId) === newValue.label){
       console.log("This build is already set in another raid")
     }
     else{
       setSelectedOption(newValue);
-      if (newValue.value !== title) {
+      if (newValue.label !== title) {
         onChange(newValue);
       }
     }
