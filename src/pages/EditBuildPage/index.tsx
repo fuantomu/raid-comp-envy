@@ -22,6 +22,7 @@ import { createDragDropManager } from 'dnd-core'
 import Raid from "../../components/Raid";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ModalPostDiscord from "../../components/ModalPostDiscord";
+import ModalAlert from "../../components/ModalAlert";
 
 export interface EditBuildPageProps {}
 
@@ -37,8 +38,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [playersRaid2, setPlayersRaid2] = useState<BuildPlayer[]>([]);
   const [buildRaid1, setBuildRaid1] = useState<Build>({} as Build);
   const [buildRaid2, setBuildRaid2] = useState<Build>({} as Build);
-  const [dateRaid1, setDateRaid1] = useState(0);
-  const [dateRaid2, setDateRaid2] = useState(0);
+  const [, setDateRaid1] = useState(0);
+  const [, setDateRaid2] = useState(0);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [sorting, setSorting] = useState('');
   const [builds, setBuilds] = useState<SelectOption[]>([]);
@@ -57,7 +58,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     "ROLERANGED": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.RangedDPS)? -1 : 1},
     "ROLEHEALER": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Healer)? -1 : 1}
   }
+
   let openEditModal: any = () => {};
+  let handleModalOpen: any = () => {};
+
+  const MAX_SET_CHARACTERS = 2
 
   const setBuild = async (buildId: number, build: Build) => {
     switch (buildId) {
@@ -166,6 +171,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   const deletePlayer = async (deletedPlayer: BuildPlayer, buildId: number): Promise<void> => {
+    if(deletedPlayer.raid === -1){
+      return
+    }
+
     console.log(`Deleting player ${JSON.stringify(deletedPlayer)} in raid ${buildId}`)
     deletedPlayer.raid = -1
     deletedPlayer.group = undefined
@@ -186,104 +195,72 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     saveCurrentBuild(newPlayers, buildId, getBuildName(buildId))
   }
 
-  const importPlayer = async (newPlayer: BuildPlayer, buildId: number): Promise<void> => {
-      if(newPlayer.status === InviteStatus.Tentative){
-        console.log("Player is absent and cannot participate in the raid")
-        return
+  const movePlayer = async (movedPlayer: BuildPlayer, buildId: number): Promise<void> => {
+    console.log(`Moving player ${JSON.stringify(movedPlayer)} in raid ${buildId}`)
+    movedPlayer.raid = buildId
+    const newPlayers = getBuildPlayers(buildId).map((player) => {
+      if(player.id === movedPlayer.id){
+        player.group = movedPlayer.group
       }
-
-      // Moving to raid
-      if(typeof buildId !== "undefined"){
-
-        const oldPlayer = getBuildPlayers(buildId).find((player) => player.id === newPlayer.id)
-        const oldPlayerOther = getOtherBuildPlayers(buildId).find((player) => player.id === newPlayer.id)
-
-        // Moving from one raid to the other
-        if (typeof oldPlayer === "undefined" && oldPlayerOther){
-          console.log(`Moving player ${JSON.stringify(newPlayer)} from ${oldPlayerOther.raid} to ${buildId}`)
-          const otherCharacters = getOtherCharacters(newPlayer,getBuildPlayers(buildId));
-
-          if(otherCharacters.length > 0){
-            console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+buildId)
-            return
-          }
-
-          addPlayer(newPlayer, buildId)
-          deletePlayer(newPlayer, oldPlayerOther.raid)
-        }
-        else{
-          const oldRosterPlayer = roster.find((player) => player.id === newPlayer.id)
-          let playerBuild = getBuildPlayers(buildId);
-          if(oldPlayer){
-            console.log("Editing player "+JSON.stringify(oldPlayer))
-
-            if(newPlayer.group !== oldPlayer.group){
-              console.log("Moving player from group "+oldPlayer.group+" to "+newPlayer.group+" in raid "+ buildId)
-            }
-            newPlayer.raid = buildId
-
-            if(newPlayer.group !== 'roster'){
-              playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id),newPlayer]
-
-            }
-            else{
-              playerBuild = [...playerBuild.filter((player) => player.id !== oldPlayer.id)]
-            }
-            setBuildPlayers(buildId, playerBuild)
-          }
-          else if(oldRosterPlayer){
-            console.log("Editing roster player "+JSON.stringify(oldRosterPlayer))
-
-            if (getOtherBuildPlayers(buildId).find((otherBuildPlayer) => otherBuildPlayer.id === oldRosterPlayer.id) && newPlayer.group !== "roster"){
-              console.log("This character is already set in the other raid " + JSON.stringify(getOtherBuildPlayers(buildId)))
-            }
-            else{
-              if(newPlayer.group !== oldRosterPlayer.group){
-                console.log("Moving roster player from group "+oldRosterPlayer.group+" to "+newPlayer.group+" in raid "+ buildId)
-                const otherCharacters = getOtherCharacters(newPlayer,getBuildPlayers(buildId));
-
-                if(otherCharacters.length > 0){
-                  console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+buildId)
-                }
-                else{
-                  newPlayer.raid = buildId
-                  playerBuild = [...playerBuild.filter((player) => player.id !== oldRosterPlayer.id),newPlayer]
-                  setBuildPlayers(buildId, playerBuild)
-                }
-              }
-            }
-          }
-          else{
-            console.log("Adding player "+JSON.stringify(newPlayer)+" in raid "+buildId)
-
-            const otherCharacters = getOtherCharacters(newPlayer, getBuildPlayers(buildId));
-
-            if(otherCharacters.length > 0){
-              console.log("There are already other characters from this player in the group "+JSON.stringify(otherCharacters)+" in raid "+buildId)
-            }
-            else{
-              newPlayer.raid = buildId
-              playerBuild = [...playerBuild,newPlayer]
-              setBuildPlayers(buildId, playerBuild)
-            }
-          }
-          updateRosterStatus(newPlayer, roster)
-          saveCurrentBuild(playerBuild, buildId, getBuildName(buildId))
-        }
-      }
-      // Moving from raid to roster
-      else{
-        console.log(`Moving player ${JSON.stringify(newPlayer)} to roster`)
-        deletePlayer(newPlayer, newPlayer.raid)
-      }
-  };
-
-  const getOtherCharacters = (player: BuildPlayer, players: BuildPlayer[]): BuildPlayer[] => {
-    return players.filter((otherPlayer) => {
-      return (otherPlayer.main === player.name || otherPlayer.name === player.main || otherPlayer.main === player.main) &&
-      otherPlayer.id !== player.id && (otherPlayer.main??"".length > 0) && (player.main??"".length > 0)
+      return player
     })
+    setBuildPlayers(buildId, newPlayers)
+    updateRosterStatus(movedPlayer, roster)
+    saveCurrentBuild(newPlayers, buildId, getBuildName(buildId))
   }
+
+  const hasCharacterInRaid = (character : BuildPlayer, buildId: number) => {
+    if(getBuild(buildId).players.find((player) => isAlt(player, character))){
+      return true
+    }
+    return false
+  }
+
+  const importPlayerToRaid = async (newPlayer:BuildPlayer, buildId: number) => {
+
+    if(hasCharacterInRaid(newPlayer, buildId)){
+      handleModalOpen({title:common("error.player.import"),content:common("error.player.exists"),params:{"player":newPlayer.main}})
+      return
+    }
+
+    const oldRaidCharacter = getOtherBuildPlayers(newPlayer.raid).find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id)
+    // If the character exists in the other raid, we are moving from one raid to the other
+    if(oldRaidCharacter){
+      deletePlayer(oldRaidCharacter, oldRaidCharacter.raid)
+      addPlayer(newPlayer, newPlayer.raid)
+      return
+    }
+
+    const otherRaidCharacter = getBuildPlayers(newPlayer.raid).find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id)
+    // If the character exists in the current raid, we are simply swapping groups
+    if(otherRaidCharacter){
+      movePlayer(newPlayer, newPlayer.raid)
+      return
+    }
+
+    // Otherwise we are moving from the roster to a raid
+    addPlayer(newPlayer, buildId)
+  }
+
+  const importPlayer = async (newPlayer: BuildPlayer, buildId: number): Promise<void> => {
+    if(newPlayer.status === InviteStatus.Tentative && newPlayer.raid !== -1){
+      handleModalOpen({title:common("error.player.import"),content:common("error.player.tentative"),params:{"player":newPlayer.name}})
+      return
+    }
+    if(newPlayer.status === InviteStatus.Declined && newPlayer.raid !== -1){
+      handleModalOpen({title:common("error.player.import"),content:common("error.player.declined"),params:{"player":newPlayer.main}})
+      return
+    }
+
+    // Moving to raid
+    if(buildId !== -1){
+      importPlayerToRaid(newPlayer, buildId)
+      return
+    }
+
+    // Moving from raid to roster (i.e. deleting the player from the raid)
+    deletePlayer(newPlayer, newPlayer.raid)
+  };
 
   const addToRoster = async (newPlayer: BuildPlayer): Promise<void> => {
     console.log("Adding player to roster "+JSON.stringify(newPlayer))
@@ -325,59 +302,86 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return false;
   }
 
-  const updateRosterStatus = async (player: BuildPlayer, roster: BuildPlayer[], statusOverride?: InviteStatus) => {
-    const rosterPlayer = roster.find((p) => p.id === player.id)
-    if(rosterPlayer){
-      console.log(rosterPlayer)
-      console.log(player)
-      if(isPlayerAbsent(rosterPlayer)){
-        rosterPlayer.status = InviteStatus.Tentative
-        return
-      }
-      console.log("Player not absent")
-
-      if(typeof statusOverride !== "undefined"){
-        rosterPlayer.status = statusOverride
-        const otherCharacters = getOtherCharacters(player, roster);
-        if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length >= 1){
-          for(const otherCharacter of otherCharacters){
-            if(otherCharacter.status === InviteStatus.Declined){
-                otherCharacter.status = InviteStatus.Unknown;
-            }
-          }
-        }
-        return
-      }
-      console.log("No override")
-
-      if(player.group === "roster"){
-        rosterPlayer.status = InviteStatus.Unknown;
-        return
-      }
-      console.log("Not roster")
-
-      if(player.group === "bench" && player.raid !== -1){
-        rosterPlayer.status = InviteStatus.Benched;
-        return
-      }
-      console.log("Not bench")
-
-      if(player.group){
-        rosterPlayer.status = InviteStatus.Accepted;
-        const otherCharacters = getOtherCharacters(player, roster);
-        if(otherCharacters.filter((otherCharacter) => otherCharacter.status === InviteStatus.Accepted).length > 0){
-          console.log(`Player ${rosterPlayer.name} has already set 2 characters in raid`)
-          for(const otherCharacter of otherCharacters){
-            if(otherCharacter.status !== InviteStatus.Accepted){
-              otherCharacter.status = InviteStatus.Declined;
-            }
-          }
-        }
-        return
-      }
-
-      rosterPlayer.status = InviteStatus.Unknown
+  const isAlt = (potentialAlt :BuildPlayer, character: BuildPlayer) : boolean => {
+    if(potentialAlt.id !== character.id && (potentialAlt.main === character.name || potentialAlt.main === character.main)){
+      return true
     }
+    return false
+  }
+
+  const updateRosterStatus = (character: BuildPlayer, roster: BuildPlayer[], statusOverride?: InviteStatus) => {
+    const rosterCharacter = roster.find((p) => {
+      return p.id === character.id
+    })
+
+    if(!rosterCharacter){
+      return
+    }
+
+    if(statusOverride){
+      rosterCharacter.status = statusOverride
+    }
+
+    if(isPlayerAbsent(character)){
+      rosterCharacter.status = InviteStatus.Tentative
+    }
+
+    if(character.status === InviteStatus.Tentative){
+      // If player is absent also set other characters absent{
+      roster.map((player: BuildPlayer) => {
+        if(player.main === character.name){
+          player.status = InviteStatus.Tentative
+        }
+        return false
+      })
+      return
+    }
+
+    if(character.raid === -1 && character.group !== "roster"){
+      rosterCharacter.status = InviteStatus.Unknown
+      // If character is moving to roster reset status of declined alts
+      roster.map((player: BuildPlayer) => {
+        if(isAlt(player, character) && player.status === InviteStatus.Declined){
+          player.status = InviteStatus.Unknown
+        }
+        return false
+      })
+      return
+    }
+
+    if(character.group === "bench"){
+      rosterCharacter.status = InviteStatus.Benched
+    }
+    else if(rosterCharacter.status === InviteStatus.Unknown || rosterCharacter.status === InviteStatus.Benched){
+      rosterCharacter.status = InviteStatus.Accepted
+    }
+
+    // Get number of characters from this player that are set in raid
+    let otherCharactersInRaid = 0
+    roster.map((otherCharacter: BuildPlayer) => {
+      if(isAlt(otherCharacter, character)){
+
+        if(otherCharacter.status !== InviteStatus.Unknown){
+          otherCharactersInRaid +=1;
+        }
+        if(otherCharacter.group !== "roster"){
+          return false
+        }
+
+      }
+      return false
+    })
+
+    // If at least 1 character is set in each raid, set other characters to declined
+    if(otherCharactersInRaid >= MAX_SET_CHARACTERS-1){
+      roster.map((otherCharacter: BuildPlayer) => {
+        if(isAlt(otherCharacter, character) && otherCharacter.status === InviteStatus.Unknown){
+          otherCharacter.status = InviteStatus.Declined
+        }
+        return false
+      })
+    }
+
   }
 
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildId: number, buildName: string ) => {
@@ -431,10 +435,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       })
     }
   }
-
-  const loadRoster = async (newRoster: BuildPlayer[]): Promise<void> => {
-    setRoster([...newRoster]);
-  };
 
   const loadBuild = async (build: Build, buildId: number): Promise<void> => {
     build.players.forEach((player)=> player.raid = buildId);
@@ -505,7 +505,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     await setBuild(buildId, getEmptyBuild()).then(() => {
       setBuildName(common("build.new"), buildId)
       localStorage.removeItem(`LastBuild-${buildId}`)
-      //handleSelectBuild(buildId)(newBuilds[-1])
 
       BuildHelper.parseDeleteBuild(getBuild(buildId).id)
     })
@@ -525,6 +524,36 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const getPlayerAbsence = (player: string) => {
     return absence.filter((absentPlayer) => absentPlayer.player.name === player || absentPlayer.player.main === player)
+  }
+
+  const handleShowError = (callback: any) => {
+    handleModalOpen = callback;
+  };
+
+  const checkForDifferences = (newBuild: Build, buildId: number) => {
+    const differencesPlayers = _.differenceWith(newBuild.players, getBuildPlayers(buildId), (a : BuildPlayer, b: BuildPlayer) => {
+      return _.isEqual(
+        _.omit(a, ['status', 'raid']),
+        _.omit(b, ['status', 'raid'])
+      )
+    })
+    if (differencesPlayers.length > 0 || newBuild.players.length !== getBuildPlayers(buildId).length){
+      console.log(`Raid ${buildId+1} has changed somewhere. Reloading`)
+      loadBuild(newBuild,buildId).then(() => {
+        newBuild.players.map((player) => {
+          player.raid = buildId;
+          updateRosterStatus(player, roster)
+          return false
+        })
+      })
+    }
+
+    // TODO: Fix status not updating for deleted characters
+    // If a player is deleted in one client update their status
+    if (newBuild.players.length < getBuild(buildId).players.length){
+      const results = getBuild(buildId).players.filter(({ id: id1 }) => !newBuild.players.some(({ id: id2 }) => id2 === id1));
+      //console.log(results[0])
+    }
   }
 
   useEffect(() => {
@@ -551,99 +580,88 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         setBuilds(buildObject)
       })
 
-      BuildHelper.parseGetPlayers().then((roster) => {
-        loadRoster(roster).then(() => {
-          if(build0){
-            BuildHelper.parseGetBuild(build0).then((build) => {
-              loadBuild(build,0).then(() => {
-                for(const player of build.players){
-                  player.raid = 0;
-                  updateRosterStatus(player, roster)
-                }
-              })
-            }).catch(handleError);
-          }
+      BuildHelper.parseGetPlayers().then((newRoster: BuildPlayer[]) => {
 
-          if(build1){
-            BuildHelper.parseGetBuild(build1).then((build) => {
-              loadBuild(build,1).then(() => {
-                for(const player of build.players){
-                  player.raid = 1;
-                  updateRosterStatus(player, roster)
-                }
-              })
-            }).catch(handleError);
-          }
-
-
-          BuildHelper.parseGetAbsences().then((loadedAbsences) => {
-            const absenceObject: Absence[] = [];
-            for(const absence of loadedAbsences){
-              const rosterPlayer = roster.find((player) => player.name === absence.name)
-              if(rosterPlayer){
-                absenceObject.push({player:rosterPlayer, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
+        // Load absences and set players to tentative
+        BuildHelper.parseGetAbsences().then((loadedAbsences) => {
+          const absenceObject: Absence[] = [];
+          for(const absence of loadedAbsences){
+            newRoster.map((player) => {
+              if(player.name === absence.name){
+                updateRosterStatus(player, newRoster, InviteStatus.Tentative)
+                absenceObject.push({player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
               }
-            }
-            setAbsence(absenceObject)
-          })
+              return false
+            })
+          }
+          setAbsence(absenceObject)
         })
+
+        // Load raid 1 and set players to correct state
+        if(build0){
+          BuildHelper.parseGetBuild(build0).then((build) => {
+            loadBuild(build,0).then(() => {
+              build.players.map((player) => {
+                player.raid = 0;
+                updateRosterStatus(player, newRoster)
+                return false
+              })
+            })
+          }).catch(handleError);
+        }
+
+        // Load raid 2 and set players to correct state
+        if(build1){
+          BuildHelper.parseGetBuild(build1).then((build) => {
+            loadBuild(build,1).then(() => {
+              build.players.map((player) => {
+                player.raid = 1;
+                updateRosterStatus(player, newRoster)
+                return false
+              })
+            })
+          }).catch(handleError);
+        }
+        setRoster(newRoster)
       })
+
+
 
       localStorage.getItem('LastVersion')?? localStorage.setItem("LastVersion", "Wotlk")
       setVersion(localStorage.getItem( 'LastVersion')?? "Wotlk");
+
       setIsLoading(false);
     }
     const interval = setInterval(() => {
-      BuildHelper.parseGetPlayers().then((currentRoster) => {
-        const differences = _.differenceWith(currentRoster, roster, (a : BuildPlayer, b: BuildPlayer) => {
+      BuildHelper.parseGetPlayers().then((newRoster) => {
+        const differences = _.differenceWith(newRoster, roster, (a : BuildPlayer, b: BuildPlayer) => {
           return _.isEqual(
             _.omit(a, ['status']),
             _.omit(b, ['status'])
           )
         })
-        if (differences.length > 0 || currentRoster.length !== roster.length){
+        if (differences.length > 0 || newRoster.length !== roster.length){
           console.log("Roster has changed somewhere. Reloading")
-          setRoster(currentRoster)
+          newRoster.map((player) => {
+            const otherPlayer = roster.find((rosterPlayer) => rosterPlayer.id === player.id)
+            if(otherPlayer){
+              player.status = otherPlayer.status
+            }
+            return false
+          })
+          setRoster(newRoster)
         }
       })
 
       if(getBuildName(0) !== common("build.new")){
         BuildHelper.parseGetBuild(getBuild(0).id).then((currentBuild) => {
-          const differences = _.differenceWith(currentBuild, getBuildPlayers(0), (a : BuildPlayer, b: BuildPlayer) => {
-            return _.isEqual(
-              _.omit(a, ['status', 'raid']),
-              _.omit(b, ['status', 'raid'])
-            )
-          })
-          if (differences.length > 0 || currentBuild.players.length !== getBuildPlayers(0).length){
-            console.log("Raid 1 has changed somewhere. Reloading")
-            setBuild(0, currentBuild).then(() => {
-              for(const player of currentBuild.players){
-                player.raid = 0;
-                updateRosterStatus(player, roster)
-              }
-            })
-          }
+          checkForDifferences(currentBuild, 0)
         }).catch(handleError);
       }
 
       if(getBuildName(1) !== common("build.new")){
         BuildHelper.parseGetBuild(getBuild(1).id).then((currentBuild) => {
-          const differences = _.differenceWith(currentBuild, getBuildPlayers(1), (a : BuildPlayer, b: BuildPlayer) => {
-            return _.isEqual(
-              _.omit(a, ['status', 'raid']),
-              _.omit(b, ['status', 'raid'])
-            )
-          })
-          if (differences.length > 0 || currentBuild.players.length !== getBuildPlayers(1).length){
-            console.log("Raid 2 has changed somewhere. Reloading")
-            setBuild(1, currentBuild).then(() => {
-              for(const player of currentBuild.players){
-                player.raid = 1;
-                updateRosterStatus(player, roster)
-              }
-            })
-          }
+          checkForDifferences(currentBuild, 1)
         }).catch(handleError);
       }
     }, 2000);
@@ -657,8 +675,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadRoster, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, getOtherBuildName }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, getOtherBuildName }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
+      <ModalAlert handleOpen={handleShowError}/>
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
         <Box key={UUID()} sx={{width:"35%"}} css={styles.gridBox}>

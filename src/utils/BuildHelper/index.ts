@@ -1,5 +1,5 @@
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
-import { Build, BuildGroups, BuildPlayer, BuildPlayerResponse, BuildRoles, GroupId } from "../../types";
+import { AbsenceResponse, Build, BuildGroups, BuildPlayer, BuildPlayerResponse, BuildRoles, GroupId } from "../../types";
 import { RosterProvider } from "../../utils/RosterProvider";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
@@ -170,7 +170,6 @@ export abstract class BuildHelper {
 
   public static async parsePostSetup(build : Build, sheetUrl: string) {
     //@Crenox
-    console.log(build)
     const data = {
       "content": "<@&840957996304826378> Raidsheet Aktualisierung " + new Date().toLocaleString('de-de'),
       "embeds": [{
@@ -217,7 +216,7 @@ export abstract class BuildHelper {
   }
 
   public static async parseGetAbsences() {
-    const absences : any[] = []
+    const absences : AbsenceResponse[] = []
 
     await RosterProvider.getAbsences().then((response) => {
       if(response){

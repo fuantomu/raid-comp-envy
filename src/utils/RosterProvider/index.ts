@@ -1,4 +1,4 @@
-import { Absence, BuildPlayer, BuildPlayerResponse, BuildResponse } from "../../types";
+import { AbsenceResponse, BuildPlayer, BuildPlayerResponse, BuildResponse } from "../../types";
 
 export abstract class RosterProvider {
   public static async getPlayers() : Promise<BuildPlayer[]>{
@@ -56,7 +56,7 @@ export abstract class RosterProvider {
     return await fetch(`${process.env.REACT_APP_DISCORD_WEBHOOK}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: build}).then((response) => {return response})
   }
 
-  public static async getAbsences() : Promise<Absence[]>{
+  public static async getAbsences() : Promise<AbsenceResponse[]>{
     return await fetch(`http://${process.env.REACT_APP_BASEURL}:8080/absence/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => response.json()).then((absence) => {
       return absence
     })

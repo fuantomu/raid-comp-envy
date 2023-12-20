@@ -14,7 +14,6 @@ type AppContextApi = {
   setRosterExpanded: (state: boolean) => void;
   getRosterExpanded: () => boolean;
   editPlayer: (player: BuildPlayer) => void;
-  loadRoster: (roster: BuildPlayer[]) => Promise<void>;
   handleSorting: (sort: any) => void;
   getCurrentSorting: () => string;
   handleSelect: (buildId: number) => (value: any) => void;

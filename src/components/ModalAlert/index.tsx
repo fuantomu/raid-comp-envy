@@ -12,7 +12,7 @@ export enum ModalAlertResponse {
 }
 
 export interface ModalAlertProps {
-  handleOpen: (callback: () => void) => void;
+  handleOpen: (callback: (props?: any) => void) => void;
   title?: string;
   content?: ReactNode;
   cancelButton?: boolean;
@@ -29,12 +29,23 @@ const ModalAlert: FC<ModalAlertProps> = ({
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [common] = useTranslation("common");
+  const [boxContent, setContent] = useState(content);
+  const [boxTitle, setTitle] = useState(title);
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  handleOpen(() => {
+  handleOpen((props?: any) => {
+    if(props){
+      if(props.params){
+        for(const param in props.params){
+          props.content = props.content.replace(`$${param.toUpperCase()}`, props.params[param])
+        }
+      }
+      setContent(props.content)
+      setTitle(props.title)
+    }
     setOpen(true);
   });
 
@@ -50,8 +61,8 @@ const ModalAlert: FC<ModalAlertProps> = ({
   return (
     <Modal open={open} onClose={handleClose}>
       <Box css={styles.modal}>
-        {title ? <h2>{title}</h2> : null}
-        <Box css={styles.content}>{content}</Box>
+        {boxTitle ? <h2>{boxTitle}</h2> : null}
+        <Box css={styles.content}>{boxContent}</Box>
         <Box css={styles.buttons}>
           <Button
             color="primary"

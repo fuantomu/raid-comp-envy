@@ -254,7 +254,13 @@
     "notFound": "Not Found",
     "apiCancelled": "Internal Error",
     "api403": "403: Forbidden",
-    "api404": "404: Not Found"
+    "api404": "404: Not Found",
+    "player": {
+      "import": "Error during import",
+      "tentative": "Player '$PLAYER' is absent during the raid period and cannot be set",
+      "declined": "There are already characters from '$PLAYER' in each raid",
+      "exists": "There is already another character from '$PLAYER' in this raid"
+    }
   },
   "sorting": {
     "alphabetical": "Alphabetical",

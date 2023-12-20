@@ -62,6 +62,13 @@ export type SelectOption = {
   label: string;
 };
 
+export type AbsenceResponse = {
+  name: string;
+  startDate: number;
+  endDate: number;
+  reason?: string;
+};
+
 export type Absence = {
   player: BuildPlayer;
   startDate: number;
