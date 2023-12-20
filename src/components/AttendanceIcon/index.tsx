@@ -49,7 +49,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status, absence }) => {
             common(`status.${status}`)
           }
           css={css`
-            color: ${palette.warning.main};
+            color: ${palette.background.default};
           `}
         />
       );
