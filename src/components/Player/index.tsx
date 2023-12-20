@@ -23,7 +23,7 @@ export interface PlayerProps extends BuildPlayer {
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[]} = props;
+  const { name, className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[], main} = props;
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
@@ -58,7 +58,7 @@ const Player: FC<PlayerProps> = (props) => {
         <Typography css={styles.name} title={fullName}>
           {fullName}
         </Typography>
-        {status === "tentative"? (<AttendanceIcon status={status} absence={context?.getPlayerAbsence(name)} />): null}
+        {status === "tentative"? (<AttendanceIcon status={status} absence={context?.getPlayerAbsence(main?? name)} />): null}
 
         {alts.length > 0? (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible);}}>
           {(!visible && !rosterVisible)? (<ArrowLeft></ArrowLeft>): (<ArrowDropDown></ArrowDropDown>)}
