@@ -243,7 +243,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   const importPlayer = async (newPlayer: BuildPlayer, buildId: number): Promise<void> => {
-    if(newPlayer.status === InviteStatus.Tentative && newPlayer.raid !== -1){
+    if(isPlayerAbsent(newPlayer, getBuild(buildId).date) && newPlayer.raid !== -1){
       handleModalOpen({title:common("error.player.import"),content:common("error.player.tentative"),params:{"player":newPlayer.name}})
       return
     }
@@ -289,11 +289,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     deleteFromRoster(removedPlayer);
   }
 
-  const isPlayerAbsent = (player: BuildPlayer) : boolean => {
-    const currentDate = new Date().getTime()
+  const isPlayerAbsent = (player: BuildPlayer, time: number) : boolean => {
     for(const absentPlayer of absence){
       if(absentPlayer.player.name === player.name || absentPlayer.player.name === player.main){
-        if(absentPlayer.startDate <= currentDate && absentPlayer.endDate > currentDate){
+        if(absentPlayer.startDate <= time && absentPlayer.endDate > time){
           return true;
         }
         return false;
@@ -322,7 +321,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       rosterCharacter.status = statusOverride
     }
 
-    if(isPlayerAbsent(character)){
+    if(isPlayerAbsent(character, new Date().getTime())){
       rosterCharacter.status = InviteStatus.Tentative
     }
 
@@ -588,7 +587,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           for(const absence of loadedAbsences){
             newRoster.map((player) => {
               if(player.name === absence.name){
-                updateRosterStatus(player, newRoster, InviteStatus.Tentative)
+                if(absence.startDate <= new Date().getTime() && new Date().getTime() < absence.endDate){
+                  updateRosterStatus(player, newRoster, InviteStatus.Tentative)
+                }
                 absenceObject.push({player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
               }
               return false
