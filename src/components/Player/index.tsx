@@ -38,7 +38,7 @@ const Player: FC<PlayerProps> = (props) => {
     <Box>
       <Box
         key={UUID()}
-        css={styles.player(isClickable)}
+        css={styles.player(isClickable, status)}
         onClick={onClick ? onClick : () => {}}
         ref={isClickable ? drag : undefined}
       >
@@ -62,7 +62,7 @@ const Player: FC<PlayerProps> = (props) => {
 
         {alts.length > 0? (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible);}}>
           {(!visible && !rosterVisible)? (<ArrowLeft></ArrowLeft>): (<ArrowDropDown></ArrowDropDown>)}
-        </Box>) : <></>}
+        </Box>) : null}
 
       </Box>
       {alts.length > 0 && (visible || rosterVisible) ? (

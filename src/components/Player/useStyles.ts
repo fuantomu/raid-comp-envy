@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { WarcraftClassColour, WarcraftPlayerClass } from "../../consts";
+import { InviteStatus, WarcraftClassColour, WarcraftPlayerClass } from "../../consts";
 import useTheme, { Spacing } from "../../utils/useTheme";
 
 export default (className: WarcraftPlayerClass) => {
@@ -7,21 +7,21 @@ export default (className: WarcraftPlayerClass) => {
   const { palette, spacing } = theme;
 
   return {
-    player: (isClickable: boolean) => {
+    player: (isClickable: boolean, status?: InviteStatus) => {
       return css`
         display: grid;
-        grid-template-columns: auto 28px 1fr auto auto;
+        grid-template-columns: 28px 28px 1fr 14px 14px 1px;
         gap: ${spacing(Spacing.xs)};
         padding: ${spacing(Spacing.xxs)};
         margin: ${spacing(Spacing.xxs)} 0;
-        background-color: ${palette.background.default};
+        background-color: ${status === "accepted"? palette.success.dark : status === "declined"? palette.error.dark : status === "tentative"? palette.warning.dark : palette.background.default };
         border-radius: ${spacing(Spacing.xxs)};
         align-items: center;
         user-select: none;
         cursor: ${isClickable && "pointer"};
 
         &:hover {
-          background-color: ${palette.secondary.dark};
+          background-color: ${status === "accepted"? palette.success.light : status === "declined"? palette.error.light : status === "tentative"? palette.warning.light : palette.secondary.dark };
         }
       `;
     },
@@ -33,6 +33,7 @@ export default (className: WarcraftPlayerClass) => {
     name: css`
       font-weight: ${theme.typography.fontWeightMedium}!important;
       color: ${WarcraftClassColour[className]};
+      text-shadow: 1px 2px 1px black;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
