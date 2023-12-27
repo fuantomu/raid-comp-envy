@@ -27,7 +27,7 @@ public class BuildEntity {
   @NonNull
   private String name;
 
-  private long date;
+  private Long date;
 
   @JdbcTypeCode(SqlTypes.LONGVARCHAR)
   private String players;

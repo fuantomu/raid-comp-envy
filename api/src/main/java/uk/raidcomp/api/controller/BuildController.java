@@ -2,11 +2,13 @@ package uk.raidcomp.api.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.QueryValue;
 import jakarta.validation.Valid;
 import uk.raidcomp.api.controller.dto.save.SaveBuildDto;
 import uk.raidcomp.api.data.entity.BuildEntity;
@@ -29,6 +31,16 @@ public class BuildController {
   @Get("/")
   public List<BuildEntity> listAllBuilds() {
     return buildRepository.findAll();
+  }
+
+  @Get("/params")
+  public List<BuildEntity> getBuildsWithParams(@QueryValue Optional<Long> date) {
+    List<BuildEntity> buildList = buildRepository.findAll();
+    if (!date.isEmpty()) {
+      buildList = buildList.stream().filter(build -> build.getDate() == date.get())
+          .collect(Collectors.toList());
+    }
+    return buildList;
   }
 
   @Get("/{buildId}")
