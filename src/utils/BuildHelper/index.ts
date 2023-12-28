@@ -174,7 +174,7 @@ export abstract class BuildHelper {
       "content": "<@&840957996304826378> Raidsheet Aktualisierung " + new Date().toLocaleString('de-de'),
       "embeds": [{
         "description": "",
-        "title": build.name,
+        "title": `${build.name} - ${new Date(build.date).toLocaleString('de-de')}`,
         "color": null,
         "url": sheetUrl,
         "fields": [
