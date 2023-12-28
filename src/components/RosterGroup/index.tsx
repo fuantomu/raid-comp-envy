@@ -83,6 +83,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
           <MenuItem id={"healer"} value={"ROLEHEALER"}>{common("sorting.healer")}</MenuItem>
           <MenuItem id={"melee"} value={"ROLEMELEE"}>{common("sorting.melee")}</MenuItem>
           <MenuItem id={"ranged"} value={"ROLERANGED"}>{common("sorting.ranged")}</MenuItem>
+          <MenuItem id={"default"} value={"DEFAULT"}>{common("sorting.default")}</MenuItem>
         </TextField>
         </Box>
         <Box key={UUID()} sx={{maxHeight:"1160px"}} css={[styles.scroll, styles.spread]}>

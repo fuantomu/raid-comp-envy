@@ -12,7 +12,7 @@ import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
-import { InviteStatus } from "../../consts";
+import { InviteStatus, RoleWeight } from "../../consts";
 import { WarcraftRole } from "../../utils/RoleProvider/consts";
 import { RoleProvider } from "../../utils/RoleProvider";
 import { Button, Tooltip } from "@mui/material";
@@ -41,7 +41,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [, setDateRaid1] = useState(0);
   const [, setDateRaid2] = useState(0);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
-  const [sorting, setSorting] = useState('');
+  const [sorting, setSorting] = useState("DEFAULT");
   const [builds, setBuilds] = useState<SelectOption[]>([]);
   const [version, setVersion] = useState("Cataclysm");
   const [rosterExpanded, setRosterExpanded] = useState(false)
@@ -56,7 +56,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     "ROLETANK": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Tank)? -1 : 1},
     "ROLEMELEE": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.MeleeDPS)? -1 : 1},
     "ROLERANGED": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.RangedDPS)? -1 : 1},
-    "ROLEHEALER": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Healer)? -1 : 1}
+    "ROLEHEALER": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Healer)? -1 : 1},
+    "DEFAULT": function(a:BuildPlayer,b:BuildPlayer) { return (RoleWeight[RoleProvider.getSpecRole(a.spec)] - RoleWeight[RoleProvider.getSpecRole(b.spec)])}
   }
 
   let openEditModal: any = () => {};
@@ -264,7 +265,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const addToRoster = async (newPlayer: BuildPlayer): Promise<void> => {
     console.log("Adding player to roster "+JSON.stringify(newPlayer))
-    const newRoster = [...roster.filter((player) => player.id !== newPlayer.id),newPlayer]
+    const newRoster = [...roster.filter((player) => player.id !== newPlayer.id),newPlayer].sort(sortFunctions[sorting])
     setRoster(newRoster)
     saveCurrentRoster(newRoster);
   }
@@ -274,7 +275,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       ...roster.filter((player : BuildPlayer) => {
         return removedPlayer.id !== player.id
       })
-    ]
+    ].sort(sortFunctions[sorting])
 
 
     const altCharacters = rosterBuild.filter((otherPlayer) => {
@@ -626,7 +627,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             })
           }).catch(handleError);
         }
-        setRoster(newRoster)
+        setRoster(newRoster.sort(sortFunctions[sorting]))
       })
 
 
@@ -673,7 +674,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
             }
             return false
           })
-          setRoster(newRoster)
+          setRoster(newRoster.sort(sortFunctions[sorting]))
         }
       })
 

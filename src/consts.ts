@@ -1,3 +1,5 @@
+import { WarcraftRole } from "./utils/RoleProvider/consts";
+
 export enum AppErrorId {
   Unspecific = "unspecific",
   App404 = "notFound",
@@ -100,3 +102,13 @@ export const WarcraftClassColour: {
 export const DragItemTypes = {
   PLAYER: "player",
 };
+
+export const RoleWeight: {
+  [role in WarcraftRole]: number;
+} = {
+  Unknown: 9,
+  Healer: 2,
+  Tank: 1,
+  MeleeDPS: 3,
+  RangedDPS: 4
+}
