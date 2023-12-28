@@ -277,5 +277,12 @@
     "send": "Send setup to Discord",
     "url": "Set link to sheet",
     "post": "Post setup"
+  },
+  "login":{
+    "title": "Login to raid planner",
+    "submit": "Login",
+    "error": "Incorrect username or password",
+    "user": "User",
+    "password": "Password"
   }
 }
