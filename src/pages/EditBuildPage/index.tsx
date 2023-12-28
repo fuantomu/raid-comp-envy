@@ -635,6 +635,26 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       setIsLoading(false);
     }
     const interval = setInterval(() => {
+      BuildHelper.parseGetAbsences().then((loadedAbsences) => {
+        const newAbsence = loadedAbsences.filter((absencePlayer) => { return roster.find((rosterPlayer) => { return rosterPlayer.name === absencePlayer.name }) !== undefined})
+        if(newAbsence.length !== absence.length){
+          console.log("Absence has changed somewhere. Reloading")
+          const absenceObject: Absence[] = [];
+          for(const absence of newAbsence){
+            roster.map((player) => {
+              if(player.name === absence.name){
+                if(Date.now() <= absence.endDate){
+                  updateRosterStatus(player, roster, InviteStatus.Tentative)
+                }
+                absenceObject.push({player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
+              }
+              return false
+            })
+          }
+          setAbsence(absenceObject)
+        }
+      })
+
       BuildHelper.parseGetPlayers().then((newRoster) => {
         const differences = _.differenceWith(newRoster, roster, (a : BuildPlayer, b: BuildPlayer) => {
           return _.isEqual(
