@@ -36,7 +36,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status, absence }) => {
     case InviteStatus.Tentative:
       let absentString = "Absent from:\n"
       if(absence){
-        const currentDate = new Date().getTime();
+        const currentDate = Date.now();
         const absentDates = absence.filter((absentTime) => absentTime.endDate >= currentDate)
         for(const absentDate of absentDates){
           absentString += `${new Date(absentDate.startDate).toLocaleDateString()} to ${new Date(absentDate.endDate).toLocaleDateString()}. Reason: ${absentDate.reason}\n`

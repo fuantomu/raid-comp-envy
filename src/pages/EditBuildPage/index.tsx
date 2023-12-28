@@ -321,7 +321,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       rosterCharacter.status = statusOverride
     }
 
-    if(isPlayerAbsent(character, new Date().getTime())){
+    if(isPlayerAbsent(character, Date.now())){
       rosterCharacter.status = InviteStatus.Tentative
     }
 
@@ -587,7 +587,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           for(const absence of loadedAbsences){
             newRoster.map((player) => {
               if(player.name === absence.name){
-                if(absence.startDate <= new Date().getTime() && new Date().getTime() < absence.endDate){
+                if(absence.startDate <= Date.now() && Date.now() < absence.endDate){
                   updateRosterStatus(player, newRoster, InviteStatus.Tentative)
                 }
                 absenceObject.push({player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})

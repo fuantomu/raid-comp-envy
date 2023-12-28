@@ -20,7 +20,7 @@ export interface BuildTitleProps {
 
 const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId, buildDate }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
-  const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minute", 0).set("second", 0).set("millisecond",0) : dayjs().set("minute", 0).set("second", 0).set("millisecond",0));
+  const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minutes", 0).set("seconds", 0).set("milliseconds",0) : dayjs().set("minutes", 0).set("seconds", 0).set("milliseconds",0));
   const context = useAppContext();
 
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
@@ -36,7 +36,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   };
 
   const handleDateChange = (date: Dayjs) => {
-    const newDate = date.set("minute", 0).set("second", 0).set("millisecond",0)
+    const newDate = date.set("minutes", 0).set("seconds", 0).set("milliseconds",0)
     setDate(newDate);
     onChange(newDate);
   }
