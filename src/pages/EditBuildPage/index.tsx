@@ -292,7 +292,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const isPlayerAbsent = (player: BuildPlayer, time: number) : boolean => {
     for(const absentPlayer of absence){
       if(absentPlayer.player.name === player.name || absentPlayer.player.name === player.main){
-        if(absentPlayer.startDate <= time && absentPlayer.endDate > time){
+
+        if(absentPlayer.startDate <= time && absentPlayer.endDate >= time){
           return true;
         }
         return false;
@@ -587,7 +588,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
           for(const absence of loadedAbsences){
             newRoster.map((player) => {
               if(player.name === absence.name){
-                if(absence.startDate <= Date.now() && Date.now() < absence.endDate){
+                if(Date.now() <= absence.endDate){
                   updateRosterStatus(player, newRoster, InviteStatus.Tentative)
                 }
                 absenceObject.push({player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
