@@ -573,12 +573,13 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
         const newestBuilds = loadedBuilds.sort((a,b) => b.date - a.date)
 
-        if(!build0 && buildObject.length > 0){
-          build0 = newestBuilds[0].id
+        if(!build1 && buildObject.length > 0){
+          build1 = newestBuilds[0].id
         }
-        if(!build1 && buildObject.length > 1){
-          build1 = newestBuilds[1].id
+        if(!build0 && buildObject.length > 1){
+          build0 = newestBuilds[1].id
         }
+
 
         setBuilds(buildObject)
       })
