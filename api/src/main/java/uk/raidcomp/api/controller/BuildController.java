@@ -37,7 +37,7 @@ public class BuildController {
   public List<BuildEntity> getBuildsWithParams(@QueryValue Optional<Long> date) {
     List<BuildEntity> buildList = buildRepository.findAll();
     if (!date.isEmpty()) {
-      buildList = buildList.stream().filter(build -> build.getDate() == date.get())
+      buildList = buildList.stream().filter(build -> build.getDate().equals(date.get()))
           .collect(Collectors.toList());
     }
     return buildList;
