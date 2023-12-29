@@ -151,7 +151,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   };
 
   const handleViewPlayer = () => {
-    window.open(`${process.env.REACT_APP_DASHBOARD_BASEURL}/user.php?user=${playerName}`,"_blank")
+    window.open(`${process.env.REACT_APP_DASHBOARD}/user.php?user=${playerName}`,"_blank")
   };
 
   const handleRemovePlayer = () => {
