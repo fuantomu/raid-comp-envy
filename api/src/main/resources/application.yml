@@ -7,10 +7,8 @@ micronaut:
       configurations:
         web:
           allowedOrigins:
-            - http://raidsheet.envy.vision
-            - https://raidsheet.envy.vision
-            - http://absence.envy.vision
-            - https://absence.envy.vision
+            - http://localhost:4200
+            - http://localhost:3000
           allowedHeaders:
               - Content-Type
               - Authorization
