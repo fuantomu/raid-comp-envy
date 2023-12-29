@@ -14,14 +14,14 @@ export default (className: WarcraftPlayerClass) => {
         gap: ${spacing(Spacing.xs)};
         padding: ${spacing(Spacing.xxs)};
         margin: ${spacing(Spacing.xxs)} 0;
-        background-color: ${status === "accepted"? palette.success.dark : status === "declined"? palette.error.dark : status === "tentative"? palette.warning.dark : palette.background.default };
+        background-color: ${status === "accepted"? "#2c4a2c" : status === "declined"? "#4a2121" : status === "tentative"? "#69670e" : palette.background.default };
         border-radius: ${spacing(Spacing.xxs)};
         align-items: center;
         user-select: none;
         cursor: ${isClickable && "pointer"};
 
         &:hover {
-          background-color: ${status === "accepted"? palette.success.light : status === "declined"? palette.error.light : status === "tentative"? palette.warning.light : palette.secondary.dark };
+          background-color: ${status === "accepted"? palette.success.light : status === "declined"? palette.error.light : status === "tentative"? palette.warning.dark : palette.secondary.dark };
         }
       `;
     },
@@ -33,7 +33,7 @@ export default (className: WarcraftPlayerClass) => {
     name: css`
       font-weight: ${theme.typography.fontWeightMedium}!important;
       color: ${WarcraftClassColour[className]};
-      text-shadow: 1px 2px 1px black;
+      text-shadow: 1px 1px black;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
