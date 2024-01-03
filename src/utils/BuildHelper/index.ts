@@ -88,7 +88,8 @@ export abstract class BuildHelper {
       date: build.date,
       players: JSON.stringify(build.players.filter((player) => {
         return player.group !== 'roster'
-      }))
+      })),
+      instance: build.instance
     }
 
     await RosterProvider.saveBuild(build.id, buildRequest).then((response) => {
@@ -113,7 +114,8 @@ export abstract class BuildHelper {
       "id": "",
       "name": "",
       "date": 0,
-      "players": []
+      "players": [],
+      "instance": ""
     };
 
     await RosterProvider.getBuild(buildId).then((responseBuild) =>{
@@ -137,6 +139,7 @@ export abstract class BuildHelper {
             })
           }
         }
+        build.instance = responseBuild.instance
       }
 
     });
@@ -159,7 +162,8 @@ export abstract class BuildHelper {
             id: build.id,
             name: build.name,
             date: build.date,
-            players: JSON.parse(build.players)
+            players: JSON.parse(build.players),
+            instance: build.instance
           }
           builds.push(newBuild)
         }

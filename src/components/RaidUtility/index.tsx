@@ -11,10 +11,10 @@ import { WarcraftPlayerSpec } from "../../consts";
 export interface RaidUtilityProps {
   utility: WarcraftRaidUtility;
   players: BuildPlayer[];
-  version: String;
+  version: string;
 }
 
-const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: String) => {
+const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: string) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
     if ((RoleProvider.getSpecUtilities(spec as WarcraftPlayerSpec, version).includes(utility as WarcraftRaidUtility))){

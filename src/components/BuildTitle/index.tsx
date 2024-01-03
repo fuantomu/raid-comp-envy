@@ -8,6 +8,7 @@ import { useAppContext } from "../App/context";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
+import { Instance } from "../../consts";
 
 export interface BuildTitleProps {
   onChange: (value: any) => void;
@@ -16,15 +17,30 @@ export interface BuildTitleProps {
   title: string;
   buildId: number;
   buildDate?: number;
+  version: string;
+  selectedInstance?: string;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId, buildDate }) => {
+const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId, buildDate, version, selectedInstance }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
   const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minutes", 0).set("seconds", 0).set("milliseconds",0) : dayjs().set("minutes", 0).set("seconds", 0).set("milliseconds",0));
+  const instances = version === "Cataclysm"? Instance.Cataclysm : Instance.Wotlk;
   const context = useAppContext();
 
+  const raids : SelectOption[] = [];
+  instances.map((instance )=> {
+    return raids.push({
+      "label": instance.name,
+      "value": instance.abbreviation
+    })
+  })
+  const currentInstance : SelectOption = selectedInstance === undefined? raids[0] : {"label": instances.find((instance )=> instance.abbreviation === selectedInstance)?.name??selectedInstance, "value": instances.find((instance )=> instance.abbreviation === selectedInstance)?.abbreviation??selectedInstance}
+  const [instance, setInstance] = useState(currentInstance)
+
+
+
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
-    if(context?.getOtherBuildName(buildId) === newValue.label){
+    if(context?.getOtherBuild(buildId).name === newValue.label){
       console.log("This build is already set in another raid")
     }
     else{
@@ -33,6 +49,11 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
         onChange(newValue);
       }
     }
+  };
+
+  const handleInstanceChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
+    setInstance(newValue);
+    context?.setBuildInstance(buildId)(newValue);
   };
 
   const handleDateChange = (date: Dayjs) => {
@@ -80,6 +101,13 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
           onChange={handleDateChange}
         />
       </LocalizationProvider>
+      <Select
+        value={instance}
+        options={raids}
+        onChange={handleInstanceChange}
+        styles={customStyles}
+      >
+      </Select>
     </Box>
   );
 };

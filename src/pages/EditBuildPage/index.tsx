@@ -12,7 +12,7 @@ import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
-import { InviteStatus, RoleWeight } from "../../consts";
+import { Instance, InviteStatus, RoleWeight } from "../../consts";
 import { WarcraftRole } from "../../utils/RoleProvider/consts";
 import { RoleProvider } from "../../utils/RoleProvider";
 import { Button, Tooltip } from "@mui/material";
@@ -50,7 +50,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const _ = require('lodash');
 
-  //TODO: Sort by tanks, then healers, then melee dps, then ranged dps
   const sortFunctions : any = {
     "NAME": function(a:BuildPlayer,b:BuildPlayer) { return a.name.localeCompare(b.name)},
     "ROLETANK": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Tank)? -1 : 1},
@@ -92,7 +91,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       "id": UUID(),
       "name": common("build.new"),
       "date": 0,
-      "players": []
+      "players": [],
+      "instance": version === 'Cataclysm'? Instance.Cataclysm[0].abbreviation : Instance.Wotlk[0].abbreviation
     } as Build
   }
 
@@ -109,30 +109,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   }
 
-  const getBuildPlayers = (buildId: number) => {
+  const getOtherBuild = (buildId: number) => {
     switch (buildId) {
       case 1:
-        return buildRaid2.players;
+        return buildRaid1;
       default:
-        return buildRaid1.players;
-    }
-  }
-
-  const getOtherBuildPlayers = (buildId: number) => {
-    switch (buildId) {
-      case 1:
-        return buildRaid1.players;
-      default:
-        return buildRaid2.players;
-    }
-  }
-
-  const getOtherBuildName = (buildId: number) => {
-    switch (buildId) {
-      case 1:
-        return buildRaid1?.name;
-      default:
-        return buildRaid2?.name;
+        return buildRaid2;
     }
   }
 
@@ -171,6 +153,19 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   }
 
+  const setBuildInstance = (buildId: number) => (value: any) => {
+    switch(buildId) {
+      case 1:
+        buildRaid2.instance = value.value
+        saveBuild(buildRaid2)
+        break;
+      default:
+        buildRaid1.instance = value.value
+        saveBuild(buildRaid1)
+        break;
+    }
+  }
+
   const deletePlayer = async (deletedPlayer: BuildPlayer, buildId: number): Promise<void> => {
     if(deletedPlayer.raid === -1){
       return
@@ -179,7 +174,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     console.log(`Deleting player ${JSON.stringify(deletedPlayer)} in raid ${buildId}`)
     deletedPlayer.raid = -1
     deletedPlayer.group = undefined
-    const newPlayers = getBuildPlayers(buildId).filter((player) => player.id !== deletedPlayer.id)
+    const newPlayers = getBuild(buildId).players.filter((player) => player.id !== deletedPlayer.id)
 
     setBuildPlayers(buildId, newPlayers)
     updateRosterStatus(deletedPlayer, roster)
@@ -190,7 +185,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     console.log(`Adding player ${JSON.stringify(addedPlayer)} in raid ${buildId}`)
     addedPlayer.raid = buildId
     addedPlayer.status = InviteStatus.Unknown
-    const newPlayers = [...getBuildPlayers(buildId),addedPlayer]
+    const newPlayers = [...getBuild(buildId).players,addedPlayer]
     setBuildPlayers(buildId, newPlayers)
     updateRosterStatus(addedPlayer, roster)
     saveCurrentBuild(newPlayers, buildId, getBuildName(buildId))
@@ -199,7 +194,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const movePlayer = async (movedPlayer: BuildPlayer, buildId: number): Promise<void> => {
     console.log(`Moving player ${JSON.stringify(movedPlayer)} in raid ${buildId}`)
     movedPlayer.raid = buildId
-    const newPlayers = getBuildPlayers(buildId).map((player) => {
+    const newPlayers = getBuild(buildId).players.map((player) => {
       if(player.id === movedPlayer.id){
         player.group = movedPlayer.group
       }
@@ -224,15 +219,23 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       return
     }
 
-    const oldRaidCharacter = getOtherBuildPlayers(newPlayer.raid).find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id)
-    // If the character exists in the other raid, we are moving from one raid to the other
+    const otherBuild = getOtherBuild(newPlayer.raid)
+    const sameInstance = otherBuild.instance === getBuild(buildId).instance
+
+    const currentDate = new Date()
+    // Get the next reset time
+    currentDate.setDate(currentDate.getDate() + (((3 + 7 - currentDate.getDay()) % 7) || 7));
+    const sameLockout = (getBuild(buildId).date - currentDate.getTime()) < 0 && (otherBuild.date - currentDate.getTime()) < 0;
+
+    const oldRaidCharacter = otherBuild.players.find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id && sameInstance && sameLockout)
+    // If the character exists in the other raid, the instances are the same and the raid is in the same lockout period, we are moving from one raid to the other
     if(oldRaidCharacter){
       deletePlayer(oldRaidCharacter, oldRaidCharacter.raid)
       addPlayer(newPlayer, newPlayer.raid)
       return
     }
 
-    const otherRaidCharacter = getBuildPlayers(newPlayer.raid).find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id)
+    const otherRaidCharacter = getBuild(newPlayer.raid).players.find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id)
     // If the character exists in the current raid, we are simply swapping groups
     if(otherRaidCharacter){
       movePlayer(newPlayer, newPlayer.raid)
@@ -439,7 +442,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const loadBuild = async (build: Build, buildId: number): Promise<void> => {
     build.players.forEach((player)=> player.raid = buildId);
-    const previousBuild = getBuildPlayers(buildId);
+    const previousBuild = getBuild(buildId).players;
     await setBuild(buildId, build).then(() => {
       if(previousBuild){
         for(const player of previousBuild){
@@ -532,13 +535,13 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   const checkForDifferences = (newBuild: Build, buildId: number) => {
-    const differencesPlayers = _.differenceWith(newBuild.players, getBuildPlayers(buildId), (a : BuildPlayer, b: BuildPlayer) => {
+    const differencesPlayers = _.differenceWith(newBuild.players, getBuild(buildId).players, (a : BuildPlayer, b: BuildPlayer) => {
       return _.isEqual(
         _.omit(a, ['status', 'raid']),
         _.omit(b, ['status', 'raid'])
       )
     })
-    if (differencesPlayers.length > 0 || newBuild.players.length !== getBuildPlayers(buildId).length){
+    if (differencesPlayers.length > 0 || newBuild.players.length !== getBuild(buildId).players.length){
       console.log(`Raid ${buildId+1} has changed somewhere. Reloading`)
       loadBuild(newBuild,buildId).then(() => {
         newBuild.players.map((player) => {
@@ -701,7 +704,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, getOtherBuildName }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuild }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
       <ModalAlert handleOpen={handleShowError}/>
 

@@ -20,7 +20,7 @@ export interface RaidProps {
   raidBuild: Build;
   editing?: boolean;
   builds: SelectOption[];
-  version: String;
+  version: string;
   id: number;
   manager: DragDropManager;
 }
@@ -66,6 +66,8 @@ const Raid: FC<RaidProps> = ({
                   title={raidBuild.name}
                   buildId={id}
                   buildDate={raidBuild.date}
+                  version={version}
+                  selectedInstance={raidBuild.instance}
                 />
                 <BuildRolesCount key={UUID()} build={raidBuild} />
                 <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>

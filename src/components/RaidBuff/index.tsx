@@ -11,10 +11,10 @@ import { WarcraftPlayerSpec } from "../../consts";
 export interface RaidBuffProps {
   buff: WarcraftRaidBuff;
   players: BuildPlayer[];
-  version: String;
+  version: string;
 }
 
-const buildBuffSpeclist = (buff: WarcraftRaidBuff, version: String) => {
+const buildBuffSpeclist = (buff: WarcraftRaidBuff, version: string) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
     if ((RoleProvider.getSpecBuffs(spec as WarcraftPlayerSpec, version).includes(buff as WarcraftRaidBuff))){

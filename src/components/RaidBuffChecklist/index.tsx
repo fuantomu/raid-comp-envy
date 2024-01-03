@@ -14,10 +14,10 @@ import useInfoBadgeStyles from "../UtilityInfoBadge/useStyles";
 
 export interface RaidBuffChecklistProps {
   build: Build;
-  version: String;
+  version: string;
 }
 
-const buildBuffChecklist = (build: Build, version: String) => {
+const buildBuffChecklist = (build: Build, version: string) => {
   const raidBuffs = [];
   for (const buff in RoleProvider.getVersionBuffs(version)) {
     if(build.players.length > 0){

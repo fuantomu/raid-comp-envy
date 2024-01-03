@@ -11,10 +11,10 @@ import { WarcraftPlayerSpec } from "../../consts";
 export interface RaidDebuffProps {
   debuff: WarcraftRaidDebuff;
   players: BuildPlayer[];
-  version: String;
+  version: string;
 }
 
-const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff, version:String) => {
+const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff, version:string) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
     if ((RoleProvider.getSpecDebuffs(spec as WarcraftPlayerSpec, version).includes(debuff as WarcraftRaidDebuff))){

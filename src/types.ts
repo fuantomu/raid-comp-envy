@@ -34,6 +34,7 @@ export type Build = {
   date: number;
   players: BuildPlayer[];
   raidId?: number;
+  instance?: string;
 };
 
 export type BuildResponse = {
@@ -42,6 +43,7 @@ export type BuildResponse = {
   date: number;
   players: string;
   raidId?: number;
+  instance?: string;
 };
 
 export type BuildGroup = {

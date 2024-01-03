@@ -9,5 +9,6 @@ public record BuildDto(
     @NotNull long date,
     @NotNull String name,
     @NotNull String players,
-    String buildId) {
+    String buildId,
+    String instance) {
 }

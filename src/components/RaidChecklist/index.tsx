@@ -11,7 +11,7 @@ import useStyles from "../ChecklistItem/useStyles";
 
 export interface RaidChecklistProps {
   build: Build;
-  version: String;
+  version: string;
 }
 
 const RaidChecklist: FC<RaidChecklistProps> = ({ build, version }) => {

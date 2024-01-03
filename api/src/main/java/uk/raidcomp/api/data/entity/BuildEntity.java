@@ -34,4 +34,6 @@ public class BuildEntity {
 
   @Column(name = "raidId")
   private String raidId;
+
+  private String instance;
 }

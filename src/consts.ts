@@ -112,3 +112,38 @@ export const RoleWeight: {
   MeleeDPS: 3,
   RangedDPS: 4
 }
+
+export const Instance = {
+  "Wotlk": [
+    {
+      "name": "Icecrown Citadel",
+      "abbreviation": "ICC"
+    },
+    {
+      "name": "Ruby Sanctum",
+      "abbreviation": "RS"
+    }
+  ],
+  "Cataclysm": [
+    {
+      "name": "Blackwing Descent",
+      "abbreviation": "BWD"
+    },
+    {
+      "name": "The Bastion of Twilight",
+      "abbreviation": "BoT"
+    },
+    {
+      "name": "Throne of the Four Winds",
+      "abbreviation": "4Winds"
+    },
+    {
+      "name": "Firelands",
+      "abbreviation": "FL"
+    },
+    {
+      "name": "Dragon Soul",
+      "abbreviation": "DS"
+    }
+  ]
+}

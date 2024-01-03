@@ -7,5 +7,5 @@ import jakarta.validation.constraints.NotNull;
 
 @Serdeable
 @Introspected
-public record SaveBuildDto(String players, @NotBlank String name, @NotNull long date, String raidId) {
+public record SaveBuildDto(String players, @NotBlank String name, @NotNull long date, String raidId, String instance) {
 }

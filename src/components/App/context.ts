@@ -9,7 +9,7 @@ type AppContextApi = {
   loadBuildSql: (buildId: number) => Promise<void>;
   resetBuild: (buildId: number) => Promise<void>;
   getBuild: (buildId: number) => Build;
-  getOtherBuildName: (buildId: number) => string;
+  getOtherBuild: (buildId: number) => Build;
   getCurrentRoster: () => Build;
   setRosterExpanded: (state: boolean) => void;
   getRosterExpanded: () => boolean;
@@ -21,6 +21,7 @@ type AppContextApi = {
   addBuild: (title: string, buildId: number) => void;
   deleteBuild: (title: string, buildId: number) => void;
   getPlayerAbsence: (player: string) => Absence[];
+  setBuildInstance: (buildId: number) => (value: any) => void;
 };
 
 const AppContext = createContext<AppContextApi | null>(null);
