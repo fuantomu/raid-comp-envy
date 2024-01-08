@@ -11,7 +11,9 @@
       "group_5": "$t(build.groups.group) {{groupId}}",
       "group_none": "Ungrouped",
       "group_roster": "Roster",
-      "group_bench": "Bench"
+      "group_bench": "Bench",
+      "group_notset": "Players not set",
+      "group_absent": "Players absent"
     },
     "roles": {
       "total": "Total",

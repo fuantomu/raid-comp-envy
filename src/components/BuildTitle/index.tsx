@@ -85,22 +85,27 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   }
 
   return (
-    <Box display={"grid"} gridTemplateColumns={"4fr 1fr"}>
+    <Box>
+      <br></br>
+      <Box display={"grid"} gridTemplateColumns={"1fr"}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateTimePicker
+            ampm={false}
+            format="DD.MM.YYYY HH:mm"
+            label="Raid time"
+            value={date}
+            onChange={handleDateChange}
+          />
+        </LocalizationProvider>
+      </Box>
+      <br></br>
       <Select
               value={selectedOption}
               options={options}
               onChange={handleChange}
               styles={customStyles}
       />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker
-          ampm={false}
-          format="DD.MM.YYYY HH:mm"
-          label="Raid time"
-          value={date}
-          onChange={handleDateChange}
-        />
-      </LocalizationProvider>
+      <br></br>
       <Select
         value={instance}
         options={raids}
@@ -108,6 +113,8 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
         styles={customStyles}
       >
       </Select>
+
+
     </Box>
   );
 };

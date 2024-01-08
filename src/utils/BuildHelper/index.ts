@@ -172,7 +172,7 @@ export abstract class BuildHelper {
     return builds;
   }
 
-  public static async parsePostSetup(build : Build, sheetUrl: string) {
+  public static async parsePostSetup(build : Build, sheetUrl: string, sendMains?: BuildPlayer[]) {
     //@Crenox
     const data = {
       "content": "<@&840957996304826378> Raidsheet Aktualisierung " + new Date().toLocaleString('de-de'),
@@ -209,7 +209,7 @@ export abstract class BuildHelper {
           },
           {
               "name": "Bench",
-              "value": build.players.filter(o => o.group === "bench").map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": [...build.players.filter(o => o.group === "bench"),...sendMains?? []].map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
               "inline": true
           }
         ]

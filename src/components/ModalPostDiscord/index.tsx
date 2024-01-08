@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Tooltip } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Tooltip } from "@mui/material";
 import Modal from "@mui/material/Modal"
 import Button from "@mui/material/Button";
 import { FC, createRef, useState } from "react";
@@ -17,6 +17,7 @@ export interface ModalPostDiscordProps {
 const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [common] = useTranslation("common");
   const context = useAppContext();
   let sheetUrl = createRef<HTMLInputElement>();
@@ -35,10 +36,14 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId}) => {
     setOpen(true);
   };
 
+  const handleChange = () => {
+    setChecked(!checked);
+  };
+
   const handlePostDiscord = (sheetUrl: string) => {
     const build = context?.getBuild(buildId)
     if(build){
-      BuildHelper.parsePostSetup(build, sheetUrl)
+      BuildHelper.parsePostSetup(build, sheetUrl, checked? context?.getUnsetMains() : [])
     }
     setOpen(false);
   };
@@ -57,6 +62,14 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId}) => {
           <h2>{common("discord.url")}</h2>
           <input ref={sheetUrl}></input>
           <br />
+          <FormControlLabel
+               control = {<Checkbox
+                name="checked"
+                checked={checked}
+                onChange={handleChange}
+              />}
+              label="Send unset characters as bench"
+          />
           <Box css={styles.buttons}>
             <Button color="primary" variant="contained" onClick={handleCreate}>
               {common("discord.post")}

@@ -22,6 +22,8 @@ type AppContextApi = {
   deleteBuild: (title: string, buildId: number) => void;
   getPlayerAbsence: (player: string) => Absence[];
   setBuildInstance: (buildId: number) => (value: any) => void;
+  getAbsentPlayers: (buildId: number) => BuildPlayer[];
+  getUnsetMains: () => BuildPlayer[];
 };
 
 const AppContext = createContext<AppContextApi | null>(null);

@@ -560,6 +560,42 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
   }
 
+  const getAbsentPlayers = (buildId: number): BuildPlayer[] => {
+    const playerBuild = getBuild(buildId)
+    const foundPlayers = roster.filter((player: BuildPlayer) => {
+      const playerAbsence = getPlayerAbsence(player.main?? player.name)
+      if(player.name !== player.main){
+        return false
+      }
+      if(playerAbsence?.length !== 0){
+        return playerAbsence?.find((absence) => absence.startDate <= playerBuild.date && absence.endDate >= playerBuild.date)
+      }
+      return false
+    })
+    return foundPlayers
+  }
+
+  const getUnsetMains = (): BuildPlayer[] => {
+    const mains = roster.filter((rosterPlayer) => {
+      return rosterPlayer.main === rosterPlayer.name && rosterPlayer.status !== "tentative"
+    })
+    const setMains: BuildPlayer[] = []
+    mains.forEach((main) => {
+      buildRaid1.players.forEach((player) => {
+        if((isAlt(player, main) || player.name === main.name) && !setMains.includes(main)){
+          setMains.push(main)
+        }
+      })
+      buildRaid2.players.forEach((player) => {
+        if((isAlt(player, main) || player.name === main.name) && !setMains.includes(main)){
+          setMains.push(main)
+        }
+      })
+    })
+    const unsetMains = mains.filter((main) => { return !setMains.includes(main)})
+    return unsetMains
+  }
+
   useEffect(() => {
     if (isLoading){
       setBuildRaid1(getEmptyBuild());
@@ -704,7 +740,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuild }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuild, getAbsentPlayers, getUnsetMains }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
       <ModalAlert handleOpen={handleShowError}/>
 
