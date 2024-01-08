@@ -531,6 +531,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   const handleShowError = (callback: any) => {
+    console.log(callback)
     handleModalOpen = callback;
   };
 
@@ -740,7 +741,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuild, getAbsentPlayers, getUnsetMains }}>
+    <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuild, getAbsentPlayers, getUnsetMains, handleShowError }}>
       <ModalAdd editPlayer={editPlayerModalFn} />
       <ModalAlert handleOpen={handleShowError}/>
 

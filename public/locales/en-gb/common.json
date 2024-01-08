@@ -262,6 +262,10 @@
       "tentative": "Player '$PLAYER' is absent during the raid period and cannot be set",
       "declined": "There are already characters from '$PLAYER' in each raid",
       "exists": "There is already another character from '$PLAYER' in this raid"
+    },
+    "build": {
+      "title": "Error setting build",
+      "alreadyset": "Build is already set in another raid"
     }
   },
   "sorting": {

@@ -9,6 +9,8 @@ import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import { Instance } from "../../consts";
+import { useTranslation } from "react-i18next";
+import ModalAlert from "../ModalAlert";
 
 export interface BuildTitleProps {
   onChange: (value: any) => void;
@@ -26,6 +28,8 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minutes", 0).set("seconds", 0).set("milliseconds",0) : dayjs().set("minutes", 0).set("seconds", 0).set("milliseconds",0));
   const instances = version === "Cataclysm"? Instance.Cataclysm : Instance.Wotlk;
   const context = useAppContext();
+  const [common] = useTranslation("common");
+  let handleModalOpen: any = () => {};
 
   const raids : SelectOption[] = [];
   instances.map((instance )=> {
@@ -37,11 +41,13 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   const currentInstance : SelectOption = selectedInstance === undefined? raids[0] : {"label": instances.find((instance )=> instance.abbreviation === selectedInstance)?.name??selectedInstance, "value": instances.find((instance )=> instance.abbreviation === selectedInstance)?.abbreviation??selectedInstance}
   const [instance, setInstance] = useState(currentInstance)
 
-
+  const handleOpen = (callback: any) => {
+    handleModalOpen = callback;
+  };
 
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
     if(context?.getOtherBuild(buildId).name === newValue.label){
-      console.log("This build is already set in another raid")
+      handleModalOpen({title:common("error.build.title"),content:common("error.build.alreadyset")})
     }
     else{
       setSelectedOption(newValue);
@@ -86,6 +92,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
 
   return (
     <Box>
+      <ModalAlert handleOpen={handleOpen}/>
       <br></br>
       <Box display={"grid"} gridTemplateColumns={"1fr"}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
