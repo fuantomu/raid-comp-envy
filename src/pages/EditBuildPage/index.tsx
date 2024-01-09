@@ -23,6 +23,7 @@ import Raid from "../../components/Raid";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ModalPostDiscord from "../../components/ModalPostDiscord";
 import ModalAlert from "../../components/ModalAlert";
+import Sticky from 'react-stickynode';
 
 export interface EditBuildPageProps {}
 
@@ -750,9 +751,13 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       <ModalAlert handleOpen={handleShowError}/>
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
-        <Box key={UUID()} sx={{width:"35%"}} css={styles.gridBox}>
-          <Roster manager={manager} build={getCurrentRoster()} editing />
+
+        <Box key={UUID()} css={styles.gridBox} sx={{width:"35%"}}>
+          <Sticky enabled={true}>
+            <Roster manager={manager} build={getCurrentRoster()} editing />
+          </Sticky>
         </Box>
+
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
           <Raid manager={manager} id={0} raidBuild={getBuild(0)} builds={builds} version={version} editing ></Raid>
           <ModalPostDiscord buildId={0}></ModalPostDiscord>
