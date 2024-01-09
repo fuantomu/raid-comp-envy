@@ -113,7 +113,7 @@ export abstract class BuildHelper {
     const build : Build = {
       "id": "",
       "name": "",
-      "date": 0,
+      "date": new Date().setHours(0,0,0,0),
       "players": [],
       "instance": ""
     };

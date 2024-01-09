@@ -38,8 +38,8 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   const [playersRaid2, setPlayersRaid2] = useState<BuildPlayer[]>([]);
   const [buildRaid1, setBuildRaid1] = useState<Build>({} as Build);
   const [buildRaid2, setBuildRaid2] = useState<Build>({} as Build);
-  const [, setDateRaid1] = useState(0);
-  const [, setDateRaid2] = useState(0);
+  const [, setDateRaid1] = useState(new Date().getTime());
+  const [, setDateRaid2] = useState(new Date().getTime());
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [sorting, setSorting] = useState("DEFAULT");
   const [builds, setBuilds] = useState<SelectOption[]>([]);
@@ -90,7 +90,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     return {
       "id": UUID(),
       "name": common("build.new"),
-      "date": 0,
+      "date": new Date().setHours(0,0,0,0),
       "players": [],
       "instance": version === 'Cataclysm'? Instance.Cataclysm[0].abbreviation : Instance.Wotlk[0].abbreviation
     } as Build
@@ -220,19 +220,24 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     }
 
     const otherBuild = getOtherBuild(newPlayer.raid)
-    const sameInstance = otherBuild.instance === getBuild(buildId).instance
+    const newBuild = getBuild(buildId)
+    const sameInstance = otherBuild.instance === newBuild.instance
 
     const currentDate = new Date()
     // Get the next reset time
     currentDate.setDate(currentDate.getDate() + (((3 + 7 - currentDate.getDay()) % 7) || 7));
-    const sameLockout = (getBuild(buildId).date - currentDate.getTime()) < 0 && (otherBuild.date - currentDate.getTime()) < 0;
+    const sameLockout = (new Date(newBuild.date).setHours(0,0,0,0) - currentDate.getTime()) === (new Date(otherBuild.date).setHours(0,0,0,0) - currentDate.getTime());
 
-    const oldRaidCharacter = otherBuild.players.find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id && sameInstance && sameLockout)
+    const oldRaidCharacter = otherBuild.players.find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id)
     // If the character exists in the other raid, the instances are the same and the raid is in the same lockout period, we are moving from one raid to the other
     if(oldRaidCharacter){
-      deletePlayer(oldRaidCharacter, oldRaidCharacter.raid)
-      addPlayer(newPlayer, newPlayer.raid)
-      return
+      if(sameInstance && sameLockout){
+        deletePlayer(oldRaidCharacter, oldRaidCharacter.raid)
+        if(oldRaidCharacter.id !== newPlayer.id){
+          addPlayer(newPlayer, newPlayer.raid)
+          return
+        }
+      }
     }
 
     const otherRaidCharacter = getBuild(newPlayer.raid).players.find((otherBuildPlayer) => otherBuildPlayer.id === newPlayer.id)
@@ -531,7 +536,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   }
 
   const handleShowError = (callback: any) => {
-    console.log(callback)
     handleModalOpen = callback;
   };
 
@@ -556,7 +560,7 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     // TODO: Fix status not updating for deleted characters
     // If a player is deleted in one client update their status
     if (newBuild.players.length < getBuild(buildId).players.length){
-      const results = getBuild(buildId).players.filter(({ id: id1 }) => !newBuild.players.some(({ id: id2 }) => id2 === id1));
+      //const results = getBuild(buildId).players.filter(({ id: id1 }) => !newBuild.players.some(({ id: id2 }) => id2 === id1));
       //console.log(results[0])
     }
   }
