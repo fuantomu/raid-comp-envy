@@ -93,19 +93,6 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   return (
     <Box>
       <ModalAlert handleOpen={handleOpen}/>
-      <br></br>
-      <Box display={"grid"} gridTemplateColumns={"1fr"}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
-            ampm={false}
-            format="DD.MM.YYYY HH:mm"
-            label="Raid time"
-            value={date}
-            onChange={handleDateChange}
-          />
-        </LocalizationProvider>
-      </Box>
-      <br></br>
       <Select
               value={selectedOption}
               options={options}
@@ -120,7 +107,19 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
         styles={customStyles}
       >
       </Select>
-
+      <br></br>
+      <Box display={"grid"} gridTemplateColumns={"1fr"}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateTimePicker
+            css={{zIndex: 0, background: "#1d1d1d"}}
+            ampm={false}
+            format="DD.MM.YYYY HH:mm"
+            label="Raid time"
+            value={date}
+            onChange={handleDateChange}
+          />
+        </LocalizationProvider>
+      </Box>
 
     </Box>
   );
