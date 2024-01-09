@@ -16,6 +16,11 @@ The application's build uses [Azure Functions Plugin for Gradle](https://plugins
 ./gradlew run
 ```
 
+## Running
+
+To run the API, make sure to update the SQL connection in `src/main/resources/application.yml` to your SQL server
+Also add the address from the raidcomp-host to `allowedOrigins`
+
 ## Endpoints
 $BASE: **localhost:8080/**
 
