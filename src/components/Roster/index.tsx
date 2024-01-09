@@ -7,7 +7,7 @@ import RosterComposition from "./RosterComposition";
 export interface RosterProps {
   build: Build;
   editing?: boolean;
-  manager: DragDropManager;
+  manager: any;
 }
 
 const Roster: FC<RosterProps> = ({

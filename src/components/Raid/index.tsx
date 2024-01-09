@@ -24,7 +24,7 @@ export interface RaidProps {
   builds: SelectOption[];
   version: string;
   id: number;
-  manager: DragDropManager;
+  manager: any;
 }
 
 const Raid: FC<RaidProps> = ({

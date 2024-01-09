@@ -9,7 +9,7 @@ export interface BasicProps {
   raid: number;
   name: string;
   visible?: boolean;
-  manager: DragDropManager;
+  manager: any;
 }
 
 const BasicBuild: FC<BasicProps> = ({

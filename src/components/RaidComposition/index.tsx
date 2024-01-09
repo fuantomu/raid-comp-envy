@@ -9,7 +9,7 @@ export interface RaidCompositionProps {
   build: Build;
   grouped?: boolean;
   editing?: boolean;
-  manager: DragDropManager;
+  manager: any;
   raid: number;
 }
 
