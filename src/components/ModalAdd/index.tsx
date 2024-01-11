@@ -127,7 +127,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
       }
     }
     setOpen(false);
-    setChecked(false);
   };
 
   const handleAddPlayer = () => {
@@ -146,14 +145,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setChecked(false);
     setMain("");
   };
 
   const handleOpen = () => {
     setOpen(true);
     setMain("");
-    setChecked(false);
   };
 
   const handleChange = () => {
