@@ -642,10 +642,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
       })
 
       BuildHelper.parseGetPlayers().then((newRoster: BuildPlayer[]) => {
-
         // Load absences and set players to tentative
+        const absenceObject: Absence[] = [];
         BuildHelper.parseGetAbsences().then((loadedAbsences) => {
-          const absenceObject: Absence[] = [];
           for(const absence of loadedAbsences){
             newRoster.map((player) => {
               if(player.name === absence.name){
@@ -670,6 +669,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
               build.players.map((player) => {
                 player.raid = 0;
                 updateRosterStatus(player, newRoster)
+                const pAbsence = absenceObject.filter((playerAbsence) => playerAbsence.player.name === player.name && playerAbsence.startDate <= build.date && playerAbsence.endDate >= build.date)
+                if(pAbsence.length > 0){
+                  updateRosterStatus(player, build.players, InviteStatus.Tentative)
+                }
                 return false
               })
             })
@@ -683,6 +686,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
               build.players.map((player) => {
                 player.raid = 1;
                 updateRosterStatus(player, newRoster)
+                const pAbsence = absenceObject.filter((playerAbsence) => playerAbsence.player.name === player.name && playerAbsence.startDate <= build.date && playerAbsence.endDate >= build.date)
+                if(pAbsence.length > 0){
+                  updateRosterStatus(player, build.players, InviteStatus.Tentative)
+                }
                 return false
               })
             })
@@ -690,8 +697,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
         }
         setRoster(newRoster.sort(sortFunctions[sorting]))
       })
-
-
 
       localStorage.getItem('LastVersion')?? localStorage.setItem("LastVersion", "Wotlk")
       setVersion(localStorage.getItem( 'LastVersion')?? "Wotlk");
@@ -709,6 +714,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
               if(player.name === absence.name){
                 if(Date.now() <= absence.endDate){
                   updateRosterStatus(player, roster, InviteStatus.Tentative)
+                  if(absence.startDate <= getBuild(0).date && absence.endDate >= getBuild(0).date){
+                    updateRosterStatus(player, getBuild(0).players, InviteStatus.Tentative)
+                  }
+                  if(absence.startDate <= getBuild(1).date && absence.endDate >= getBuild(1).date){
+                    updateRosterStatus(player, getBuild(1).players, InviteStatus.Tentative)
+                  }
                 }
                 const newAbsence = {id: `${player.name}${absence.startDate}${absence.endDate}${absence.reason.length}`,player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason} as Absence
                 if(!absenceObject.find((currentAbsence) => currentAbsence.id === newAbsence.id)){
