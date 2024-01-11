@@ -249,6 +249,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
                 defaultValue={name}
                 onChange={handleNameChange}
                 onBlur={handleNameBlur}
+                placeholder="Character name"
               />
             </Box>
             {renderClassToggle()}
