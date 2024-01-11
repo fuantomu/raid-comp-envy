@@ -8,7 +8,6 @@ import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 import BuildTitle from "../BuildTitle";
 import BuildRolesCount from "../BuildRolesCount";
-import ModalAdd from "../ModalAdd";
 import ChangeViewModeButton from "../ChangeViewModeButton";
 import ModalCreateBuild from "../ModalCreateBuild";
 import ModalDeleteBuild from "../ModalDeleteBuild";
