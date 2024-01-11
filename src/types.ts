@@ -72,6 +72,7 @@ export type AbsenceResponse = {
 };
 
 export type Absence = {
+  id: string;
   player: BuildPlayer;
   startDate: number;
   endDate: number;

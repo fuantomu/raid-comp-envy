@@ -640,7 +640,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
                 if(Date.now() <= absence.endDate){
                   updateRosterStatus(player, newRoster, InviteStatus.Tentative)
                 }
-                absenceObject.push({player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
+                const newAbsence = {id: `${player.name}${absence.startDate}${absence.endDate}${absence.reason.length}`, player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason} as Absence
+                if(!absenceObject.find((currentAbsence) => currentAbsence.id === newAbsence.id)){
+                  absenceObject.push(newAbsence)
+                }
               }
               return false
             })
@@ -695,7 +698,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
                 if(Date.now() <= absence.endDate){
                   updateRosterStatus(player, roster, InviteStatus.Tentative)
                 }
-                absenceObject.push({player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason})
+                const newAbsence = {id: `${player.name}${absence.startDate}${absence.endDate}${absence.reason.length}`,player, startDate:absence.startDate, endDate:absence.endDate, reason:absence.reason} as Absence
+                if(!absenceObject.find((currentAbsence) => currentAbsence.id === newAbsence.id)){
+                  absenceObject.push(newAbsence)
+                }
               }
               return false
             })
