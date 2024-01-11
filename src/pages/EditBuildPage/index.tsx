@@ -330,10 +330,12 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
     if(statusOverride){
       rosterCharacter.status = statusOverride
+      return
     }
 
     if(isPlayerAbsent(character, Date.now())){
       rosterCharacter.status = InviteStatus.Tentative
+      return
     }
 
     if(character.status === InviteStatus.Tentative){
@@ -361,9 +363,11 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
     if(character.group === "bench"){
       rosterCharacter.status = InviteStatus.Benched
+      return
     }
     else if(rosterCharacter.status === InviteStatus.Unknown || rosterCharacter.status === InviteStatus.Benched){
       rosterCharacter.status = InviteStatus.Accepted
+      return
     }
 
     // Get number of characters from this player that are set in raid
@@ -396,6 +400,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   const saveCurrentBuild = async (playerBuild : BuildPlayer[], buildId: number, buildName: string ) => {
     const build = getBuild(buildId)
+    if(build.name === common('build.new')){
+      return
+    }
     build.name = buildName;
     build.players = playerBuild;
     BuildHelper.parseSaveBuild(build);
@@ -417,9 +424,10 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   const saveBuild = async (build: Build) => {
-    if(build.name !== common('build.new')){
-      BuildHelper.parseSaveBuild(build);
+    if(build.name === common('build.new')){
+      return
     }
+    BuildHelper.parseSaveBuild(build);
   };
 
   const resetBuild = async (buildId: number) => {
@@ -513,6 +521,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
     const newBuilds = [...builds.filter((build) => build.value !== deletedBuild.value)]
     setBuilds(newBuilds);
 
+    getBuild(buildId).players.map((player) => {
+      return updateRosterStatus(player, roster, InviteStatus.Unknown)
+    })
     // TODO: Builds are not deleted from option list until refresh/f5
     await setBuild(buildId, getEmptyBuild()).then(() => {
       localStorage.removeItem(`LastBuild-${buildId}`)
