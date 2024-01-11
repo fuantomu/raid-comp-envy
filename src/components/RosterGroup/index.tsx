@@ -13,6 +13,7 @@ import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
 import { Button, MenuItem, TextField } from "@mui/material";
+import ModalAdd from "../ModalAdd";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
@@ -64,10 +65,11 @@ const RosterGroup: FC<RosterGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
-        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2fr 100px 1fr"}>
+        <Box key={UUID()} display={"grid"} gridTemplateColumns={"1fr 1fr 100px 1fr"}>
         <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
+        <ModalAdd />
         <Button sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { context?.setRosterExpanded(!context?.getRosterExpanded()) }}>
             {common("build.roster.expand")}
         </Button>

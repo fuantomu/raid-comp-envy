@@ -89,18 +89,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     }
   };
 
-  const handleSelectGroup = (event: MouseEvent, newGroupId: string) => {
-    if (newGroupId !== null) {
-      setGroupId(newGroupId as GroupId);
-    }
-  };
-
-  const handleSelectStatus = (event: MouseEvent, newStatus: string) => {
-    if (newStatus !== null) {
-      setStatus(newStatus as InviteStatus);
-    }
-  };
-
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     playerName = event.currentTarget.value;
   };
@@ -231,47 +219,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     );
   };
 
-  const renderStatusToggle = () => {
-    return (
-      <Box>
-        <ToggleButtonGroup
-          css={styles.buttonGroups}
-          value={status}
-          exclusive
-          onChange={handleSelectStatus}
-        >
-          {Object.values(InviteStatus).map((status) => (
-            <ToggleButton value={status} key={UUID()} title={common(`status.${status}`)}>
-              <AttendanceIcon status={status} />
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-      </Box>
-    );
-  };
-
-  const renderGroupsToggle = () => {
-    const groups = [1, 2, 3, 4, 5];
-    return (
-      <Box>
-        <ToggleButtonGroup
-          css={styles.buttonGroups}
-          value={groupId}
-          exclusive
-          onChange={handleSelectGroup}
-        >
-          {groups.map((groupId) => (
-            <ToggleButton value={groupId} key={UUID()}>
-              <Typography css={styles.groupSelectElement}>
-                {common("build.add.groups.group_each", { groupId })}
-              </Typography>
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-      </Box>
-    );
-  };
-
   const renderMain = () => {
     return (
       <Box>
@@ -312,8 +259,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
             {renderClassToggle()}
             {renderSpecToggle()}
             {renderRaceToggle()}
-            {renderStatusToggle()}
-            {renderGroupsToggle()}
             {renderMain()}
           </Box>
           <Box css={styles.buttons}>
