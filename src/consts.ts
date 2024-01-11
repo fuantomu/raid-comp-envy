@@ -18,8 +18,7 @@ export enum WarcraftPlayerClass {
   Rogue = "Rogue",
   Shaman = "Shaman",
   Warlock = "Warlock",
-  Warrior = "Warrior",
-  Unknown = "Unknown",
+  Warrior = "Warrior"
 }
 
 export enum WarcraftPlayerRace {
@@ -34,8 +33,7 @@ export enum WarcraftPlayerRace {
   Undead = "Undead",
   Tauren = "Tauren",
   Bloodelf = "Bloodelf",
-  Goblin = "Goblin",
-  Unknown = "Unknown",
+  Goblin = "Goblin"
 }
 
 export enum InviteStatus {
@@ -79,8 +77,7 @@ export enum WarcraftPlayerSpec {
   ShamanRestoration = "ShamanRestoration",
   WarriorArms = "WarriorArms",
   WarriorFury = "WarriorFury",
-  WarriorProtection = "WarriorProtection",
-  Unknown = "Unknown",
+  WarriorProtection = "WarriorProtection"
 }
 
 export const WarcraftClassColour: {
@@ -95,8 +92,7 @@ export const WarcraftClassColour: {
   Rogue: "#FFF569",
   Shaman: "#0070DE",
   Warlock: "#8787ED",
-  Warrior: "#C79C6E",
-  Unknown: "#FFFFFF",
+  Warrior: "#C79C6E"
 };
 
 export const DragItemTypes = {

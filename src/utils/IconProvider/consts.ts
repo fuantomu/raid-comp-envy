@@ -23,8 +23,7 @@ export const WarcraftClassIcon: {
   [WarcraftPlayerClass.Rogue]: "classicon_rogue",
   [WarcraftPlayerClass.Shaman]: "classicon_shaman",
   [WarcraftPlayerClass.Warlock]: "classicon_warlock",
-  [WarcraftPlayerClass.Warrior]: "classicon_warrior",
-  [WarcraftPlayerClass.Unknown]: IconUnknown,
+  [WarcraftPlayerClass.Warrior]: "classicon_warrior"
 };
 
 export const WarcraftRaceIcon: {
@@ -41,8 +40,7 @@ export const WarcraftRaceIcon: {
   [WarcraftPlayerRace.Undead]: "achievement_character_undead_male",
   [WarcraftPlayerRace.Tauren]: "achievement_character_tauren_male",
   [WarcraftPlayerRace.Bloodelf]: "achievement_character_bloodelf_female",
-  [WarcraftPlayerRace.Goblin]: "achievement_goblinhead",
-  [WarcraftPlayerRace.Unknown]: IconUnknown,
+  [WarcraftPlayerRace.Goblin]: "achievement_goblinhead"
 };
 
 export const WarcraftSpecIcon: {
@@ -78,8 +76,7 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.ShamanRestoration]: "spell_nature_magicimmunity",
   [WarcraftPlayerSpec.WarriorArms]: "ability_warrior_savageblow",
   [WarcraftPlayerSpec.WarriorFury]: "ability_warrior_innerrage",
-  [WarcraftPlayerSpec.WarriorProtection]: "ability_warrior_defensivestance",
-  [WarcraftPlayerSpec.Unknown]: IconUnknown,
+  [WarcraftPlayerSpec.WarriorProtection]: "ability_warrior_defensivestance"
 };
 
 export const WarcraftRoleIcon: {

@@ -126,8 +126,7 @@
     "Rogue": "Rogue",
     "Shaman": "Shaman",
     "Warlock": "Warlock",
-    "Warrior": "Warrior",
-    "Unknown": "Unknown"
+    "Warrior": "Warrior"
   },
   "specs": {
     "DeathknightBlood": "Blood",
@@ -160,8 +159,7 @@
     "ShamanRestoration": "Restoration",
     "WarriorArms": "Arms",
     "WarriorFury": "Fury",
-    "WarriorProtection": "Protection",
-    "Unknown": "Unknown"
+    "WarriorProtection": "Protection"
   },
   "races": {
     "Human": "Human",
@@ -175,8 +173,7 @@
     "Undead": "Undead",
     "Tauren": "Tauren",
     "Bloodelf": "Bloodelf",
-    "Goblin": "Goblin",
-    "Unknown": "Unknown"
+    "Goblin": "Goblin"
   },
   "buff": {
     "MaxMana": "Maximum Mana +X",

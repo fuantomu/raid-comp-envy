@@ -27,9 +27,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
-  const [className, setClassName] = useState(WarcraftPlayerClass.Unknown);
-  const [spec, setSpec] = useState(WarcraftPlayerSpec.Unknown);
-  const [raceName, setRace] = useState(WarcraftPlayerRace.Unknown);
+  const [className, setClassName] = useState(WarcraftPlayerClass.Warrior);
+  const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorFury);
+  const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
   const [status, setStatus] = useState(InviteStatus.Unknown);
   const [groupId, setGroupId] = useState(1 as GroupId);
   const [main, setMain] = useState(String);

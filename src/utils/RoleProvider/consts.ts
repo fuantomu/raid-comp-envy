@@ -41,8 +41,7 @@ export const WarcraftSpecRole: {
   [WarcraftPlayerSpec.ShamanRestoration]: WarcraftRole.Healer,
   [WarcraftPlayerSpec.WarriorArms]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorFury]: WarcraftRole.MeleeDPS,
-  [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank,
-  [WarcraftPlayerSpec.Unknown]: WarcraftRole.Unknown,
+  [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank
 };
 
 export enum WarcraftRaidBuff {
@@ -125,8 +124,7 @@ export const WarcraftClassRaidBuffsWotlk: {
   [WarcraftPlayerClass.Rogue]: [],
   [WarcraftPlayerClass.Warlock]: [],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidBuff.StrengthAgility,WarcraftRaidBuff.MP5,WarcraftRaidBuff.MeleeHaste20,WarcraftRaidBuff.SpellHaste,WarcraftRaidBuff.SpellPower],
-  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower,WarcraftRaidBuff.MaxHealth],
-  [WarcraftPlayerClass.Unknown]: [],
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower,WarcraftRaidBuff.MaxHealth]
 };
 
 export const WarcraftClassRaidBuffs: {
@@ -141,8 +139,7 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.Rogue]: [],
   [WarcraftPlayerClass.Warlock]: [],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidBuff.MeleeHaste,WarcraftRaidBuff.SpellHaste,WarcraftRaidBuff.SpellPower6,WarcraftRaidBuff.StrengthAgility,WarcraftRaidBuff.Armor,WarcraftRaidBuff.MP5],
-  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.StrengthAgility,WarcraftRaidBuff.Stamina],
-  [WarcraftPlayerClass.Unknown]: [],
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.StrengthAgility,WarcraftRaidBuff.Stamina]
 };
 
 export const WarcraftSpecRaidBuffsWotlk: {
@@ -178,8 +175,7 @@ export const WarcraftSpecRaidBuffsWotlk: {
   [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassRaidBuffsWotlk.Shaman],
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidBuffsWotlk.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidBuffsWotlk.Warrior,WarcraftRaidBuff.PhysicalCrit],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffsWotlk.Warrior],
-  [WarcraftPlayerSpec.Unknown]: [],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffsWotlk.Warrior]
 };
 
 export const WarcraftSpecRaidBuffs: {
@@ -215,8 +211,7 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassRaidBuffs.Shaman],
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidBuffs.Warrior,WarcraftRaidBuff.Crit],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior],
-  [WarcraftPlayerSpec.Unknown]: [],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior]
 };
 
 export enum WarcraftRaidDebuff {
@@ -278,8 +273,7 @@ export const WarcraftClassRaidDebuffsWotlk: {
   [WarcraftPlayerClass.Rogue]: [WarcraftRaidDebuff.ArmorDown20,WarcraftRaidDebuff.CastSpeed30,WarcraftRaidDebuff.HealingReceived],
   [WarcraftPlayerClass.Warlock]: [WarcraftRaidDebuff.ArmorDown5,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.CastSpeed30,WarcraftRaidDebuff.SpellDamageReceived13],
   [WarcraftPlayerClass.Shaman]: [],
-  [WarcraftPlayerClass.Warrior]: [WarcraftRaidDebuff.ArmorDown20,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.MeleeHaste],
-  [WarcraftPlayerClass.Unknown]: [],
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidDebuff.ArmorDown20,WarcraftRaidDebuff.AttackPowerDown,WarcraftRaidDebuff.MeleeHaste]
 };
 
 export const WarcraftClassRaidDebuffs: {
@@ -294,8 +288,7 @@ export const WarcraftClassRaidDebuffs: {
   [WarcraftPlayerClass.Rogue]: [WarcraftRaidDebuff.ArmorDown,WarcraftRaidDebuff.HealingReceived,WarcraftRaidDebuff.CastSpeed],
   [WarcraftPlayerClass.Warlock]: [WarcraftRaidDebuff.SpellDamageReceived,WarcraftRaidDebuff.PhysicalDamageDealt,WarcraftRaidDebuff.CastSpeed],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidDebuff.MeleeHaste],
-  [WarcraftPlayerClass.Warrior]: [WarcraftRaidDebuff.ArmorDown,WarcraftRaidDebuff.PhysicalDamageDealt],
-  [WarcraftPlayerClass.Unknown]: [],
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidDebuff.ArmorDown,WarcraftRaidDebuff.PhysicalDamageDealt]
 };
 
 export const WarcraftSpecRaidDebuffsWotlk: {
@@ -331,8 +324,7 @@ export const WarcraftSpecRaidDebuffsWotlk: {
   [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassRaidDebuffsWotlk.Shaman],
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidDebuffsWotlk.Warrior,WarcraftRaidDebuff.BleedDamageReceived,WarcraftRaidDebuff.HealingReceived,WarcraftRaidDebuff.PhysicalDamageReceived],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidDebuffsWotlk.Warrior],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidDebuffsWotlk.Warrior],
-  [WarcraftPlayerSpec.Unknown]: [],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidDebuffsWotlk.Warrior]
 };
 
 export const WarcraftSpecRaidDebuffs: {
@@ -368,8 +360,7 @@ export const WarcraftSpecRaidDebuffs: {
   [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassRaidDebuffs.Shaman],
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidDebuffs.Warrior,WarcraftRaidDebuff.BleedDamageReceived,WarcraftRaidDebuff.HealingReceived],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidDebuffs.Warrior,WarcraftRaidDebuff.PhysicalDamageReceived,WarcraftRaidDebuff.HealingReceived],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidDebuffs.Warrior,WarcraftRaidDebuff.MeleeHaste],
-  [WarcraftPlayerSpec.Unknown]: [],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidDebuffs.Warrior,WarcraftRaidDebuff.MeleeHaste]
 };
 
 export enum WarcraftRaidUtility {
@@ -432,8 +423,7 @@ export const WarcraftClassUtilities: {
     WarcraftRaidUtility.Healthstone,
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust],
-  [WarcraftPlayerClass.Warrior]: [],
-  [WarcraftPlayerClass.Unknown]: [],
+  [WarcraftPlayerClass.Warrior]: []
 };
 
 export const WarcraftClassUtilitiesWotlk: {
@@ -453,8 +443,7 @@ export const WarcraftClassUtilitiesWotlk: {
     WarcraftRaidUtility.Healthstone,
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust],
-  [WarcraftPlayerClass.Warrior]: [],
-  [WarcraftPlayerClass.Unknown]: [],
+  [WarcraftPlayerClass.Warrior]: []
 };
 
 export const WarcraftRaceUtilities: {
@@ -471,8 +460,7 @@ export const WarcraftRaceUtilities: {
   [WarcraftPlayerRace.Undead]: [],
   [WarcraftPlayerRace.Tauren]: [],
   [WarcraftPlayerRace.Bloodelf]: [],
-  [WarcraftPlayerRace.Goblin]: [],
-  [WarcraftPlayerRace.Unknown]: [],
+  [WarcraftPlayerRace.Goblin]: []
 };
 
 export const WarcraftRaceUtilitiesWotlk: {
@@ -489,8 +477,7 @@ export const WarcraftRaceUtilitiesWotlk: {
   [WarcraftPlayerRace.Undead]: [],
   [WarcraftPlayerRace.Tauren]: [],
   [WarcraftPlayerRace.Bloodelf]: [],
-  [WarcraftPlayerRace.Goblin]: [],
-  [WarcraftPlayerRace.Unknown]: [],
+  [WarcraftPlayerRace.Goblin]: []
 };
 
 export const WarcraftSpecUtilitiesWotlk: {
@@ -541,8 +528,7 @@ export const WarcraftSpecUtilitiesWotlk: {
 
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilitiesWotlk.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilitiesWotlk.Warrior],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilitiesWotlk.Warrior],
-  [WarcraftPlayerSpec.Unknown]: [],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilitiesWotlk.Warrior]
 };
 
 export const WarcraftSpecUtilities: {
@@ -593,8 +579,7 @@ export const WarcraftSpecUtilities: {
 
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilities.Warrior],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
-  [WarcraftPlayerSpec.Unknown]: [],
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior]
 };
 
 export const WarcraftPlayerClassSpecs: {
@@ -650,6 +635,5 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorArms,
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection,
-  ],
-  [WarcraftPlayerClass.Unknown]: [WarcraftPlayerSpec.Unknown],
+  ]
 };
