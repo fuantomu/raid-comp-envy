@@ -17,23 +17,32 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [error, showError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("")
   const [common] = useTranslation("common");
   const context = useAppContext();
   let buildTitle = createRef<HTMLInputElement>();
 
   const handleCreate = async () => {
-    const builds = context?.getBuilds();
-    if (builds) {
-      const currentTitle = buildTitle.current?.value?? "";
-      const otherBuilds = builds.find((build) => build.value === currentTitle)
-      if(otherBuilds){
-        showError(true);
-      }
-      else{
-        console.log("Adding build "+currentTitle);
-        context?.addBuild(currentTitle,buildId);
+    const currentTitle = buildTitle.current?.value?? "";
+    if(currentTitle.length === 0){
+      setErrorMessage("Name is empty")
+      showError(true)
+    }
+    else{
+      const builds = context?.getBuilds();
+      if (builds) {
+        const otherBuilds = builds.find((build) => build.label === currentTitle)
+        if(otherBuilds){
+          setErrorMessage("Build already exists")
+          showError(true);
+        }
+        else{
+          console.log("Adding build "+currentTitle);
+          context?.addBuild(currentTitle,buildId);
+        }
       }
     }
+
   };
 
 
@@ -59,7 +68,7 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId}) => {
           <h2>{common("build.create.title")}</h2>
           <input ref={buildTitle}></input>
           <br />
-          <h4 style={{ color: 'red' }}>{error ? "Build already exists": null }</h4>
+          <h4 style={{ color: 'red' }}>{error ? errorMessage : null }</h4>
           <Box css={styles.buttons}>
             <Button color="primary" variant="contained" onClick={handleCreate}>
               {common("build.create.save")}

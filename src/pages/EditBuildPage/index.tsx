@@ -417,7 +417,9 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
   };
 
   const saveBuild = async (build: Build) => {
-    BuildHelper.parseSaveBuild(build);
+    if(build.name !== common('build.new')){
+      BuildHelper.parseSaveBuild(build);
+    }
   };
 
   const resetBuild = async (buildId: number) => {
@@ -513,7 +515,6 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
     // TODO: Builds are not deleted from option list until refresh/f5
     await setBuild(buildId, getEmptyBuild()).then(() => {
-      setBuildName(common("build.new"), buildId)
       localStorage.removeItem(`LastBuild-${buildId}`)
 
       BuildHelper.parseDeleteBuild(getBuild(buildId).id)
