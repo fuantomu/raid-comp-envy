@@ -37,7 +37,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
   const [raid, setRaid] = useState(Number);
   const [id, setId] = useState(String);
   const [oldName, setOldName] = useState<string>();
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const context = useAppContext();
   let mainCharacter = createRef<HTMLInputElement>();
   let playerName = name;
