@@ -82,13 +82,13 @@ const Raid: FC<RaidProps> = ({
                       <ModalDeleteBuild buildId={id}/>
                     </Box>
                   </Box>
-                  <Box display={"grid"}  gridTemplateColumns={"15px 1fr 15px 1fr"}>
-                  <br></br>
-                    <Box key={UUID()} sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
+                  <Box display={"grid"} gridTemplateColumns={"15px 1fr 15px 1fr"}>
+                    <br></br>
+                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
                       <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} name="absent" visible={visibleAbsent}/>
                     </Box>
                     <br></br>
-                    <Box key={UUID()} sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
+                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
                       <BasicBuild manager={manager} players={context?.getUnsetMains() ?? []} raid={id} name="notset" visible={visibleNotSet}/>
                     </Box>
 
