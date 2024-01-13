@@ -229,7 +229,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     <>
       {!editPlayer ? (
         <Tooltip title={common("cta.addPlayer")} placement="top" arrow>
-          <Button color="secondary" variant="contained" size="large" onClick={handleOpen}>
+          <Button color="success" variant="contained" size="large" onClick={handleOpen}>
             <PersonAddIcon />
           </Button>
         </Tooltip>

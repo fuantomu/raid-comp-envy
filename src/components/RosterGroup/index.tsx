@@ -65,7 +65,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
-        <Box key={UUID()} display={"grid"} gridTemplateColumns={"1fr 1fr 100px 1fr"}>
+        <Box key={UUID()} display={"grid"} gridTemplateColumns={"3fr 1fr 1fr 1fr"}>
         <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
@@ -87,6 +87,8 @@ const RosterGroup: FC<RosterGroupProps> = ({
           <MenuItem id={"ranged"} value={"ROLERANGED"}>{common("sorting.ranged")}</MenuItem>
           <MenuItem id={"default"} value={"DEFAULT"}>{common("sorting.default")}</MenuItem>
         </TextField>
+
+
         </Box>
         <Box key={UUID()} sx={{maxHeight:"1160px"}} css={[styles.scroll, styles.spread]}>
           {players.filter((player) => player.main?.toLowerCase() === player.name.toLowerCase()).map((player) => (
