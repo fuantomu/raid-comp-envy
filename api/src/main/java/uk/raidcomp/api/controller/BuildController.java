@@ -3,6 +3,7 @@ package uk.raidcomp.api.controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
@@ -61,6 +62,15 @@ public class BuildController {
     Optional<BuildEntity> build = buildRepository.findById(buildId);
 
     if (build.isEmpty()) {
+
+      try {
+        List<BuildEntity> otherBuilds = buildRepository.findAll();
+        BuildEntity maxRaidId = otherBuilds.stream().max(Comparator.comparing(BuildEntity::getRaidId)).orElseThrow();
+        newBuild.setRaidId(String.valueOf(Integer.parseInt(maxRaidId.getRaidId()) + 1));
+      } catch (Exception e) {
+        newBuild.setRaidId("0");
+      }
+
       buildRepository.save(newBuild);
     } else {
       buildRepository.update(newBuild);
