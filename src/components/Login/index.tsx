@@ -40,7 +40,7 @@ const Login: FC<Props> = ({ setToken, setIssueTime, setLoggedIn, setRole, host }
         setIssueTime(new Date().getTime());
         setLoggedIn(true)
         setRole(response)
-        RosterProvider.saveLoginAge(host)
+        RosterProvider.saveLoginAge(host, JSON.stringify({role: response}))
       }
     })
   }

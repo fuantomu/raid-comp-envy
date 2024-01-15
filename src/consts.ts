@@ -163,3 +163,8 @@ export const FunctionAccountRole = {
   "ChangeDate": [AccountRole.Admin],
   "ChangeInstance": [AccountRole.Admin]
 }
+
+export const accountRoleTimeouts = {
+  1: process.env.REACT_APP_TOKEN_LENGTH_ADMIN,
+  2: process.env.REACT_APP_TOKEN_LENGTH_GUEST
+}

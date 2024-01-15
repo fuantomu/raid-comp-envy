@@ -20,4 +20,6 @@ public class LoginEntity {
   private String host;
 
   private Long created;
+
+  private Integer role;
 }

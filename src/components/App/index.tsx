@@ -9,6 +9,7 @@ import { RosterProvider } from "../../utils/RosterProvider";
 import UUID from "../../utils/UUID";
 import useErrorHandler from "../../utils/useErrorHandler";
 import Account from "../Account";
+import { accountRoleTimeouts } from "../../consts";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -23,26 +24,25 @@ const App: FC = () => {
   const [newAccount, setNewAccount] = useState(false)
   const handleError = useErrorHandler();
 
-  const accountRoleTimeouts = {
-    1: process.env.REACT_APP_TOKEN_LENGTH_ADMIN,
-    2: process.env.REACT_APP_TOKEN_LENGTH_GUEST
-  }
+
 
   useEffect(() => {
     if(!loggedIn && issueTime === 0){
       RosterProvider.getLoginAge(host).then((response) => {
-        setIssueTime(response);
-        const timeDifference = (new Date().getTime() - response)/1000;
-        if (timeDifference <= parseFloat(accountRoleTimeouts[accountRole])){
-          const newToken = UUID();
-          localStorage.setItem("token", newToken)
-          localStorage.setItem("host", host)
-          setToken(newToken);
+        if(response.createdDate > 0){
+          setIssueTime(response.createdDate);
+          setAccountRole(response.role)
+          const timeDifference = (new Date().getTime() - response.createdDate)/1000;
+          if (timeDifference <= parseFloat(accountRoleTimeouts[response.role])){
+            const newToken = UUID();
+            localStorage.setItem("token", newToken)
+            localStorage.setItem("host", host)
+            setToken(newToken);
+            return
+          }
         }
-        else{
-          setToken(undefined)
-          localStorage.removeItem("token")
-        }
+        setToken(undefined)
+        localStorage.removeItem("token")
       }).catch(handleError);
     }
     const interval = setInterval(() => {

@@ -1,4 +1,4 @@
-import { AbsenceResponse, BuildPlayer, BuildPlayerResponse, BuildResponse } from "../../types";
+import { AbsenceResponse, BuildPlayer, BuildPlayerResponse, BuildResponse, Login } from "../../types";
 
 export abstract class RosterProvider {
   public static async getPlayers() : Promise<BuildPlayer[]>{
@@ -68,14 +68,14 @@ export abstract class RosterProvider {
     })
   }
 
-  public static async getLoginAge(host: string) : Promise<number>{
+  public static async getLoginAge(host: string) : Promise<Login>{
     return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
       return response.json()
     })
   }
 
-  public static async saveLoginAge(host: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {
+  public static async saveLoginAge(host: string, role: string) : Promise<Response>{
+    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {method: "POST", mode:"cors",credentials:"include",headers: {"Content-Type": "application/json"}, body: role}).then((response) => {
       return response
     })
   }

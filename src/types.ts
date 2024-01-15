@@ -78,3 +78,8 @@ export type Absence = {
   endDate: number;
   reason?: string;
 };
+
+export type Login = {
+  createdDate: number;
+  role: number;
+}
