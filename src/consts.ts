@@ -97,6 +97,7 @@ export const WarcraftClassColour: {
 
 export const DragItemTypes = {
   PLAYER: "player",
+  NONE: "None"
 };
 
 export const RoleWeight: {
@@ -142,4 +143,23 @@ export const Instance = {
       "abbreviation": "DS"
     }
   ]
+}
+
+export const AccountRole = {
+  Admin: 1,
+  Guest: 2
+}
+
+export const FunctionAccountRole = {
+  "AddPlayer": [AccountRole.Admin],
+  "EditPlayer": [AccountRole.Admin],
+  "ClickPlayer": [AccountRole.Admin],
+  "MovePlayer": [AccountRole.Admin],
+  "PostDiscord": [AccountRole.Admin],
+  "ResetBuild": [AccountRole.Admin],
+  "DeleteBuild": [AccountRole.Admin],
+  "CreateBuild": [AccountRole.Admin],
+  "ChangeBuild": [AccountRole.Admin,AccountRole.Guest],
+  "ChangeDate": [AccountRole.Admin],
+  "ChangeInstance": [AccountRole.Admin]
 }

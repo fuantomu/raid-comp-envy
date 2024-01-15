@@ -20,6 +20,7 @@ export interface CompositionRoleProps {
   spread?: boolean;
   editing?: boolean;
   raid: number;
+  accountRole: number;
 }
 
 const CompositionRole: FC<CompositionRoleProps> = ({
@@ -27,7 +28,8 @@ const CompositionRole: FC<CompositionRoleProps> = ({
   players,
   spread = false,
   editing = false,
-  raid
+  raid,
+  accountRole
 }) => {
   const context = useAppContext();
   const [common] = useTranslation("common");
@@ -44,6 +46,7 @@ const CompositionRole: FC<CompositionRoleProps> = ({
               onClick: () => context?.editPlayer(player),
             }
           : {})}
+          accountRole={accountRole}
       />
     ));
   };

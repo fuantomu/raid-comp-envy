@@ -8,13 +8,15 @@ import { useAppContext } from "../App/context";
 import useStyles from "./useStyles";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { BuildHelper } from "../../utils/BuildHelper";
+import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 
 export interface ModalPostDiscordProps {
-  buildId: number
+  buildId: number;
+  accountRole: number;
 }
 
-const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId}) => {
+const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -52,9 +54,11 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId}) => {
     <>
       <Box display={"grid"} justifyContent={"center"}>
         <Tooltip title={common("discord.send")} placement="top" arrow>
-          <Button color="info" variant="contained" size="large" style={{height: '30px', width: '130px'}} onClick={() => handleOpen()}>
-            <SportsEsportsIcon />
-          </Button>
+          <span>
+            <Button disabled={!isAccountRoleAllowed(accountRole, "PostDiscord")} color="info" variant="contained" size="large" style={{height: '30px', width: '130px'}} onClick={() => handleOpen()} css={{width:"100%"}}>
+              <SportsEsportsIcon />
+            </Button>
+          </span>
         </Tooltip>
       </Box>
       <Modal open={open} onClose={handleClose}>

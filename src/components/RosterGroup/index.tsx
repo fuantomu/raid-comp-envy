@@ -21,6 +21,7 @@ export interface RosterGroupProps {
   spread?: boolean;
   editing?: boolean;
   buildId: number;
+  accountRole: number;
 }
 
 
@@ -29,16 +30,16 @@ const RosterGroup: FC<RosterGroupProps> = ({
   players = [],
   spread = false,
   editing,
-  buildId
+  buildId,
+  accountRole
 }) => {
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
   const context = useAppContext();
-
   const [, drop] = useDrop(
     () => ({
       accept: DragItemTypes.PLAYER,
-      drop: (player: BuildPlayer) => {
+      drop:  (player: BuildPlayer) => {
         context?.importPlayer(
           {
             id: player.id,
@@ -65,12 +66,12 @@ const RosterGroup: FC<RosterGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
-        <Box key={UUID()} display={"grid"} gridTemplateColumns={"3fr 1fr 1fr 1fr"}>
+        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2.5fr 1.2fr 1.8fr 3fr"}>
         <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
-        <ModalAdd />
-        <Button sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { context?.setRosterExpanded(!context?.getRosterExpanded()) }}>
+        <ModalAdd accountRole={accountRole}/>
+        <Button css={{height:"80%"}} sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { context?.setRosterExpanded(!context?.getRosterExpanded()) }}>
             {common("build.roster.expand")}
         </Button>
         <TextField
@@ -102,6 +103,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
                 : {})}
               rosterVisible={context?.getRosterExpanded()}
               alts={players.filter((altPlayer) => altPlayer.main?.toLowerCase() === player.name.toLowerCase() && altPlayer.name.toLowerCase() !== player.name.toLowerCase())}
+              accountRole={accountRole}
             />
           ))}
         </Box>
@@ -115,6 +117,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
                     onClick: () => context?.editPlayer(player),
                   }
                 : {})}
+                accountRole={accountRole}
             />
           ))}
         </Box>

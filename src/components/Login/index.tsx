@@ -3,13 +3,19 @@ import { Box, Button, Input } from "@mui/material";
 import { Dispatch, FC, SetStateAction, useState} from "react";
 import { useTranslation } from "react-i18next";
 import useStyles from "./useStyles";
-import { checkHash, getHash } from "../../utils/hash";
+import { getHash } from "../../utils/hash";
+import { RosterProvider } from "../../utils/RosterProvider";
+import UUID from "../../utils/UUID";
 
 export type Props = {
-  setToken: Dispatch<SetStateAction<string>>
+  setToken: Dispatch<SetStateAction<string>>;
+  setIssueTime: Dispatch<SetStateAction<number>>;
+  setLoggedIn: Dispatch<SetStateAction<boolean>>;
+  setRole: Dispatch<SetStateAction<number>>;
+  host: string;
 };
 
-const Login: FC<Props> = ({ setToken }) => {
+const Login: FC<Props> = ({ setToken, setIssueTime, setLoggedIn, setRole, host }) => {
   const [common] = useTranslation("common");
   const styles = useStyles();
   const [username, setUserName] = useState("");
@@ -19,12 +25,29 @@ const Login: FC<Props> = ({ setToken }) => {
   const handleSubmit = (e:any) => {
     e.preventDefault();
     const hash = getHash(username, password)
-    if(checkHash(hash)){
-      localStorage.setItem("token", hash)
-      setToken(hash);
-    }
-    else{
-      showError(true)
+    RosterProvider.getAccountLogin(username, hash).then((response) => {
+      if(response === -1){
+        setToken("")
+        setIssueTime(0)
+        setLoggedIn(false)
+        showError(true)
+      }
+      else{
+        const newToken = UUID();
+        localStorage.setItem("token", newToken)
+        localStorage.setItem("host", host)
+        setToken(newToken);
+        setIssueTime(new Date().getTime());
+        setLoggedIn(true)
+        setRole(response)
+        RosterProvider.saveLoginAge(host)
+      }
+    })
+  }
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter'){
+      return handleSubmit(e)
     }
   }
 
@@ -39,12 +62,14 @@ const Login: FC<Props> = ({ setToken }) => {
                   type="text"
                   autoFocus={true}
                   onChange={e => { setUserName(e.target.value); showError(false)}}
+                  onKeyDown={handleKeyDown}
               />
               <h4>{common("login.password")}</h4>
               <Input
                   css={styles.nameInput}
                   type="password"
                   onChange={e => {setPassword(e.target.value); showError(false)}}
+                  onKeyDown={handleKeyDown}
               />
               <h4 style={{ color: 'red' }}>{error ? common("login.error"): null }</h4>
               <Box display={"flex"} css={{ justifyContent:"center"}}>

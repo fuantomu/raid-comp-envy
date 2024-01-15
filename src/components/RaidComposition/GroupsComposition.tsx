@@ -11,9 +11,10 @@ interface GroupsCompositionProps {
   players: BuildPlayer[];
   editing: boolean;
   raid: number;
+  accountRole: number;
 }
 
-const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid }) => {
+const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid, accountRole }) => {
   const styles = useStyles();
   const groups = BuildHelper.getGroups(players, editing);
   return (
@@ -31,6 +32,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid 
                 groupId={groupId}
                 players={players}
                 editing={editing}
+                accountRole={accountRole}
               />
             );
           })}
@@ -43,6 +45,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid 
             raid={raid}
             spread
             editing={editing}
+            accountRole={accountRole}
           />
         </Box>
     </>

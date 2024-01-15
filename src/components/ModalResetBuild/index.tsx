@@ -6,12 +6,14 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
 import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
+import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalResetBuildProps {
-  buildId: number
+  buildId: number,
+  accountRole: number
 }
 
-const ModalResetBuild: FC<ModalResetBuildProps> = ({buildId}) => {
+const ModalResetBuild: FC<ModalResetBuildProps> = ({buildId, accountRole}) => {
   const [common] = useTranslation("common");
   let handleModalOpen: any = () => {};
   const context = useAppContext();
@@ -40,9 +42,11 @@ const ModalResetBuild: FC<ModalResetBuildProps> = ({buildId}) => {
         cancelButton
       />
       <Tooltip title={common("cta.resetBuild")} placement="top" arrow>
-        <Button color="primary" size="large" variant="contained" onClick={handleButtonClick}>
-          <DeleteForeverIcon />
-        </Button>
+        <span>
+          <Button disabled={!isAccountRoleAllowed(accountRole, "ResetBuild")} color="primary" size="large" variant="contained" onClick={handleButtonClick} css={{width:"100%"}}>
+            <DeleteForeverIcon />
+          </Button>
+        </span>
       </Tooltip>
     </>
   );

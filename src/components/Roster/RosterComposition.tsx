@@ -10,9 +10,10 @@ import useStyles from "./useStyles";
 interface RosterCompositionProps {
   players: BuildPlayer[];
   editing: boolean;
+  accountRole: number;
 }
 
-const RosterComposition: FC<RosterCompositionProps> = ({ players, editing }) => {
+const RosterComposition: FC<RosterCompositionProps> = ({ players, editing, accountRole }) => {
   const styles = useStyles();
   const groups = BuildHelper.getGroups(players, editing);
   return (
@@ -30,6 +31,7 @@ const RosterComposition: FC<RosterCompositionProps> = ({ players, editing }) => 
                 editing={editing}
                 buildId={-1}
                 spread
+                accountRole={accountRole}
               />
             );
           })}

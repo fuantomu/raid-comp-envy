@@ -11,6 +11,7 @@ export interface RaidCompositionProps {
   editing?: boolean;
   manager: any;
   raid: number;
+  accountRole: number;
 }
 
 const RaidComposition: FC<RaidCompositionProps> = ({
@@ -19,13 +20,14 @@ const RaidComposition: FC<RaidCompositionProps> = ({
   editing = false,
   manager,
   raid,
+  accountRole
 }) => {
   return (
     <DndProvider manager={manager}>
       {grouped ? (
-        <GroupsComposition raid={raid} players={players} editing={editing} />
+        <GroupsComposition raid={raid} players={players} editing={editing} accountRole={accountRole} />
       ) : (
-        <RolesComposition raid={raid} players={players} editing={editing} />
+        <RolesComposition raid={raid} players={players} editing={editing} accountRole={accountRole} />
       )}
     </DndProvider>
   );

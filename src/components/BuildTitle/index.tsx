@@ -11,6 +11,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { Instance } from "../../consts";
 import { useTranslation } from "react-i18next";
 import ModalAlert from "../ModalAlert";
+import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface BuildTitleProps {
   onChange: (value: any) => void;
@@ -21,9 +22,10 @@ export interface BuildTitleProps {
   buildDate?: number;
   version: string;
   selectedInstance?: string;
+  accountRole: number;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId, buildDate, version, selectedInstance }) => {
+const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId, buildDate, version, selectedInstance, accountRole }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
   const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minutes", 0).set("seconds", 0).set("milliseconds",0) : dayjs().set("minutes", 0).set("seconds", 0).set("milliseconds",0));
   const instances = version === "Cataclysm"? Instance.Cataclysm : Instance.Wotlk;
@@ -98,6 +100,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
               options={options}
               onChange={handleChange}
               styles={customStyles}
+              isDisabled={!isAccountRoleAllowed(accountRole,"ChangeBuild")}
       />
       <br></br>
       <Select
@@ -105,6 +108,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
         options={raids}
         onChange={handleInstanceChange}
         styles={customStyles}
+        isDisabled={!isAccountRoleAllowed(accountRole,"ChangeInstance")}
       >
       </Select>
       <br></br>
@@ -116,6 +120,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
             format="DD.MM.YYYY HH:mm"
             label="Raid time"
             value={date}
+            readOnly={!isAccountRoleAllowed(accountRole,"ChangeDate")}
             onChange={handleDateChange}
           />
         </LocalizationProvider>

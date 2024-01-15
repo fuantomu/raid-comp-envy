@@ -8,17 +8,19 @@ export interface RosterProps {
   build: Build;
   editing?: boolean;
   manager: any;
+  accountRole: number;
 }
 
 const Roster: FC<RosterProps> = ({
   build: { players },
   editing = false,
-  manager
+  manager,
+  accountRole
 }) => {
 
   return (
     <DndProvider manager={manager}>
-      <RosterComposition players={players} editing={editing} />
+      <RosterComposition players={players} editing={editing} accountRole={accountRole} />
     </DndProvider>
   );
 };

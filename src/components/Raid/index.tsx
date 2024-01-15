@@ -24,6 +24,7 @@ export interface RaidProps {
   version: string;
   id: number;
   manager: any;
+  accountRole: number;
 }
 
 const Raid: FC<RaidProps> = ({
@@ -32,7 +33,8 @@ const Raid: FC<RaidProps> = ({
   builds,
   version,
   id,
-  manager
+  manager,
+  accountRole
 }) => {
   const [common] = useTranslation("common");
   const context = useAppContext();
@@ -73,23 +75,24 @@ const Raid: FC<RaidProps> = ({
                       buildDate={raidBuild.date}
                       version={version}
                       selectedInstance={raidBuild.instance}
+                      accountRole={accountRole}
                     />
                     <br></br>
                     <BuildRolesCount key={UUID()} build={raidBuild} />
                     <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
                       <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
-                      <ModalCreateBuild buildId={id}/>
-                      <ModalDeleteBuild buildId={id}/>
+                      <ModalCreateBuild buildId={id} accountRole={accountRole}/>
+                      <ModalDeleteBuild buildId={id} accountRole={accountRole}/>
                     </Box>
                   </Box>
                   <Box display={"grid"} gridTemplateColumns={"15px 1fr 15px 1fr"}>
                     <br></br>
                     <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
-                      <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} name="absent" visible={visibleAbsent}/>
+                      <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} name="absent" visible={visibleAbsent} accountRole={accountRole}/>
                     </Box>
                     <br></br>
                     <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
-                      <BasicBuild manager={manager} players={context?.getUnsetMains() ?? []} raid={id} name="notset" visible={visibleNotSet}/>
+                      <BasicBuild manager={manager} players={context?.getUnsetMains() ?? []} raid={id} name="notset" visible={visibleNotSet} accountRole={accountRole}/>
                     </Box>
 
                   </Box>
@@ -109,7 +112,7 @@ const Raid: FC<RaidProps> = ({
               </Box>
             {visibleComposition?
               (<Box key={UUID()} css={styles.gridBox} >
-                <RaidComposition manager={manager} build={raidBuild} raid={id} editing grouped={grouped} />
+                <RaidComposition manager={manager} build={raidBuild} raid={id} editing grouped={grouped} accountRole={accountRole} />
               </Box>) : <></>
             }
             </CardContent>
@@ -126,7 +129,7 @@ const Raid: FC<RaidProps> = ({
               {visibleChecklist? (<Box key={UUID()} css={styles.gridBox} >
                   <RaidChecklist build={raidBuild} version={version} />
                   <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                    <ModalResetBuild buildId={id}/>
+                    <ModalResetBuild buildId={id} accountRole={accountRole}/>
                   </Box>
               </Box>) : <></>}
             </CardContent>

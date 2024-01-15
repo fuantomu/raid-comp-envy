@@ -18,12 +18,14 @@ import { useAppContext } from "../App/context";
 import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalAddProps {
   editPlayer?: (callback: (player: BuildPlayer) => void) => void;
+  accountRole: number;
 }
 
-const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
+const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
@@ -229,9 +231,11 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer }) => {
     <>
       {!editPlayer ? (
         <Tooltip title={common("cta.addPlayer")} placement="top" arrow>
-          <Button color="success" variant="contained" size="large" onClick={handleOpen}>
-            <PersonAddIcon />
-          </Button>
+          <span>
+            <Button disabled={!isAccountRoleAllowed(accountRole, "AddPlayer")} color="success" variant="contained" size="large" css={{height:"80%"}} onClick={handleOpen}>
+              <PersonAddIcon />
+            </Button>
+          </span>
         </Tooltip>
       ) : null}
       <Modal

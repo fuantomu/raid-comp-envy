@@ -10,6 +10,7 @@ export interface BasicProps {
   name: string;
   visible?: boolean;
   manager: any;
+  accountRole: number;
 }
 
 const BasicBuild: FC<BasicProps> = ({
@@ -17,12 +18,13 @@ const BasicBuild: FC<BasicProps> = ({
   raid,
   name,
   visible,
-  manager
+  manager,
+  accountRole
 }) => {
 
   return (
     <DndProvider manager={manager}>
-      <BasicComposition players={players} raid={raid} name={name} visible={visible} />
+      <BasicComposition players={players} raid={raid} name={name} visible={visible} accountRole={accountRole} />
     </DndProvider>
   );
 };

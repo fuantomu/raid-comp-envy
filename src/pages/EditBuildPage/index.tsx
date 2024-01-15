@@ -25,9 +25,11 @@ import ModalPostDiscord from "../../components/ModalPostDiscord";
 import ModalAlert from "../../components/ModalAlert";
 import Sticky from 'react-stickynode';
 
-export interface EditBuildPageProps {}
+export interface EditBuildPageProps {
+  accountRole: number;
+}
 
-const EditBuildPage: FC<EditBuildPageProps> = () => {
+const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
 
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
@@ -776,23 +778,23 @@ const EditBuildPage: FC<EditBuildPageProps> = () => {
 
   return (
     <AppContextProvider value={{ importPlayer, deletePlayer, resetBuild, getBuild, editPlayer, loadBuildSql, addToRoster, removeFromRoster, getCurrentRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuild, getAbsentPlayers, getUnsetMains, handleShowError }}>
-      <ModalAdd editPlayer={editPlayerModalFn} />
+      <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole}/>
       <ModalAlert handleOpen={handleShowError}/>
 
       <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
 
         <Box key={UUID()} css={styles.gridBox} sx={{width:"35%"}}>
           <Sticky enabled={true}>
-            <Roster manager={manager} build={getCurrentRoster()} editing />
+            <Roster manager={manager} build={getCurrentRoster()} editing accountRole={accountRole}/>
           </Sticky>
         </Box>
 
         <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
-          <Raid manager={manager} id={0} raidBuild={getBuild(0)} builds={builds} version={version} editing ></Raid>
-          <ModalPostDiscord buildId={0}></ModalPostDiscord>
+          <Raid manager={manager} id={0} raidBuild={getBuild(0)} builds={builds} version={version} editing accountRole={accountRole} ></Raid>
+          <ModalPostDiscord buildId={0} accountRole={accountRole}></ModalPostDiscord>
           <br></br>
-          <Raid manager={manager} id={1} raidBuild={getBuild(1)} builds={builds} version={version} editing ></Raid>
-          <ModalPostDiscord buildId={1}></ModalPostDiscord>
+          <Raid manager={manager} id={1} raidBuild={getBuild(1)} builds={builds} version={version} editing accountRole={accountRole} ></Raid>
+          <ModalPostDiscord buildId={1} accountRole={accountRole}></ModalPostDiscord>
           <br></br>
 
           <Box display={"flex"} justifyContent={"center"}>

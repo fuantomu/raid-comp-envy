@@ -22,6 +22,7 @@ export interface CompositionGroupProps {
   spread?: boolean;
   editing?: boolean;
   raid: number;
+  accountRole: number;
 }
 
 const CompositionGroup: FC<CompositionGroupProps> = ({
@@ -30,6 +31,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
   spread = false,
   editing,
   raid,
+  accountRole,
 }) => {
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
@@ -86,6 +88,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
                     onClick: () => context?.editPlayer(player),
                   }
                 : {})}
+              accountRole={accountRole}
             />
           ))}
         </Box>

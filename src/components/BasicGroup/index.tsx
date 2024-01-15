@@ -19,13 +19,15 @@ export interface BasicGroupProps {
   raid: number;
   name: string;
   visible?: boolean;
+  accountRole: number;
 }
 
 const BasicGroup: FC<BasicGroupProps> = ({
   players = [],
   raid,
   name,
-  visible
+  visible,
+  accountRole
 }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
@@ -72,6 +74,7 @@ const BasicGroup: FC<BasicGroupProps> = ({
               {...({
                     onClick: () => context?.editPlayer(player),
                   })}
+              accountRole={accountRole}
             />
           ))}
         </Box> : <></>}

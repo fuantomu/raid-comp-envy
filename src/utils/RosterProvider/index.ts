@@ -61,4 +61,28 @@ export abstract class RosterProvider {
       return absence
     })
   }
+
+  public static async getAccountLogin(username: string, hash: string) : Promise<number>{
+    return await fetch(`${process.env.REACT_APP_API}/account/${username}?hash=${hash}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
+      return response.json()
+    })
+  }
+
+  public static async getLoginAge(host: string) : Promise<number>{
+    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
+      return response.json()
+    })
+  }
+
+  public static async saveLoginAge(host: string) : Promise<Response>{
+    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {
+      return response
+    })
+  }
+
+  public static async deleteLogin(host: string) : Promise<Response>{
+    return await fetch(`${process.env.REACT_APP_API}/login/delete/${host}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {
+      return response
+    })
+  }
 }

@@ -13,21 +13,23 @@ import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 import { useAppContext } from "../App/context";
 import { ArrowDropDown, ArrowLeft } from "@mui/icons-material";
+import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface PlayerProps extends BuildPlayer {
   showRole?: boolean;
   onClick?: () => void;
   alts?: BuildPlayer[];
   rosterVisible?: boolean;
+  accountRole: number;
 }
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[], main} = props;
+  const { name, className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[], main, accountRole} = props;
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
-  const isClickable = typeof onClick != "undefined";
+  const isClickable = typeof onClick != "undefined" && isAccountRoleAllowed(accountRole, "ClickPlayer");
   const [, drag] = useDrag(() => ({
     type: DragItemTypes.PLAYER,
     item: props,
@@ -39,7 +41,7 @@ const Player: FC<PlayerProps> = (props) => {
       <Box
         key={UUID()}
         css={styles.player(isClickable, status)}
-        onClick={onClick ? onClick : () => {}}
+        onClick={onClick && isAccountRoleAllowed(accountRole, "ClickPlayer") ? onClick : () => {}}
         ref={isClickable ? drag : undefined}
       >
         <Box css={styles.icons(showRole)}>
@@ -74,6 +76,7 @@ const Player: FC<PlayerProps> = (props) => {
               raid={raid}
               {...player}
               {...({onClick: () => context?.editPlayer(player)})}
+              accountRole={accountRole}
             />
           ))}
         </Box>) : null}

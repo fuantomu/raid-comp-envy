@@ -13,9 +13,11 @@ const ChangeViewModeButton: FC<ChangeViewModeButtonProps> = ({ handleChangeGroup
 
   return (
     <Tooltip title={common('cta.changeViewMode')} placement="top" arrow>
-      <Button color="info" variant="contained" size="large" onClick={handleChangeGrouping}>
-        <GridView />
-      </Button>
+      <span css={{width: "31%"}}>
+        <Button color="info" variant="contained" size="large" onClick={handleChangeGrouping} css={{width: "100%"}}>
+          <GridView />
+        </Button>
+      </span>
     </Tooltip>
   );
 };

@@ -7,13 +7,15 @@ import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
 import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
 import useStyles from "./useStyles";
+import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 
 export interface ModalDeleteBuildProps {
-  buildId: number
+  buildId: number,
+  accountRole: number;
 }
 
-const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId}) => {
+const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId, accountRole}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [common] = useTranslation("common");
@@ -36,9 +38,11 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId}) => {
   return (
     <>
       <Tooltip title={common("cta.deleteBuild")} placement="top" arrow>
-        <Button color="error" variant="contained" size="large" onClick={handleOpen}>
-          <FolderDeleteIcon />
-        </Button>
+        <span css={{width: "31%"}}>
+          <Button disabled={!isAccountRoleAllowed(accountRole, "DeleteBuild")} color="error" variant="contained" size="large" onClick={handleOpen} css={{width:"100%"}}>
+            <FolderDeleteIcon />
+          </Button>
+        </span>
       </Tooltip>
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>

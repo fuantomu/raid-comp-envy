@@ -11,9 +11,10 @@ interface BasicCompositionProps {
   raid: number;
   name: string;
   visible?: boolean;
+  accountRole: number;
 }
 
-const BasicComposition: FC<BasicCompositionProps> = ({ players, raid, name, visible }) => {
+const BasicComposition: FC<BasicCompositionProps> = ({ players, raid, name, visible, accountRole }) => {
   const styles = useStyles();
   return (
     <>
@@ -24,6 +25,7 @@ const BasicComposition: FC<BasicCompositionProps> = ({ players, raid, name, visi
           raid={raid}
           name={name}
           visible={visible}
+          accountRole={accountRole}
         />
       </Box>
     </>

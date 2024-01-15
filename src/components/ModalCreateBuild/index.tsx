@@ -7,13 +7,15 @@ import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import useStyles from "./useStyles";
+import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 
 export interface ModalCreateBuildProps {
-  buildId: number
+  buildId: number;
+  accountRole: number;
 }
 
-const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId}) => {
+const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId, accountRole}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [error, showError] = useState(false);
@@ -59,9 +61,11 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId}) => {
   return (
     <>
       <Tooltip title={common("cta.createBuild")} placement="top" arrow>
-        <Button color="success" variant="contained" size="large" onClick={handleOpen}>
-          <CreateNewFolderIcon />
-        </Button>
+        <span css={{width: "31%"}}>
+          <Button disabled={!isAccountRoleAllowed(accountRole, "CreateBuild")} color="success" variant="contained" size="large" onClick={handleOpen} css={{width:"100%"}}>
+            <CreateNewFolderIcon />
+          </Button>
+        </span>
       </Tooltip>
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
