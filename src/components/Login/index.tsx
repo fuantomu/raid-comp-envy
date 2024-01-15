@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Button, Input } from "@mui/material";
+import { Box, Button, Container, Input } from "@mui/material";
 import { Dispatch, FC, SetStateAction, useState} from "react";
 import { useTranslation } from "react-i18next";
 import useStyles from "./useStyles";
 import { getHash } from "../../utils/hash";
 import { RosterProvider } from "../../utils/RosterProvider";
 import UUID from "../../utils/UUID";
+import Logo from "../Logo";
 
 export type Props = {
   setToken: Dispatch<SetStateAction<string>>;
@@ -52,9 +53,11 @@ const Login: FC<Props> = ({ setToken, setIssueTime, setLoggedIn, setRole, host }
   }
 
   return (
-    <Box css={styles.modal}>
-      <h2>{common("login.title")}</h2>
-      <Box css={styles.content}>
+    <Container maxWidth="xl">
+      <Logo></Logo>
+      <Box css={styles.modal}>
+        <h2>{common("login.title")}</h2>
+        <Box css={styles.content}>
           <Box css={styles.nameInputWrapper}>
               <h4>{common("login.user")}</h4>
               <Input
@@ -80,6 +83,8 @@ const Login: FC<Props> = ({ setToken, setIssueTime, setLoggedIn, setRole, host }
           </Box>
       </Box>
     </Box>
+  </Container>
+
   );
 };
 
