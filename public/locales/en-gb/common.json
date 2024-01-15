@@ -288,5 +288,12 @@
     "error": "Incorrect username or password",
     "user": "User",
     "password": "Password"
+  },
+  "account": {
+    "title": "Create account",
+    "submit": "Create",
+    "error": "Account with that username already exists",
+    "created": "Account has been created!",
+    "gotologin": "Go to login"
   }
 }

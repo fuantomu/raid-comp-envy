@@ -85,4 +85,10 @@ export abstract class RosterProvider {
       return response
     })
   }
+
+  public static async saveAccountLogin(username: string, hash: string) : Promise<number>{
+    return await fetch(`${process.env.REACT_APP_API}/account/${username}`, {method: "POST", mode:"cors",credentials:"include",headers: {"Content-Type": "application/json"}, body: hash}).then((response) => {
+      return response.json()
+    })
+  }
 }

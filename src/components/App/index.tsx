@@ -8,6 +8,7 @@ import Login from "../Login";
 import { RosterProvider } from "../../utils/RosterProvider";
 import UUID from "../../utils/UUID";
 import useErrorHandler from "../../utils/useErrorHandler";
+import Account from "../Account";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -19,6 +20,7 @@ const App: FC = () => {
   const [issueTime, setIssueTime] = useState(0)
   const [loggedIn, setLoggedIn] = useState(false)
   const [accountRole, setAccountRole] = useState(-1)
+  const [newAccount, setNewAccount] = useState(false)
   const handleError = useErrorHandler();
 
   const accountRoleTimeouts = {
@@ -59,8 +61,11 @@ const App: FC = () => {
     return () => clearInterval(interval);
   },[issueTime, loggedIn, host, handleError, token, accountRole]);
 
+  if(window.location.pathname === "/account" && !newAccount){
+    return (<Account setNewAccount={setNewAccount}></Account>)
+  }
   if(!token || issueTime === 0) {
-    return <Login setToken={setToken} setIssueTime={setIssueTime} setLoggedIn={setLoggedIn} setRole={setAccountRole} host={host} />
+    return (<Login setToken={setToken} setIssueTime={setIssueTime} setLoggedIn={setLoggedIn} setRole={setAccountRole} host={host} />)
   }
   return (
     <Fragment>

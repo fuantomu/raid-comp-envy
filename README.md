@@ -23,3 +23,7 @@ Build a production version
 ### `npx serve -s build`
 
 Serve the production version located in 'build'
+
+### `Create an account`
+
+Open [http://localhost:3000/account](http://localhost:3000/account) to create an account to login
