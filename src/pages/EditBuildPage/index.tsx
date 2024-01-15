@@ -781,8 +781,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole}/>
       <ModalAlert handleOpen={handleShowError}/>
 
-      <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start' }} maxWidth={false}>
-
+      <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start'}} maxWidth={false}>
         <Box key={UUID()} css={styles.gridBox} sx={{width:"35%"}}>
           <Sticky enabled={true}>
             <Roster manager={manager} build={getCurrentRoster()} editing accountRole={accountRole}/>
@@ -804,9 +803,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
               </Tooltip>
             </Button>
           </Box>
-
         </Container>
       </Container>
+
     </AppContextProvider>
   );
 };

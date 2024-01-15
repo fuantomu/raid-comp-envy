@@ -14,6 +14,7 @@ import Player from "../Player";
 import useStyles from "./useStyles";
 import { Button, MenuItem, TextField } from "@mui/material";
 import ModalAdd from "../ModalAdd";
+import envy from "../../icons/envy-ts-wenig-schatten.png"
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
@@ -65,7 +66,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
 
   return (
     <Card ref={drop}>
-      <CardContent>
+      <CardContent sx={{backgroundImage: `url(${envy})`, backgroundRepeat : 'no-repeat', backgroundPosition: "bottom right", backgroundSize:"20%"}}>
         <Box key={UUID()} display={"grid"} gridTemplateColumns={"2.5fr 1.2fr 1.8fr 3fr"}>
         <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
@@ -121,6 +122,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             />
           ))}
         </Box>
+        <Box minHeight={"128px"}></Box>
       </CardContent>
     </Card>
   );
