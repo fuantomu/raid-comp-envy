@@ -61,7 +61,8 @@
     },
     "create": {
       "title": "Add a new build",
-      "save": "Save"
+      "save": "Save",
+      "name": "Build name"
     },
     "delete": {
       "title": "Delete the current build",
@@ -90,7 +91,8 @@
       "raid1": "Raid 2"
     },
     "roster": {
-      "expand": "Expand all"
+      "expand": "Expand all",
+      "save": "Save to Roster"
     }
   },
   "cta": {
@@ -279,8 +281,10 @@
   },
   "discord":{
     "send": "Send setup to Discord",
-    "url": "Set link to sheet",
-    "post": "Post setup"
+    "url": "Clickable link",
+    "post": "Post setup",
+    "bench": "Send unset players in bench",
+    "note": "Note text"
   },
   "login":{
     "title": "Login to raid planner",

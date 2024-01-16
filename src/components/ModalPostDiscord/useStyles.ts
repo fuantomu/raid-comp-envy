@@ -36,6 +36,25 @@ export default () => {
       & > *:first-of-type {
         margin-left: auto;
       }
-    `
+    `,
+    nameInput: css`
+      width: 100%;
+      padding: ${spacing(Spacing.xs)};
+
+      input {
+        text-align: center;
+      }
+    `,
+    content: css`
+      display: grid;
+      place-items: center;
+
+      & > * {
+        margin: ${spacing(Spacing.xxs)} 0;
+      }
+    `,
+    nameInputWrapper: css`
+      width: 100%;
+    `,
   };
 };

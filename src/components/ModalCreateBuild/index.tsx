@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Tooltip } from "@mui/material";
+import { Box, Input, Tooltip, Typography } from "@mui/material";
 import Modal from "@mui/material/Modal"
 import Button from "@mui/material/Button";
 import { FC, createRef, useState } from "react";
@@ -8,6 +8,7 @@ import { useAppContext } from "../App/context";
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import useStyles from "./useStyles";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
+import UUID from "../../utils/UUID";
 
 
 export interface ModalCreateBuildProps {
@@ -70,11 +71,17 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId, accountRole}) => 
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.create.title")}</h2>
-          <input ref={buildTitle}></input>
-          <br />
+          <Box css={styles.content}>
+            <Box css={styles.nameInputWrapper}>
+              <Input  css={styles.nameInput}
+                  type="text"
+                  placeholder={common("build.create.name")}
+                  inputRef={buildTitle}/>
+            </Box>
+          </Box>
           <h4 style={{ color: 'red' }}>{error ? errorMessage : null }</h4>
           <Box css={styles.buttons}>
-            <Button color="primary" variant="contained" onClick={handleCreate}>
+            <Button color="success" variant="contained" onClick={handleCreate}>
               {common("build.create.save")}
             </Button>
             <Button color="secondary" variant="contained" onClick={handleClose}>

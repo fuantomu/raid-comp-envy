@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Checkbox, FormControlLabel, Tooltip } from "@mui/material";
+import { Box, Checkbox, Input, Tooltip, Typography } from "@mui/material";
 import Modal from "@mui/material/Modal"
 import Button from "@mui/material/Button";
 import { FC, createRef, useState } from "react";
@@ -9,6 +9,7 @@ import useStyles from "./useStyles";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { BuildHelper } from "../../utils/BuildHelper";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
+import UUID from "../../utils/UUID";
 
 
 export interface ModalPostDiscordProps {
@@ -32,10 +33,12 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
 
   const handleClose = () => {
     setOpen(false);
+    setChecked(false);
   };
 
   const handleOpen = () => {
     setOpen(true);
+    setChecked(false);
   };
 
   const handleChange = () => {
@@ -63,19 +66,28 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
       </Box>
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
-          <h2>{common("discord.url")}</h2>
-          <input ref={sheetUrl}></input>
-          <br />
-          <FormControlLabel
-               control = {<Checkbox
-                name="checked"
-                checked={checked}
-                onChange={handleChange}
-              />}
-              label="Send unset characters as bench"
-          />
+          <h2>{common("discord.send")}</h2>
+          <Box css={styles.content}>
+            <Box css={styles.nameInputWrapper}>
+              <Input css={styles.nameInput}
+                  type="text"
+                  placeholder={common("discord.url")}
+                  inputRef={sheetUrl}/>
+            </Box>
+            <Box display={"grid"} gridTemplateColumns={"1fr 1fr"}>
+              <Typography style={{caretColor: "transparent"}} fontSize={"16px"} variant="subtitle1">
+                {common("discord.bench")}
+              </Typography>
+              <Checkbox
+                    name="checked"
+                    checked={checked}
+                    onChange={handleChange}
+              />
+            </Box>
+          </Box>
+
           <Box css={styles.buttons}>
-            <Button color="primary" variant="contained" onClick={handleCreate}>
+            <Button color="success" variant="contained" onClick={handleCreate}>
               {common("discord.post")}
             </Button>
             <Button color="secondary" variant="contained" onClick={handleClose}>

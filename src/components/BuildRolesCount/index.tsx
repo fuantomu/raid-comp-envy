@@ -38,7 +38,7 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
         const count = build.players.filter(
           ({ spec, group }) => RoleProvider.getSpecRole(spec) === role && group !== 'roster' && group !== 'bench'
         ).length;
-        if (!count) return <></>;
+        if (!count) return false;
         return (
           <Box key={UUID()} css={styles.role}>
             <WarcraftIcon

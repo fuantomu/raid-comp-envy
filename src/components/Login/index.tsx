@@ -61,14 +61,17 @@ const Login: FC<Props> = ({ setToken, setIssueTime, setLoggedIn, setRole, host }
           <Box css={styles.nameInputWrapper}>
               <h4>{common("login.user")}</h4>
               <Input
+                  id="username"
                   css={styles.nameInput}
                   type="text"
                   autoFocus={true}
                   onChange={e => { setUserName(e.target.value); showError(false)}}
                   onKeyDown={handleKeyDown}
+                  autoComplete="username"
               />
               <h4>{common("login.password")}</h4>
               <Input
+                  id="password"
                   css={styles.nameInput}
                   type="password"
                   onChange={e => {setPassword(e.target.value); showError(false)}}

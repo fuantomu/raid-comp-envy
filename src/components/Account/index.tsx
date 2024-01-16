@@ -77,6 +77,7 @@ const Account: FC<Props> = ({setNewAccount}) => {
             <Box css={styles.nameInputWrapper}>
                 <h4>{common("login.user")}</h4>
                 <Input
+                    id="username"
                     css={styles.nameInput}
                     type="text"
                     autoFocus={true}
@@ -85,6 +86,7 @@ const Account: FC<Props> = ({setNewAccount}) => {
                 />
                 <h4>{common("login.password")}</h4>
                 <Input
+                    id="password"
                     css={styles.nameInput}
                     type="password"
                     onChange={e => {setPassword(e.target.value)}}

@@ -128,10 +128,10 @@ const Raid: FC<RaidProps> = ({
               </Box>
               {visibleChecklist? (<Box key={UUID()} css={styles.gridBox} >
                   <RaidChecklist build={raidBuild} version={version} />
-                  <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                    <ModalResetBuild buildId={id} accountRole={accountRole}/>
-                  </Box>
               </Box>) : <></>}
+              <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
+                <ModalResetBuild buildId={id} accountRole={accountRole}/>
+              </Box>
             </CardContent>
           </Card>
   );

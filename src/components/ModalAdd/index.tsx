@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Checkbox, FormControlLabel, Tooltip } from "@mui/material";
+import { Checkbox, Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
@@ -220,9 +220,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
 
   const renderMain = () => {
     return (
-      <Box>
-        <label htmlFor="characterLabel">{common("build.add.main")}    </label>
-        <input name="characterLabel" defaultValue={main?? ""} ref={mainCharacter}></input>
+      <Box display={"grid"} gridTemplateColumns={"110px 1fr"}>
+        {common("build.add.main")}
+        <input id={UUID()} defaultValue={main?? ""} ref={mainCharacter}></input>
       </Box>
     );
   };
@@ -249,6 +249,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
           <Box css={styles.content}>
             <Box css={styles.nameInputWrapper}>
               <Input
+                id={UUID()}
                 css={styles.nameInput}
                 type="text"
                 autoFocus={true}
@@ -264,14 +265,14 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
             {renderMain()}
           </Box>
           <Box css={styles.buttons}>
-             <FormControlLabel
-               control = {<Checkbox
-                name="checked"
-                checked={checked}
-                onChange={handleChange}
-              />}
-              label="Save to Roster"
-            />
+            <Box>
+              <Checkbox
+                  name="checked"
+                  checked={checked}
+                  onChange={handleChange}
+              />
+              {common("build.roster.save")}
+            </Box>
             {oldName ? <Button color="info" variant="contained" onClick={handleViewPlayer}>
               {common("build.add.view")}
             </Button>: null}
