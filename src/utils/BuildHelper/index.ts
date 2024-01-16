@@ -172,12 +172,12 @@ export abstract class BuildHelper {
     return builds;
   }
 
-  public static async parsePostSetup(build : Build, sheetUrl: string, sendMains?: BuildPlayer[]) {
+  public static async parsePostSetup(build : Build, sheetUrl: string, sendMains?: BuildPlayer[], note?: string) {
     //@Crenox
     const data = {
       "content": "<@&840957996304826378> Raidsheet Aktualisierung " + new Date().toLocaleString('de-de'),
       "embeds": [{
-        "description": "",
+        "description": note,
         "title": `${build.name} - ${new Date(build.date).toLocaleString('de-de')}`,
         "color": null,
         "url": sheetUrl,

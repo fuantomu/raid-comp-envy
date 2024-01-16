@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Input, Tooltip, Typography } from "@mui/material";
+import { Box, Input, Tooltip } from "@mui/material";
 import Modal from "@mui/material/Modal"
 import Button from "@mui/material/Button";
 import { FC, createRef, useState } from "react";
@@ -8,7 +8,6 @@ import { useAppContext } from "../App/context";
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import useStyles from "./useStyles";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
-import UUID from "../../utils/UUID";
 
 
 export interface ModalCreateBuildProps {

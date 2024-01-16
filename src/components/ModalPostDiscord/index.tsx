@@ -2,14 +2,14 @@
 import { Box, Checkbox, Input, Tooltip, Typography } from "@mui/material";
 import Modal from "@mui/material/Modal"
 import Button from "@mui/material/Button";
-import { FC, createRef, useState } from "react";
+import { FC, createRef, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../App/context";
 import useStyles from "./useStyles";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { BuildHelper } from "../../utils/BuildHelper";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
-import UUID from "../../utils/UUID";
+import StyledTextField from "../StyledTextField";
 
 
 export interface ModalPostDiscordProps {
@@ -22,6 +22,7 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const [common] = useTranslation("common");
+  const noteRef = useRef<any>()
   const context = useAppContext();
   let sheetUrl = createRef<HTMLInputElement>();
 
@@ -48,7 +49,7 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
   const handlePostDiscord = (sheetUrl: string) => {
     const build = context?.getBuild(buildId)
     if(build){
-      BuildHelper.parsePostSetup(build, sheetUrl, checked? context?.getUnsetMains() : [])
+      BuildHelper.parsePostSetup(build, sheetUrl, checked? context?.getUnsetMains() : [], noteRef.current?.value)
     }
     setOpen(false);
   };
@@ -84,8 +85,8 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
                     onChange={handleChange}
               />
             </Box>
+            <StyledTextField placeholder={common("discord.note")} textRef={noteRef} />
           </Box>
-
           <Box css={styles.buttons}>
             <Button color="success" variant="contained" onClick={handleCreate}>
               {common("discord.post")}
