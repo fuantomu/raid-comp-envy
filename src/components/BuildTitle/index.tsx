@@ -122,6 +122,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
             value={date}
             readOnly={!isAccountRoleAllowed(accountRole,"ChangeDate")}
             onChange={handleDateChange}
+            views={['year','month','day']}
           />
         </LocalizationProvider>
       </Box>
