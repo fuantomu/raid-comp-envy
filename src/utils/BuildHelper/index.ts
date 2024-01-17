@@ -89,7 +89,8 @@ export abstract class BuildHelper {
       players: JSON.stringify(build.players.filter((player) => {
         return player.group !== 'roster'
       })),
-      instance: build.instance
+      instance: build.instance,
+      raidId: build.raidId
     }
 
     await RosterProvider.saveBuild(build.id, buildRequest).then((response) => {
@@ -139,7 +140,8 @@ export abstract class BuildHelper {
             })
           }
         }
-        build.instance = responseBuild.instance
+        build.instance = responseBuild.instance;
+        build.raidId = responseBuild.raidId;
       }
 
     });
@@ -163,7 +165,8 @@ export abstract class BuildHelper {
             name: build.name,
             date: build.date,
             players: JSON.parse(build.players),
-            instance: build.instance
+            instance: build.instance,
+            raidId: build.raidId
           }
           builds.push(newBuild)
         }
