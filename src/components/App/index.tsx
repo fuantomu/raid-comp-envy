@@ -38,6 +38,7 @@ const App: FC = () => {
             localStorage.setItem("token", newToken)
             localStorage.setItem("host", host)
             setToken(newToken);
+            setLoggedIn(true);
             return
           }
         }
