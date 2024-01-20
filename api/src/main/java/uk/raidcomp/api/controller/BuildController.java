@@ -24,7 +24,7 @@ public class BuildController {
     this.buildRepository = buildRepository;
   }
 
-  @Post("/delete/{buildId}")
+  @Get("/delete/{buildId}")
   public void deleteFromSql(String buildId) {
     buildRepository.deleteById(buildId);
   }

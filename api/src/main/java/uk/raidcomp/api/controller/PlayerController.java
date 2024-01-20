@@ -35,7 +35,7 @@ public class PlayerController {
     return playerRepository.findById(playerId);
   }
 
-  @Post("/delete/{playerId}")
+  @Get("/delete/{playerId}")
   public void deletePlayer(String playerId) {
     playerRepository.deleteById(playerId);
   }

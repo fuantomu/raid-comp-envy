@@ -31,7 +31,7 @@ export abstract class RosterProvider {
   }
 
   public static async deleteBuild(buildId: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/build/delete/${buildId}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {
+    return await fetch(`${process.env.REACT_APP_API}/build/delete/${buildId}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
       return response
     })
   }
@@ -43,7 +43,7 @@ export abstract class RosterProvider {
   }
 
   public static async deleteRosterPlayer(playerId: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/player/delete/${playerId}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {return response})
+    return await fetch(`${process.env.REACT_APP_API}/player/delete/${playerId}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {return response})
   }
 
   public static async getBuilds() : Promise<BuildResponse[]>{

@@ -1,7 +1,5 @@
 package uk.raidcomp.api.data.entity;
 
-import java.util.UUID;
-
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.data.annotation.MappedEntity;
 import lombok.Getter;
@@ -20,7 +18,7 @@ import jakarta.persistence.Entity;
 @Entity
 public class PlayerEntity {
   @Id
-  private String id = UUID.randomUUID().toString();
+  private String id;
 
   private String name;
 
