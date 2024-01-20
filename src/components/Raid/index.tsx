@@ -53,13 +53,13 @@ const Raid: FC<RaidProps> = ({
 
 
   return (
-        <Card key={UUID()}>
-          <CardContent key={UUID()} style={{border:"1", borderColor: "black", backgroundColor: "#242424"}}>
-          <Box key={UUID()} sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisible(!visible); }} display={"grid"} gridTemplateColumns={"1fr 20px"}>
-              <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
+        <Card style={{borderBottom: `1px solid black`, borderTop: `3px solid #ad0a0a`, borderRight: `1px solid black`}} key={UUID()}>
+          <CardContent key={UUID()} style={{borderBottom: `1px solid black`, backgroundColor: "#242424"}}>
+          <Box key={UUID()} sx={{cursor:"pointer", border: `1px solid black`, marginBottom:"10px"}} onClick={(event) => {event.stopPropagation(); setVisible(!visible); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
+              <Typography style={{caretColor: "transparent", marginLeft:"8px"}} fontSize={"26px"} variant="subtitle1">
                 {common(`build.raid.raid${id}`)}
               </Typography>
-              {visible? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
+              {visible? <ArrowDropDown sx={{padding:"24", width:"48px", height:"48px"}}></ArrowDropDown>: <ArrowLeft sx={{padding:"24", width:"48px", height:"48px"}}></ArrowLeft> }
           </Box>
 
           {visible?
@@ -88,11 +88,11 @@ const Raid: FC<RaidProps> = ({
                   </Box>
                   <Box display={"grid"} gridTemplateColumns={"15px 1fr 15px 250px"}>
                     <br></br>
-                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
+                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content", border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
                       <BasicBuild manager={manager} players={context?.getUnsetMains() ?? []} raid={id} name="notset" visible={visibleNotSet} accountRole={accountRole}/>
                     </Box>
                     <br></br>
-                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
+                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content", border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
                       <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} name="absent" visible={visibleAbsent} accountRole={accountRole}/>
                     </Box>
 
@@ -106,12 +106,12 @@ const Raid: FC<RaidProps> = ({
           </CardContent>
 
 
-            <CardContent key={UUID()} style={{border:"1", borderColor: "black", backgroundColor: "#242424"}}>
-              <Box key={UUID()} sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisibleComposition(!visibleComposition); }} display={"grid"} gridTemplateColumns={"1fr 20px"}>
-                  <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
+            <CardContent key={UUID()} style={{borderBottom: `1px solid black`, backgroundColor: "#242424"}}>
+              <Box key={UUID()} sx={{cursor:"pointer", border: `1px solid black`, marginBottom:"10px"}} onClick={(event) => {event.stopPropagation(); setVisibleComposition(!visibleComposition); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
+                  <Typography style={{caretColor: "transparent", marginLeft:"8px"}} fontSize={"26px"} variant="subtitle1">
                     {common("build.raid.composition")}
                   </Typography>
-                  {visibleComposition? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
+                  {visibleComposition? <ArrowDropDown sx={{padding:"24", width:"48px", height:"48px"}}></ArrowDropDown>: <ArrowLeft sx={{padding:"24", width:"48px", height:"48px"}}></ArrowLeft> }
               </Box>
             {visibleComposition?
               (<Box key={UUID()} css={styles.gridBox} >
@@ -123,11 +123,11 @@ const Raid: FC<RaidProps> = ({
 
 
             <CardContent key={UUID()} style={{backgroundColor: "#242424"}}>
-              <Box key={UUID()} sx={{cursor:"pointer"}} onClick={(event) => {event.stopPropagation(); setVisibleChecklist(!visibleChecklist); }} display={"grid"} gridTemplateColumns={"1fr 20px"}>
-                  <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
+              <Box key={UUID()} sx={{cursor:"pointer", border: `1px solid black`, marginBottom:"10px"}} onClick={(event) => {event.stopPropagation(); setVisibleChecklist(!visibleChecklist); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
+                  <Typography style={{caretColor: "transparent", marginLeft: "8px"}} fontSize={"26px"} variant="subtitle1">
                     {common("build.raid.checklist")}
                   </Typography>
-                  {visibleChecklist? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
+                  {visibleChecklist? <ArrowDropDown sx={{padding:"24", width:"48px", height:"48px"}}></ArrowDropDown>: <ArrowLeft sx={{padding:"24", width:"48px", height:"48px"}}></ArrowLeft> }
               </Box>
               {visibleChecklist? (<Box key={UUID()} css={styles.gridBox} >
                   <RaidChecklist build={raidBuild} version={version} />

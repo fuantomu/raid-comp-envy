@@ -61,6 +61,8 @@ const RosterGroup: FC<RosterGroupProps> = ({
     []
   );
 
+  console.log(window.innerWidth)
+
   if (players.length === 0 && !editing) {
     return <></>;
   }
@@ -93,7 +95,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
 
 
         </Box>
-        <Box key={UUID()} sx={{maxHeight:"1160px"}} css={[styles.scroll, styles.spread]}>
+        <Box key={UUID()} sx={{maxHeight:"1160px"}} css={[styles.scroll, styles.spread(window.innerWidth)]}>
           {players.filter((player) => player.main?.toLowerCase() === player.name.toLowerCase()).map((player) => (
             <Player
               key={UUID()}
@@ -110,7 +112,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             />
           ))}
         </Box>
-        <Box key={UUID()} css={styles.spread}>
+        <Box key={UUID()} css={styles.spread(window.innerWidth)}>
           {players.filter((player) => player.main === undefined || player.main === "").map((player) => (
             <Player
               key={UUID()}

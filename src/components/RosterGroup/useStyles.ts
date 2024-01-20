@@ -4,11 +4,11 @@ import useTheme, { Spacing } from "../../utils/useTheme";
 export default (spread: boolean) => {
   const theme = useTheme();
   return {
-    spread: [
+    spread: (windowSize: number) => [
       spread &&
         css`
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-template-columns: ${windowSize > 1200? "1fr 1fr 1fr" : "1fr 1fr"};
           column-gap: ${theme.spacing(Spacing.xxs)};
         `,
     ],

@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AppContextProvider } from "../../components/App/context";
@@ -11,7 +10,6 @@ import { Absence, Build, BuildPlayer, SelectOption, Update} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
-import useStyles from "./useStyles";
 import { Instance, InviteStatus} from "../../consts";
 import { Button, Tooltip } from "@mui/material";
 import cataclysm from "../../icons/Cataclysmlogo.webp";
@@ -20,8 +18,8 @@ import { createDragDropManager } from 'dnd-core'
 import Raid from "../../components/Raid";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ModalAlert from "../../components/ModalAlert";
-import Sticky from 'react-stickynode';
 import { sortFunctions } from "../../utils/sorting";
+import StickyBox from "react-sticky-box";
 
 export interface EditBuildPageProps {
   accountRole: number;
@@ -31,7 +29,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
 
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
-  const styles = useStyles();
   const handleError = useErrorHandler();
   const [builds, setBuilds] = useState<Build[]>([]);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
@@ -46,8 +43,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
 
   let openEditModal: any = () => {};
   let handleModalOpen: any = () => {};
-
-
 
   const MAX_SET_CHARACTERS = 2
 
@@ -584,16 +579,22 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       if(rosterPlayer.status !== InviteStatus.Tentative){
         rosterPlayer.status = InviteStatus.Unknown
       }
+      else{
+        if(!isPlayerAbsent(rosterPlayer, new Date().getTime())){
+          rosterPlayer.status = InviteStatus.Unknown
+        }
+      }
 
       currentAbsences.map((currentAbsence) => {
         if((new Date().getTime() <= currentAbsence.endDate)){
           if(currentAbsence.player.id === rosterPlayer.id){
-            console.log(rosterPlayer)
             rosterPlayer.status = InviteStatus.Tentative
           }
         }
         return false
       })
+
+
 
       currentBuilds.map((build) => {
         build.players.map((buildPlayer)=>{
@@ -648,7 +649,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       if(newAbsence.length !== absence.length || isLoading){
         loadAbsence(data.absences, data.players)
       }
-      //updateRosterStatus(roster,builds)
+
       const differencesRoster = _.differenceWith(data.players, roster, (a : BuildPlayer[], b: BuildPlayer[]) => {
         return _.isEqual(
           _.omit(a, ['group','id','raid','oldName']),
@@ -683,7 +684,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
     return () => clearInterval(interval);
 
     //eslint-disable-next-line
-  }, [handleError,isLoading,roster,builds,absence,updateRosterStatus]);
+  }, [handleError,isLoading,roster,builds,absence]);
 
   if (isLoading) {
     return <Loading />;
@@ -694,28 +695,28 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole}/>
       <ModalAlert handleOpen={handleShowError}/>
 
-      <Container sx={{ maxHeight: "100%", display: 'flex', justifyContent:'flex-start'}} maxWidth={false}>
-        <Box key={UUID()} css={styles.gridBox} sx={{width:"35%"}}>
-          <Sticky enabled={true}>
-            <Roster manager={manager} players={roster} editing accountRole={accountRole}/>
-          </Sticky>
-        </Box>
 
-        <Container sx={{ maxWidth:'75%'}} maxWidth={false}>
+
+      <div style={{ display: 'flex', alignItems: 'flex-start'}}>
+        <StickyBox style={{width: "40%", borderBottom: `1px solid black`, borderRight: `1px solid black`}}>
+              <Roster manager={manager} players={roster} editing accountRole={accountRole}/>
+        </StickyBox>
+        <div style={{ width:'100%'}} >
           <Raid manager={manager} id={0} raidBuild={builds[0]} builds={buildSelection} version={version} editing accountRole={accountRole} ></Raid>
+          <br></br>
           <br></br>
           <Raid manager={manager} id={1} raidBuild={builds[1]} builds={buildSelection} version={version} editing accountRole={accountRole} ></Raid>
           <br></br>
 
           <Box display={"flex"} justifyContent={"center"}>
-            <Button style={{height: '100px', width : '219px', marginTop:'50px', marginBottom:'50px'}} key={UUID()} onClick={handleChangeVersion}>
+            <Button style={{height: '100px', width : '219px', marginBottom:'54px'}} key={UUID()} onClick={handleChangeVersion}>
               <Tooltip title={common(`version.${version}`)}>
                 <img width={"219"} height={"100"} alt={common(`version.${version}`)} src={version === 'Cataclysm'? cataclysm : wotlk}></img>
               </Tooltip>
             </Button>
           </Box>
-        </Container>
-      </Container>
+        </div>
+      </div>
     </AppContextProvider>
   );
 };

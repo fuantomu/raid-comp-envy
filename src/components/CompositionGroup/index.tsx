@@ -77,7 +77,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
           />) : null}
         </Box>
         <Box css={styles.spread}>
-          {players.map((player) => (
+          {players.length > 0? players.map((player) => (
             <Player
               key={UUID()}
               {...player}
@@ -89,7 +89,10 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
               accountRole={accountRole}
               raid={raid}
             />
-          ))}
+          )) :
+            <Typography style={{caretColor: "transparent", color: "dimgray"}} variant="subtitle2">
+              Empty
+            </Typography>}
         </Box>
       </CardContent>
     </Card>
