@@ -256,7 +256,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
   };
 
   const getPlayerAbsence = (player: string) => {
-    return absence.filter((absentPlayer) => absentPlayer.player.name === player || absentPlayer.player.main === player)
+    const earliestBuild = builds.sort((a,b) => a.date - b.date)[0]
+    return absence.filter((absentPlayer) => (absentPlayer.player.name === player || absentPlayer.player.main === player) && absentPlayer.startDate >= earliestBuild.date)
   }
 
   const getAbsentPlayers = (buildId: number): BuildPlayer[] => {
