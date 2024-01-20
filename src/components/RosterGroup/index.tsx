@@ -61,8 +61,6 @@ const RosterGroup: FC<RosterGroupProps> = ({
     []
   );
 
-  console.log(window.innerWidth)
-
   if (players.length === 0 && !editing) {
     return <></>;
   }
