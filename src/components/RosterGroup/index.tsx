@@ -15,6 +15,7 @@ import useStyles from "./useStyles";
 import { Button, MenuItem, TextField } from "@mui/material";
 import ModalAdd from "../ModalAdd";
 import envy from "../../icons/envy-ts-wenig-schatten.png"
+import { sortFunctions } from "../../utils/sorting";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
@@ -50,10 +51,10 @@ const RosterGroup: FC<RosterGroupProps> = ({
             race: player.race,
             raid: player.raid,
             status: player.status,
-            group: groupId as GroupId,
+            group: "roster" as GroupId,
             oldName: player.oldName,
             main: player.main
-          },buildId
+          }
         );
       },
     }),
@@ -103,8 +104,9 @@ const RosterGroup: FC<RosterGroupProps> = ({
                   }
                 : {})}
               rosterVisible={context?.getRosterExpanded()}
-              alts={players.filter((altPlayer) => altPlayer.main?.toLowerCase() === player.name.toLowerCase() && altPlayer.name.toLowerCase() !== player.name.toLowerCase())}
+              alts={players.filter((altPlayer) => altPlayer.main?.toLowerCase() === player.name.toLowerCase() && altPlayer.name.toLowerCase() !== player.name.toLowerCase()).sort((a,b) => sortFunctions.DEFAULT(a,b))}
               accountRole={accountRole}
+              raid={player.raid}
             />
           ))}
         </Box>
@@ -118,7 +120,8 @@ const RosterGroup: FC<RosterGroupProps> = ({
                     onClick: () => context?.editPlayer(player),
                   }
                 : {})}
-                accountRole={accountRole}
+              accountRole={accountRole}
+              raid={player.raid}
             />
           ))}
         </Box>

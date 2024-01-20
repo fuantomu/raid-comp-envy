@@ -1,4 +1,5 @@
 import { WarcraftRole } from "./utils/RoleProvider/consts";
+//import { WarcraftRole } from "./utils/RoleProvider/consts";
 
 export enum AppErrorId {
   Unspecific = "unspecific",
@@ -108,6 +109,19 @@ export const RoleWeight: {
   Tank: 1,
   MeleeDPS: 3,
   RangedDPS: 4
+}
+
+export const ClassWeight: { [className in WarcraftPlayerClass] : number} = {
+  Priest: 10,
+  Rogue: 9,
+  Shaman: 8,
+  Mage: 7,
+  Hunter: 6,
+  Druid: 5,
+  Deathknight: 4,
+  Warlock: 3,
+  Warrior: 2,
+  Paladin: 1
 }
 
 export const Instance = {

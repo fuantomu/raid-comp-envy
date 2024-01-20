@@ -39,7 +39,6 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId, accountRole}) => 
           showError(true);
         }
         else{
-          console.log("Adding build "+currentTitle);
           context?.addBuild(currentTitle,buildId);
         }
       }

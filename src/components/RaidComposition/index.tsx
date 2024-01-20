@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { FC } from "react";
 import { DndProvider } from "react-dnd";
-import { Build } from "../../types";
+import { BuildPlayer } from "../../types";
 import GroupsComposition from "./GroupsComposition";
 import RolesComposition from "./RolesComposition";
 
 export interface RaidCompositionProps {
-  build: Build;
+  players: BuildPlayer[];
   grouped?: boolean;
   editing?: boolean;
   manager: any;
@@ -15,7 +15,7 @@ export interface RaidCompositionProps {
 }
 
 const RaidComposition: FC<RaidCompositionProps> = ({
-  build: { players },
+  players,
   grouped,
   editing = false,
   manager,

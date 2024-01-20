@@ -21,6 +21,7 @@ export interface PlayerProps extends BuildPlayer {
   alts?: BuildPlayer[];
   rosterVisible?: boolean;
   accountRole: number;
+  raid: number;
 }
 
 const Player: FC<PlayerProps> = (props) => {
@@ -73,10 +74,10 @@ const Player: FC<PlayerProps> = (props) => {
           {alts.map((player:BuildPlayer) => (
             <Player
               key={UUID()}
-              raid={raid}
               {...player}
               {...({onClick: () => context?.editPlayer(player)})}
               accountRole={accountRole}
+              raid={raid}
             />
           ))}
         </Box>) : null}

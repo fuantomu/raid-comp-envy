@@ -4,10 +4,21 @@ import useTheme, { Spacing } from "../../utils/useTheme";
 export default () => {
   const theme = useTheme();
   return {
-    input: css`
+    default: css`
           display: grid;
+          column-gap: ${theme.spacing(Spacing.xxs)};
+    `,
+    input: css`
+          grid-template-columns: 1fr;
+    `,
+    mediumInput: css`
+          grid-template-columns: 1fr 1fr;
+    `,
+    largeInput: css`
           grid-template-columns: 1fr 1fr 1fr;
-          column-gap: ${theme.spacing(Spacing.s)};
+    `,
+    extremeInput: css`
+          grid-template-columns: 1fr 1fr 1fr 1fr;
     `,
   };
 };

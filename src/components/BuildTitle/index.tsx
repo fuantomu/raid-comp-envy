@@ -48,7 +48,8 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   };
 
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
-    if(context?.getOtherBuild(buildId).name === newValue.label){
+    const buildFound = context?.getOtherBuilds(buildId).find((build) => build.id === newValue.value)
+    if(buildFound){
       handleModalOpen({title:common("error.build.title"),content:common("error.build.alreadyset")})
     }
     else{

@@ -35,6 +35,7 @@ export type Build = {
   players: BuildPlayer[];
   raidId?: number;
   instance?: string;
+  buildId: number;
 };
 
 export type BuildResponse = {
@@ -65,7 +66,8 @@ export type SelectOption = {
 };
 
 export type AbsenceResponse = {
-  name: string;
+  id: string;
+  playerId: string;
   startDate: number;
   endDate: number;
   reason?: string;
@@ -83,3 +85,15 @@ export type Login = {
   createdDate: number;
   role: number;
 }
+
+export type UpdateResponse = {
+  builds: BuildResponse[];
+  players: BuildPlayer[];
+  absences: AbsenceResponse[];
+};
+
+export type Update = {
+  builds: Build[];
+  players: BuildPlayer[];
+  absences: Absence[];
+};

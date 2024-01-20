@@ -22,8 +22,7 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId, accountRole}) => 
   const context = useAppContext();
 
   const handleDelete = async () => {
-    console.log("Deleting build "+context?.getBuild(buildId).name);
-    context?.deleteBuild(context?.getBuild(buildId).name, buildId);
+    context?.deleteBuild(buildId);
   };
 
 
@@ -47,7 +46,7 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId, accountRole}) => 
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.delete.title")}</h2>
-          {common("build.delete.confirm") + "'" + context?.getBuild(buildId).name + "'?"}
+          {common("build.delete.confirm") + "'" + context?.getBuild(buildId)?.name + "'?"}
           <br />
           <Box css={styles.buttons}>
             <Button color="primary" variant="contained" onClick={handleDelete}>

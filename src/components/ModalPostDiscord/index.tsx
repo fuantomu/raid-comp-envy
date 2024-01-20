@@ -28,7 +28,6 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
 
   const handleCreate = async () => {
     const currentUrl = sheetUrl.current?.value?? "";
-    console.log("Posting setup to discord with url "+currentUrl);
     handlePostDiscord(currentUrl)
   };
 
@@ -59,7 +58,7 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
       <Box display={"grid"} justifyContent={"center"}>
         <Tooltip title={common("discord.send")} placement="top" arrow>
           <span>
-            <Button disabled={!isAccountRoleAllowed(accountRole, "PostDiscord")} color="info" variant="contained" size="large" style={{height: '30px', width: '130px'}} onClick={() => handleOpen()} css={{width:"100%"}}>
+            <Button disabled={!isAccountRoleAllowed(accountRole, "PostDiscord")} color="info" variant="contained" size="large" style={{width: '140px'}} onClick={() => handleOpen()} css={{width:"100%"}}>
               <SportsEsportsIcon />
             </Button>
           </span>

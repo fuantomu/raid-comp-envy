@@ -60,7 +60,8 @@ const App: FC = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  },[issueTime, loggedIn, host, handleError, token, accountRole]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[handleError,loggedIn]);
 
   if(window.location.pathname === "/account" && !newAccount){
     return (<Account setNewAccount={setNewAccount}></Account>)

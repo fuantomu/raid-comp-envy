@@ -16,6 +16,7 @@ import ModalResetBuild from "../ModalResetBuild";
 import RaidComposition from "../RaidComposition";
 import BasicBuild from "../BasicBuild";
 import { ArrowDropDown, ArrowLeft } from "@mui/icons-material";
+import ModalPostDiscord from "../ModalPostDiscord";
 
 export interface RaidProps {
   raidBuild: Build;
@@ -69,12 +70,12 @@ const Raid: FC<RaidProps> = ({
                       key={UUID()}
                       onChange={context?.handleSelect(id)}
                       options={context?.getBuilds()??[]}
-                      selected={builds.filter((build) => build.label === raidBuild.name)[0]}
-                      title={raidBuild.name}
+                      selected={builds.find((build) => build.value === raidBuild?.id)}
+                      title={raidBuild?.name}
                       buildId={id}
-                      buildDate={raidBuild.date}
+                      buildDate={raidBuild?.date}
                       version={version}
-                      selectedInstance={raidBuild.instance}
+                      selectedInstance={raidBuild?.instance}
                       accountRole={accountRole}
                     />
                     <br></br>
@@ -85,15 +86,17 @@ const Raid: FC<RaidProps> = ({
                       <ModalDeleteBuild buildId={id} accountRole={accountRole}/>
                     </Box>
                   </Box>
-                  <Box display={"grid"} gridTemplateColumns={"15px 1fr 15px 1fr"}>
-                    <br></br>
-                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
-                      <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} name="absent" visible={visibleAbsent} accountRole={accountRole}/>
-                    </Box>
+                  <Box display={"grid"} gridTemplateColumns={"15px 1fr 15px 250px"}>
                     <br></br>
                     <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
                       <BasicBuild manager={manager} players={context?.getUnsetMains() ?? []} raid={id} name="notset" visible={visibleNotSet} accountRole={accountRole}/>
                     </Box>
+                    <br></br>
+                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content"}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
+                      <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} name="absent" visible={visibleAbsent} accountRole={accountRole}/>
+                    </Box>
+
+
 
                   </Box>
                 </Box>
@@ -112,7 +115,7 @@ const Raid: FC<RaidProps> = ({
               </Box>
             {visibleComposition?
               (<Box key={UUID()} css={styles.gridBox} >
-                <RaidComposition manager={manager} build={raidBuild} raid={id} editing grouped={grouped} accountRole={accountRole} />
+                <RaidComposition manager={manager} players={raidBuild?.players} raid={id} editing grouped={grouped} accountRole={accountRole} />
               </Box>) : <></>
             }
             </CardContent>
@@ -130,8 +133,10 @@ const Raid: FC<RaidProps> = ({
                   <RaidChecklist build={raidBuild} version={version} />
               </Box>) : <></>}
               <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
+                <ModalPostDiscord buildId={id} accountRole={accountRole}/>
                 <ModalResetBuild buildId={id} accountRole={accountRole}/>
               </Box>
+
             </CardContent>
           </Card>
   );

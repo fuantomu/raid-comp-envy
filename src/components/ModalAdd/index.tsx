@@ -103,21 +103,21 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     const playerInfo = {
       id: id.length? id : UUID(),
       name: playerName?? oldName,
-      className: className,
+      className,
       spec,
-      raid: raid,
+      raid,
       race: raceName,
-      status: status,
+      status,
       group: groupId as GroupId,
       oldName,
       main: mainCharacter.current?.value?? main,
     }
 
     if(remove){
-      context?.deletePlayer(playerInfo, raid);
+      context?.removePlayerFromRaid(playerInfo, true);
     }
     else{
-      context?.importPlayer(playerInfo, raid);
+      context?.importPlayer(playerInfo);
     }
 
     if(checked){
@@ -125,7 +125,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         context?.removeFromRoster({...playerInfo, group : "roster" as GroupId});
       }
       else{
-        context?.addToRoster({...playerInfo, group : "roster" as GroupId});
+        context?.updateRoster({...playerInfo, group : "roster" as GroupId});
       }
     }
     setOpen(false);

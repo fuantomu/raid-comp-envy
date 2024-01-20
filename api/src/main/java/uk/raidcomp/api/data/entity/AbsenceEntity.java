@@ -22,7 +22,8 @@ public class AbsenceEntity {
   @Id
   private String id = UUID.randomUUID().toString();
 
-  private String name;
+  @Column(name = "playerId")
+  private String playerId;
 
   @Column(name = "startDate")
   private long startDate;

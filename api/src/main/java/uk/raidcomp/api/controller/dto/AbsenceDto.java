@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 @Serdeable
 public record AbsenceDto(
     @NotNull String id,
-    @NotNull String name,
+    @NotNull String playerId,
     @NotNull Long startDate,
     @NotNull Long endDate,
     @Nullable String reason) {

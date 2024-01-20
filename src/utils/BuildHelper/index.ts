@@ -1,5 +1,5 @@
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
-import { AbsenceResponse, Build, BuildGroups, BuildPlayer, BuildPlayerResponse, BuildRoles, GroupId } from "../../types";
+import { AbsenceResponse, Build, BuildGroups, BuildPlayer, BuildPlayerResponse, BuildRoles, GroupId, Update } from "../../types";
 import { RosterProvider } from "../../utils/RosterProvider";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
@@ -15,7 +15,7 @@ export abstract class BuildHelper {
         players: [],
       },
     };
-    for (const player of players) {
+    for (const player of players?? []) {
       let groupId: GroupId = player.group?? "bench";
       const group = groups[groupId];
       if (!group) {
@@ -116,7 +116,8 @@ export abstract class BuildHelper {
       "name": "",
       "date": new Date().setHours(0,0,0,0),
       "players": [],
-      "instance": ""
+      "instance": "",
+      "buildId": -1
     };
 
     await RosterProvider.getBuild(buildId).then((responseBuild) =>{
@@ -133,7 +134,7 @@ export abstract class BuildHelper {
               spec: player.spec as WarcraftPlayerSpec,
               raid: player.raid,
               race: player.race as WarcraftPlayerRace,
-              status: InviteStatus.Unknown,
+              status: player.status as InviteStatus,
               group: player.group as GroupId,
               oldName: player.oldName,
               main: player.main?? ""
@@ -166,7 +167,8 @@ export abstract class BuildHelper {
             date: build.date,
             players: JSON.parse(build.players),
             instance: build.instance,
-            raidId: build.raidId
+            raidId: build.raidId,
+            buildId: -1
           }
           builds.push(newBuild)
         }
@@ -233,6 +235,70 @@ export abstract class BuildHelper {
       }
     })
     return absences;
+  }
+
+  public static async parseGetUpdate() {
+    const updates : Update = { builds : [], players : [], absences: []}
+
+    await RosterProvider.getUpdate().then((response) => {
+      if(response){
+        for (const absence of response.absences?? []){
+          updates.absences.push({
+            id: absence.id,
+            player: {id: absence.playerId} as BuildPlayer,
+            startDate: absence.startDate,
+            endDate: absence.endDate,
+            reason: absence.reason
+          })
+        }
+        for (const player of response.players){
+            const spec = player.spec.split("_")
+            if(player){
+              updates.players.push({
+                id: player.id,
+                name: player.name,
+                className: BuildHelper.capitalize(player.className.toString()) as WarcraftPlayerClass,
+                spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
+                race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
+                status: InviteStatus[BuildHelper.capitalize(player.status)],
+                raid: -1,
+                group: "roster",
+                oldName: player.name,
+                main: player.main?? ""
+            })
+          }
+        }
+        for (const build of response.builds){
+          const newBuild = {
+            id: build.id,
+            name: build.name,
+            date: build.date,
+            players: [],
+            instance: build.instance,
+            raidId: build.raidId,
+            buildId: -1
+          }
+          if(build.players){
+            for (const player of JSON.parse(build.players)){
+              newBuild.players.push({
+                id: player.id,
+                name: player.name,
+                className: player.className as WarcraftPlayerClass,
+                spec: player.spec as WarcraftPlayerSpec,
+                raid: player.raid,
+                race: player.race as WarcraftPlayerRace,
+                status: InviteStatus.Unknown,
+                group: player.group as GroupId,
+                oldName: player.oldName,
+                main: player.main?? ""
+              })
+            }
+          }
+          updates.builds.push(newBuild)
+        }
+      }
+    })
+    return updates;
   }
 
   private static capitalize(str: string){

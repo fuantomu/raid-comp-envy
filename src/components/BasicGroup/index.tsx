@@ -45,11 +45,10 @@ const BasicGroup: FC<BasicGroupProps> = ({
             race: player.race,
             raid,
             status: player.status,
-            group: "bench" as GroupId,
+            group: "roster" as GroupId,
             oldName: player.oldName,
             main: player.main
-          },
-          raid
+          }
         );
       },
     }),
@@ -60,23 +59,23 @@ const BasicGroup: FC<BasicGroupProps> = ({
     <Card ref={drop}>
       <CardContent>
         <Box display={"grid"} gridTemplateColumns={"1fr 20px"}>
-        <Typography style={{caretColor: "transparent"}} variant="subtitle1">
-          {common("build.groups.group_each", { groupId: name })}
-        </Typography>
-        {visible? <ArrowDropDown></ArrowDropDown> : <ArrowLeft></ArrowLeft>}
-        </Box>
-        {visible? <Box css={styles.input}>
-          {players.map((player) => (
-            <Player
-              key={UUID()}
-              raid={raid}
-              {...player}
-              {...({
-                    onClick: () => context?.editPlayer(player),
-                  })}
-              accountRole={accountRole}
-            />
-          ))}
+          <Typography style={{caretColor: "transparent"}} variant="subtitle1">
+            {common("build.groups.group_each", { groupId: name })}
+          </Typography>
+          {visible? <ArrowDropDown></ArrowDropDown> : <ArrowLeft></ArrowLeft>}
+          </Box>
+          {visible? <Box css={[styles.default,players.length > 24? styles.extremeInput : players.length > 16? styles.largeInput : players.length > 8? styles.mediumInput : styles.input]}>
+            {players.map((player) => (
+              <Player
+                key={UUID()}
+                {...player}
+                {...({
+                      onClick: () => context?.editPlayer(player),
+                    })}
+                accountRole={accountRole}
+                raid={raid}
+              />
+            ))}
         </Box> : <></>}
       </CardContent>
     </Card>

@@ -22,7 +22,7 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
 
   return (
     <Box key={UUID()} css={styles.roles}>
-      {build.players.length > 0 && (
+      {build?.players.length > 0 && (
         <Box key={UUID()} css={styles.role}>
           <WarcraftIcon
             key={UUID()}
@@ -30,12 +30,12 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
             alt={common("build.roles.total")}
             title={common("build.roles.total")}
           />
-          <Typography key={UUID()} variant="h5">{build.players.filter(({group }) => group !== 'roster' && group !== 'bench').length}</Typography>
+          <Typography key={UUID()} variant="h5">{build?.players.filter(({group }) => group !== 'roster' && group !== 'bench').length}</Typography>
         </Box>
       )}
       {Object.keys(WarcraftRole).map((role) => {
         const label = common(`build.roles.${role}`);
-        const count = build.players.filter(
+        const count = build?.players.filter(
           ({ spec, group }) => RoleProvider.getSpecRole(spec) === role && group !== 'roster' && group !== 'bench'
         ).length;
         if (!count) return false;

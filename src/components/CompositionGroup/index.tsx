@@ -47,13 +47,12 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             className: player.className,
             spec: player.spec,
             race: player.race,
-            raid,
+            raid: raid,
             status: player.status,
             group: groupId as GroupId,
             oldName: player.oldName,
             main: player.main
-          },
-          raid
+          }
         );
       },
     }),
@@ -81,7 +80,6 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
           {players.map((player) => (
             <Player
               key={UUID()}
-              raid={raid}
               {...player}
               {...(editing
                 ? {
@@ -89,6 +87,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
                   }
                 : {})}
               accountRole={accountRole}
+              raid={raid}
             />
           ))}
         </Box>

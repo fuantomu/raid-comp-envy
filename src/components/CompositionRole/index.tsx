@@ -39,14 +39,14 @@ const CompositionRole: FC<CompositionRoleProps> = ({
     return players.map((player) => (
       <Player
         key={UUID()}
-        raid={raid}
         {...player}
         {...(editing
           ? {
               onClick: () => context?.editPlayer(player),
             }
           : {})}
-          accountRole={accountRole}
+        accountRole={accountRole}
+        raid={raid}
       />
     ));
   };

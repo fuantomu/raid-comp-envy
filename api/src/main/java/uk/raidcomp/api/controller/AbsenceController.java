@@ -41,7 +41,7 @@ public class AbsenceController {
   public void saveAbsence(@Valid @Body SaveAbsenceDto body) {
     AbsenceEntity newAbsence = new AbsenceEntity();
     newAbsence.setId(UUID.randomUUID().toString());
-    newAbsence.setName(body.absence().name());
+    newAbsence.setPlayerId(body.absence().playerId());
     newAbsence.setStartDate(body.absence().startDate());
     newAbsence.setEndDate(body.absence().endDate());
     newAbsence.setReason(body.absence().reason());
