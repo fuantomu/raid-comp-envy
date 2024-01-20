@@ -53,21 +53,16 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
   }
 
   const removeFromRoster = (removedPlayer: BuildPlayer): void => {
-    const rosterBuild = [
-      ...roster.filter((player : BuildPlayer) => {
-        return removedPlayer.id !== player.id
-      })
-    ].sort(sortFunctions[sorting])
+    const newRoster = [...roster.filter((player : BuildPlayer) => removedPlayer.id !== player.id)].sort(sortFunctions[sorting])
 
-
-    const altCharacters = rosterBuild.filter((otherPlayer) => {
-      return otherPlayer.main === removedPlayer.name && otherPlayer.id !== removedPlayer.id
+    newRoster.map((otherPlayer) => {
+      if(otherPlayer.main === removedPlayer.name && otherPlayer.id !== removedPlayer.id){
+        otherPlayer.main = ""
+      }
+      return false
     })
-    for(const player of altCharacters){
-      player.main = "";
-    }
 
-    setRoster([...rosterBuild]);
+    setRoster(newRoster);
     BuildHelper.parseDeleteRosterPlayer(removedPlayer);
   }
 
@@ -472,6 +467,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         return false
       })
     }
+    updateRosterStatus(newRoster,builds,absenceObject)
     setAbsence(absenceObject)
   }
 
@@ -579,11 +575,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       if(rosterPlayer.status !== InviteStatus.Tentative){
         rosterPlayer.status = InviteStatus.Unknown
       }
-      else{
-        if(!isPlayerAbsent(rosterPlayer, new Date().getTime())){
-          rosterPlayer.status = InviteStatus.Unknown
-        }
-      }
 
       currentAbsences.map((currentAbsence) => {
         if((new Date().getTime() <= currentAbsence.endDate)){
@@ -593,8 +584,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         }
         return false
       })
-
-
 
       currentBuilds.map((build) => {
         build.players.map((buildPlayer)=>{
@@ -618,7 +607,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       }
       return false
     })
-    BuildHelper.parseSaveRoster(currentRoster);
+    BuildHelper.parseSaveRoster(currentRoster)
   }
 
   const loadData = (data: Update) => {
@@ -656,7 +645,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
           _.omit(b, ['group','id','raid','oldName'])
         )
       })
-      if(differencesRoster.length > 0){
+      if(differencesRoster.length > 0 || data.players.length !== roster.length){
         updateRosterStatus(data.players)
         setRoster(data.players.sort(sortFunctions[sorting]))
       }
