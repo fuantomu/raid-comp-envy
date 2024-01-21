@@ -645,8 +645,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
 
       const differencesRoster = _.differenceWith(data.players, roster, (a : BuildPlayer[], b: BuildPlayer[]) => {
         return _.isEqual(
-          _.omit(a, ['group','id','raid','oldName']),
-          _.omit(b, ['group','id','raid','oldName'])
+          _.omit(a, ['group','id','raid','status','oldName']),
+          _.omit(b, ['group','id','raid','status','oldName'])
         )
       })
       if(differencesRoster.length > 0 || data.players.length !== roster.length){
@@ -695,10 +695,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
               <Roster manager={manager} players={roster} editing accountRole={accountRole}/>
         </StickyBox>
         <div style={{ width:'100%'}} >
-          <Raid manager={manager} id={0} raidBuild={builds.find((build) => build.buildId === 0)} builds={buildSelection} version={version} editing accountRole={accountRole} ></Raid>
+          <Raid manager={manager} id={0} raidBuild={builds.find((build) => build.buildId === 0)?? builds[0]} builds={buildSelection} version={version} editing accountRole={accountRole} ></Raid>
           <br></br>
           <br></br>
-          <Raid manager={manager} id={1} raidBuild={builds.find((build) => build.buildId === 1)} builds={buildSelection} version={version} editing accountRole={accountRole} ></Raid>
+          <Raid manager={manager} id={1} raidBuild={builds.find((build) => build.buildId === 1)?? builds[1]} builds={buildSelection} version={version} editing accountRole={accountRole} ></Raid>
           <br></br>
 
           <Box display={"flex"} justifyContent={"center"}>
