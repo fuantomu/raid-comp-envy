@@ -35,4 +35,6 @@ public class PlayerEntity {
   private String groupId;
 
   private String main;
+
+  private String alt;
 }

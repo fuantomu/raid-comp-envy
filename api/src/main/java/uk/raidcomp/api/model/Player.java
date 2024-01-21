@@ -17,5 +17,6 @@ public record Player(
     @Nullable @Serializable(using = WarcraftPlayerRaceSerde.class) WarcraftPlayerRace race,
     @Serializable(using = InviteStatusSerde.class) InviteStatus status,
     @Nullable @Serializable(using = GroupIdSerde.class) GroupId groupId,
-    @Nullable String main) {
+    @Nullable String main,
+    @Nullable String alt) {
 }

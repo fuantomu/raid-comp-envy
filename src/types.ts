@@ -22,6 +22,7 @@ export type BuildPlayer = {
   group?: GroupId;
   oldName?: string;
   main?: string;
+  alt?: string;
 };
 
 export type BuildPlayerResponse = {

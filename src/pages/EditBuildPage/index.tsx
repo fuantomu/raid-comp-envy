@@ -147,6 +147,16 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
     return false
   }
 
+  const getAlts = (player: BuildPlayer) : BuildPlayer[] => {
+    return roster.filter((rosterPlayer) => isAlt(rosterPlayer, player))
+  }
+
+  const getMains = () : BuildPlayer[] => {
+    return roster.filter((rosterPlayer) => {
+      return rosterPlayer.main === rosterPlayer.name
+    })
+  }
+
   const saveBuild = async (build: Build) => {
     if(build.name === common('build.new')){
       return
@@ -690,7 +700,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
   }
 
   return (
-    <AppContextProvider value={{ importPlayer, removePlayerFromRaid, resetBuild, getBuild, editPlayer, updateRoster, removeFromRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuilds, getAbsentPlayers, getUnsetMains, handleShowError, removePlayerFromRaids }}>
+    <AppContextProvider value={{ importPlayer, removePlayerFromRaid, resetBuild, getBuild, editPlayer, updateRoster, removeFromRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuilds, getAbsentPlayers, getUnsetMains, handleShowError, removePlayerFromRaids, getAlts, getMains }}>
       <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole}/>
       <ModalAlert handleOpen={handleShowError}/>
 

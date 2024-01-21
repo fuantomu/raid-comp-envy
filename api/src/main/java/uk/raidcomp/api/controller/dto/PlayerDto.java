@@ -24,5 +24,6 @@ public record PlayerDto(
     @Nullable @Deserializable(using = WarcraftPlayerRaceSerde.class) WarcraftPlayerRace race,
     @NotNull @Deserializable(using = InviteStatusSerde.class) InviteStatus status,
     @Nullable @Deserializable(using = GroupIdSerde.class) GroupId group,
-    @Nullable String main) {
+    @Nullable String main,
+    @Nullable String alt) {
 }

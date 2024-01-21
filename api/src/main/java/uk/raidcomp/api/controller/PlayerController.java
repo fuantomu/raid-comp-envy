@@ -51,6 +51,7 @@ public class PlayerController {
     newPlayer.setRace(body.player().race().toString());
     newPlayer.setSpec(body.player().spec().toString());
     newPlayer.setStatus(body.player().status().toString());
+    newPlayer.setAlt(body.player().alt());
 
     Optional<PlayerEntity> player = playerRepository.findById(playerId);
 
@@ -77,6 +78,7 @@ public class PlayerController {
       newPlayer.setRace(playerDto.race().toString());
       newPlayer.setSpec(playerDto.spec().toString());
       newPlayer.setStatus(playerDto.status().toString());
+      newPlayer.setAlt(playerDto.alt());
 
       Optional<PlayerEntity> existingPlayer = playerRepository.findById(newPlayer.getId());
       if (existingPlayer.isEmpty()) {

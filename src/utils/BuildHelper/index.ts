@@ -72,7 +72,8 @@ export abstract class BuildHelper {
               raid: -1,
               group: "roster",
               oldName: player.name,
-              main: player.main?? ""
+              main: player.main?? "",
+              alt: player.alt
           })
           }
         }
@@ -137,7 +138,8 @@ export abstract class BuildHelper {
               status: player.status as InviteStatus,
               group: player.group as GroupId,
               oldName: player.oldName,
-              main: player.main?? ""
+              main: player.main?? "",
+              alt: player.alt
             })
           }
         }
@@ -264,7 +266,8 @@ export abstract class BuildHelper {
                 raid: -1,
                 group: "roster",
                 oldName: player.name,
-                main: player.main?? ""
+                main: player.main?? "",
+                alt: player.alt
             })
           }
         }
@@ -290,7 +293,8 @@ export abstract class BuildHelper {
                 status: InviteStatus.Unknown,
                 group: player.group as GroupId,
                 oldName: player.oldName,
-                main: player.main?? ""
+                main: player.main?? "",
+                alt: player.alt
               })
             }
           }

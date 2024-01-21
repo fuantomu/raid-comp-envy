@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Checkbox, Tooltip } from "@mui/material";
+import { Checkbox, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 import Modal from "@mui/material/Modal";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { createRef, ChangeEvent, FC, MouseEvent, useState } from "react";
+import { ChangeEvent, FC, MouseEvent, useState, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
@@ -34,16 +34,17 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
   const [status, setStatus] = useState(InviteStatus.Unknown);
   const [groupId, setGroupId] = useState(1 as GroupId);
-  const [main, setMain] = useState(String);
+  const [main, setMain] = useState("DEFAULT");
   const [name, setName] = useState("");
   const [raid, setRaid] = useState(Number);
   const [id, setId] = useState(String);
+  const [alt, setAlt] = useState("DEFAULT");
   const [oldName, setOldName] = useState<string>();
   const [checked, setChecked] = useState(false);
+  const [altOptions, setAltOptions] = useState<any[]>([]);
+  const [mainOptions, setMainOptions] = useState<any[]>([]);
   const context = useAppContext();
-  let mainCharacter = createRef<HTMLInputElement>();
   let playerName = name;
-
 
   if (editPlayer) {
     editPlayer((player) => {
@@ -64,6 +65,13 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         }
         if (player.race) {
           setRace(player.race);
+        }
+        if(player.alt){
+          setAlt(player.alt)
+        }
+        if(player.name === player.main){
+          setMainOptions([...context?.getMains().map((main) => main.name),playerName].sort((a,b) => a.localeCompare(b)))
+          setAltOptions([...context?.getAlts(player).map((alt) => alt.name)].sort((a,b) => a.localeCompare(b)))
         }
         setOpen(true);
       }
@@ -110,7 +118,8 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       status,
       group: groupId as GroupId,
       oldName,
-      main: mainCharacter.current?.value?? main,
+      main: main === "DEFAULT"? playerName :main,
+      alt: alt
     }
 
     if(remove){
@@ -148,19 +157,30 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
 
   const handleClose = () => {
     setChecked(false);
+    setAlt("DEFAULT");
+    setMain("DEFAULT");
     setOpen(false);
-    setMain("");
   };
 
   const handleOpen = () => {
     setChecked(false);
+    setAlt("DEFAULT");
+    setMain("DEFAULT");
+    setMainOptions(context?.getMains().map((main) => main.name))
     setOpen(true);
-    setMain("");
   };
 
   const handleChange = () => {
     setChecked(!checked);
   };
+
+  const handleSelectAlt = (event: SelectChangeEvent<string>, child: ReactNode) => {
+    setAlt(event.target.value)
+  }
+
+  const handleSelectMain = (event: SelectChangeEvent<string>, child: ReactNode) => {
+    setMain(event.target.value)
+  }
 
   const renderClassToggle = () => {
     return (
@@ -221,10 +241,29 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
 
   const renderMain = () => {
     return (
-      <Box display={"grid"} gridTemplateColumns={"110px 1fr"}>
-        {common("build.add.main")}
-        <input id={UUID()} defaultValue={main?? ""} ref={mainCharacter}></input>
-      </Box>
+      <FormControl css={{justifyContent: "center", width: "500px", marginTop:"20px"}}>
+        <InputLabel>{common("build.add.main")}</InputLabel>
+        <Select variant="outlined" fullWidth value={main} label={common("build.add.main")} onChange={handleSelectMain} MenuProps={{ PaperProps: { sx: { maxHeight: 500, width: 300 } } }}>
+            <MenuItem disabled key={"DEFAULT"} value={"DEFAULT"}>Select a character...</MenuItem>
+              {mainOptions.map((option) => (
+                <MenuItem key={UUID()} value={option}> {option} </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
+    );
+  };
+
+  const renderAlt = () => {
+    return (
+      <FormControl css={{justifyContent: "center", width: "500px", marginTop:"20px"}}>
+        <InputLabel>{common("build.add.alt")}</InputLabel>
+        <Select variant="outlined" fullWidth value={alt} label={common("build.add.alt")} onChange={handleSelectAlt} MenuProps={{ PaperProps: { sx: { maxHeight: 500, width: 300 } } }}>
+            <MenuItem disabled key={"DEFAULT"} value={"DEFAULT"}>Select a character...</MenuItem>
+              {altOptions.map((option) => (
+                <MenuItem key={UUID()} value={option}> {option} </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
     );
   };
 
@@ -264,6 +303,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
             {renderSpecToggle()}
             {renderRaceToggle()}
             {renderMain()}
+            {main === name? renderAlt() : <></>}
           </Box>
           <Box css={styles.buttons}>
             <Box>
