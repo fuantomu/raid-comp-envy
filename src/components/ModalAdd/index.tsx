@@ -136,6 +136,8 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         context?.updateRoster({...playerInfo, group : "roster" as GroupId});
       }
     }
+    setAlt("DEFAULT");
+    setMain("DEFAULT");
     setOpen(false);
   };
 
