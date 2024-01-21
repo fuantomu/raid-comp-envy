@@ -296,14 +296,23 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         if(build.buildId === buildId){
           build?.players.forEach((player) => {
             if((isAlt(player, main) || player.name === main.name)){
-              // TODO: Show main alt character
               setMains.push(main)
             }
           })
         }
       })
     })
-    const unsetMains = mains.filter((main) => { return !setMains.includes(main)})
+    const unsetMains = []
+    mains.forEach((main) => {
+      if(!setMains.includes(main)){
+        if(main.alt){
+          unsetMains.push(roster.find((rosterPlayer) => rosterPlayer.name === main.alt))
+        }
+        else{
+          unsetMains.push(main)
+        }
+      }
+    })
     return unsetMains
   }
 
