@@ -493,7 +493,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
             return build.id === localStorage.getItem('LastBuild-0')
           }
           else{
-            return build.id === newestBuilds[0].id
+            return build.id === newestBuilds[1].id
           }
         })
         if(foundBuild){
@@ -507,7 +507,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
             return build.id === localStorage.getItem('LastBuild-1')
           }
           else{
-            return build.id === newestBuilds[1].id
+            return build.id === newestBuilds[0].id
           }
         })
         if(foundBuild){
