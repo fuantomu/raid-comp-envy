@@ -15,6 +15,7 @@ import { useAppContext } from "../App/context";
 import { ArrowDropDown, ArrowLeft, Star } from "@mui/icons-material";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import { Tooltip } from "@mui/material";
+import { sortFunctions } from "../../utils/sorting";
 
 export interface PlayerProps extends BuildPlayer {
   showRole?: boolean;
@@ -27,7 +28,7 @@ export interface PlayerProps extends BuildPlayer {
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, className, spec, status, race, group, raid, showRole, onClick, rosterVisible, alts=[], main, accountRole} = props;
+  const { name, className, spec, status, race, group, raid, showRole, onClick, rosterVisible, alts=[], main, alt, accountRole} = props;
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
@@ -78,7 +79,7 @@ const Player: FC<PlayerProps> = (props) => {
       {alts.length > 0 && (visible || rosterVisible) ? (
         <Box key={UUID()}>
           <></>
-          {alts.map((player:BuildPlayer) => (
+          {alts.sort((a,b) => a.name === alt? -1 : 1 || sortFunctions.DEFAULT(a,b)).map((player:BuildPlayer) => (
             <Player
               key={UUID()}
               {...player}
