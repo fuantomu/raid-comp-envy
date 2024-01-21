@@ -53,7 +53,8 @@ const RosterGroup: FC<RosterGroupProps> = ({
             status: player.status,
             group: "roster" as GroupId,
             oldName: player.oldName,
-            main: player.main
+            main: player.main,
+            alt: player.alt
           }
         );
       },

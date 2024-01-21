@@ -9,22 +9,18 @@ import useStyles from "./useStyles";
 interface BasicCompositionProps {
   players: BuildPlayer[];
   raid: number;
-  name: string;
-  visible?: boolean;
   accountRole: number;
 }
 
-const BasicComposition: FC<BasicCompositionProps> = ({ players, raid, name, visible, accountRole }) => {
+const BasicComposition: FC<BasicCompositionProps> = ({ players, raid, accountRole }) => {
   const styles = useStyles();
   return (
     <>
-      <Box key={UUID()} css={styles.grouped}>
+      <Box sx={{border: `1px solid black`}} key={UUID()} css={styles.grouped}>
         <BasicGroup
           key={UUID()}
           players={players}
           raid={raid}
-          name={name}
-          visible={visible}
           accountRole={accountRole}
         />
       </Box>

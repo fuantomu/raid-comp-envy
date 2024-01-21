@@ -51,7 +51,8 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             status: player.status,
             group: groupId as GroupId,
             oldName: player.oldName,
-            main: player.main
+            main: player.main,
+            alt: player.alt
           }
         );
       },

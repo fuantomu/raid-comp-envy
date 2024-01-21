@@ -86,18 +86,25 @@ const Raid: FC<RaidProps> = ({
                       <ModalDeleteBuild buildId={id} accountRole={accountRole}/>
                     </Box>
                   </Box>
-                  <Box display={"grid"} gridTemplateColumns={"15px 1fr 15px 250px"}>
-                    <br></br>
-                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content", border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
-                      <BasicBuild manager={manager} players={context?.getUnsetMains(id) ?? []} raid={id} name="notset" visible={visibleNotSet} accountRole={accountRole}/>
+                  <Box display={"grid"} gridTemplateColumns={"2fr 1fr"}>
+                    <Box sx={{marginLeft: "5px"}}>
+                      <Box key={UUID()} sx={{cursor:"pointer",border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
+                          <Typography style={{caretColor: "transparent", marginLeft:"8px"}} variant="subtitle1">
+                            {common("build.groups.group_each", { groupId: "notset" })}
+                          </Typography>
+                          {visibleNotSet? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
+                      </Box>
+                      {visibleNotSet? <BasicBuild manager={manager} players={context?.getUnsetMains(id) ?? []} raid={id} accountRole={accountRole}/> : <></>}
                     </Box>
-                    <br></br>
-                    <Box key={UUID()} sx={{cursor:"pointer", height:"max-content", border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>
-                      <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} name="absent" visible={visibleAbsent} accountRole={accountRole}/>
+                    <Box sx={{marginLeft: "5px"}}>
+                      <Box key={UUID()} sx={{cursor:"pointer",border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
+                          <Typography style={{caretColor: "transparent", marginLeft:"8px"}} variant="subtitle1">
+                            {common("build.groups.group_each", { groupId: "absent" })}
+                          </Typography>
+                          {visibleAbsent? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
+                      </Box>
+                      {visibleAbsent? <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} accountRole={accountRole}/> : <></>}
                     </Box>
-
-
-
                   </Box>
                 </Box>
               ) : <></>

@@ -7,8 +7,6 @@ import BasicComposition from "./BasicComposition";
 export interface BasicProps {
   players: BuildPlayer[];
   raid: number;
-  name: string;
-  visible?: boolean;
   manager: any;
   accountRole: number;
 }
@@ -16,15 +14,13 @@ export interface BasicProps {
 const BasicBuild: FC<BasicProps> = ({
   players,
   raid,
-  name,
-  visible,
   manager,
   accountRole
 }) => {
 
   return (
     <DndProvider manager={manager}>
-      <BasicComposition players={players} raid={raid} name={name} visible={visible} accountRole={accountRole} />
+      <BasicComposition players={players} raid={raid} accountRole={accountRole} />
     </DndProvider>
   );
 };
