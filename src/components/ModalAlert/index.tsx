@@ -5,6 +5,8 @@ import Modal from "@mui/material/Modal";
 import { FC, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useStyles from "../ModalAlert/useStyles";
+import { BuildPlayer } from "../../types";
+import { useAppContext } from "../App/context";
 
 export enum ModalAlertResponse {
   OK,
@@ -31,6 +33,8 @@ const ModalAlert: FC<ModalAlertProps> = ({
   const [common] = useTranslation("common");
   const [boxContent, setContent] = useState(content);
   const [boxTitle, setTitle] = useState(title);
+  const context = useAppContext();
+  const [continuePlayer, setContinuePlayer] = useState();
 
   const handleClose = () => {
     setOpen(false);
@@ -40,7 +44,12 @@ const ModalAlert: FC<ModalAlertProps> = ({
     if(props){
       if(props.params){
         for(const param in props.params){
-          props.content = props.content.replace(`$${param.toUpperCase()}`, props.params[param])
+          if(param === "continue"){
+            setContinuePlayer(props.params[param])
+          }
+          else{
+            props.content = props.content.replace(`$${param.toUpperCase()}`, props.params[param])
+          }
         }
       }
       setContent(props.content)
@@ -58,12 +67,29 @@ const ModalAlert: FC<ModalAlertProps> = ({
     };
   };
 
+  const handleContinue = (response: ModalAlertResponse) => {
+    return async () => {
+      if(continuePlayer){
+        context.importPlayer(continuePlayer, true)
+      }
+      setOpen(false);
+    };
+  };
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box css={styles.modal}>
         {boxTitle ? <h2>{boxTitle}</h2> : null}
         <Box css={styles.content}>{boxContent}</Box>
         <Box css={styles.buttons}>
+          {continuePlayer? <Button
+            color="warning"
+            variant="contained"
+            onClick={handleContinue(ModalAlertResponse.OK)}
+          >
+            {common("buttons.continue")}
+          </Button> : <></>}
+
           <Button
             color="primary"
             variant="contained"

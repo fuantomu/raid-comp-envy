@@ -414,7 +414,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
     }
   }
 
-  const importPlayer = (newPlayer: BuildPlayer): void => {
+  const importPlayer = (newPlayer: BuildPlayer, ignoreErrors: boolean = false): void => {
     if(newPlayer.group === "roster"){
       if(newPlayer.raid === -1){
         return
@@ -428,9 +428,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       saveBuild(builds[newPlayer.raid])
       return
     }
-
-    if(isPlayerAbsent(newPlayer, builds[newPlayer.raid].date)){
-      handleModalOpen({title:common("error.player.import"),content:common("error.player.tentative"),params:{"player":newPlayer.name}})
+    if(isPlayerAbsent(newPlayer, builds[newPlayer.raid].date) && !ignoreErrors){
+      handleModalOpen({title:common("error.player.import"),content:common("error.player.tentative"),params:{"player":newPlayer.name,"continue":newPlayer}})
       return
     }
     if(newPlayer.status === InviteStatus.Declined){

@@ -243,7 +243,8 @@
   },
   "buttons": {
     "ok": "OK",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "continue": "Continue"
   },
   "warn": {
     "talentBasedUtilities": "Warning: Some of these buffs and utilities have now been moved to talents. This list is assuming all players have those respective talents active."

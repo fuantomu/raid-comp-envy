@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { Absence, Build, BuildPlayer, SelectOption } from "../../types";
 
 type AppContextApi = {
-  importPlayer: (player: BuildPlayer) => void ;
+  importPlayer: (player: BuildPlayer, ignoreErrors?:boolean) => void ;
   removePlayerFromRaid: (player: BuildPlayer, save:boolean, saveRoster?:boolean) => void;
   removePlayerFromRaids: (player: BuildPlayer, save:boolean, saveRoster?:boolean) => void;
   updateRoster: (player: BuildPlayer) => void;
