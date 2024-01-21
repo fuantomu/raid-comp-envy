@@ -69,7 +69,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
     <Card ref={drop}>
       <CardContent sx={{backgroundImage: `url(${envy})`, backgroundRepeat : 'no-repeat', backgroundPosition: "bottom right", backgroundSize:"20%"}}>
         <Box key={UUID()} display={"grid"} gridTemplateColumns={"2.5fr 1.2fr 1.8fr 3fr"}>
-        <Typography style={{caretColor: "transparent"}} fontSize={"26px"} variant="subtitle1">
+        <Typography style={{caretColor: "transparent", userSelect:"none"}} fontSize={"26px"} variant="subtitle1">
           {common("build.groups.group_each", { groupId: groupId.toString() })}
         </Typography>
         <ModalAdd accountRole={accountRole}/>
