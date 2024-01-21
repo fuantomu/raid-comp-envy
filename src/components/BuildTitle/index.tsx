@@ -12,6 +12,12 @@ import { Instance } from "../../consts";
 import { useTranslation } from "react-i18next";
 import ModalAlert from "../ModalAlert";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
+import updateLocale from 'dayjs/plugin/updateLocale'
+
+dayjs.extend(updateLocale)
+  dayjs.updateLocale('en', {
+      weekStart: 1,
+  })
 
 export interface BuildTitleProps {
   onChange: (value: any) => void;
@@ -32,6 +38,8 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
   const context = useAppContext();
   const [common] = useTranslation("common");
   let handleModalOpen: any = () => {};
+
+
 
   const raids : SelectOption[] = [];
   instances.map((instance )=> {
