@@ -260,7 +260,7 @@
     "api404": "404: Not Found",
     "player": {
       "import": "Error during import",
-      "tentative": "Player '$PLAYER' is absent during the raid period and cannot be set",
+      "tentative": "Player '$PLAYER' is absent during the raid period. If you are sure to set them, click 'Continue'",
       "declined": "There are already characters from '$PLAYER' in each raid",
       "exists": "There is already another character from '$PLAYER' in this raid"
     },
