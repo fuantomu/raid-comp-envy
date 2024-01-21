@@ -72,8 +72,8 @@
     "add": {
       "title": "Add Player",
       "add": "Add",
-      "main": "Main Character",
-      "alt": "Alt Character",
+      "main": "Main Character (Optional)",
+      "alt": "Alt Character (Optional)",
       "groups": {
         "group_each": "$t(build.add.groups.group_{{groupId}})",
         "group_1": "{{groupId}}",

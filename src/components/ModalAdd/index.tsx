@@ -42,7 +42,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   const [oldName, setOldName] = useState<string>();
   const [checked, setChecked] = useState(false);
   const [altOptions, setAltOptions] = useState<any[]>([]);
-  const [mainOptions, setMainOptions] = useState<any[]>([]);
   const context = useAppContext();
   let playerName = name;
 
@@ -70,7 +69,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
           setAlt(player.alt)
         }
         if(player.name === player.main){
-          setMainOptions([...context?.getMains().map((main) => main.name),playerName].sort((a,b) => a.localeCompare(b)))
           setAltOptions([...context?.getAlts(player).map((alt) => alt.name)].sort((a,b) => a.localeCompare(b)))
         }
         setOpen(true);
@@ -166,7 +164,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     setChecked(false);
     setAlt("DEFAULT");
     setMain("DEFAULT");
-    setMainOptions(context?.getMains().map((main) => main.name))
     setOpen(true);
   };
 
@@ -245,7 +242,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         <InputLabel>{common("build.add.main")}</InputLabel>
         <Select variant="outlined" fullWidth value={main} label={common("build.add.main")} onChange={handleSelectMain} MenuProps={{ PaperProps: { sx: { maxHeight: 500, width: 300 } } }}>
             <MenuItem disabled key={"DEFAULT"} value={"DEFAULT"}>Select a character...</MenuItem>
-              {mainOptions.map((option) => (
+              {[...context?.getMains().map((main) => main.name),playerName].sort((a,b) => a.localeCompare(b)).map((option) => (
                 <MenuItem key={UUID()} value={option}> {option} </MenuItem>
             ))}
         </Select>
