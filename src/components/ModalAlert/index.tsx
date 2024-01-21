@@ -5,7 +5,6 @@ import Modal from "@mui/material/Modal";
 import { FC, ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useStyles from "../ModalAlert/useStyles";
-import { BuildPlayer } from "../../types";
 import { useAppContext } from "../App/context";
 
 export enum ModalAlertResponse {
