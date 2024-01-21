@@ -49,7 +49,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
   const updateRoster = (newPlayer: BuildPlayer): void => {
     const newRoster = [...roster.filter((player) => player.id !== newPlayer.id),newPlayer].sort(sortFunctions[sorting])
     updateRosterStatus(newRoster)
-    setRoster(newRoster)
   }
 
   const removeFromRoster = (removedPlayer: BuildPlayer): void => {
@@ -472,7 +471,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         return false
       })
     }
-    updateRosterStatus(newRoster,builds,absenceObject)
     setAbsence(absenceObject)
   }
 
@@ -575,8 +573,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       currentBuilds.map((build) => {
         currentAbsences.map((currentAbsence) => {
           if(currentAbsence.endDate >= build.date){
-
             if(currentAbsence.player.id === rosterPlayer.id){
+
               rosterPlayer.status = InviteStatus.Tentative
               currentRoster.map((otherRosterPlayer) => {
                 if(isAlt(otherRosterPlayer, rosterPlayer)){
@@ -611,9 +609,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       }
       return false
     })
+    setRoster([...currentRoster.sort(sortFunctions[sorting])])
     if(save){
       BuildHelper.parseSaveRoster(currentRoster)
     }
+
   }
 
   const loadData = (data: Update) => {
@@ -626,6 +626,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         )
       })
       if (differencesBuilds.length > 0 || isLoading){
+        console.log("Builds have changed. Reloading")
         loadBuilds(data.builds)
       }
 
@@ -637,11 +638,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         )
       })
       if(differencesBuildSelection.length > 0 || data.builds.length !== buildSelection.length){
+        console.log("Buildnames have changed. Reloading")
         loadBuildNames(data.builds)
       }
 
       const newAbsence = data.absences.filter((absencePlayer) => { return roster.find((rosterPlayer) => { return rosterPlayer.id === absencePlayer.player.id }) !== undefined})
       if(newAbsence.length !== absence.length || isLoading){
+        console.log("Absences have changed. Reloading")
         loadAbsence(data.absences, data.players)
       }
 
@@ -652,8 +655,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         )
       })
       if(differencesRoster.length > 0 || data.players.length !== roster.length){
+        console.log("Roster has changed. Reloading")
         updateRosterStatus(data.players)
-        setRoster(data.players.sort(sortFunctions[sorting]))
       }
 
   }
@@ -665,6 +668,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       setVersion(localStorage.getItem( 'LastVersion')?? "Wotlk");
       BuildHelper.parseGetUpdate().then((update) => {
         loadData(update)
+        updateRosterStatus()
         setIsLoading(false)
       }).catch(handleError)
     }
@@ -679,7 +683,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
     return () => clearInterval(interval);
 
     //eslint-disable-next-line
-  }, [handleError,isLoading,roster,builds,absence]);
+  }, [handleError,updateRosterStatus]);
 
   if (isLoading) {
     return <Loading />;
