@@ -12,8 +12,9 @@ import AttendanceIcon from "../AttendanceIcon";
 import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 import { useAppContext } from "../App/context";
-import { ArrowDropDown, ArrowLeft } from "@mui/icons-material";
+import { ArrowDropDown, ArrowLeft, Star } from "@mui/icons-material";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
+import { Tooltip } from "@mui/material";
 
 export interface PlayerProps extends BuildPlayer {
   showRole?: boolean;
@@ -26,7 +27,7 @@ export interface PlayerProps extends BuildPlayer {
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, className, spec, status, race, raid, showRole, onClick, rosterVisible, alts=[], main, accountRole} = props;
+  const { name, className, spec, status, race, group, raid, showRole, onClick, rosterVisible, alts=[], main, accountRole} = props;
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
@@ -61,6 +62,12 @@ const Player: FC<PlayerProps> = (props) => {
         <Typography css={styles.name} title={fullName}>
           {fullName}
         </Typography>
+        {main === name && group !== "roster"?
+          <Tooltip title="Main" placement="top" arrow>
+            <Star sx={{fontSize:"12px", justifySelf:"left"}} />
+          </Tooltip>
+          : <></>
+        }
         {status === "tentative"? (<AttendanceIcon status={status} absence={context?.getPlayerAbsence(main?? name)} />): null}
 
         {alts.length > 0? (<Box onClick={(event) => {event.preventDefault(); event.stopPropagation(); setVisible(!visible);}}>
