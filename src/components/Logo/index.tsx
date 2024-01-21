@@ -7,10 +7,10 @@ import useStyles from "./useStyles";
 export type Props = {};
 
 const Logo: FC<Props> = () => {
-  const styles = useStyles();
+  const styles = useStyles(window.innerHeight);
   return (
     <div css={styles.base}>
-      <img draggable={false} alt="Envy" src={envy}></img>
+      <img css={styles.image} draggable={false} alt="Envy" src={envy}></img>
     </div>
   );
 };
