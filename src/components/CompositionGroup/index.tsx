@@ -65,7 +65,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
   }
 
   return (
-    <Card ref={drop}>
+    <Card sx={{border: "1px solid black"}} ref={drop}>
       <CardContent>
         <Box display={"grid"} gridTemplateColumns={"1fr 20px"}>
         <Typography style={{caretColor: "transparent", userSelect:"none"}} variant="subtitle1">

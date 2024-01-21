@@ -124,7 +124,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
       <Box display={"grid"} gridTemplateColumns={"1fr"}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
-            css={{zIndex: 0, background: "#1d1d1d"}}
+            css={{zIndex: 0, background: "#1d1d1d", border: "1px solid black"}}
             ampm={false}
             format="DD.MM.YYYY HH:mm"
             label="Raid time"

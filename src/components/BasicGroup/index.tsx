@@ -10,6 +10,7 @@ import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import Player from "../Player";
 import useStyles from "./useStyles";
+import { Typography } from "@mui/material";
 
 export interface BasicGroupProps {
   players: BuildPlayer[];
@@ -52,7 +53,7 @@ const BasicGroup: FC<BasicGroupProps> = ({
     <Card ref={drop}>
       <CardContent>
         <Box css={[styles.default,players.length > 24? styles.extremeInput : players.length > 16? styles.largeInput : players.length > 8? styles.mediumInput : styles.input]}>
-          {players.map((player) => (
+          {players.length > 0? players.map((player) => (
             <Player
               key={UUID()}
               {...player}
@@ -62,7 +63,10 @@ const BasicGroup: FC<BasicGroupProps> = ({
               accountRole={accountRole}
               raid={raid}
             />
-          ))}
+          )) :
+          <Typography style={{caretColor: "transparent", color: "dimgray", userSelect:"none"}} variant="subtitle2">
+            Empty
+          </Typography>}
         </Box>
       </CardContent>
     </Card>
