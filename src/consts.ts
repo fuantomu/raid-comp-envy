@@ -1,5 +1,4 @@
 import { WarcraftRole } from "./utils/RoleProvider/consts";
-//import { WarcraftRole } from "./utils/RoleProvider/consts";
 
 export enum AppErrorId {
   Unspecific = "unspecific",

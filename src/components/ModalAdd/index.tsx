@@ -114,17 +114,18 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     }
 
     if(remove){
-      context?.removePlayerFromRaid(playerInfo, true);
-    }
-    else{
-      context?.importPlayer(playerInfo);
-    }
-
-    if(checked){
-      if(remove){
+      if(checked){
+        context?.removePlayerFromRaids(playerInfo, true, false);
         context?.removeFromRoster({...playerInfo, group : "roster" as GroupId});
       }
       else{
+        context?.removePlayerFromRaid(playerInfo, true);
+      }
+
+    }
+    else{
+      context?.importPlayer(playerInfo);
+      if(checked){
         context?.updateRoster({...playerInfo, group : "roster" as GroupId});
       }
     }
