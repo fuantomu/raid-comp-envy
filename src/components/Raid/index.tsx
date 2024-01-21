@@ -89,7 +89,7 @@ const Raid: FC<RaidProps> = ({
                   <Box display={"grid"} gridTemplateColumns={"15px 1fr 15px 250px"}>
                     <br></br>
                     <Box key={UUID()} sx={{cursor:"pointer", height:"max-content", border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }}>
-                      <BasicBuild manager={manager} players={context?.getUnsetMains() ?? []} raid={id} name="notset" visible={visibleNotSet} accountRole={accountRole}/>
+                      <BasicBuild manager={manager} players={context?.getUnsetMains(id) ?? []} raid={id} name="notset" visible={visibleNotSet} accountRole={accountRole}/>
                     </Box>
                     <br></br>
                     <Box key={UUID()} sx={{cursor:"pointer", height:"max-content", border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }}>

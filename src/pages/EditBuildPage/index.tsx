@@ -277,18 +277,21 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
     return foundPlayers
   }
 
-  const getUnsetMains = (): BuildPlayer[] => {
+  const getUnsetMains = (buildId: number): BuildPlayer[] => {
     const mains = roster.filter((rosterPlayer) => {
-      return rosterPlayer.main === rosterPlayer.name && rosterPlayer.status !== "tentative"
+      return rosterPlayer.main === rosterPlayer.name
     })
     const setMains: BuildPlayer[] = []
     mains.forEach((main) => {
       builds.forEach((build) => {
-        build?.players.forEach((player) => {
-          if((isAlt(player, main) || player.name === main.name) && !setMains.includes(main)){
-            setMains.push(main)
-          }
-        })
+        if(build.buildId === buildId){
+          build?.players.forEach((player) => {
+            if((isAlt(player, main) || player.name === main.name)){
+              // TODO: Show main alt character
+              setMains.push(main)
+            }
+          })
+        }
       })
     })
     const unsetMains = mains.filter((main) => { return !setMains.includes(main)})

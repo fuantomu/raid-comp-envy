@@ -22,7 +22,7 @@ type AppContextApi = {
   getPlayerAbsence: (player: string) => Absence[];
   setBuildInstance: (buildId: number) => (value: any) => void;
   getAbsentPlayers: (buildId: number) => BuildPlayer[];
-  getUnsetMains: () => BuildPlayer[];
+  getUnsetMains: (buildId: number) => BuildPlayer[];
   handleShowError: (callback: any) => void;
 };
 
