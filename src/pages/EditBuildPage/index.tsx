@@ -451,12 +451,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       return
     }
     if(newPlayer.status === InviteStatus.Declined){
-      handleModalOpen({title:common("error.player.import"),content:common("error.player.declined"),params:{"player":newPlayer.main}})
+      handleModalOpen({title:common("error.player.import"),content:common("error.player.declined"),params:{"player":newPlayer.main,"continue":newPlayer}})
       return
     }
 
     if(hasCharacterInRaid(newPlayer, newPlayer.raid)){
-      handleModalOpen({title:common("error.player.import"),content:common("error.player.exists"),params:{"player":newPlayer.main}})
+      handleModalOpen({title:common("error.player.import"),content:common("error.player.exists"),params:{"player":newPlayer.main,"continue":newPlayer}})
       return
     }
 
