@@ -450,12 +450,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
       handleModalOpen({title:common("error.player.import"),content:common("error.player.tentative"),params:{"player":newPlayer.name,"continue":newPlayer}})
       return
     }
-    if(newPlayer.status === InviteStatus.Declined){
+    if(newPlayer.status === InviteStatus.Declined && !ignoreErrors){
       handleModalOpen({title:common("error.player.import"),content:common("error.player.declined"),params:{"player":newPlayer.main,"continue":newPlayer}})
       return
     }
 
-    if(hasCharacterInRaid(newPlayer, newPlayer.raid)){
+    if(hasCharacterInRaid(newPlayer, newPlayer.raid) && !ignoreErrors){
       handleModalOpen({title:common("error.player.import"),content:common("error.player.exists"),params:{"player":newPlayer.main,"continue":newPlayer}})
       return
     }
