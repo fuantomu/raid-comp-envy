@@ -23,7 +23,6 @@ export interface BuildTitleProps {
   onChange: (value: any) => void;
   options: SelectOption[];
   selected: SelectOption;
-  title: string;
   buildId: number;
   buildDate?: number;
   version: string;
@@ -31,7 +30,7 @@ export interface BuildTitleProps {
   accountRole: number;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, buildId, buildDate, version, selectedInstance, accountRole }) => {
+const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, buildId, buildDate, version, selectedInstance, accountRole }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
   const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minutes", 0).set("seconds", 0).set("milliseconds",0) : dayjs().set("minutes", 0).set("seconds", 0).set("milliseconds",0));
   const instances = version === "Cataclysm"? Instance.Cataclysm : Instance.Wotlk;
@@ -62,9 +61,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, title, b
     }
     else{
       setSelectedOption(newValue);
-      if (newValue.label !== title) {
-        onChange(newValue);
-      }
+      onChange(newValue);
     }
   };
 

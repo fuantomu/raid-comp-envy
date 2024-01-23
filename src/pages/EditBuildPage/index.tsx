@@ -241,7 +241,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
     newBuild.name = build;
     newBuild.buildId = buildId
 
-    const newBuildSelect = {value:newBuild.id,label:build}
+    const newBuildSelect = {value:newBuild.id,"label":`${build} - ${new Date(new Date().setHours(0,0,0)).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`}
     setBuildSelection([...buildSelection, newBuildSelect])
 
     localStorage.setItem(`LastBuild-${buildId}`, newBuild.id)
@@ -500,7 +500,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
   const loadBuildNames = (buildData: Build[]) => {
     const buildObject: SelectOption[] = [];
     for(const build of buildData){
-      buildObject.push({"value": build.id, "label":build.name})
+      buildObject.push({"value": build.id, "label":`${build.name} - ${new Date(build.date).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`})
     }
     setBuildSelection(buildObject)
   }
@@ -652,7 +652,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
       }
 
 
-      const differencesBuildSelection = _.differenceWith(data.builds.map((build) => { return {"label": build.name, "value": UUID()} }), buildSelection, (a : SelectOption[], b: SelectOption[]) => {
+      const differencesBuildSelection = _.differenceWith(data.builds.map((build) => { return {"label":`${build.name} - ${new Date(build.date).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`, "value": UUID()} }), buildSelection, (a : SelectOption[], b: SelectOption[]) => {
         return _.isEqual(
           _.omit(a, ['value']),
           _.omit(b, ['value'])
@@ -696,7 +696,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
 
     const interval = setInterval(() => {
       setLogoutTime(Math.floor(accountRoleTimeouts[accountRole]/60) - Math.floor((new Date().getTime()-issueTime)/60000))
-      console.log(logoutTime)
       BuildHelper.parseGetUpdate().then((update) => {
         loadData(update)
       }).catch(handleError);

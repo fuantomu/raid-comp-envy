@@ -71,7 +71,6 @@ const Raid: FC<RaidProps> = ({
                       onChange={context?.handleSelect(id)}
                       options={context?.getBuilds()??[]}
                       selected={builds.find((build) => build.value === raidBuild?.id)}
-                      title={raidBuild?.name}
                       buildId={id}
                       buildDate={raidBuild?.date}
                       version={version}
