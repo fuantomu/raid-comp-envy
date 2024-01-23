@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { FC, useState } from "react";
 import { useDrag} from "react-dnd";
 import { useTranslation } from "react-i18next";
-import { DragItemTypes, WarcraftPlayerRace } from "../../consts";
+import { AccountRole, DragItemTypes, WarcraftPlayerRace } from "../../consts";
 import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
@@ -32,7 +32,7 @@ const Player: FC<PlayerProps> = (props) => {
   const styles = useStyles(className);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
-  const isClickable = typeof onClick != "undefined" && isAccountRoleAllowed(accountRole, "ClickPlayer");
+  const isClickable = typeof onClick != "undefined";
   const [, drag] = useDrag(() => ({
     type: DragItemTypes.PLAYER,
     item: props,
@@ -40,11 +40,12 @@ const Player: FC<PlayerProps> = (props) => {
   const fullName = `${name}`;
 
   return (
+    <Tooltip title={accountRole === AccountRole.Admin? common("build.edit.title") : common("build.add.view")} placement="top" arrow>
     <Box>
       <Box
         key={UUID()}
         css={styles.player(isClickable, status)}
-        onClick={onClick && isAccountRoleAllowed(accountRole, "ClickPlayer") ? onClick : () => {}}
+        onClick={onClick && isAccountRoleAllowed(accountRole, "ClickPlayer") ? onClick : () => window.open(`${process.env.REACT_APP_DASHBOARD}/user.php?user=${name}`,"_blank")}
         ref={isClickable ? drag : undefined}
       >
         <Box css={styles.icons(showRole)}>
@@ -60,7 +61,7 @@ const Player: FC<PlayerProps> = (props) => {
             src={IconProvider.getRaceIcon(race?? WarcraftPlayerRace.Human)}
           />
         </Box>
-        <Typography css={styles.name} title={fullName}>
+        <Typography css={[styles.name,{pointerEvents: "none"}]} title={fullName}>
           {fullName}
         </Typography>
         {main === name && group !== "roster"?
@@ -90,6 +91,7 @@ const Player: FC<PlayerProps> = (props) => {
           ))}
         </Box>) : null}
     </Box>
+    </Tooltip>
   );
 };
 
