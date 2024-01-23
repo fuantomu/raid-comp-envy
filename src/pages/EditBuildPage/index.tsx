@@ -241,8 +241,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
     newBuild.name = build;
     newBuild.buildId = buildId
 
-    const newBuildSelect = {value:newBuild.id,"label":`${build} - ${new Date(new Date().setHours(0,0,0)).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`}
-    setBuildSelection([...buildSelection, newBuildSelect])
+    const newBuildSelect = {value:newBuild.id,"label":`${build} - ${new Date(new Date().setHours(0,0,0)).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`, date: new Date().setHours(0,0,0)}
+    setBuildSelection([...buildSelection, newBuildSelect].sort((a,b) => b.date - a.date))
 
     localStorage.setItem(`LastBuild-${buildId}`, newBuild.id)
     builds[buildId] = newBuild
@@ -254,7 +254,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
   const deleteBuild = async (buildId: number) => {
     const oldBuild = getBuildCopy(builds[buildId])
     const newBuilds = [...buildSelection.filter((build) => build.value !== oldBuild.id)]
-    setBuildSelection([...newBuilds]);
+    setBuildSelection([...newBuilds].sort((a,b) => b.date - a.date));
     const newBuild = getEmptyBuild();
     newBuild.buildId = buildId;
     builds[buildId] = newBuild
@@ -500,9 +500,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
   const loadBuildNames = (buildData: Build[]) => {
     const buildObject: SelectOption[] = [];
     for(const build of buildData){
-      buildObject.push({"value": build.id, "label":`${build.name} - ${new Date(build.date).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`})
+      buildObject.push({"value": build.id, "label":`${build.name} - ${new Date(build.date).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`, date: build.date})
     }
-    setBuildSelection(buildObject)
+    setBuildSelection(buildObject.sort((a,b) => b.date - a.date))
   }
 
   const loadBuilds = (buildData: Build[]) => {
@@ -654,8 +654,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime})
 
       const differencesBuildSelection = _.differenceWith(data.builds.map((build) => { return {"label":`${build.name} - ${new Date(build.date).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`, "value": UUID()} }), buildSelection, (a : SelectOption[], b: SelectOption[]) => {
         return _.isEqual(
-          _.omit(a, ['value']),
-          _.omit(b, ['value'])
+          _.omit(a, ['value','date']),
+          _.omit(b, ['value','date'])
         )
       })
       if(differencesBuildSelection.length > 0 || data.builds.length !== buildSelection.length){

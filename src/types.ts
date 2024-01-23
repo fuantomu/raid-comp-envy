@@ -64,6 +64,7 @@ export type BuildRoles = {
 export type SelectOption = {
   value: string;
   label: string;
+  date?: number;
 };
 
 export type AbsenceResponse = {
