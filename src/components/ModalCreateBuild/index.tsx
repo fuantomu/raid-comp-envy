@@ -33,14 +33,7 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId, accountRole}) => 
     else{
       const builds = context?.getBuilds();
       if (builds) {
-        const otherBuilds = builds.find((build) => build.label === currentTitle)
-        if(otherBuilds){
-          setErrorMessage("Build already exists")
-          showError(true);
-        }
-        else{
-          context?.addBuild(currentTitle,buildId);
-        }
+        context?.addBuild(currentTitle,buildId);
       }
     }
 
