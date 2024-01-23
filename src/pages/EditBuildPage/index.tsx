@@ -10,7 +10,7 @@ import { Absence, Build, BuildPlayer, SelectOption, Update} from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
-import { Instance, InviteStatus} from "../../consts";
+import { Instance, InviteStatus, accountRoleTimeouts} from "../../consts";
 import { Button, Tooltip } from "@mui/material";
 import cataclysm from "../../icons/Cataclysmlogo.webp";
 import wotlk from "../../icons/WrathLogo.webp";
@@ -25,9 +25,10 @@ import { Logout } from "@mui/icons-material";
 export interface EditBuildPageProps {
   accountRole: number;
   logout: () => void;
+  issueTime: number;
 }
 
-const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout}) => {
+const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout, issueTime}) => {
 
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +40,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout}) => {
   const [version, setVersion] = useState("Cataclysm");
   const [rosterExpanded, setRosterExpanded] = useState(false)
   const [absence, setAbsence] = useState<Absence[]>([])
+  const [logoutTime, setLogoutTime] = useState(0)
   const manager = createDragDropManager(HTML5Backend)
 
   const _ = require('lodash');
@@ -693,7 +695,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout}) => {
     }
 
     const interval = setInterval(() => {
-
+      setLogoutTime(Math.floor(accountRoleTimeouts[accountRole]/60) - Math.floor((new Date().getTime()-issueTime)/60000))
+      console.log(logoutTime)
       BuildHelper.parseGetUpdate().then((update) => {
         loadData(update)
       }).catch(handleError);
@@ -731,11 +734,14 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout}) => {
           <br></br>
 
           <Box display={"flex"} justifyContent={"center"}>
-            <Button style={{height: '100px', width : '219px', marginBottom:'54px'}} key={UUID()} onClick={handleChangeVersion}>
+            <Button style={{height: '100px', width : '219px'}} key={UUID()} onClick={handleChangeVersion}>
               <Tooltip title={common(`version.${version}`)}>
                 <img width={"219"} height={"100"} alt={common(`version.${version}`)} src={version === 'Cataclysm'? cataclysm : wotlk}></img>
               </Tooltip>
             </Button>
+          </Box>
+          <Box display={"flex"} justifyContent={"center"} marginBottom={"20px"}>
+           Automatic logout in {logoutTime} {logoutTime > 1? "Minutes": "Minute"}
           </Box>
         </div>
       </div>

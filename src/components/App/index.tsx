@@ -76,7 +76,7 @@ const App: FC = () => {
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>
-              <Route path="*" element={<EditBuildPage accountRole={accountRole} logout={logout} />} />
+              <Route path="*" element={<EditBuildPage accountRole={accountRole} logout={logout} issueTime={issueTime} />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>
