@@ -11,16 +11,16 @@ export abstract class BuildHelper {
     const groups: BuildGroups = {
       ...emptyGroups,
       none: {
-        groupId: "bench",
+        group_id: "bench",
         players: [],
       },
     };
     for (const player of players?? []) {
-      let groupId: GroupId = player.group?? "bench";
-      const group = groups[groupId];
+      let group_id: GroupId = player.group_id?? "bench";
+      const group = groups[group_id];
       if (!group) {
-        groups[groupId] = {
-          groupId,
+        groups[group_id] = {
+          group_id,
           players: [player],
         };
       } else {
@@ -32,8 +32,8 @@ export abstract class BuildHelper {
 
   private static getEmptyGroups() {
     const groups: any = {};
-    for (let groupId = 1; groupId <= 5; groupId++) {
-      groups[groupId] = { groupId , players: [] };
+    for (let group_id = 1; group_id <= 5; group_id++) {
+      groups[group_id] = { group_id , players: [] };
     }
     return groups;
   }
@@ -65,12 +65,12 @@ export abstract class BuildHelper {
             players.push({
               id: player.id,
               name: player.name,
-              className: BuildHelper.capitalize(player.className.toString()) as WarcraftPlayerClass,
+              class_name: BuildHelper.capitalize(player.class_name.toString()) as WarcraftPlayerClass,
               spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
               race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
               status: InviteStatus.Unknown,
               raid: -1,
-              group: "roster",
+              group_id: "roster",
               oldName: player.name,
               main: player.main?? "",
               alt: player.alt
@@ -88,10 +88,10 @@ export abstract class BuildHelper {
       name: build.name,
       date: build.date,
       players: JSON.stringify(build.players.filter((player) => {
-        return player.group !== 'roster'
+        return player.group_id !== 'roster'
       })),
       instance: build.instance,
-      raidId: build.raidId
+      raid_id: build.raid_id.toString()
     }
 
     await RosterProvider.saveBuild(build.id, buildRequest).then((response) => {
@@ -111,17 +111,18 @@ export abstract class BuildHelper {
     })
   }
 
-  public static async parseGetBuild(buildId: string) {
+  public static async parseGetBuild(build_id: string) {
     const build : Build = {
       "id": "",
       "name": "",
       "date": new Date().setHours(0,0,0,0),
       "players": [],
       "instance": "",
-      "buildId": -1
+      "build_id": -1,
+      "raid_id": 0
     };
 
-    await RosterProvider.getBuild(buildId).then((responseBuild) =>{
+    await RosterProvider.getBuild(build_id).then((responseBuild) =>{
       if (responseBuild){
         build.id = responseBuild.id;
         build.name = responseBuild.name;
@@ -131,12 +132,12 @@ export abstract class BuildHelper {
             build.players.push({
               id: player.id,
               name: player.name,
-              className: player.className as WarcraftPlayerClass,
+              class_name: player.class_name as WarcraftPlayerClass,
               spec: player.spec as WarcraftPlayerSpec,
               raid: player.raid,
               race: player.race as WarcraftPlayerRace,
               status: player.status as InviteStatus,
-              group: player.group as GroupId,
+              group_id: player.group_id as GroupId,
               oldName: player.oldName,
               main: player.main?? "",
               alt: player.alt
@@ -144,16 +145,16 @@ export abstract class BuildHelper {
           }
         }
         build.instance = responseBuild.instance;
-        build.raidId = responseBuild.raidId;
+        build.raid_id = parseInt(responseBuild.raid_id);
       }
 
     });
     return build;
   }
 
-  public static async parseDeleteBuild(buildId: string) {
+  public static async parseDeleteBuild(build_id: string) {
 
-    await RosterProvider.deleteBuild(buildId).then((response) => {
+    await RosterProvider.deleteBuild(build_id).then((response) => {
     })
   }
 
@@ -169,8 +170,8 @@ export abstract class BuildHelper {
             date: build.date,
             players: JSON.parse(build.players),
             instance: build.instance,
-            raidId: build.raidId,
-            buildId: -1
+            raid_id: parseInt(build.raid_id),
+            build_id: -1
           }
           builds.push(newBuild)
         }
@@ -191,32 +192,32 @@ export abstract class BuildHelper {
         "fields": [
           {
               "name": "Group 1",
-              "value": build.players.filter(o => o.group === 1).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group_id === 1).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 2",
-              "value": build.players.filter(o => o.group === 2).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group_id === 2).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 3",
-              "value": build.players.filter(o => o.group === 3).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group_id === 3).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 4",
-              "value": build.players.filter(o => o.group === 4).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group_id === 4).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Group 5",
-              "value": build.players.filter(o => o.group === 5).map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": build.players.filter(o => o.group_id === 5).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
               "inline": true
           },
           {
               "name": "Bench",
-              "value": [...build.players.filter(o => o.group === "bench"),...sendMains?? []].map(p => BuildHelper.getClassEmoji(p.className) + " " + p.name).join("\r\n"),
+              "value": [...build.players.filter(o => o.group_id === "bench"),...sendMains?? []].map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
               "inline": true
           }
         ]
@@ -247,51 +248,51 @@ export abstract class BuildHelper {
         for (const absence of response.absences?? []){
           updates.absences.push({
             id: absence.id,
-            player: {id: absence.playerId} as BuildPlayer,
-            startDate: absence.startDate,
-            endDate: absence.endDate,
+            player: {id: absence.player_id} as BuildPlayer,
+            start_date: absence.start_date,
+            end_date: absence.end_date,
             reason: absence.reason
           })
         }
-        for (const player of response.players){
+        for (const player of response.players?? []){
             const spec = player.spec.split("_")
             if(player){
               updates.players.push({
                 id: player.id,
                 name: player.name,
-                className: BuildHelper.capitalize(player.className.toString()) as WarcraftPlayerClass,
+                class_name: BuildHelper.capitalize(player.class_name.toString()) as WarcraftPlayerClass,
                 spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
                 race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
                 status: InviteStatus[BuildHelper.capitalize(player.status)],
                 raid: -1,
-                group: "roster",
+                group_id: "roster",
                 oldName: player.name,
                 main: player.main?? "",
                 alt: player.alt
             })
           }
         }
-        for (const build of response.builds){
+        for (const build of response.builds?? []){
           const newBuild = {
             id: build.id,
             name: build.name,
             date: build.date,
             players: [],
             instance: build.instance,
-            raidId: build.raidId,
-            buildId: -1
+            raid_id: parseInt(build.raid_id),
+            build_id: -1
           }
           if(build.players){
             for (const player of JSON.parse(build.players)){
               newBuild.players.push({
                 id: player.id,
                 name: player.name,
-                className: player.className as WarcraftPlayerClass,
+                class_name: player.class_name as WarcraftPlayerClass,
                 spec: player.spec as WarcraftPlayerSpec,
                 raid: player.raid,
                 race: player.race as WarcraftPlayerRace,
                 status: InviteStatus.Unknown,
-                group: player.group as GroupId,
+                group_id: player.group_id as GroupId,
                 oldName: player.oldName,
                 main: player.main?? "",
                 alt: player.alt
@@ -309,8 +310,8 @@ export abstract class BuildHelper {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
-  private static getClassEmoji(className: WarcraftPlayerClass){
-    switch(className){
+  private static getClassEmoji(class_name: WarcraftPlayerClass){
+    switch(class_name){
       case WarcraftPlayerClass.Warrior:
         return "<:wowwarrior:1067068357964210206>"
       case WarcraftPlayerClass.Deathknight:

@@ -1,30 +1,30 @@
 import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import {
-  WarcraftClassRaidBuffs,
-  WarcraftClassRaidBuffsWotlk,
-  WarcraftClassRaidDebuffs,
-  WarcraftClassRaidDebuffsWotlk,
-  WarcraftClassUtilities,
-  WarcraftClassUtilitiesWotlk,
-  WarcraftRaceUtilities,
-  WarcraftRaceUtilitiesWotlk,
-  WarcraftRaidBuff,
-  WarcraftRaidBuffCataclysm,
-  WarcraftRaidBuffWotlk,
-  WarcraftRaidDebuff,
-  WarcraftRaidDebuffCataclysm,
-  WarcraftRaidDebuffWotlk,
-  WarcraftRaidUtility,
-  WarcraftRaidUtilityCataclysm,
-  WarcraftRaidUtilityWotlk,
-  WarcraftRole,
-  WarcraftSpecRaidBuffs,
-  WarcraftSpecRaidBuffsWotlk,
-  WarcraftSpecRaidDebuffs,
-  WarcraftSpecRaidDebuffsWotlk,
-  WarcraftSpecRole,
-  WarcraftSpecUtilities,
-  WarcraftSpecUtilitiesWotlk
+    WarcraftClassRaidBuffs,
+    WarcraftClassRaidBuffsWotlk,
+    WarcraftClassRaidDebuffs,
+    WarcraftClassRaidDebuffsWotlk,
+    WarcraftClassUtilities,
+    WarcraftClassUtilitiesWotlk,
+    WarcraftRaceUtilities,
+    WarcraftRaceUtilitiesWotlk,
+    WarcraftRaidBuff,
+    WarcraftRaidBuffCataclysm,
+    WarcraftRaidBuffWotlk,
+    WarcraftRaidDebuff,
+    WarcraftRaidDebuffCataclysm,
+    WarcraftRaidDebuffWotlk,
+    WarcraftRaidUtility,
+    WarcraftRaidUtilityCataclysm,
+    WarcraftRaidUtilityWotlk,
+    WarcraftRole,
+    WarcraftSpecRaidBuffs,
+    WarcraftSpecRaidBuffsWotlk,
+    WarcraftSpecRaidDebuffs,
+    WarcraftSpecRaidDebuffsWotlk,
+    WarcraftSpecRole,
+    WarcraftSpecUtilities,
+    WarcraftSpecUtilitiesWotlk
 } from "./consts";
 
 export abstract class RoleProvider {
@@ -46,11 +46,11 @@ export abstract class RoleProvider {
     return spec ? WarcraftSpecRaidBuffs[spec] : [];
   }
 
-  public static getClassBuff(className?: WarcraftPlayerClass, version?: string): WarcraftRaidBuff[] {
+  public static getClassBuff(class_name?: WarcraftPlayerClass, version?: string): WarcraftRaidBuff[] {
     if(version?.toLowerCase() === 'wotlk'){
-      return className ? WarcraftClassRaidBuffsWotlk[className] : [];
+      return class_name ? WarcraftClassRaidBuffsWotlk[class_name] : [];
     }
-    return className ? WarcraftClassRaidBuffs[className] : [];
+    return class_name ? WarcraftClassRaidBuffs[class_name] : [];
   }
 
   public static getSpecDebuffs(spec?: WarcraftPlayerSpec, version?: string): WarcraftRaidDebuff[] {
@@ -60,18 +60,18 @@ export abstract class RoleProvider {
     return spec ? WarcraftSpecRaidDebuffs[spec] : [];
   }
 
-  public static getClassDebuff(className?: WarcraftPlayerClass, version?: string): WarcraftRaidDebuff[] {
+  public static getClassDebuff(class_name?: WarcraftPlayerClass, version?: string): WarcraftRaidDebuff[] {
     if(version?.toLowerCase() === 'wotlk'){
-      return className ? WarcraftClassRaidDebuffsWotlk[className] : [];
+      return class_name ? WarcraftClassRaidDebuffsWotlk[class_name] : [];
     }
-    return className ? WarcraftClassRaidDebuffs[className] : [];
+    return class_name ? WarcraftClassRaidDebuffs[class_name] : [];
   }
 
-  public static getClassUtilities(className?: WarcraftPlayerClass, version?: string): WarcraftRaidUtility[] {
+  public static getClassUtilities(class_name?: WarcraftPlayerClass, version?: string): WarcraftRaidUtility[] {
     if(version?.toLowerCase() === 'wotlk'){
-      return className ? WarcraftClassUtilitiesWotlk[className] : [];
+      return class_name ? WarcraftClassUtilitiesWotlk[class_name] : [];
     }
-    return className ? WarcraftClassUtilities[className] : [];
+    return class_name ? WarcraftClassUtilities[class_name] : [];
   }
 
   public static getRaceUtilities(raceName?: WarcraftPlayerRace, version?: string): WarcraftRaidUtility[] {

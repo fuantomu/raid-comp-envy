@@ -21,15 +21,15 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid,
     <>
       <Box key={UUID()} css={styles.grouped}>
         {Object.values(groups)
-          .filter((group) => group?.groupId !== "roster" && group?.groupId !== "bench")
+          .filter((group) => group?.group_id !== "roster" && group?.group_id !== "bench")
           .map((group) => {
             if (!group) return <></>;
-            const { groupId, players } = group;
+            const { group_id, players } = group;
             return (
               <CompositionGroup
                 key={UUID()}
                 raid={raid}
-                groupId={groupId}
+                group_id={group_id}
                 players={players}
                 editing={editing}
                 accountRole={accountRole}
@@ -40,7 +40,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid,
         <Box key={UUID()} css={styles.ungrouped}>
           <CompositionGroup
             key={UUID()}
-            groupId={"bench"}
+            group_id={"bench"}
             players={groups["bench"]?.players ?? []}
             raid={raid}
             spread

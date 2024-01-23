@@ -33,10 +33,10 @@ const App: FC = () => {
   useEffect(() => {
     if(!loggedIn && issueTime === 0){
       RosterProvider.getLoginAge(host).then((response) => {
-        if(response.createdDate > 0){
-          setIssueTime(response.createdDate);
+        if(response.created_date > 0){
+          setIssueTime(response.created_date);
           setAccountRole(response.role)
-          const timeDifference = (new Date().getTime() - response.createdDate)/1000;
+          const timeDifference = (new Date().getTime() - response.created_date)/1000;
           if (timeDifference <= parseFloat(accountRoleTimeouts[response.role])){
             const newToken = UUID();
             localStorage.setItem("token", newToken)

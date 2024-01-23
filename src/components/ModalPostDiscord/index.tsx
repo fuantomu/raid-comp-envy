@@ -13,11 +13,11 @@ import StyledTextField from "../StyledTextField";
 
 
 export interface ModalPostDiscordProps {
-  buildId: number;
+  build_id: number;
   accountRole: number;
 }
 
-const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => {
+const ModalPostDiscord: FC<ModalPostDiscordProps> = ({build_id, accountRole}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -46,9 +46,9 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({buildId, accountRole}) => 
   };
 
   const handlePostDiscord = (sheetUrl: string) => {
-    const build = context?.getBuild(buildId)
+    const build = context?.getBuild(build_id)
     if(build){
-      BuildHelper.parsePostSetup(build, sheetUrl, checked? context?.getUnsetMains(buildId) : [], noteRef.current?.value)
+      BuildHelper.parsePostSetup(build, sheetUrl, checked? context?.getUnsetMains(build_id) : [], noteRef.current?.value)
     }
     setOpen(false);
   };

@@ -33,12 +33,12 @@ const BasicGroup: FC<BasicGroupProps> = ({
           {
             id: player.id,
             name: player.name,
-            className: player.className,
+            class_name: player.class_name,
             spec: player.spec,
             race: player.race,
             raid,
             status: player.status,
-            group: "roster" as GroupId,
+            group_id: "roster" as GroupId,
             oldName: player.oldName,
             main: player.main,
             alt: player.alt

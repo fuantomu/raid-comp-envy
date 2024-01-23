@@ -81,7 +81,7 @@ export enum WarcraftPlayerSpec {
 }
 
 export const WarcraftClassColour: {
-  [className in WarcraftPlayerClass]: string;
+  [class_name in WarcraftPlayerClass]: string;
 } = {
   Deathknight: "#C41F3B",
   Druid: "#FF7D0A",
@@ -110,7 +110,7 @@ export const RoleWeight: {
   RangedDPS: 4
 }
 
-export const ClassWeight: { [className in WarcraftPlayerClass] : number} = {
+export const ClassWeight: { [class_name in WarcraftPlayerClass] : number} = {
   Priest: 10,
   Rogue: 9,
   Shaman: 8,

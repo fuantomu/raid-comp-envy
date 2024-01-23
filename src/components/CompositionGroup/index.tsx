@@ -18,7 +18,7 @@ import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 
 export interface CompositionGroupProps {
   players: BuildPlayer[];
-  groupId: GroupId;
+  group_id: GroupId;
   spread?: boolean;
   editing?: boolean;
   raid: number;
@@ -26,7 +26,7 @@ export interface CompositionGroupProps {
 }
 
 const CompositionGroup: FC<CompositionGroupProps> = ({
-  groupId,
+  group_id,
   players = [],
   spread = false,
   editing,
@@ -44,12 +44,12 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
           {
             id: player.id,
             name: player.name,
-            className: player.className,
+            class_name: player.class_name,
             spec: player.spec,
             race: player.race,
             raid: raid,
             status: player.status,
-            group: groupId as GroupId,
+            group_id: group_id as GroupId,
             oldName: player.oldName,
             main: player.main,
             alt: player.alt
@@ -69,7 +69,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
       <CardContent>
         <Box display={"grid"} gridTemplateColumns={"1fr 20px"}>
         <Typography style={{caretColor: "transparent", userSelect:"none"}} variant="subtitle1">
-          {common("build.groups.group_each", { groupId: groupId.toString() })}
+          {common("build.groups.group_each", { group_id: group_id.toString() })}
         </Typography>
         {players.filter((player) => player.race === WarcraftPlayerRace.Draenei).length > 0 && localStorage.getItem("LastVersion") === 'Wotlk' ? (
           <WarcraftIcon

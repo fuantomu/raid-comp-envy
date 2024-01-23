@@ -28,8 +28,8 @@ export interface PlayerProps extends BuildPlayer {
 
 const Player: FC<PlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, className, spec, status, race, group, raid, showRole, onClick, rosterVisible, alts=[], main, alt, accountRole} = props;
-  const styles = useStyles(className);
+  const { name, class_name, spec, status, race, group_id, raid, showRole, onClick, rosterVisible, alts=[], main, alt, accountRole} = props;
+  const styles = useStyles(class_name);
   const context = useAppContext()
   const [visible, setVisible] = useState(false);
   const isClickable = typeof onClick != "undefined";
@@ -51,8 +51,8 @@ const Player: FC<PlayerProps> = (props) => {
         <Box css={styles.icons(showRole)}>
           {showRole && <WarcraftIcon src={IconProvider.getSpecRoleIcon(spec)} />}
           <WarcraftIcon
-            title={`${common(`specs.${spec}`)} ${common(`classes.${className}`)}`}
-            src={spec ? IconProvider.getSpecIcon(spec) : IconProvider.getClassIcon(className)}
+            title={`${common(`specs.${spec}`)} ${common(`classes.${class_name}`)}`}
+            src={spec ? IconProvider.getSpecIcon(spec) : IconProvider.getClassIcon(class_name)}
           />
         </Box>
         <Box>
@@ -64,7 +64,7 @@ const Player: FC<PlayerProps> = (props) => {
         <Typography css={[styles.name,{pointerEvents: "none"}]} title={fullName}>
           {fullName}
         </Typography>
-        {main === name && group !== "roster"?
+        {main === name && group_id !== "roster"?
           <Tooltip title="Main" placement="top" arrow>
             <Star sx={{fontSize:"12px", justifySelf:"left"}} />
           </Tooltip>

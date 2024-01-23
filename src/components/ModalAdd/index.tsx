@@ -29,11 +29,11 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
-  const [className, setClassName] = useState(WarcraftPlayerClass.Warrior);
+  const [class_name, setClassName] = useState(WarcraftPlayerClass.Warrior);
   const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorFury);
   const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
   const [status, setStatus] = useState(InviteStatus.Unknown);
-  const [groupId, setGroupId] = useState(1 as GroupId);
+  const [group_id, setGroupId] = useState(1 as GroupId);
   const [main, setMain] = useState("DEFAULT");
   const [name, setName] = useState("");
   const [raid, setRaid] = useState(Number);
@@ -52,9 +52,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         setId(player.id);
         setName(fullName);
         setOldName(fullName);
-        setClassName(player.className);
+        setClassName(player.class_name);
         setStatus(player.status);
-        setGroupId(player.group as GroupId);
+        setGroupId(player.group_id as GroupId);
         setRaid(player.raid);
         if(player.main) {
           setMain(player.main);
@@ -109,12 +109,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     const playerInfo = {
       id: id.length? id : UUID(),
       name: playerName?? oldName,
-      className,
+      class_name,
       spec,
       raid,
       race: raceName,
       status,
-      group: groupId as GroupId,
+      group_id: group_id as GroupId,
       oldName,
       main: main === "DEFAULT"? playerName :main,
       alt: alt === "DEFAULT"? undefined: alt
@@ -123,7 +123,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     if(remove){
       if(checked){
         context?.removePlayerFromRaids(playerInfo, true, false);
-        context?.removeFromRoster({...playerInfo, group : "roster" as GroupId});
+        context?.removeFromRoster({...playerInfo, group_id : "roster" as GroupId});
       }
       else{
         context?.removePlayerFromRaid(playerInfo, true);
@@ -133,7 +133,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     else{
       context?.importPlayer(playerInfo);
       if(checked){
-        context?.updateRoster({...playerInfo, group : "roster" as GroupId});
+        context?.updateRoster({...playerInfo, group_id : "roster" as GroupId});
       }
     }
     setAlt("DEFAULT");
@@ -187,13 +187,13 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       <Box>
         <ToggleButtonGroup
           css={styles.buttonGroups}
-          value={className}
+          value={class_name}
           exclusive
           onChange={handleSelectClass}
         >
-          {Object.keys(WarcraftPlayerClass).map((className) => (
-            <ToggleButton value={className} key={UUID()} title={common(`classes.${className}`)}>
-              <WarcraftIcon src={IconProvider.getClassIcon(className as WarcraftPlayerClass)} />
+          {Object.keys(WarcraftPlayerClass).map((class_name) => (
+            <ToggleButton value={class_name} key={UUID()} title={common(`classes.${class_name}`)}>
+              <WarcraftIcon src={IconProvider.getClassIcon(class_name as WarcraftPlayerClass)} />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -210,7 +210,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
           exclusive
           onChange={handleSelectSpec}
         >
-          {WarcraftPlayerClassSpecs[className].map((spec) => (
+          {WarcraftPlayerClassSpecs[class_name].map((spec) => (
             <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
               <WarcraftIcon src={IconProvider.getSpecIcon(spec)} />
             </ToggleButton>

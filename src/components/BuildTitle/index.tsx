@@ -23,14 +23,14 @@ export interface BuildTitleProps {
   onChange: (value: any) => void;
   options: SelectOption[];
   selected: SelectOption;
-  buildId: number;
+  build_id: number;
   buildDate?: number;
   version: string;
   selectedInstance?: string;
   accountRole: number;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, buildId, buildDate, version, selectedInstance, accountRole }) => {
+const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, build_id, buildDate, version, selectedInstance, accountRole }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
   const [date, setDate] = useState<Dayjs | null>(buildDate? dayjs(buildDate).set("minutes", 0).set("seconds", 0).set("milliseconds",0) : dayjs().set("minutes", 0).set("seconds", 0).set("milliseconds",0));
   const instances = version === "Cataclysm"? Instance.Cataclysm : Instance.Wotlk;
@@ -55,7 +55,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, buildId,
   };
 
   const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
-    const buildFound = context?.getOtherBuilds(buildId).find((build) => build.id === newValue.value)
+    const buildFound = context?.getOtherBuilds(build_id).find((build) => build.id === newValue.value)
     if(buildFound){
       handleModalOpen({title:common("error.build.title"),content:common("error.build.alreadyset")})
     }
@@ -67,7 +67,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ onChange, options, selected, buildId,
 
   const handleInstanceChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
     setInstance(newValue);
-    context?.setBuildInstance(buildId)(newValue);
+    context?.setBuildInstance(build_id)(newValue);
   };
 
   const handleDateChange = (date: Dayjs) => {

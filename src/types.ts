@@ -14,12 +14,12 @@ export type GroupId = 1 | 2 | 3 | 4 | 5 | "roster" | "bench";
 export type BuildPlayer = {
   id: string;
   name: string;
-  className: WarcraftPlayerClass;
+  class_name: WarcraftPlayerClass;
   spec: WarcraftPlayerSpec;
   race: WarcraftPlayerRace;
   raid: number;
   status: InviteStatus;
-  group?: GroupId;
+  group_id?: GroupId;
   oldName?: string;
   main?: string;
   alt?: string;
@@ -34,9 +34,9 @@ export type Build = {
   name: string;
   date: number;
   players: BuildPlayer[];
-  raidId?: number;
+  raid_id?: number;
   instance?: string;
-  buildId: number;
+  build_id: number;
 };
 
 export type BuildResponse = {
@@ -44,17 +44,17 @@ export type BuildResponse = {
   name: string;
   date: number;
   players: string;
-  raidId?: number;
+  raid_id?: string;
   instance?: string;
 };
 
 export type BuildGroup = {
-  groupId: GroupId;
+  group_id: GroupId;
   players: BuildPlayer[];
 };
 
 export type BuildGroups = {
-  [groupId in GroupId]?: BuildGroup;
+  [group_id in GroupId]?: BuildGroup;
 };
 
 export type BuildRoles = {
@@ -69,22 +69,22 @@ export type SelectOption = {
 
 export type AbsenceResponse = {
   id: string;
-  playerId: string;
-  startDate: number;
-  endDate: number;
+  player_id: string;
+  start_date: number;
+  end_date: number;
   reason?: string;
 };
 
 export type Absence = {
   id: string;
   player: BuildPlayer;
-  startDate: number;
-  endDate: number;
+  start_date: number;
+  end_date: number;
   reason?: string;
 };
 
 export type Login = {
-  createdDate: number;
+  created_date: number;
   role: number;
 }
 

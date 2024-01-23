@@ -15,20 +15,20 @@ export interface RaidClassChecklistProps {
 }
 
 const buildClassChecklist = (build: Build) => {
-  const classNames = [];
-  for (const className in WarcraftPlayerClass) {
+  const class_names = [];
+  for (const class_name in WarcraftPlayerClass) {
     if(build.players.length > 0){
-      const playersWithClass = build.players.filter((player) => player.className === className && player.group !== 'roster' && player.group !== 'bench');
-      classNames.push(
+      const playersWithClass = build.players.filter((player) => player.class_name === class_name && player.group_id !== 'roster' && player.group_id !== 'bench');
+      class_names.push(
         <RaidClass
           key={UUID()}
-          className={className as WarcraftPlayerClass}
+          class_name={class_name as WarcraftPlayerClass}
           players={playersWithClass}
         />
       );
     }
   }
-  return classNames;
+  return class_names;
 };
 
 const RaidClassChecklist: FC<RaidClassChecklistProps> = ({ build }) => {

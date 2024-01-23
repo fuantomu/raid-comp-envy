@@ -11,18 +11,18 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 
 export interface ModalDeleteBuildProps {
-  buildId: number,
+  build_id: number,
   accountRole: number;
 }
 
-const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId, accountRole}) => {
+const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({build_id, accountRole}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [common] = useTranslation("common");
   const context = useAppContext();
 
   const handleDelete = async () => {
-    context?.deleteBuild(buildId);
+    context?.deleteBuild(build_id);
   };
 
 
@@ -46,7 +46,7 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({buildId, accountRole}) => 
       <Modal open={open} onClose={handleClose}>
         <Box css={styles.modal}>
           <h2>{common("build.delete.title")}</h2>
-          {common("build.delete.confirm") + "'" + context?.getBuild(buildId)?.name + "'?"}
+          {common("build.delete.confirm") + "'" + context?.getBuild(build_id)?.name + "'?"}
           <br />
           <Box css={styles.buttons}>
             <Button color="primary" variant="contained" onClick={handleDelete}>

@@ -11,11 +11,11 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 
 export interface ModalCreateBuildProps {
-  buildId: number;
+  build_id: number;
   accountRole: number;
 }
 
-const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId, accountRole}) => {
+const ModalCreateBuild: FC<ModalCreateBuildProps> = ({build_id, accountRole}) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [error, showError] = useState(false);
@@ -33,7 +33,7 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({buildId, accountRole}) => 
     else{
       const builds = context?.getBuilds();
       if (builds) {
-        context?.addBuild(currentTitle,buildId);
+        context?.addBuild(currentTitle,build_id);
       }
     }
 

@@ -12,7 +12,7 @@ export enum WarcraftIconSize {
 export const IconUnknown: WarcraftIcon = "inv_misc_questionmark";
 
 export const WarcraftClassIcon: {
-  [className in WarcraftPlayerClass]: WarcraftIcon;
+  [class_name in WarcraftPlayerClass]: WarcraftIcon;
 } = {
   [WarcraftPlayerClass.Deathknight]: "classicon_deathknight",
   [WarcraftPlayerClass.Druid]: "classicon_druid",
@@ -27,7 +27,7 @@ export const WarcraftClassIcon: {
 };
 
 export const WarcraftRaceIcon: {
-  [className in WarcraftPlayerRace]: WarcraftIcon;
+  [class_name in WarcraftPlayerRace]: WarcraftIcon;
 } = {
   [WarcraftPlayerRace.Human]: "achievement_character_human_female",
   [WarcraftPlayerRace.Dwarf]: "achievement_character_dwarf_male",
@@ -80,7 +80,7 @@ export const WarcraftSpecIcon: {
 };
 
 export const WarcraftRoleIcon: {
-  [className in WarcraftRole]: WarcraftIcon;
+  [class_name in WarcraftRole]: WarcraftIcon;
 } = {
   [WarcraftRole.Unknown]: IconUnknown,
   [WarcraftRole.Tank]: "ability_defend",

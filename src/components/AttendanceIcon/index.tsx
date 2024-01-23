@@ -37,7 +37,7 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status, absence }) => {
       let absentString = "Absent from:\n"
       if(absence){
         for(const absentDate of absence){
-          absentString += `${new Date(absentDate.startDate).toLocaleDateString('de-DE', {day:"2-digit",month:"2-digit",year:"numeric"})} to ${new Date(absentDate.endDate).toLocaleDateString('de-DE', {day:"2-digit",month:"2-digit",year:"numeric"})}. Reason: ${absentDate.reason}\n`
+          absentString += `${new Date(absentDate.start_date).toLocaleDateString('de-DE', {day:"2-digit",month:"2-digit",year:"numeric"})} to ${new Date(absentDate.end_date).toLocaleDateString('de-DE', {day:"2-digit",month:"2-digit",year:"numeric"})}. Reason: ${absentDate.reason}\n`
         }
       }
       return (

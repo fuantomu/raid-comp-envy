@@ -11,27 +11,27 @@ export abstract class RosterProvider {
     })
   }
 
-  public static async saveBuild(buildId: string, build: BuildResponse) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/build/${buildId}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: JSON.stringify(build)}).then((response) => {
+  public static async saveBuild(build_id: string, build: BuildResponse) : Promise<Response>{
+    return await fetch(`${process.env.REACT_APP_API}/build/${build_id}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: JSON.stringify(build)}).then((response) => {
       return response
     })
   }
 
-  public static async getBuild(buildId: string) : Promise<BuildResponse>{
-    return await fetch(`${process.env.REACT_APP_API}/build/${buildId}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
+  public static async getBuild(build_id: string) : Promise<BuildResponse>{
+    return await fetch(`${process.env.REACT_APP_API}/build/${build_id}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
       if(response.ok){
         return response.json()
       }
       if(response.status === 404){
-        return {"id":buildId} as BuildResponse
+        return {"id":build_id} as BuildResponse
       }
     }).then((roster) => {
       return roster
     })
   }
 
-  public static async deleteBuild(buildId: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/build/delete/${buildId}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
+  public static async deleteBuild(build_id: string) : Promise<Response>{
+    return await fetch(`${process.env.REACT_APP_API}/build/delete/${build_id}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
       return response
     })
   }
@@ -42,8 +42,8 @@ export abstract class RosterProvider {
     })
   }
 
-  public static async deleteRosterPlayer(playerId: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/player/delete/${playerId}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {return response})
+  public static async deleteRosterPlayer(player_id: string) : Promise<Response>{
+    return await fetch(`${process.env.REACT_APP_API}/player/delete/${player_id}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {return response})
   }
 
   public static async getBuilds() : Promise<BuildResponse[]>{

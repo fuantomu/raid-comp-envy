@@ -9,19 +9,19 @@ import ChecklistItem from "../ChecklistItem";
 import useStyles from "./useStyles";
 
 export interface RaidClassProps {
-  className: WarcraftPlayerClass;
+  class_name: WarcraftPlayerClass;
   players: BuildPlayer[];
 }
 
-const RaidClass: FC<RaidClassProps> = ({ className, players }) => {
-  const styles = useStyles(className);
+const RaidClass: FC<RaidClassProps> = ({ class_name, players }) => {
+  const styles = useStyles(class_name);
   const [common] = useTranslation("common");
 
   return (
     <ChecklistItem
       styles={styles}
-      displayName={common(`classes.${className}`)}
-      iconSource={IconProvider.getClassIcon(className)}
+      displayName={common(`classes.${class_name}`)}
+      iconSource={IconProvider.getClassIcon(class_name)}
       players={players}
     />
   );

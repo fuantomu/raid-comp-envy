@@ -2,16 +2,16 @@ import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRaidBuff, WarcraftRaidDebuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
 import {
-  CustomIcon,
-  IconUnknown,
-  WarcraftBuffIcon,
-  WarcraftClassIcon,
-  WarcraftDebuffIcon,
-  WarcraftIconSize,
-  WarcraftRaceIcon,
-  WarcraftRoleIcon,
-  WarcraftSpecIcon,
-  WarcraftUtilityIcon
+    CustomIcon,
+    IconUnknown,
+    WarcraftBuffIcon,
+    WarcraftClassIcon,
+    WarcraftDebuffIcon,
+    WarcraftIconSize,
+    WarcraftRaceIcon,
+    WarcraftRoleIcon,
+    WarcraftSpecIcon,
+    WarcraftUtilityIcon
 } from "./consts";
 
 export abstract class IconProvider {
@@ -30,10 +30,10 @@ export abstract class IconProvider {
     return IconProvider.getWarcraftIconURI(spec && WarcraftSpecIcon[spec], size);
   }
 
-  public static getClassIcon(className?: WarcraftPlayerClass): string;
-  public static getClassIcon(className: WarcraftPlayerClass, size?: WarcraftIconSize): string;
-  public static getClassIcon(className?: WarcraftPlayerClass, size?: WarcraftIconSize): string {
-    return IconProvider.getWarcraftIconURI(className && WarcraftClassIcon[className], size);
+  public static getClassIcon(class_name?: WarcraftPlayerClass): string;
+  public static getClassIcon(class_name: WarcraftPlayerClass, size?: WarcraftIconSize): string;
+  public static getClassIcon(class_name?: WarcraftPlayerClass, size?: WarcraftIconSize): string {
+    return IconProvider.getWarcraftIconURI(class_name && WarcraftClassIcon[class_name], size);
   }
 
   public static getRaceIcon(raceName?: WarcraftPlayerRace): string;

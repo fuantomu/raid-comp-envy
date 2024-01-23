@@ -9,5 +9,5 @@ export const sortFunctions = {
   "ROLEMELEE": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.MeleeDPS)? -1 : 1},
   "ROLERANGED": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.RangedDPS)? -1 : 1},
   "ROLEHEALER": function(a:BuildPlayer) { return (RoleProvider.getSpecRole(a.spec) === WarcraftRole.Healer)? -1 : 1},
-  "DEFAULT": function(a:BuildPlayer,b:BuildPlayer) { return (RoleWeight[RoleProvider.getSpecRole(a.spec)] - RoleWeight[RoleProvider.getSpecRole(b.spec)]) || (ClassWeight[a.className] - ClassWeight[b.className]) || a.name.localeCompare(b.name)}
+  "DEFAULT": function(a:BuildPlayer,b:BuildPlayer) { return (RoleWeight[RoleProvider.getSpecRole(a.spec)] - RoleWeight[RoleProvider.getSpecRole(b.spec)]) || (ClassWeight[a.class_name] - ClassWeight[b.class_name]) || a.name.localeCompare(b.name)}
 }

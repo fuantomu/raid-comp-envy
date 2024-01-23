@@ -9,11 +9,11 @@ import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalResetBuildProps {
-  buildId: number,
+  build_id: number,
   accountRole: number
 }
 
-const ModalResetBuild: FC<ModalResetBuildProps> = ({buildId, accountRole}) => {
+const ModalResetBuild: FC<ModalResetBuildProps> = ({build_id, accountRole}) => {
   const [common] = useTranslation("common");
   let handleModalOpen: any = () => {};
   const context = useAppContext();
@@ -28,7 +28,7 @@ const ModalResetBuild: FC<ModalResetBuildProps> = ({buildId, accountRole}) => {
 
   const handleConfirm = async (response: ModalAlertResponse) => {
     if (response === ModalAlertResponse.OK) {
-      await context?.resetBuild(buildId);
+      await context?.resetBuild(build_id);
     }
   };
 

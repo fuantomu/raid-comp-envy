@@ -22,10 +22,10 @@ const buildUtilityChecklist = (build: Build, version: string) => {
   for (const utility in RoleProvider.getVersionRaidUtility(version)) {
     if(build.players.length > 0){
       const playersWithUtility = build.players.filter(
-        ({ spec, className, race: raceName, group }) =>
-          group !== 'roster' && group !== 'bench' &&
+        ({ spec, class_name, race: raceName, group_id }) =>
+          group_id !== 'roster' && group_id !== 'bench' &&
           (RoleProvider.getSpecUtilities(spec, version).includes(utility as WarcraftRaidUtility) ||
-          RoleProvider.getClassUtilities(className, version).includes(utility as WarcraftRaidUtility) ||
+          RoleProvider.getClassUtilities(class_name, version).includes(utility as WarcraftRaidUtility) ||
           RoleProvider.getRaceUtilities(raceName, version).includes(utility as WarcraftRaidUtility))
       );
       raidBuffs.push(

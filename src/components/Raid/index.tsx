@@ -71,7 +71,7 @@ const Raid: FC<RaidProps> = ({
                       onChange={context?.handleSelect(id)}
                       options={context?.getBuilds()??[]}
                       selected={builds.find((build) => build.value === raidBuild?.id)}
-                      buildId={id}
+                      build_id={id}
                       buildDate={raidBuild?.date}
                       version={version}
                       selectedInstance={raidBuild?.instance}
@@ -81,15 +81,15 @@ const Raid: FC<RaidProps> = ({
                     <BuildRolesCount key={UUID()} build={raidBuild} />
                     <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
                       <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
-                      <ModalCreateBuild buildId={id} accountRole={accountRole}/>
-                      <ModalDeleteBuild buildId={id} accountRole={accountRole}/>
+                      <ModalCreateBuild build_id={id} accountRole={accountRole}/>
+                      <ModalDeleteBuild build_id={id} accountRole={accountRole}/>
                     </Box>
                   </Box>
                   <Box display={"grid"} gridTemplateColumns={"2fr 1fr"}>
                     <Box sx={{marginLeft: "5px"}}>
                       <Box key={UUID()} sx={{cursor:"pointer",border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
                           <Typography style={{caretColor: "transparent", marginLeft:"8px"}} variant="subtitle1">
-                            {common("build.groups.group_each", { groupId: "notset" })}
+                            {common("build.groups.group_each", { group_id: "notset" })}
                           </Typography>
                           {visibleNotSet? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
                       </Box>
@@ -98,7 +98,7 @@ const Raid: FC<RaidProps> = ({
                     <Box sx={{marginLeft: "5px"}}>
                       <Box key={UUID()} sx={{cursor:"pointer",border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
                           <Typography style={{caretColor: "transparent", marginLeft:"8px"}} variant="subtitle1">
-                            {common("build.groups.group_each", { groupId: "absent" })}
+                            {common("build.groups.group_each", { group_id: "absent" })}
                           </Typography>
                           {visibleAbsent? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
                       </Box>
@@ -139,8 +139,8 @@ const Raid: FC<RaidProps> = ({
                   <RaidChecklist build={raidBuild} version={version} />
               </Box>) : <></>}
               <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                <ModalPostDiscord buildId={id} accountRole={accountRole}/>
-                <ModalResetBuild buildId={id} accountRole={accountRole}/>
+                <ModalPostDiscord build_id={id} accountRole={accountRole}/>
+                <ModalResetBuild build_id={id} accountRole={accountRole}/>
               </Box>
 
             </CardContent>

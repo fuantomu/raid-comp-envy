@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { InviteStatus, WarcraftClassColour, WarcraftPlayerClass } from "../../consts";
 import useTheme, { Spacing } from "../../utils/useTheme";
 
-export default (className: WarcraftPlayerClass) => {
+export default (class_name: WarcraftPlayerClass) => {
   const theme = useTheme();
   const { palette, spacing } = theme;
 
@@ -32,7 +32,7 @@ export default (className: WarcraftPlayerClass) => {
     `,
     name: css`
       font-weight: ${theme.typography.fontWeightMedium}!important;
-      color: ${WarcraftClassColour[className]};
+      color: ${WarcraftClassColour[class_name]};
       text-shadow: 1px 1px black;
       text-overflow: ellipsis;
       white-space: nowrap;

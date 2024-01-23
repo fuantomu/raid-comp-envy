@@ -19,20 +19,20 @@ import { sortFunctions } from "../../utils/sorting";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
-  groupId: GroupId;
+  group_id: GroupId;
   spread?: boolean;
   editing?: boolean;
-  buildId: number;
+  build_id: number;
   accountRole: number;
 }
 
 
 const RosterGroup: FC<RosterGroupProps> = ({
-  groupId,
+  group_id,
   players = [],
   spread = false,
   editing,
-  buildId,
+  build_id,
   accountRole
 }) => {
   const styles = useStyles(spread);
@@ -46,12 +46,12 @@ const RosterGroup: FC<RosterGroupProps> = ({
           {
             id: player.id,
             name: player.name,
-            className: player.className,
+            class_name: player.class_name,
             spec: player.spec,
             race: player.race,
             raid: player.raid,
             status: player.status,
-            group: "roster" as GroupId,
+            group_id: "roster" as GroupId,
             oldName: player.oldName,
             main: player.main,
             alt: player.alt
@@ -71,7 +71,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
       <CardContent sx={{backgroundImage: `url(${envy})`, backgroundRepeat : 'no-repeat', backgroundPosition: "bottom right", backgroundSize:"20%"}}>
         <Box key={UUID()} display={"grid"} gridTemplateColumns={"2.5fr 1.2fr 1.8fr 3fr"}>
         <Typography style={{caretColor: "transparent", userSelect:"none"}} fontSize={"26px"} variant="subtitle1">
-          {common("build.groups.group_each", { groupId: groupId.toString() })}
+          {common("build.groups.group_each", { group_id: group_id.toString() })}
         </Typography>
         <ModalAdd accountRole={accountRole}/>
         <Button css={{height:"80%"}} sx={{color:"white", border:"1px solid #424242"}} onClick={()=> { context?.setRosterExpanded(!context?.getRosterExpanded()) }}>

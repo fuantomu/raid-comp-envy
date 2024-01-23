@@ -113,7 +113,7 @@ export enum WarcraftRaidBuffWotlk {
 }
 
 export const WarcraftClassRaidBuffsWotlk: {
-  [className in WarcraftPlayerClass]: WarcraftRaidBuff[];
+  [class_name in WarcraftPlayerClass]: WarcraftRaidBuff[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [WarcraftRaidBuff.StrengthAgility],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidBuff.MarkOfTheWild],
@@ -128,7 +128,7 @@ export const WarcraftClassRaidBuffsWotlk: {
 };
 
 export const WarcraftClassRaidBuffs: {
-  [className in WarcraftPlayerClass]: WarcraftRaidBuff[];
+  [class_name in WarcraftPlayerClass]: WarcraftRaidBuff[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [WarcraftRaidBuff.StrengthAgility],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidBuff.AllStats],
@@ -262,7 +262,7 @@ export enum WarcraftRaidDebuffCataclysm {
 }
 
 export const WarcraftClassRaidDebuffsWotlk: {
-  [className in WarcraftPlayerClass]: WarcraftRaidDebuff[];
+  [class_name in WarcraftPlayerClass]: WarcraftRaidDebuff[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [WarcraftRaidDebuff.MeleeHaste],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidDebuff.ArmorDown5],
@@ -277,7 +277,7 @@ export const WarcraftClassRaidDebuffsWotlk: {
 };
 
 export const WarcraftClassRaidDebuffs: {
-  [className in WarcraftPlayerClass]: WarcraftRaidDebuff[];
+  [class_name in WarcraftPlayerClass]: WarcraftRaidDebuff[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [WarcraftRaidDebuff.MeleeHaste,WarcraftRaidDebuff.CastSpeed],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidDebuff.ArmorDown],
@@ -407,7 +407,7 @@ export enum WarcraftRaidUtilityCataclysm {
 }
 
 export const WarcraftClassUtilities: {
-  [className in WarcraftPlayerClass]: WarcraftRaidUtility[];
+  [class_name in WarcraftPlayerClass]: WarcraftRaidUtility[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [],
   [WarcraftPlayerClass.Druid]: [
@@ -427,7 +427,7 @@ export const WarcraftClassUtilities: {
 };
 
 export const WarcraftClassUtilitiesWotlk: {
-  [className in WarcraftPlayerClass]: WarcraftRaidUtility[];
+  [class_name in WarcraftPlayerClass]: WarcraftRaidUtility[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [],
   [WarcraftPlayerClass.Druid]: [
@@ -447,7 +447,7 @@ export const WarcraftClassUtilitiesWotlk: {
 };
 
 export const WarcraftRaceUtilities: {
-  [className in WarcraftPlayerRace]: WarcraftRaidUtility[];
+  [class_name in WarcraftPlayerRace]: WarcraftRaidUtility[];
 } = {
   [WarcraftPlayerRace.Human]: [],
   [WarcraftPlayerRace.Dwarf]: [],
@@ -464,7 +464,7 @@ export const WarcraftRaceUtilities: {
 };
 
 export const WarcraftRaceUtilitiesWotlk: {
-  [className in WarcraftPlayerRace]: WarcraftRaidUtility[];
+  [class_name in WarcraftPlayerRace]: WarcraftRaidUtility[];
 } = {
   [WarcraftPlayerRace.Human]: [],
   [WarcraftPlayerRace.Dwarf]: [],
@@ -583,7 +583,7 @@ export const WarcraftSpecUtilities: {
 };
 
 export const WarcraftPlayerClassSpecs: {
-  [className in WarcraftPlayerClass]: WarcraftPlayerSpec[];
+  [class_name in WarcraftPlayerClass]: WarcraftPlayerSpec[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [
     WarcraftPlayerSpec.DeathknightBlood,

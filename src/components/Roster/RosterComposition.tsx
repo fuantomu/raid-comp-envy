@@ -20,16 +20,16 @@ const RosterComposition: FC<RosterCompositionProps> = ({ players, editing, accou
     <>
       <Box key={UUID()} css={styles.grouped}>
         {Object.values(groups)
-          .filter((group) => group?.groupId === "roster")
+          .filter((group) => group?.group_id === "roster")
           .map((group) => {
-            const { groupId, players } = group;
+            const { group_id, players } = group;
             return (
               <RosterGroup
                 key={UUID()}
-                groupId={groupId}
+                group_id={group_id}
                 players={players}
                 editing={editing}
-                buildId={-1}
+                build_id={-1}
                 spread
                 accountRole={accountRole}
               />
