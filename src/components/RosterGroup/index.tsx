@@ -110,9 +110,25 @@ const RosterGroup: FC<RosterGroupProps> = ({
               raid={player.raid}
             />
           ))}
-        </Box>
-        <Box key={UUID()} css={styles.spread(window.innerWidth)}>
           {players.filter((player) => player.main === undefined || player.main === "").map((player) => (
+            <Player
+              key={UUID()}
+              {...player}
+              {...(editing
+                ? {
+                    onClick: () => context?.editPlayer(player),
+                  }
+                : {})}
+              accountRole={accountRole}
+              raid={player.raid}
+            />
+          ))}
+          {players.filter((player) => {
+              if(context?.getMains().find((main) => main.name === player.main)){
+                return false
+              }
+              return true
+            }).map((player) => (
             <Player
               key={UUID()}
               {...player}

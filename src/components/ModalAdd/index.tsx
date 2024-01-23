@@ -117,7 +117,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       group: groupId as GroupId,
       oldName,
       main: main === "DEFAULT"? playerName :main,
-      alt: alt
+      alt: alt === "DEFAULT"? undefined: alt
     }
 
     if(remove){
@@ -138,6 +138,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     }
     setAlt("DEFAULT");
     setMain("DEFAULT");
+    setChecked(false);
     setOpen(false);
   };
 
@@ -244,7 +245,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         <InputLabel>{common("build.add.main")}</InputLabel>
         <Select variant="outlined" fullWidth value={main} label={common("build.add.main")} onChange={handleSelectMain} MenuProps={{ PaperProps: { sx: { maxHeight: 500, width: 300 } } }}>
             <MenuItem disabled key={"DEFAULT"} value={"DEFAULT"}>Select a character...</MenuItem>
-              {[...context?.getMains().map((main) => main.name),playerName].sort((a,b) => a.localeCompare(b)).map((option) => (
+              {[...context?.getMains().map((main) => main.name),context?.getMains().map((main) => main.name).includes(playerName)? undefined : playerName].sort((a,b) => a.localeCompare(b)).map((option) => (
                 <MenuItem key={UUID()} value={option}> {option} </MenuItem>
             ))}
         </Select>

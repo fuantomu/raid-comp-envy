@@ -593,16 +593,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
         currentAbsences.map((currentAbsence) => {
           if(currentAbsence.endDate >= build.date){
             if(currentAbsence.player.id === rosterPlayer.id){
-
               rosterPlayer.status = InviteStatus.Tentative
-              currentRoster.map((otherRosterPlayer) => {
-                if(isAlt(otherRosterPlayer, rosterPlayer)){
-                  if(rosterPlayer.id === otherRosterPlayer.id){
-                    otherRosterPlayer.status = InviteStatus.Tentative
-                  }
-                }
-                return false
-              })
             }
           }
           return false
@@ -626,6 +617,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
           return false
         })
       }
+
+      currentRoster.map((otherRosterPlayer) => {
+        if(isAlt(rosterPlayer, otherRosterPlayer) && otherRosterPlayer.status === InviteStatus.Tentative){
+          rosterPlayer.status = InviteStatus.Tentative
+        }
+        return false
+      })
       return false
     })
     setRoster([...currentRoster.sort(sortFunctions[sorting])])
