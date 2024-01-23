@@ -20,12 +20,14 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import ModalAlert from "../../components/ModalAlert";
 import { sortFunctions } from "../../utils/sorting";
 import StickyBox from "react-sticky-box";
+import { Logout } from "@mui/icons-material";
 
 export interface EditBuildPageProps {
   accountRole: number;
+  logout: () => void;
 }
 
-const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
+const EditBuildPage: FC<EditBuildPageProps> = ({accountRole, logout}) => {
 
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
@@ -710,12 +712,16 @@ const EditBuildPage: FC<EditBuildPageProps> = ({accountRole}) => {
     <AppContextProvider value={{ importPlayer, removePlayerFromRaid, resetBuild, getBuild, editPlayer, updateRoster, removeFromRoster, handleSorting, getCurrentSorting, handleSelect, getBuilds, addBuild, deleteBuild, setRosterExpanded, getRosterExpanded, getPlayerAbsence, setBuildInstance, getOtherBuilds, getAbsentPlayers, getUnsetMains, handleShowError, removePlayerFromRaids, getAlts, getMains }}>
       <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole}/>
       <ModalAlert handleOpen={handleShowError}/>
-
-
-
       <div style={{ display: 'flex', alignItems: 'flex-start'}}>
         <StickyBox style={{width: "40%", borderBottom: `1px solid black`, borderRight: `1px solid black`}}>
               <Roster manager={manager} players={roster} editing accountRole={accountRole}/>
+              <Box display={"grid"} sx={{background:"#1d1d1d"}} justifySelf={"center"}>
+                <Button onClick={logout}>
+                  <Tooltip title={common(`logout`)}>
+                    <Logout/>
+                  </Tooltip>
+                </Button>
+              </Box>
         </StickyBox>
         <div style={{ width:'100%'}} >
           <Raid manager={manager} id={0} raidBuild={builds.find((build) => build.buildId === 0)?? builds[0]} builds={buildSelection} version={version} editing accountRole={accountRole} ></Raid>

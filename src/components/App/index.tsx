@@ -24,7 +24,11 @@ const App: FC = () => {
   const [newAccount, setNewAccount] = useState(false)
   const handleError = useErrorHandler();
 
-
+  const logout = () => {
+    setToken(undefined)
+    localStorage.removeItem("token")
+    setLoggedIn(false);
+  }
 
   useEffect(() => {
     if(!loggedIn && issueTime === 0){
@@ -42,8 +46,7 @@ const App: FC = () => {
             return
           }
         }
-        setToken(undefined)
-        localStorage.removeItem("token")
+        logout()
       }).catch(handleError);
     }
     const interval = setInterval(() => {
@@ -51,9 +54,7 @@ const App: FC = () => {
         const newTime = (new Date().getTime() - issueTime)/1000
 
         if(newTime >= parseFloat(accountRoleTimeouts[accountRole])){
-          setToken(undefined)
-          setLoggedIn(false)
-          localStorage.removeItem("token")
+          logout()
           RosterProvider.deleteLogin(host)
         }
       }
@@ -75,7 +76,7 @@ const App: FC = () => {
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>
-              <Route path="*" element={<EditBuildPage accountRole={accountRole} />} />
+              <Route path="*" element={<EditBuildPage accountRole={accountRole} logout={logout} />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>
