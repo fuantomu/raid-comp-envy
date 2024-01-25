@@ -25,9 +25,19 @@ const RaidComposition: FC<RaidCompositionProps> = ({
   return (
     <DndProvider manager={manager}>
       {grouped ? (
-        <GroupsComposition raid={raid} players={players} editing={editing} accountRole={accountRole} />
+        <GroupsComposition
+          raid={raid}
+          players={players}
+          editing={editing}
+          accountRole={accountRole}
+        />
       ) : (
-        <RolesComposition raid={raid} players={players} editing={editing} accountRole={accountRole} />
+        <RolesComposition
+          raid={raid}
+          players={players}
+          editing={editing}
+          accountRole={accountRole}
+        />
       )}
     </DndProvider>
   );

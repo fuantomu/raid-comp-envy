@@ -32,6 +32,6 @@ export default () => {
       & > *:first-of-type {
         margin-left: auto;
       }
-    `,
+    `
   };
 };

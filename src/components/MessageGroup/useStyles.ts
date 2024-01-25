@@ -19,6 +19,9 @@ export default () => {
     `,
     extremeInput: css`
       grid-template-columns: 1fr 1fr 1fr 1fr;
+    `,
+    scroll: css`
+      overflow-y: scroll;
     `
   };
 };

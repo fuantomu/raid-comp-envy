@@ -1,17 +1,22 @@
 import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import { RoleProvider } from "../RoleProvider";
-import { WarcraftRaidBuff, WarcraftRaidDebuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
 import {
-    CustomIcon,
-    IconUnknown,
-    WarcraftBuffIcon,
-    WarcraftClassIcon,
-    WarcraftDebuffIcon,
-    WarcraftIconSize,
-    WarcraftRaceIcon,
-    WarcraftRoleIcon,
-    WarcraftSpecIcon,
-    WarcraftUtilityIcon
+  WarcraftRaidBuff,
+  WarcraftRaidDebuff,
+  WarcraftRaidUtility,
+  WarcraftRole
+} from "../RoleProvider/consts";
+import {
+  CustomIcon,
+  IconUnknown,
+  WarcraftBuffIcon,
+  WarcraftClassIcon,
+  WarcraftDebuffIcon,
+  WarcraftIconSize,
+  WarcraftRaceIcon,
+  WarcraftRoleIcon,
+  WarcraftSpecIcon,
+  WarcraftUtilityIcon
 } from "./consts";
 
 export abstract class IconProvider {

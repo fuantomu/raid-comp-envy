@@ -18,11 +18,7 @@ export interface BasicGroupProps {
   accountRole: number;
 }
 
-const BasicGroup: FC<BasicGroupProps> = ({
-  players = [],
-  raid,
-  accountRole
-}) => {
+const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid, accountRole }) => {
   const styles = useStyles();
   const context = useAppContext();
   const [, drop] = useDrop(
@@ -42,9 +38,11 @@ const BasicGroup: FC<BasicGroupProps> = ({
             oldName: player.oldName,
             main: player.main,
             alt: player.alt
-          }
+          },
+          false,
+          player.raid
         );
-      },
+      }
     }),
     []
   );
@@ -52,21 +50,38 @@ const BasicGroup: FC<BasicGroupProps> = ({
   return (
     <Card ref={drop}>
       <CardContent>
-        <Box css={[styles.default,players.length > 24? styles.extremeInput : players.length > 16? styles.largeInput : players.length > 8? styles.mediumInput : styles.input]}>
-          {players.length > 0? players.map((player) => (
-            <Player
-              key={UUID()}
-              {...player}
-              {...({
-                    onClick: () => context?.editPlayer(player),
-                  })}
-              accountRole={accountRole}
-              raid={raid}
-            />
-          )) :
-          <Typography style={{caretColor: "transparent", color: "dimgray", userSelect:"none"}} variant="subtitle2">
-            Empty
-          </Typography>}
+        <Box
+          css={[
+            styles.default,
+            players.length > 24
+              ? styles.extremeInput
+              : players.length > 16
+                ? styles.largeInput
+                : players.length > 8
+                  ? styles.mediumInput
+                  : styles.input
+          ]}
+        >
+          {players.length > 0 ? (
+            players.map((player) => (
+              <Player
+                key={UUID()}
+                {...player}
+                {...{
+                  onClick: () => context?.editPlayer(player)
+                }}
+                accountRole={accountRole}
+                raid={raid}
+              />
+            ))
+          ) : (
+            <Typography
+              style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}
+              variant="subtitle2"
+            >
+              Empty
+            </Typography>
+          )}
         </Box>
       </CardContent>
     </Card>

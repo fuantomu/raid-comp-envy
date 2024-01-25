@@ -36,18 +36,18 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid,
               />
             );
           })}
-        </Box>
-        <Box key={UUID()} css={styles.ungrouped}>
-          <CompositionGroup
-            key={UUID()}
-            group_id={"bench"}
-            players={groups["bench"]?.players ?? []}
-            raid={raid}
-            spread
-            editing={editing}
-            accountRole={accountRole}
-          />
-        </Box>
+      </Box>
+      <Box key={UUID()} css={styles.ungrouped}>
+        <CompositionGroup
+          key={UUID()}
+          group_id={"bench"}
+          players={groups["bench"]?.players ?? []}
+          raid={raid}
+          spread
+          editing={editing}
+          accountRole={accountRole}
+        />
+      </Box>
     </>
   );
 };

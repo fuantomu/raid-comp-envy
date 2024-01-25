@@ -12,6 +12,6 @@ export default () => {
       height: ${iconSize}!important;
       position: relative;
       overflow: hidden;
-    `,
+    `
   };
 };

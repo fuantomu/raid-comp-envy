@@ -9,7 +9,7 @@ import { useAppContext } from "../App/context";
 
 export enum ModalAlertResponse {
   OK,
-  Cancel,
+  Cancel
 }
 
 export interface ModalAlertProps {
@@ -25,7 +25,7 @@ const ModalAlert: FC<ModalAlertProps> = ({
   content,
   title,
   handleConfirm,
-  cancelButton,
+  cancelButton
 }) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
@@ -40,19 +40,18 @@ const ModalAlert: FC<ModalAlertProps> = ({
   };
 
   handleOpen((props?: any) => {
-    if(props){
-      if(props.params){
-        for(const param in props.params){
-          if(param === "continue"){
-            setContinuePlayer(props.params[param])
-          }
-          else{
-            props.content = props.content.replace(`$${param.toUpperCase()}`, props.params[param])
+    if (props) {
+      if (props.params) {
+        for (const param in props.params) {
+          if (param === "continue") {
+            setContinuePlayer(props.params[param]);
+          } else {
+            props.content = props.content.replace(`$${param.toUpperCase()}`, props.params[param]);
           }
         }
       }
-      setContent(props.content)
-      setTitle(props.title)
+      setContent(props.content);
+      setTitle(props.title);
     }
     setOpen(true);
   });
@@ -68,8 +67,8 @@ const ModalAlert: FC<ModalAlertProps> = ({
 
   const handleContinue = (response: ModalAlertResponse) => {
     return async () => {
-      if(continuePlayer){
-        context.importPlayer(continuePlayer, true)
+      if (continuePlayer) {
+        context.importPlayer(continuePlayer, true);
       }
       setOpen(false);
     };
@@ -81,13 +80,17 @@ const ModalAlert: FC<ModalAlertProps> = ({
         {boxTitle ? <h2>{boxTitle}</h2> : null}
         <Box css={styles.content}>{boxContent}</Box>
         <Box css={styles.buttons}>
-          {continuePlayer? <Button
-            color="warning"
-            variant="contained"
-            onClick={handleContinue(ModalAlertResponse.OK)}
-          >
-            {common("buttons.continue")}
-          </Button> : <></>}
+          {continuePlayer ? (
+            <Button
+              color="warning"
+              variant="contained"
+              onClick={handleContinue(ModalAlertResponse.OK)}
+            >
+              {common("buttons.continue")}
+            </Button>
+          ) : (
+            <></>
+          )}
 
           <Button
             color="primary"

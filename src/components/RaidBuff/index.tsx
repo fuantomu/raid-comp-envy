@@ -17,8 +17,12 @@ export interface RaidBuffProps {
 const buildBuffSpeclist = (buff: WarcraftRaidBuff, version: string) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
-    if ((RoleProvider.getSpecBuffs(spec as WarcraftPlayerSpec, version).includes(buff as WarcraftRaidBuff))){
-      specs.push(spec as WarcraftPlayerSpec)
+    if (
+      RoleProvider.getSpecBuffs(spec as WarcraftPlayerSpec, version).includes(
+        buff as WarcraftRaidBuff
+      )
+    ) {
+      specs.push(spec as WarcraftPlayerSpec);
     }
   }
   return specs;

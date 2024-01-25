@@ -14,11 +14,15 @@ export interface RaidDebuffProps {
   version: string;
 }
 
-const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff, version:string) => {
+const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff, version: string) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
-    if ((RoleProvider.getSpecDebuffs(spec as WarcraftPlayerSpec, version).includes(debuff as WarcraftRaidDebuff))){
-      specs.push(spec as WarcraftPlayerSpec)
+    if (
+      RoleProvider.getSpecDebuffs(spec as WarcraftPlayerSpec, version).includes(
+        debuff as WarcraftRaidDebuff
+      )
+    ) {
+      specs.push(spec as WarcraftPlayerSpec);
     }
   }
   return specs;

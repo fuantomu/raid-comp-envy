@@ -24,7 +24,7 @@ const ErrorPage: FC<ErrorPageProps> = ({ error }) => {
     navigate(-1);
   };
   const handleReload = () => {
-    localStorage.removeItem("LastBuild")
+    localStorage.removeItem("LastBuild");
     errorBoundary?.reset();
   };
 

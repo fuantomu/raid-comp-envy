@@ -20,13 +20,18 @@ export interface RaidUtilityChecklistProps {
 const buildUtilityChecklist = (build: Build, version: string) => {
   const raidBuffs = [];
   for (const utility in RoleProvider.getVersionRaidUtility(version)) {
-    if(build.players.length > 0){
+    if (build.players.length > 0) {
       const playersWithUtility = build.players.filter(
         ({ spec, class_name, race: raceName, group_id }) =>
-          group_id !== 'roster' && group_id !== 'bench' &&
+          group_id !== "roster" &&
+          group_id !== "bench" &&
           (RoleProvider.getSpecUtilities(spec, version).includes(utility as WarcraftRaidUtility) ||
-          RoleProvider.getClassUtilities(class_name, version).includes(utility as WarcraftRaidUtility) ||
-          RoleProvider.getRaceUtilities(raceName, version).includes(utility as WarcraftRaidUtility))
+            RoleProvider.getClassUtilities(class_name, version).includes(
+              utility as WarcraftRaidUtility
+            ) ||
+            RoleProvider.getRaceUtilities(raceName, version).includes(
+              utility as WarcraftRaidUtility
+            ))
       );
       raidBuffs.push(
         <RaidUtility
@@ -48,7 +53,9 @@ const RaidUtilityChecklist: FC<RaidUtilityChecklistProps> = ({ build, version })
     <Card>
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
-        <Typography style={{caretColor: "transparent"}} variant="subtitle1">{common("build.checklist.utilities")}</Typography>
+        <Typography style={{ caretColor: "transparent" }} variant="subtitle1">
+          {common("build.checklist.utilities")}
+        </Typography>
         {buildUtilityChecklist(build, version)}
       </CardContent>
     </Card>

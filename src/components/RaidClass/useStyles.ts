@@ -9,6 +9,6 @@ export default (class_name: WarcraftPlayerClass) => {
     name: css`
       font-weight: ${typography.fontWeightMedium}!important;
       color: ${WarcraftClassColour[class_name]};
-    `,
+    `
   };
 };

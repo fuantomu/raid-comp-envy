@@ -1,5 +1,26 @@
-import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
-import { AbsenceResponse, Build, BuildGroups, BuildPlayer, BuildPlayerResponse, BuildRoles, GroupId, Update } from "../../types";
+import {
+  InviteStatus,
+  MessageType,
+  WarcraftPlayerClass,
+  WarcraftPlayerRace,
+  WarcraftPlayerSpec
+} from "../../consts";
+import {
+  AbsenceResponse,
+  Build,
+  BuildData,
+  BuildGroups,
+  BuildPlayer,
+  BuildPlayerResponse,
+  BuildRoles,
+  Difference,
+  GroupId,
+  Message,
+  PlayerData,
+  SelectOption,
+  Update,
+  WebSocketMessage
+} from "../../types";
 import { RosterProvider } from "../../utils/RosterProvider";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
@@ -12,16 +33,16 @@ export abstract class BuildHelper {
       ...emptyGroups,
       none: {
         group_id: "bench",
-        players: [],
-      },
+        players: []
+      }
     };
-    for (const player of players?? []) {
-      let group_id: GroupId = player.group_id?? "bench";
+    for (const player of players ?? []) {
+      let group_id: GroupId = player.group_id ?? "bench";
       const group = groups[group_id];
       if (!group) {
         groups[group_id] = {
           group_id,
-          players: [player],
+          players: [player]
         };
       } else {
         group.players.push(player);
@@ -33,7 +54,7 @@ export abstract class BuildHelper {
   private static getEmptyGroups() {
     const groups: any = {};
     for (let group_id = 1; group_id <= 5; group_id++) {
-      groups[group_id] = { group_id , players: [] };
+      groups[group_id] = { group_id, players: [] };
     }
     return groups;
   }
@@ -44,7 +65,7 @@ export abstract class BuildHelper {
       [WarcraftRole.Tank]: [],
       [WarcraftRole.Healer]: [],
       [WarcraftRole.RangedDPS]: [],
-      [WarcraftRole.MeleeDPS]: [],
+      [WarcraftRole.MeleeDPS]: []
     };
 
     for (const player of players) {
@@ -57,24 +78,27 @@ export abstract class BuildHelper {
   public static async parseGetPlayers() {
     const players: BuildPlayer[] = [];
 
-    await RosterProvider.getPlayers().then((roster) =>{
-      if(roster){
+    await RosterProvider.getPlayers().then((roster) => {
+      if (roster) {
         for (const player of roster) {
-          const spec = player.spec.split("_")
-          if(player){
+          const spec = player.spec.split("_");
+          if (player) {
             players.push({
               id: player.id,
               name: player.name,
-              class_name: BuildHelper.capitalize(player.class_name.toString()) as WarcraftPlayerClass,
-              spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
+              class_name: BuildHelper.capitalize(
+                player.class_name.toString()
+              ) as WarcraftPlayerClass,
+              spec: (BuildHelper.capitalize(spec[0]) +
+                BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
               race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
               status: InviteStatus.Unknown,
               raid: -1,
               group_id: "roster",
               oldName: player.name,
-              main: player.main?? "",
+              main: player.main ?? "",
               alt: player.alt
-          })
+            });
           }
         }
       }
@@ -84,51 +108,50 @@ export abstract class BuildHelper {
 
   public static async parseSaveBuild(build: Build) {
     const buildRequest = {
-      id: build.id?? UUID(),
+      id: build.id ?? UUID(),
       name: build.name,
       date: build.date,
-      players: JSON.stringify(build.players.filter((player) => {
-        return player.group_id !== 'roster'
-      })),
+      players: JSON.stringify(
+        build.players.filter((player) => {
+          return player.group_id !== "roster";
+        })
+      ),
       instance: build.instance,
       raid_id: build.raid_id.toString()
-    }
+    };
 
-    await RosterProvider.saveBuild(build.id, buildRequest).then((response) => {
-    })
+    await RosterProvider.saveBuild(build.id, buildRequest).then((response) => {});
   }
 
   public static async parseSaveRoster(players: BuildPlayer[]) {
     const buildPlayerRequest: BuildPlayerResponse = {
       players: players
-    }
-    await RosterProvider.saveRoster(buildPlayerRequest).then((response) => {
-    })
+    };
+    await RosterProvider.saveRoster(buildPlayerRequest).then((response) => {});
   }
 
   public static async parseDeleteRosterPlayer(player: BuildPlayer) {
-    await RosterProvider.deleteRosterPlayer(player.id).then((response) => {
-    })
+    await RosterProvider.deleteRosterPlayer(player.id).then((response) => {});
   }
 
   public static async parseGetBuild(build_id: string) {
-    const build : Build = {
-      "id": "",
-      "name": "",
-      "date": new Date().setHours(0,0,0,0),
-      "players": [],
-      "instance": "",
-      "build_id": -1,
-      "raid_id": 0
+    const build: Build = {
+      id: "",
+      name: "",
+      date: new Date().setHours(0, 0, 0, 0),
+      players: [],
+      instance: "",
+      build_id: -1,
+      raid_id: 0
     };
 
-    await RosterProvider.getBuild(build_id).then((responseBuild) =>{
-      if (responseBuild){
+    await RosterProvider.getBuild(build_id).then((responseBuild) => {
+      if (responseBuild) {
         build.id = responseBuild.id;
         build.name = responseBuild.name;
         build.date = responseBuild.date;
-        if(responseBuild.players){
-          for (const player of JSON.parse(responseBuild.players)){
+        if (responseBuild.players) {
+          for (const player of JSON.parse(responseBuild.players)) {
             build.players.push({
               id: player.id,
               name: player.name,
@@ -139,31 +162,28 @@ export abstract class BuildHelper {
               status: player.status as InviteStatus,
               group_id: player.group_id as GroupId,
               oldName: player.oldName,
-              main: player.main?? "",
+              main: player.main ?? "",
               alt: player.alt
-            })
+            });
           }
         }
         build.instance = responseBuild.instance;
         build.raid_id = parseInt(responseBuild.raid_id);
       }
-
     });
     return build;
   }
 
-  public static async parseDeleteBuild(build_id: string) {
-
-    await RosterProvider.deleteBuild(build_id).then((response) => {
-    })
+  public static async parseDeleteBuild(id: string) {
+    await RosterProvider.deleteBuild(id).then((response) => {});
   }
 
   public static async parseGetBuilds() {
-    const builds: Build[] = []
+    const builds: Build[] = [];
 
     await RosterProvider.getBuilds().then((response) => {
-      if(response){
-        for (const build of response){
+      if (response) {
+        for (const build of response) {
           const newBuild = {
             id: build.id,
             name: build.name,
@@ -172,107 +192,141 @@ export abstract class BuildHelper {
             instance: build.instance,
             raid_id: parseInt(build.raid_id),
             build_id: -1
-          }
-          builds.push(newBuild)
+          };
+          builds.push(newBuild);
         }
       }
-    })
+    });
     return builds;
   }
 
-  public static async parsePostSetup(build : Build, sheetUrl: string, sendMains?: BuildPlayer[], note?: string) {
+  public static async parsePostSetup(
+    build: Build,
+    sheetUrl: string,
+    sendMains?: BuildPlayer[],
+    note?: string
+  ) {
     //@Crenox
     const data = {
-      "content": "<@&840957996304826378> Raidsheet Aktualisierung " + new Date().toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}),
-      "embeds": [{
-        "description": note,
-        "title": `${build.name} - ${new Date(build.date).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}`,
-        "color": null,
-        "url": sheetUrl,
-        "fields": [
-          {
-              "name": "Group 1",
-              "value": build.players.filter(o => o.group_id === 1).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
-              "inline": true
-          },
-          {
-              "name": "Group 2",
-              "value": build.players.filter(o => o.group_id === 2).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
-              "inline": true
-          },
-          {
-              "name": "Group 3",
-              "value": build.players.filter(o => o.group_id === 3).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
-              "inline": true
-          },
-          {
-              "name": "Group 4",
-              "value": build.players.filter(o => o.group_id === 4).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
-              "inline": true
-          },
-          {
-              "name": "Group 5",
-              "value": build.players.filter(o => o.group_id === 5).map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
-              "inline": true
-          },
-          {
-              "name": "Bench",
-              "value": [...build.players.filter(o => o.group_id === "bench"),...sendMains?? []].map(p => BuildHelper.getClassEmoji(p.class_name) + " " + p.name).join("\r\n"),
-              "inline": true
-          }
-        ]
-      }]
-    }
-    await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
-    })
+      content:
+        "<@&840957996304826378> Raidsheet Aktualisierung " +
+        new Date().toLocaleString("de-DE", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }),
+      embeds: [
+        {
+          description: note,
+          title: `${build.name} - ${new Date(build.date).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}`,
+          color: null,
+          url: sheetUrl,
+          fields: [
+            {
+              name: "Group 1",
+              value: build.players
+                .filter((o) => o.group_id === 1)
+                .map((p) => BuildHelper.getClassEmoji(p.class_name) + " " + p.name)
+                .join("\r\n"),
+              inline: true
+            },
+            {
+              name: "Group 2",
+              value: build.players
+                .filter((o) => o.group_id === 2)
+                .map((p) => BuildHelper.getClassEmoji(p.class_name) + " " + p.name)
+                .join("\r\n"),
+              inline: true
+            },
+            {
+              name: "Group 3",
+              value: build.players
+                .filter((o) => o.group_id === 3)
+                .map((p) => BuildHelper.getClassEmoji(p.class_name) + " " + p.name)
+                .join("\r\n"),
+              inline: true
+            },
+            {
+              name: "Group 4",
+              value: build.players
+                .filter((o) => o.group_id === 4)
+                .map((p) => BuildHelper.getClassEmoji(p.class_name) + " " + p.name)
+                .join("\r\n"),
+              inline: true
+            },
+            {
+              name: "Group 5",
+              value: build.players
+                .filter((o) => o.group_id === 5)
+                .map((p) => BuildHelper.getClassEmoji(p.class_name) + " " + p.name)
+                .join("\r\n"),
+              inline: true
+            },
+            {
+              name: "Bench",
+              value: [...build.players.filter((o) => o.group_id === "bench"), ...(sendMains ?? [])]
+                .map((p) => BuildHelper.getClassEmoji(p.class_name) + " " + p.name)
+                .join("\r\n"),
+              inline: true
+            }
+          ]
+        }
+      ]
+    };
+    await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {});
   }
 
   public static async parseGetAbsences() {
-    const absences : AbsenceResponse[] = []
+    const absences: AbsenceResponse[] = [];
 
     await RosterProvider.getAbsences().then((response) => {
-      if(response){
-        for (const absence of response){
-          absences.push(absence)
+      if (response) {
+        for (const absence of response) {
+          absences.push(absence);
         }
       }
-    })
+    });
     return absences;
   }
 
   public static async parseGetUpdate() {
-    const updates : Update = { builds : [], players : [], absences: []}
+    const updates: Update = { builds: [], players: [], absences: [] };
 
     await RosterProvider.getUpdate().then((response) => {
-      if(response){
-        for (const absence of response.absences?? []){
+      if (response) {
+        for (const absence of response.absences ?? []) {
           updates.absences.push({
             id: absence.id,
-            player: {id: absence.player_id} as BuildPlayer,
+            player: { id: absence.player_id } as BuildPlayer,
             start_date: absence.start_date,
             end_date: absence.end_date,
             reason: absence.reason
-          })
+          });
         }
-        for (const player of response.players?? []){
-            const spec = player.spec.split("_")
-            if(player){
-              updates.players.push({
-                id: player.id,
-                name: player.name,
-                class_name: BuildHelper.capitalize(player.class_name.toString()) as WarcraftPlayerClass,
-                spec: BuildHelper.capitalize(spec[0])+BuildHelper.capitalize(spec[1]) as WarcraftPlayerSpec,
-                race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
-                status: InviteStatus[BuildHelper.capitalize(player.status)],
-                raid: -1,
-                group_id: "roster",
-                oldName: player.name,
-                main: player.main?? "",
-                alt: player.alt
-            })
+        for (const player of response.players ?? []) {
+          const spec = player.spec.split("_");
+          if (player) {
+            updates.players.push({
+              id: player.id,
+              name: player.name,
+              class_name: BuildHelper.capitalize(
+                player.class_name.toString()
+              ) as WarcraftPlayerClass,
+              spec: (BuildHelper.capitalize(spec[0]) +
+                BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
+              race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
+              status: InviteStatus[BuildHelper.capitalize(player.status)],
+              raid: -1,
+              group_id: "roster",
+              oldName: player.name,
+              main: player.main ?? "",
+              alt: player.alt
+            });
           }
         }
-        for (const build of response.builds?? []){
+        for (const build of response.builds ?? []) {
           const newBuild = {
             id: build.id,
             name: build.name,
@@ -281,9 +335,9 @@ export abstract class BuildHelper {
             instance: build.instance,
             raid_id: parseInt(build.raid_id),
             build_id: -1
-          }
-          if(build.players){
-            for (const player of JSON.parse(build.players)){
+          };
+          if (build.players) {
+            for (const player of JSON.parse(build.players)) {
               newBuild.players.push({
                 id: player.id,
                 name: player.name,
@@ -294,44 +348,108 @@ export abstract class BuildHelper {
                 status: InviteStatus.Unknown,
                 group_id: player.group_id as GroupId,
                 oldName: player.oldName,
-                main: player.main?? "",
+                main: player.main ?? "",
                 alt: player.alt
-              })
+              });
             }
           }
-          updates.builds.push(newBuild)
+          updates.builds.push(newBuild);
         }
       }
-    })
+    });
     return updates;
   }
 
-  private static capitalize(str: string){
+  public static async parseGetMessages(
+    amount: number,
+    builds: SelectOption[],
+    roster: BuildPlayer[]
+  ): Promise<Message[]> {
+    const messages: Message[] = [];
+    await RosterProvider.getMessages(amount).then((response) => {
+      if (response) {
+        console.log(response);
+
+        response.map((message) => {
+          messages.push(this.parseMessage(message, builds));
+          return false;
+        });
+      }
+    });
+    return messages;
+  }
+
+  private static capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
-  private static getClassEmoji(class_name: WarcraftPlayerClass){
-    switch(class_name){
+  private static getClassEmoji(class_name: WarcraftPlayerClass) {
+    switch (class_name) {
       case WarcraftPlayerClass.Warrior:
-        return "<:wowwarrior:1067068357964210206>"
+        return "<:wowwarrior:1067068357964210206>";
       case WarcraftPlayerClass.Deathknight:
-        return "<:wowdeathknight:1067068240326578206>"
+        return "<:wowdeathknight:1067068240326578206>";
       case WarcraftPlayerClass.Shaman:
-        return "<:wowshaman:1067068361961394277>"
+        return "<:wowshaman:1067068361961394277>";
       case WarcraftPlayerClass.Mage:
-        return "<:wowmage:1067068319846387753>"
+        return "<:wowmage:1067068319846387753>";
       case WarcraftPlayerClass.Hunter:
-        return "<:wowhunter:1067068309050245120>"
+        return "<:wowhunter:1067068309050245120>";
       case WarcraftPlayerClass.Warlock:
-        return "<:wowwarlock:1067068363290968116>"
+        return "<:wowwarlock:1067068363290968116>";
       case WarcraftPlayerClass.Paladin:
-        return "<:wowpaladin:1067068329833005137>"
+        return "<:wowpaladin:1067068329833005137>";
       case WarcraftPlayerClass.Priest:
-        return "<:wowpriest:1067068342298476604>"
+        return "<:wowpriest:1067068342298476604>";
       case WarcraftPlayerClass.Druid:
-        return "<:wowdruid:1067068296551202927>"
+        return "<:wowdruid:1067068296551202927>";
       case WarcraftPlayerClass.Rogue:
-        return "<:wowrogue:1067068360396914698>"
+        return "<:wowrogue:1067068360396914698>";
     }
+  }
+
+  public static parseMessage(message: WebSocketMessage, builds: SelectOption[]) {
+    return {
+      type: MessageType[message.message_type] ?? message.message_type,
+      date: message.date,
+      from: message.account_name,
+      changes:
+        message.message_type.includes("player") || message.message_type.includes("roster")
+          ? this.getPlayerChanges(
+              typeof message.data === "string"
+                ? (JSON.parse(message.data.toString()) as PlayerData)
+                : (message.data as PlayerData),
+              builds
+            )
+          : this.getBuildChanges(message.data as BuildData)
+    } as Message;
+  }
+
+  private static getPlayerChanges(message: PlayerData, builds: SelectOption[]) {
+    const changes: Difference[] = [];
+    const differences = Object.fromEntries(
+      Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
+    );
+    const foundBuild = builds.find((build) => build?.value === message.build_id);
+    console.log(foundBuild);
+    Object.keys(differences).forEach((key) => {
+      const changeMessage = {
+        key,
+        objectType: "Build",
+        objectName: foundBuild?.label ?? message.build_id,
+        propertyName: message.player.name,
+        propertyType: "Player",
+        old: message.oldData[key],
+        new: message.player[key]
+      }; //`${key} in ${foundBuild?.label ?? message.build_id}: Player ${message.player.name} ${message.oldData[key]} -> ${message.player[key]}`;
+      changes.push(changeMessage);
+    });
+    return changes;
+  }
+
+  private static getBuildChanges(message: BuildData) {
+    const changes: string[] = [];
+
+    return changes;
   }
 }

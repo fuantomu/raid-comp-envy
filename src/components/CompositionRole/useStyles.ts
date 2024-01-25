@@ -16,7 +16,7 @@ export default (spread: boolean) => {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(300px, auto));
           column-gap: ${theme.spacing(Spacing.m)};
-        `,
-    ],
+        `
+    ]
   };
 };

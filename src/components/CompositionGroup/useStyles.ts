@@ -10,7 +10,7 @@ export default (spread: boolean) => {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
           column-gap: ${theme.spacing(Spacing.s)};
-        `,
-    ],
+        `
+    ]
   };
 };

@@ -1,12 +1,17 @@
 import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
-import { WarcraftRaidBuff, WarcraftRaidDebuff, WarcraftRaidUtility, WarcraftRole } from "../RoleProvider/consts";
+import {
+  WarcraftRaidBuff,
+  WarcraftRaidDebuff,
+  WarcraftRaidUtility,
+  WarcraftRole
+} from "../RoleProvider/consts";
 
 export type WarcraftIcon = string;
 
 export enum WarcraftIconSize {
   SMALL = 18,
   MEDIUM = 36,
-  LARGE = 56,
+  LARGE = 56
 }
 
 export const IconUnknown: WarcraftIcon = "inv_misc_questionmark";
@@ -86,7 +91,7 @@ export const WarcraftRoleIcon: {
   [WarcraftRole.Tank]: "ability_defend",
   [WarcraftRole.Healer]: "spell_holy_heal",
   [WarcraftRole.RangedDPS]: "inv_weapon_bow_02",
-  [WarcraftRole.MeleeDPS]: "ability_meleedamage",
+  [WarcraftRole.MeleeDPS]: "ability_meleedamage"
 };
 
 export const WarcraftBuffIcon: {
@@ -140,7 +145,7 @@ export const WarcraftDebuffIcon: {
   [WarcraftRaidDebuff.ArmorDown5]: "spell_nature_faeriefire",
   [WarcraftRaidDebuff.SpellHit]: "spell_shadow_misery",
   [WarcraftRaidDebuff.CritChanceReceived]: "ability_creature_poison_06",
-  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot",
+  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot"
 };
 
 export const WarcraftUtilityIcon: {
@@ -159,11 +164,11 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.FocusMagic]: "spell_arcane_studentofmagic",
   [WarcraftRaidUtility.DivineGuardian]: "spell_holy_powerwordbarrier",
   [WarcraftRaidUtility.DamageReduction10]: "spell_holy_layonhands",
-  [WarcraftRaidUtility.DamageReduction3]: "spell_holy_greaterblessingofsanctuary",
+  [WarcraftRaidUtility.DamageReduction3]: "spell_holy_greaterblessingofsanctuary"
 };
 
 export enum CustomIcon {
   GroupNeedMore = "inv_misc_groupneedmore",
   WRATH = "achievement_boss_lichking",
-  CATACLYSM = "achievment_boss_madnessofdeathwing",
+  CATACLYSM = "achievment_boss_madnessofdeathwing"
 }

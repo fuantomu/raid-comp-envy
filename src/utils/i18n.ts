@@ -17,9 +17,9 @@ export default i18n
     load: "currentOnly",
     lowerCaseLng: true,
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
     backend: {
-      loadPath: publicPath("/locales/{{lng}}/{{ns}}.json"),
-    },
+      loadPath: publicPath("/locales/{{lng}}/{{ns}}.json")
+    }
   });

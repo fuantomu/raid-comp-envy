@@ -9,7 +9,7 @@ export enum Spacing {
   m = 4,
   l = 5,
   xl = 6,
-  xxl = 7,
+  xxl = 7
 }
 
 const mainTheme: ThemeOptions = {
@@ -44,8 +44,8 @@ const mainTheme: ThemeOptions = {
     return `${size}rem`;
   },
   typography: {
-    fontSize: 14,
-  },
+    fontSize: 14
+  }
 };
 
 const lightTheme: ThemeOptions = {
@@ -53,9 +53,9 @@ const lightTheme: ThemeOptions = {
   palette: {
     text: {
       primary: "#000",
-      secondary: "#111",
-    },
-  },
+      secondary: "#111"
+    }
+  }
 };
 
 const darkTheme: ThemeOptions = {
@@ -63,23 +63,23 @@ const darkTheme: ThemeOptions = {
   palette: {
     background: {
       default: "#242424",
-      paper: "#1d1d1d",
+      paper: "#1d1d1d"
     },
     text: {
       primary: "#fff",
-      secondary: "#ddd",
+      secondary: "#ddd"
     },
     primary: {
       main: "#ad0a0a",
       light: "#d41313",
-      dark: "#910404",
+      dark: "#910404"
     },
     secondary: {
       main: "#616161",
       light: "#757575",
-      dark: "#424242",
-    },
-  },
+      dark: "#424242"
+    }
+  }
 };
 
 export default () => {

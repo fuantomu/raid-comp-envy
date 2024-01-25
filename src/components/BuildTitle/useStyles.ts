@@ -10,6 +10,6 @@ export default () => {
       padding: ${spacing(Spacing.s)};
       font-size: ${typography.h5.fontSize};
       width: 100%;
-    `,
-  }
-}
+    `
+  };
+};

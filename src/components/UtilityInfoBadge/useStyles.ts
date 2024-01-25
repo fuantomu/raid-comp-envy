@@ -11,6 +11,6 @@ export default () => {
     `,
     container: css`
       position: relative;
-    `,
+    `
   };
 };

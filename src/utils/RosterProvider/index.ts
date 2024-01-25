@@ -1,100 +1,204 @@
-import { AbsenceResponse, BuildPlayer, BuildPlayerResponse, BuildResponse, Login, UpdateResponse } from "../../types";
+import {
+  AbsenceResponse,
+  BuildPlayer,
+  BuildPlayerResponse,
+  BuildResponse,
+  Login,
+  UpdateResponse,
+  WebSocketMessage
+} from "../../types";
 
 export abstract class RosterProvider {
-  public static async getPlayers() : Promise<BuildPlayer[]>{
-    return await fetch(`${process.env.REACT_APP_API}/player/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
-      if(response.ok){
-        return response.json()
-      }
-    }).then((roster) => {
-      return roster
+  public static async getPlayers(): Promise<BuildPlayer[]> {
+    return await fetch(`${process.env.REACT_APP_API}/player/`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
     })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then((roster) => {
+        return roster;
+      });
   }
 
-  public static async saveBuild(build_id: string, build: BuildResponse) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/build/${build_id}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: JSON.stringify(build)}).then((response) => {
-      return response
+  public static async saveBuild(build_id: string, build: BuildResponse): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/build/${build_id}`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(build)
+    }).then((response) => {
+      return response;
+    });
+  }
+
+  public static async getBuild(build_id: string): Promise<BuildResponse> {
+    return await fetch(`${process.env.REACT_APP_API}/build/${build_id}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
     })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        if (response.status === 404) {
+          return { id: build_id } as BuildResponse;
+        }
+      })
+      .then((roster) => {
+        return roster;
+      });
   }
 
-  public static async getBuild(build_id: string) : Promise<BuildResponse>{
-    return await fetch(`${process.env.REACT_APP_API}/build/${build_id}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
-      if(response.ok){
-        return response.json()
-      }
-      if(response.status === 404){
-        return {"id":build_id} as BuildResponse
-      }
-    }).then((roster) => {
-      return roster
+  public static async deleteBuild(id: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/build/delete/${id}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response;
+    });
+  }
+
+  public static async saveRoster(roster: BuildPlayerResponse): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/player/`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(roster)
+    }).then((response) => {
+      return response;
+    });
+  }
+
+  public static async deleteRosterPlayer(player_id: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/player/delete/${player_id}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response;
+    });
+  }
+
+  public static async getBuilds(): Promise<BuildResponse[]> {
+    return await fetch(`${process.env.REACT_APP_API}/build/`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
     })
+      .then((response) => response.json())
+      .then((builds) => {
+        return builds;
+      });
   }
 
-  public static async deleteBuild(build_id: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/build/delete/${build_id}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
-      return response
+  public static async postSetup(build: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_DISCORD_WEBHOOK}`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: build
+    }).then((response) => {
+      return response;
+    });
+  }
+
+  public static async getAbsences(): Promise<AbsenceResponse[]> {
+    return await fetch(`${process.env.REACT_APP_API}/absence/`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
     })
+      .then((response) => response.json())
+      .then((absence) => {
+        return absence;
+      });
   }
 
-  public static async saveRoster(roster: BuildPlayerResponse) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/player/`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: JSON.stringify(roster)}).then((response) => {
-      return response
+  public static async getAccountLogin(username: string, hash: string): Promise<number> {
+    return await fetch(`${process.env.REACT_APP_API}/account/${username}?hash=${hash}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response.json();
+    });
+  }
+
+  public static async getLoginAge(host: string): Promise<Login> {
+    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response.json();
+    });
+  }
+
+  public static async saveLoginAge(host: string, body: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body
+    }).then((response) => {
+      return response;
+    });
+  }
+
+  public static async deleteLogin(host: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/login/delete/${host}`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response;
+    });
+  }
+
+  public static async saveAccountLogin(username: string, hash: string): Promise<number> {
+    return await fetch(`${process.env.REACT_APP_API}/account/${username}`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: hash
+    }).then((response) => {
+      return response.json();
+    });
+  }
+
+  public static async getUpdate(): Promise<UpdateResponse> {
+    return await fetch(`${process.env.REACT_APP_API}/update/`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
     })
+      .then((response) => response.json())
+      .then((update) => {
+        return update;
+      });
   }
 
-  public static async deleteRosterPlayer(player_id: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/player/delete/${player_id}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {return response})
-  }
-
-  public static async getBuilds() : Promise<BuildResponse[]>{
-    return await fetch(`${process.env.REACT_APP_API}/build/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => response.json()).then((builds) => {
-      return builds
+  public static async getMessages(amount: number): Promise<WebSocketMessage[]> {
+    return await fetch(`${process.env.REACT_APP_API}/message/${amount}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
     })
-  }
-
-  public static async postSetup(build: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_DISCORD_WEBHOOK}`, {method: "POST", mode:"cors",credentials:"include", headers: {"Content-Type": "application/json"}, body: build}).then((response) => {return response})
-  }
-
-  public static async getAbsences() : Promise<AbsenceResponse[]>{
-    return await fetch(`${process.env.REACT_APP_API}/absence/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => response.json()).then((absence) => {
-      return absence
-    })
-  }
-
-  public static async getAccountLogin(username: string, hash: string) : Promise<number>{
-    return await fetch(`${process.env.REACT_APP_API}/account/${username}?hash=${hash}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
-      return response.json()
-    })
-  }
-
-  public static async getLoginAge(host: string) : Promise<Login>{
-    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => {
-      return response.json()
-    })
-  }
-
-  public static async saveLoginAge(host: string, role: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/login/${host}`, {method: "POST", mode:"cors",credentials:"include",headers: {"Content-Type": "application/json"}, body: role}).then((response) => {
-      return response
-    })
-  }
-
-  public static async deleteLogin(host: string) : Promise<Response>{
-    return await fetch(`${process.env.REACT_APP_API}/login/delete/${host}`, {method: "POST", mode:"cors",credentials:"include"}).then((response) => {
-      return response
-    })
-  }
-
-  public static async saveAccountLogin(username: string, hash: string) : Promise<number>{
-    return await fetch(`${process.env.REACT_APP_API}/account/${username}`, {method: "POST", mode:"cors",credentials:"include",headers: {"Content-Type": "application/json"}, body: hash}).then((response) => {
-      return response.json()
-    })
-  }
-
-  public static async getUpdate() : Promise<UpdateResponse>{
-    return await fetch(`${process.env.REACT_APP_API}/update/`, {method: "GET", mode:"cors",credentials:"include"}).then((response) => response.json()).then((update) => {
-      return update
-    })
+      .then((response) => response.json())
+      .then((message) => {
+        return message;
+      });
   }
 }

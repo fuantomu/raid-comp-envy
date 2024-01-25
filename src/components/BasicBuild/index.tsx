@@ -11,13 +11,7 @@ export interface BasicProps {
   accountRole: number;
 }
 
-const BasicBuild: FC<BasicProps> = ({
-  players,
-  raid,
-  manager,
-  accountRole
-}) => {
-
+const BasicBuild: FC<BasicProps> = ({ players, raid, manager, accountRole }) => {
   return (
     <DndProvider manager={manager}>
       <BasicComposition players={players} raid={raid} accountRole={accountRole} />

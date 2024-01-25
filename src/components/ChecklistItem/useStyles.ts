@@ -7,7 +7,7 @@ export default (count: number = 0) => {
     spacing,
     typography,
     palette,
-    palette: { success, warning, error },
+    palette: { success, warning, error }
   } = theme;
 
   return {
@@ -34,6 +34,6 @@ export default (count: number = 0) => {
     `,
     count: css`
       color: ${count ? (count > 1 ? success.main : warning.main) : error.main};
-    `,
+    `
   };
 };

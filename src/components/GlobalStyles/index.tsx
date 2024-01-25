@@ -37,7 +37,7 @@ const GlobalStyles: FC = () => {
         html,
         body {
           height: 100%;
-          padding: 0!important;
+          padding: 0 !important;
         }
 
         #app-root {

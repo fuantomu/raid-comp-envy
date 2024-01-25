@@ -26,6 +26,7 @@ export interface RaidProps {
   id: number;
   manager: any;
   accountRole: number;
+  selectedBuild: SelectOption;
 }
 
 const Raid: FC<RaidProps> = ({
@@ -35,7 +36,8 @@ const Raid: FC<RaidProps> = ({
   version,
   id,
   manager,
-  accountRole
+  accountRole,
+  selectedBuild
 }) => {
   const [common] = useTranslation("common");
   const context = useAppContext();
@@ -51,100 +53,212 @@ const Raid: FC<RaidProps> = ({
     setGrouped(!grouped);
   };
 
-
   return (
-        <Card style={{borderBottom: `1px solid black`, borderTop: `3px solid #ad0a0a`, borderRight: `1px solid black`}} key={UUID()}>
-          <CardContent key={UUID()} style={{borderBottom: `1px solid black`, backgroundColor: "#242424"}}>
-          <Box key={UUID()} sx={{cursor:"pointer", border: `1px solid black`, marginBottom:"10px"}} onClick={(event) => {event.stopPropagation(); setVisible(!visible); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
-              <Typography style={{caretColor: "transparent", marginLeft:"8px"}} fontSize={"26px"} variant="subtitle1">
-                {common(`build.raid.raid${id}`)}
-              </Typography>
-              {visible? <ArrowDropDown sx={{padding:"24", width:"48px", height:"48px"}}></ArrowDropDown>: <ArrowLeft sx={{padding:"24", width:"48px", height:"48px"}}></ArrowLeft> }
-          </Box>
+    <Card
+      style={{
+        borderBottom: `1px solid black`,
+        borderTop: `3px solid #ad0a0a`,
+        borderRight: `1px solid black`
+      }}
+      key={UUID()}
+    >
+      <CardContent
+        key={UUID()}
+        style={{ borderBottom: `1px solid black`, backgroundColor: "#242424" }}
+      >
+        <Box
+          key={UUID()}
+          sx={{ cursor: "pointer", border: `1px solid black`, marginBottom: "10px" }}
+          onClick={(event) => {
+            event.stopPropagation();
+            setVisible(!visible);
+          }}
+          display={"grid"}
+          gridTemplateColumns={"1fr auto"}
+        >
+          <Typography
+            style={{ caretColor: "transparent", marginLeft: "8px" }}
+            fontSize={"26px"}
+            variant="subtitle1"
+          >
+            {common(`build.raid.raid${id}`)}
+          </Typography>
+          {visible ? (
+            <ArrowDropDown sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowDropDown>
+          ) : (
+            <ArrowLeft sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowLeft>
+          )}
+        </Box>
 
-          {visible?
-              (
-                <Box display={"grid"} gridTemplateColumns={"1fr 2fr"}>
-                  <Box >
-                    <BuildTitle
-                      key={UUID()}
-                      onChange={context?.handleSelect(id)}
-                      options={context?.getBuilds()??[]}
-                      selected={builds.find((build) => build.value === raidBuild?.id)}
-                      build_id={id}
-                      buildDate={raidBuild?.date}
-                      version={version}
-                      selectedInstance={raidBuild?.instance}
-                      accountRole={accountRole}
-                    />
-                    <br></br>
-                    <BuildRolesCount key={UUID()} build={raidBuild} />
-                    <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                      <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping}/>
-                      <ModalCreateBuild build_id={id} accountRole={accountRole}/>
-                      <ModalDeleteBuild build_id={id} accountRole={accountRole}/>
-                    </Box>
-                  </Box>
-                  <Box display={"grid"} gridTemplateColumns={"2fr 1fr"}>
-                    <Box sx={{marginLeft: "5px"}}>
-                      <Box key={UUID()} sx={{cursor:"pointer",border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleNotSet(!visibleNotSet); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
-                          <Typography style={{caretColor: "transparent", marginLeft:"8px"}} variant="subtitle1">
-                            {common("build.groups.group_each", { group_id: "notset" })}
-                          </Typography>
-                          {visibleNotSet? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
-                      </Box>
-                      {visibleNotSet? <BasicBuild manager={manager} players={context?.getUnsetMains(id) ?? []} raid={id} accountRole={accountRole}/> : <></>}
-                    </Box>
-                    <Box sx={{marginLeft: "5px"}}>
-                      <Box key={UUID()} sx={{cursor:"pointer",border: `1px solid black`}} onClick={(event) => {event.stopPropagation(); setVisibleAbsent(!visibleAbsent); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
-                          <Typography style={{caretColor: "transparent", marginLeft:"8px"}} variant="subtitle1">
-                            {common("build.groups.group_each", { group_id: "absent" })}
-                          </Typography>
-                          {visibleAbsent? <ArrowDropDown></ArrowDropDown>: <ArrowLeft></ArrowLeft> }
-                      </Box>
-                      {visibleAbsent? <BasicBuild manager={manager} players={context?.getAbsentPlayers(id)?? []} raid={id} accountRole={accountRole}/> : <></>}
-                    </Box>
-                  </Box>
-                </Box>
-              ) : <></>
-          }
-
-          </CardContent>
-
-
-            <CardContent key={UUID()} style={{borderBottom: `1px solid black`, backgroundColor: "#242424"}}>
-              <Box key={UUID()} sx={{cursor:"pointer", border: `1px solid black`, marginBottom:"10px"}} onClick={(event) => {event.stopPropagation(); setVisibleComposition(!visibleComposition); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
-                  <Typography style={{caretColor: "transparent", marginLeft:"8px"}} fontSize={"26px"} variant="subtitle1">
-                    {common("build.raid.composition")}
-                  </Typography>
-                  {visibleComposition? <ArrowDropDown sx={{padding:"24", width:"48px", height:"48px"}}></ArrowDropDown>: <ArrowLeft sx={{padding:"24", width:"48px", height:"48px"}}></ArrowLeft> }
-              </Box>
-            {visibleComposition?
-              (<Box key={UUID()} css={styles.gridBox} >
-                <RaidComposition manager={manager} players={raidBuild?.players} raid={id} editing grouped={grouped} accountRole={accountRole} />
-              </Box>) : <></>
-            }
-            </CardContent>
-
-
-
-            <CardContent key={UUID()} style={{backgroundColor: "#242424"}}>
-              <Box key={UUID()} sx={{cursor:"pointer", border: `1px solid black`, marginBottom:"10px"}} onClick={(event) => {event.stopPropagation(); setVisibleChecklist(!visibleChecklist); }} display={"grid"} gridTemplateColumns={"1fr auto"}>
-                  <Typography style={{caretColor: "transparent", marginLeft: "8px"}} fontSize={"26px"} variant="subtitle1">
-                    {common("build.raid.checklist")}
-                  </Typography>
-                  {visibleChecklist? <ArrowDropDown sx={{padding:"24", width:"48px", height:"48px"}}></ArrowDropDown>: <ArrowLeft sx={{padding:"24", width:"48px", height:"48px"}}></ArrowLeft> }
-              </Box>
-              {visibleChecklist? (<Box key={UUID()} css={styles.gridBox} >
-                  <RaidChecklist build={raidBuild} version={version} />
-              </Box>) : <></>}
+        {visible ? (
+          <Box display={"grid"} gridTemplateColumns={"1fr 2fr"}>
+            <Box>
+              <BuildTitle
+                key={UUID()}
+                options={builds ?? []}
+                selected={selectedBuild}
+                build_id={id}
+                buildDate={raidBuild?.date}
+                version={version}
+                selectedInstance={raidBuild?.instance}
+                accountRole={accountRole}
+              />
+              <br></br>
+              <BuildRolesCount key={UUID()} build={raidBuild} />
               <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-                <ModalPostDiscord build_id={id} accountRole={accountRole}/>
-                <ModalResetBuild build_id={id} accountRole={accountRole}/>
+                <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping} />
+                <ModalCreateBuild build_id={id} accountRole={accountRole} />
+                <ModalDeleteBuild id={raidBuild?.id} accountRole={accountRole} />
               </Box>
+            </Box>
+            <Box display={"grid"} gridTemplateColumns={"2fr 1fr"}>
+              <Box sx={{ marginLeft: "5px" }}>
+                <Box
+                  key={UUID()}
+                  sx={{ cursor: "pointer", border: `1px solid black` }}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setVisibleNotSet(!visibleNotSet);
+                  }}
+                  display={"grid"}
+                  gridTemplateColumns={"1fr auto"}
+                >
+                  <Typography
+                    style={{ caretColor: "transparent", marginLeft: "8px" }}
+                    variant="subtitle1"
+                  >
+                    {common("build.groups.group_each", { group_id: "notset" })}
+                  </Typography>
+                  {visibleNotSet ? <ArrowDropDown></ArrowDropDown> : <ArrowLeft></ArrowLeft>}
+                </Box>
+                {visibleNotSet ? (
+                  <BasicBuild
+                    manager={manager}
+                    players={context?.getUnsetMains(id) ?? []}
+                    raid={id}
+                    accountRole={accountRole}
+                  />
+                ) : (
+                  <></>
+                )}
+              </Box>
+              <Box sx={{ marginLeft: "5px" }}>
+                <Box
+                  key={UUID()}
+                  sx={{ cursor: "pointer", border: `1px solid black` }}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setVisibleAbsent(!visibleAbsent);
+                  }}
+                  display={"grid"}
+                  gridTemplateColumns={"1fr auto"}
+                >
+                  <Typography
+                    style={{ caretColor: "transparent", marginLeft: "8px" }}
+                    variant="subtitle1"
+                  >
+                    {common("build.groups.group_each", { group_id: "absent" })}
+                  </Typography>
+                  {visibleAbsent ? <ArrowDropDown></ArrowDropDown> : <ArrowLeft></ArrowLeft>}
+                </Box>
+                {visibleAbsent ? (
+                  <BasicBuild
+                    manager={manager}
+                    players={context?.getAbsentPlayers(id) ?? []}
+                    raid={id}
+                    accountRole={accountRole}
+                  />
+                ) : (
+                  <></>
+                )}
+              </Box>
+            </Box>
+          </Box>
+        ) : (
+          <></>
+        )}
+      </CardContent>
 
-            </CardContent>
-          </Card>
+      <CardContent
+        key={UUID()}
+        style={{ borderBottom: `1px solid black`, backgroundColor: "#242424" }}
+      >
+        <Box
+          key={UUID()}
+          sx={{ cursor: "pointer", border: `1px solid black`, marginBottom: "10px" }}
+          onClick={(event) => {
+            event.stopPropagation();
+            setVisibleComposition(!visibleComposition);
+          }}
+          display={"grid"}
+          gridTemplateColumns={"1fr auto"}
+        >
+          <Typography
+            style={{ caretColor: "transparent", marginLeft: "8px" }}
+            fontSize={"26px"}
+            variant="subtitle1"
+          >
+            {common("build.raid.composition")}
+          </Typography>
+          {visibleComposition ? (
+            <ArrowDropDown sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowDropDown>
+          ) : (
+            <ArrowLeft sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowLeft>
+          )}
+        </Box>
+        {visibleComposition ? (
+          <Box key={UUID()} css={styles.gridBox}>
+            <RaidComposition
+              manager={manager}
+              players={raidBuild?.players}
+              raid={id}
+              editing
+              grouped={grouped}
+              accountRole={accountRole}
+            />
+          </Box>
+        ) : (
+          <></>
+        )}
+      </CardContent>
+
+      <CardContent key={UUID()} style={{ backgroundColor: "#242424" }}>
+        <Box
+          key={UUID()}
+          sx={{ cursor: "pointer", border: `1px solid black`, marginBottom: "10px" }}
+          onClick={(event) => {
+            event.stopPropagation();
+            setVisibleChecklist(!visibleChecklist);
+          }}
+          display={"grid"}
+          gridTemplateColumns={"1fr auto"}
+        >
+          <Typography
+            style={{ caretColor: "transparent", marginLeft: "8px" }}
+            fontSize={"26px"}
+            variant="subtitle1"
+          >
+            {common("build.raid.checklist")}
+          </Typography>
+          {visibleChecklist ? (
+            <ArrowDropDown sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowDropDown>
+          ) : (
+            <ArrowLeft sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowLeft>
+          )}
+        </Box>
+        {visibleChecklist ? (
+          <Box key={UUID()} css={styles.gridBox}>
+            <RaidChecklist build={raidBuild} version={version} />
+          </Box>
+        ) : (
+          <></>
+        )}
+        <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
+          <ModalPostDiscord build_id={id} accountRole={accountRole} />
+          <ModalResetBuild build_id={id} accountRole={accountRole} />
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

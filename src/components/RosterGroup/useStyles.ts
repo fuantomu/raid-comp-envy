@@ -8,15 +8,15 @@ export default (spread: boolean) => {
       spread &&
         css`
           display: grid;
-          grid-template-columns: ${windowSize > 1200? "1fr 1fr 1fr" : "1fr 1fr"};
+          grid-template-columns: ${windowSize > 1200 ? "1fr 1fr 1fr" : "1fr 1fr"};
           column-gap: ${theme.spacing(Spacing.xxs)};
-        `,
+        `
     ],
     scroll: css`
       overflow-y: scroll;
     `,
     gridBox: css`
       margin: ${theme.spacing(Spacing.xs)} auto !important;
-    `,
+    `
   };
 };

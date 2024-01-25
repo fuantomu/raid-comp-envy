@@ -16,13 +16,8 @@ const BasicComposition: FC<BasicCompositionProps> = ({ players, raid, accountRol
   const styles = useStyles();
   return (
     <>
-      <Box sx={{border: `1px solid black`}} key={UUID()} css={styles.grouped}>
-        <BasicGroup
-          key={UUID()}
-          players={players}
-          raid={raid}
-          accountRole={accountRole}
-        />
+      <Box sx={{ border: `1px solid black` }} key={UUID()} css={styles.grouped}>
+        <BasicGroup key={UUID()} players={players} raid={raid} accountRole={accountRole} />
       </Box>
     </>
   );

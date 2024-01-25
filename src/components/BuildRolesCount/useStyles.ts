@@ -24,6 +24,6 @@ export default () => {
       grid-template-columns: min-content 3em;
       gap: ${theme.spacing(Spacing.xs)};
       align-items: center;
-    `,
+    `
   };
 };

@@ -16,59 +16,72 @@ const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
 
 const App: FC = () => {
   const style = useStyles();
-  const [token, setToken] = useState(localStorage.getItem("token")?? undefined);
-  const [host, ] = useState(localStorage.getItem("host")?? UUID())
-  const [issueTime, setIssueTime] = useState(0)
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [accountRole, setAccountRole] = useState(-1)
-  const [newAccount, setNewAccount] = useState(false)
+  const [token, setToken] = useState(localStorage.getItem("token") ?? undefined);
+  const [host] = useState(localStorage.getItem("host") ?? UUID());
+  const [issueTime, setIssueTime] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [accountRole, setAccountRole] = useState(-1);
+  const [newAccount, setNewAccount] = useState(false);
+  const [accountName, setAccountName] = useState("");
   const handleError = useErrorHandler();
 
   const logout = () => {
-    setToken(undefined)
-    localStorage.removeItem("token")
+    setToken(undefined);
+    localStorage.removeItem("token");
     setLoggedIn(false);
-  }
+  };
 
   useEffect(() => {
-    if(!loggedIn && issueTime === 0){
-      RosterProvider.getLoginAge(host).then((response) => {
-        if(response.created_date > 0){
-          setIssueTime(response.created_date);
-          setAccountRole(response.role)
-          const timeDifference = (new Date().getTime() - response.created_date)/1000;
-          if (timeDifference <= parseFloat(accountRoleTimeouts[response.role])){
-            const newToken = UUID();
-            localStorage.setItem("token", newToken)
-            localStorage.setItem("host", host)
-            setToken(newToken);
-            setLoggedIn(true);
-            return
+    if (!loggedIn && issueTime === 0) {
+      RosterProvider.getLoginAge(host)
+        .then((response) => {
+          if (response.created_date > 0) {
+            setIssueTime(response.created_date);
+            setAccountRole(response.role);
+            setAccountName(response.username);
+            const timeDifference = (new Date().getTime() - response.created_date) / 1000;
+            if (timeDifference <= parseFloat(accountRoleTimeouts[response.role])) {
+              const newToken = UUID();
+              localStorage.setItem("token", newToken);
+              localStorage.setItem("host", host);
+              setToken(newToken);
+              setLoggedIn(true);
+              return;
+            }
           }
-        }
-        logout()
-      }).catch(handleError);
+          logout();
+        })
+        .catch(handleError);
     }
     const interval = setInterval(() => {
-      if(loggedIn){
-        const newTime = (new Date().getTime() - issueTime)/1000
+      if (loggedIn) {
+        const newTime = (new Date().getTime() - issueTime) / 1000;
 
-        if(newTime >= parseFloat(accountRoleTimeouts[accountRole])){
-          logout()
-          RosterProvider.deleteLogin(host)
+        if (newTime >= parseFloat(accountRoleTimeouts[accountRole])) {
+          logout();
+          RosterProvider.deleteLogin(host);
         }
       }
     }, 1000);
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[handleError,loggedIn]);
+  }, [handleError, loggedIn]);
 
-  if(window.location.pathname === "/account" && !newAccount){
-    return (<Account setNewAccount={setNewAccount}></Account>)
+  if (window.location.pathname === "/account" && !newAccount) {
+    return <Account setNewAccount={setNewAccount}></Account>;
   }
-  if(!token || issueTime === 0) {
-    return (<Login setToken={setToken} setIssueTime={setIssueTime} setLoggedIn={setLoggedIn} setRole={setAccountRole} host={host} />)
+  if (!token || issueTime === 0) {
+    return (
+      <Login
+        setToken={setToken}
+        setIssueTime={setIssueTime}
+        setLoggedIn={setLoggedIn}
+        setRole={setAccountRole}
+        setAccountName={setAccountName}
+        host={host}
+      />
+    );
   }
   return (
     <Fragment>
@@ -76,17 +89,23 @@ const App: FC = () => {
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>
-              <Route path="*" element={<EditBuildPage accountRole={accountRole} logout={logout} issueTime={issueTime} />} />
+              <Route
+                path="*"
+                element={
+                  <EditBuildPage
+                    accountName={accountName}
+                    accountRole={accountRole}
+                    logout={logout}
+                    issueTime={issueTime}
+                  />
+                }
+              />
             </Routes>
           </Suspense>
         </ErrorBoundary>
       </Box>
     </Fragment>
   );
-
-
-
-
 };
 
 export default App;

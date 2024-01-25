@@ -24,16 +24,16 @@ const ChecklistItem: FC<ChecklistItemProps> = ({
   displayName,
   players,
   specs,
-  styles: stylesOverride,
+  styles: stylesOverride
 }) => {
   const count = players.length;
   const styles = {
     ...useChecklistStyles(count),
-    ...stylesOverride,
+    ...stylesOverride
   };
 
   return (
-    <TooltipPlayers key={UUID()} players={players} specs={specs? specs: undefined}>
+    <TooltipPlayers key={UUID()} players={players} specs={specs ? specs : undefined}>
       <Box css={styles.container}>
         <WarcraftIcon src={iconSource} />
         <Typography css={styles.name}>{displayName}</Typography>

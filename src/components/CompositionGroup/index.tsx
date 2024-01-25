@@ -31,7 +31,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
   spread = false,
   editing,
   raid,
-  accountRole,
+  accountRole
 }) => {
   const styles = useStyles(spread);
   const [common] = useTranslation("common");
@@ -53,9 +53,11 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             oldName: player.oldName,
             main: player.main,
             alt: player.alt
-          }
+          },
+          false,
+          player.raid
         );
-      },
+      }
     }),
     []
   );
@@ -65,35 +67,43 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
   }
 
   return (
-    <Card sx={{border: "1px solid black"}} ref={drop}>
+    <Card sx={{ border: "1px solid black" }} ref={drop}>
       <CardContent>
         <Box display={"grid"} gridTemplateColumns={"1fr 20px"}>
-        <Typography style={{caretColor: "transparent", userSelect:"none"}} variant="subtitle1">
-          {common("build.groups.group_each", { group_id: group_id.toString() })}
-        </Typography>
-        {players.filter((player) => player.race === WarcraftPlayerRace.Draenei).length > 0 && localStorage.getItem("LastVersion") === 'Wotlk' ? (
-          <WarcraftIcon
-            title={`${common(`races.Draenei`)}`}
-            src={IconProvider.getUtilityIcon(WarcraftRaidUtility.DraeneiHit)}
-          />) : null}
+          <Typography style={{ caretColor: "transparent", userSelect: "none" }} variant="subtitle1">
+            {common("build.groups.group_each", { group_id: group_id.toString() })}
+          </Typography>
+          {players.filter((player) => player.race === WarcraftPlayerRace.Draenei).length > 0 &&
+          localStorage.getItem("LastVersion") === "Wotlk" ? (
+            <WarcraftIcon
+              title={`${common(`races.Draenei`)}`}
+              src={IconProvider.getUtilityIcon(WarcraftRaidUtility.DraeneiHit)}
+            />
+          ) : null}
         </Box>
         <Box css={styles.spread}>
-          {players.length > 0? players.map((player) => (
-            <Player
-              key={UUID()}
-              {...player}
-              {...(editing
-                ? {
-                    onClick: () => context?.editPlayer(player),
-                  }
-                : {})}
-              accountRole={accountRole}
-              raid={raid}
-            />
-          )) :
-            <Typography style={{caretColor: "transparent", color: "dimgray", userSelect:"none"}} variant="subtitle2">
+          {players.length > 0 ? (
+            players.map((player) => (
+              <Player
+                key={UUID()}
+                {...player}
+                {...(editing
+                  ? {
+                      onClick: () => context?.editPlayer(player)
+                    }
+                  : {})}
+                accountRole={accountRole}
+                raid={raid}
+              />
+            ))
+          ) : (
+            <Typography
+              style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}
+              variant="subtitle2"
+            >
               Empty
-            </Typography>}
+            </Typography>
+          )}
         </Box>
       </CardContent>
     </Card>

@@ -11,6 +11,6 @@ export default () => {
     `,
     ungrouped: css`
       margin-top: ${theme.spacing(Spacing.m)};
-    `,
+    `
   };
 };

@@ -6,8 +6,8 @@ import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import EventBusyIcon from "@mui/icons-material/EventBusy";
-import ChairIcon from '@mui/icons-material/Chair';
-import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import ChairIcon from "@mui/icons-material/Chair";
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import { css } from "@emotion/react";
 import useTheme from "../../utils/useTheme";
 import { useTranslation } from "react-i18next";
@@ -34,18 +34,15 @@ const AttendanceIcon: FC<AttendanceIconProps> = ({ status, absence }) => {
       );
 
     case InviteStatus.Tentative:
-      let absentString = "Absent from:\n"
-      if(absence){
-        for(const absentDate of absence){
-          absentString += `${new Date(absentDate.start_date).toLocaleDateString('de-DE', {day:"2-digit",month:"2-digit",year:"numeric"})} to ${new Date(absentDate.end_date).toLocaleDateString('de-DE', {day:"2-digit",month:"2-digit",year:"numeric"})}. Reason: ${absentDate.reason}\n`
+      let absentString = "Absent from:\n";
+      if (absence) {
+        for (const absentDate of absence) {
+          absentString += `${new Date(absentDate.start_date).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })} to ${new Date(absentDate.end_date).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })}. Reason: ${absentDate.reason}\n`;
         }
       }
       return (
         <CalendarTodayIcon
-          titleAccess={absence?
-            absentString:
-            common(`status.${status}`)
-          }
+          titleAccess={absence ? absentString : common(`status.${status}`)}
           css={css`
             color: ${palette.background.default};
           `}

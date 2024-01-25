@@ -1,4 +1,9 @@
-import { InviteStatus, WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "./consts";
+import {
+  InviteStatus,
+  WarcraftPlayerClass,
+  WarcraftPlayerRace,
+  WarcraftPlayerSpec
+} from "./consts";
 import { WarcraftRole } from "./utils/RoleProvider/consts";
 
 export type AppErrorData = {
@@ -26,8 +31,8 @@ export type BuildPlayer = {
 };
 
 export type BuildPlayerResponse = {
-  players: BuildPlayer[]
-}
+  players: BuildPlayer[];
+};
 
 export type Build = {
   id: string;
@@ -86,7 +91,8 @@ export type Absence = {
 export type Login = {
   created_date: number;
   role: number;
-}
+  username: string;
+};
 
 export type UpdateResponse = {
   builds: BuildResponse[];
@@ -98,4 +104,49 @@ export type Update = {
   builds: Build[];
   players: BuildPlayer[];
   absences: Absence[];
+};
+
+export type WebSocketMessage = {
+  socketId: string;
+  message_type: string;
+  data: PlayerData | BuildData | AbsenceData | string;
+  date: number;
+  id?: string;
+  account_name: string;
+};
+
+export type PlayerData = {
+  player: BuildPlayer;
+  build_id?: string;
+  oldData?: BuildPlayer;
+};
+
+export type BuildData = {
+  build: Build;
+  oldData?: Build;
+};
+
+export type AbsenceData = {
+  start_date: number;
+  end_date: number;
+  player_id: string;
+  reason: string;
+};
+
+export type Message = {
+  type: string;
+  from: string;
+  date: number;
+  changes: Difference[];
+  buildId?: string;
+};
+
+export type Difference = {
+  key: string;
+  objectType: string;
+  objectName: string;
+  propertyType: string;
+  propertyName: string;
+  old: any;
+  new: any;
 };

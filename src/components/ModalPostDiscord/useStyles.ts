@@ -55,6 +55,6 @@ export default () => {
     `,
     nameInputWrapper: css`
       width: 100%;
-    `,
+    `
   };
 };

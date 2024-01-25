@@ -42,7 +42,7 @@ const CompositionRole: FC<CompositionRoleProps> = ({
         {...player}
         {...(editing
           ? {
-              onClick: () => context?.editPlayer(player),
+              onClick: () => context?.editPlayer(player)
             }
           : {})}
         accountRole={accountRole}
@@ -56,7 +56,9 @@ const CompositionRole: FC<CompositionRoleProps> = ({
       <CardContent>
         <Box css={styles.header}>
           <WarcraftIcon src={IconProvider.getRoleIcon(role)} />
-          <Typography style={{caretColor: "transparent"}} variant="subtitle1">{common(`build.roles.${role}`)}</Typography>
+          <Typography style={{ caretColor: "transparent" }} variant="subtitle1">
+            {common(`build.roles.${role}`)}
+          </Typography>
         </Box>
         <Box css={styles.spread}>{buildRolePlayers(players, raid)}</Box>
       </CardContent>

@@ -6,19 +6,25 @@ import { WarcraftPlayerSpec } from "../../consts";
 
 export interface TooltipPlayersProps {
   players: BuildPlayer[];
-  specs?: WarcraftPlayerSpec[]
+  specs?: WarcraftPlayerSpec[];
   children: ReactElement;
 }
 
 const TooltipPlayers: FC<TooltipPlayersProps> = (props) => {
   const { children, players, specs } = props;
 
-  const includedPlayers = players.length > 0? players.map(({ name }) => name).join(", ") : "None";
-  const includedSpecs = specs? "\n\nProvided by: " + specs.join(", ") : "";
+  const includedPlayers = players.length > 0 ? players.map(({ name }) => name).join(", ") : "None";
+  const includedSpecs = specs ? "\n\nProvided by: " + specs.join(", ") : "";
   return (
-    <Tooltip title={
-      <div style={{ whiteSpace: 'pre-line' }}>{"Players: "+includedPlayers+includedSpecs}</div>
-      } placement="top" arrow>
+    <Tooltip
+      title={
+        <div style={{ whiteSpace: "pre-line" }}>
+          {"Players: " + includedPlayers + includedSpecs}
+        </div>
+      }
+      placement="top"
+      arrow
+    >
       {children}
     </Tooltip>
   );

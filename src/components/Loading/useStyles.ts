@@ -54,7 +54,7 @@ export default function useStyles({ small = false, overlay = false }: StyleOptio
           border-radius: ${spacing(Spacing.xxs)};
           box-shadow: 0px 1px 4px rgba(51, 51, 51, 0.12);
           padding: ${spacing(Spacing.s)} ${spacing(Spacing.l)};
-        `,
-    ],
+        `
+    ]
   };
 }

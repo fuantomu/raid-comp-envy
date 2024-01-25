@@ -302,5 +302,11 @@
     "error": "Account with that username already exists",
     "created": "Account has been created!",
     "gotologin": "Go to login"
+  },
+  "message": {
+    "group_id": "Group",
+    "spec": "Spec",
+    "class_name": "Class",
+    "race": "Race"
   }
 }

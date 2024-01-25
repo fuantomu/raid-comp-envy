@@ -5,7 +5,7 @@ export enum AppErrorId {
   App404 = "notFound",
   ApiCancelled = "apiCancelled",
   Api403 = "api403",
-  Api404 = "api404",
+  Api404 = "api404"
 }
 
 export enum WarcraftPlayerClass {
@@ -43,7 +43,7 @@ export enum InviteStatus {
   Backup = "backup",
   Declined = "declined",
   Benched = "benched",
-  Unknown = "unknown",
+  Unknown = "unknown"
 }
 
 export enum WarcraftPlayerSpec {
@@ -108,9 +108,9 @@ export const RoleWeight: {
   Tank: 1,
   MeleeDPS: 3,
   RangedDPS: 4
-}
+};
 
-export const ClassWeight: { [class_name in WarcraftPlayerClass] : number} = {
+export const ClassWeight: { [class_name in WarcraftPlayerClass]: number } = {
   Priest: 10,
   Rogue: 9,
   Shaman: 8,
@@ -121,63 +121,69 @@ export const ClassWeight: { [class_name in WarcraftPlayerClass] : number} = {
   Warlock: 3,
   Warrior: 2,
   Paladin: 1
-}
+};
 
 export const Instance = {
-  "Wotlk": [
+  Wotlk: [
     {
-      "name": "Icecrown Citadel",
-      "abbreviation": "ICC"
+      name: "Icecrown Citadel",
+      abbreviation: "ICC"
     },
     {
-      "name": "Ruby Sanctum",
-      "abbreviation": "RS"
+      name: "Ruby Sanctum",
+      abbreviation: "RS"
     }
   ],
-  "Cataclysm": [
+  Cataclysm: [
     {
-      "name": "Blackwing Descent",
-      "abbreviation": "BWD"
+      name: "Blackwing Descent",
+      abbreviation: "BWD"
     },
     {
-      "name": "The Bastion of Twilight",
-      "abbreviation": "BoT"
+      name: "The Bastion of Twilight",
+      abbreviation: "BoT"
     },
     {
-      "name": "Throne of the Four Winds",
-      "abbreviation": "4Winds"
+      name: "Throne of the Four Winds",
+      abbreviation: "4Winds"
     },
     {
-      "name": "Firelands",
-      "abbreviation": "FL"
+      name: "Firelands",
+      abbreviation: "FL"
     },
     {
-      "name": "Dragon Soul",
-      "abbreviation": "DS"
+      name: "Dragon Soul",
+      abbreviation: "DS"
     }
   ]
-}
+};
 
 export const AccountRole = {
   Admin: 1,
   Guest: 2
-}
+};
 
 export const FunctionAccountRole = {
-  "AddPlayer": [AccountRole.Admin],
-  "EditPlayer": [AccountRole.Admin],
-  "ClickPlayer": [AccountRole.Admin],
-  "MovePlayer": [AccountRole.Admin],
-  "PostDiscord": [AccountRole.Admin],
-  "ResetBuild": [AccountRole.Admin],
-  "DeleteBuild": [AccountRole.Admin],
-  "CreateBuild": [AccountRole.Admin],
-  "ChangeBuild": [AccountRole.Admin,AccountRole.Guest],
-  "ChangeDate": [AccountRole.Admin],
-  "ChangeInstance": [AccountRole.Admin]
-}
+  AddPlayer: [AccountRole.Admin],
+  EditPlayer: [AccountRole.Admin],
+  ClickPlayer: [AccountRole.Admin],
+  MovePlayer: [AccountRole.Admin],
+  PostDiscord: [AccountRole.Admin],
+  ResetBuild: [AccountRole.Admin],
+  DeleteBuild: [AccountRole.Admin],
+  CreateBuild: [AccountRole.Admin],
+  ChangeBuild: [AccountRole.Admin, AccountRole.Guest],
+  ChangeDate: [AccountRole.Admin],
+  ChangeInstance: [AccountRole.Admin]
+};
 
 export const accountRoleTimeouts = {
   1: process.env.REACT_APP_TOKEN_LENGTH_ADMIN,
   2: process.env.REACT_APP_TOKEN_LENGTH_GUEST
-}
+};
+
+export const MessageType = {
+  updateplayer: "Player Update",
+  updateroster: "Roster Update",
+  updatebuild: "Build Update"
+};

@@ -6,7 +6,7 @@ export default () => {
 
   return {
     gridBox: css`
-      display: grid!important;
+      display: grid !important;
       place-items: center;
       height: 100vh;
     `,
@@ -19,6 +19,6 @@ export default () => {
     button: css`
       margin-left: ${spacing(Spacing.xs)}!important;
       margin-right: ${spacing(Spacing.xs)}!important;
-    `,
+    `
   };
 };

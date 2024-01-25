@@ -11,13 +11,7 @@ export interface RosterProps {
   accountRole: number;
 }
 
-const Roster: FC<RosterProps> = ({
-  players,
-  editing = false,
-  manager,
-  accountRole
-}) => {
-
+const Roster: FC<RosterProps> = ({ players, editing = false, manager, accountRole }) => {
   return (
     <DndProvider manager={manager}>
       <RosterComposition players={players} editing={editing} accountRole={accountRole} />

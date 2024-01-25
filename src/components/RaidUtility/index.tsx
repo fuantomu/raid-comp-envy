@@ -17,8 +17,12 @@ export interface RaidUtilityProps {
 const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: string) => {
   const specs = [];
   for (const spec in WarcraftPlayerSpec) {
-    if ((RoleProvider.getSpecUtilities(spec as WarcraftPlayerSpec, version).includes(utility as WarcraftRaidUtility))){
-      specs.push(spec as WarcraftPlayerSpec)
+    if (
+      RoleProvider.getSpecUtilities(spec as WarcraftPlayerSpec, version).includes(
+        utility as WarcraftRaidUtility
+      )
+    ) {
+      specs.push(spec as WarcraftPlayerSpec);
     }
   }
   return specs;
