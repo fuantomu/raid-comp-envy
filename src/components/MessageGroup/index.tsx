@@ -20,10 +20,16 @@ const MessageGroup: FC<BasicGroupProps> = ({ messages = [], accountRole }) => {
   return (
     <Card>
       <CardContent>
+        <Typography
+          style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}
+          variant="subtitle2"
+        >
+          Update-log
+        </Typography>
         <Box
           key={UUID()}
           css={[styles.default, styles.scroll]}
-          sx={{ maxHeight: window.innerHeight / 4 }}
+          sx={{ maxHeight: window.innerHeight / 6, border: "1px solid black" }}
         >
           {messages.length > 0 ? (
             messages.map((message) => (

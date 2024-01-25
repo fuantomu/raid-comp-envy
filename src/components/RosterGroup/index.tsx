@@ -64,7 +64,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
 
   return (
     <Card ref={drop}>
-      <CardContent sx={{ maxHeight: window.innerHeight / 1.5 }}>
+      <CardContent sx={{ maxHeight: window.innerHeight / 1.6 }}>
         <Box key={UUID()} display={"grid"} gridTemplateColumns={"2.5fr 1.2fr 1.8fr 3fr"}>
           <Typography
             style={{ caretColor: "transparent", userSelect: "none" }}
@@ -112,7 +112,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
         </Box>
         <Box
           key={UUID()}
-          sx={{ maxHeight: window.innerHeight / 1.5 }}
+          sx={{ maxHeight: window.innerHeight / 1.6 }}
           css={[styles.scroll, styles.spread(window.innerWidth)]}
         >
           {players

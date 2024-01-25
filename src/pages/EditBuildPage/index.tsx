@@ -1181,7 +1181,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
           style={{
             width: "40%",
             borderBottom: `1px solid black`,
-            borderRight: `1px solid black`
+            borderRight: "1px solid black",
+            marginRight: "30px"
           }}
         >
           <Roster manager={manager} players={roster} editing accountRole={accountRole} />
@@ -1197,14 +1198,26 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             justifySelf={"center"}
           >
             <MessageBuild messages={messageHistory} accountRole={accountRole}></MessageBuild>
-            <Button sx={{ marginTop: "20px" }} onClick={logout}>
-              <Tooltip title={common(`logout`)}>
-                <Logout />
-              </Tooltip>
+            <Button
+              sx={{
+                marginBottom: "56px",
+                height: "100%",
+                display: "grid",
+                gridTemplateColumns: "4fr fr",
+                justifyContent: "center"
+              }}
+              onClick={logout}
+            >
+              <Box>{`Currently logged in as ${accountName}`}</Box>
+              <Box>
+                <Tooltip title={common(`logout`)}>
+                  <Logout />
+                </Tooltip>
+              </Box>
             </Button>
           </Box>
         </StickyBox>
-        <div style={{ width: "100%" }}>
+        <div style={{ width: "100%", borderLeft: "1px solid black" }}>
           <Raid
             manager={manager}
             id={0}
