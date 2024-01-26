@@ -24,7 +24,6 @@ import {
 } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
-import { PlayerUtils } from "../../utils/PlayerUtils";
 import { WarcraftPlayerClassSpecs } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
@@ -61,10 +60,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   if (editPlayer) {
     editPlayer((player) => {
       if (player) {
-        const fullName = PlayerUtils.getFullName(player);
         setId(player.id);
-        setName(fullName);
-        setOldName(fullName);
+        setName(player.name);
+        setOldName(player.oldName);
         setClassName(player.class_name);
         setStatus(player.status);
         setGroupId(player.group_id as GroupId);
@@ -119,10 +117,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   };
 
   const sendImportToContext = (nameOverride = name, remove = false) => {
-    const { name: playerName } = PlayerUtils.splitFullName(nameOverride);
     const playerInfo = {
       id: id.length ? id : UUID(),
-      name: playerName ?? oldName,
+      name: nameOverride ?? playerName,
       class_name,
       spec,
       raid,
@@ -131,7 +128,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       group_id: group_id as GroupId,
       oldName,
       main: main === "DEFAULT" ? playerName : main,
-      alt: alt === "DEFAULT" ? "" : alt
+      alt: alt === "DEFAULT" ? "None" : alt
     };
 
     if (remove) {
