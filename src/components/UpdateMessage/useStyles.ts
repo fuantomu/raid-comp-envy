@@ -36,9 +36,8 @@ export default () => {
       display: grid;
       grid-template-columns: 1fr auto;
       background-color: ${palette.primary.dark};
-      padding: ${spacing(Spacing.xxs)};
-      margin: 2px;
-      gap: ${theme.spacing(Spacing.s)};
+      padding: 1px;
+      gap: ${theme.spacing(Spacing.xxs)};
     `
   };
 };

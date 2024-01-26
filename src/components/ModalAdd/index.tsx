@@ -79,7 +79,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
           setRace(player.race);
         }
         if (player.alt) {
-          setAlt(player.alt);
+          setAlt(player.alt === "None" ? "DEFAULT" : player.alt);
         }
         if (player.name === player.main) {
           setAltOptions(
@@ -131,7 +131,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       group_id: group_id as GroupId,
       oldName,
       main: main === "DEFAULT" ? playerName : main,
-      alt: alt === "DEFAULT" ? undefined : alt
+      alt: alt === "DEFAULT" ? "" : alt
     };
 
     if (remove) {

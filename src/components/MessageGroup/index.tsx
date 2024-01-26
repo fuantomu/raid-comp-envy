@@ -24,7 +24,7 @@ const MessageGroup: FC<BasicGroupProps> = ({ messages = [], accountRole }) => {
           style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}
           variant="subtitle2"
         >
-          Update-log
+          Updates (Click to show)
         </Typography>
         <Box
           key={UUID()}

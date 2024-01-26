@@ -307,6 +307,12 @@
     "group_id": "Group",
     "spec": "Spec",
     "class_name": "Class",
-    "race": "Race"
+    "race": "Race",
+    "raid": "Raid",
+    "add": "added",
+    "remove": "removed",
+    "alt": "Alt",
+    "date": "Date",
+    "instance": "Instance"
   }
 }

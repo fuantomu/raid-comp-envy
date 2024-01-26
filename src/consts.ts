@@ -183,7 +183,13 @@ export const accountRoleTimeouts = {
 };
 
 export const MessageType = {
-  updateplayer: "Player Update",
-  updateroster: "Roster Update",
-  updatebuild: "Build Update"
+  updateplayer: "Player updated",
+  moveplayer: "Player moved",
+  removeplayer: "Player removed",
+  addplayer: "Player added",
+  updateroster: "Roster updated",
+  updatebuild: "Build updated",
+  removeroster: "Roster updated",
+  addbuild: "Build added",
+  deletebuild: "Build deleted"
 };

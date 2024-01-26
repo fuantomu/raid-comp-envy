@@ -144,9 +144,9 @@ export type Message = {
 export type Difference = {
   key: string;
   objectType: string;
-  objectName: string;
+  objectName?: string;
   propertyType: string;
   propertyName: string;
-  old: any;
+  old?: any;
   new: any;
 };

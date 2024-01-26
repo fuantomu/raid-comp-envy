@@ -442,7 +442,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     const unsetMains = [];
     mains.forEach((main) => {
       if (!setMains.includes(main)) {
-        if (main.alt) {
+        if (main.alt !== undefined && main.alt !== "None") {
           unsetMains.push(roster.find((rosterPlayer) => rosterPlayer.name === main.alt));
         } else {
           unsetMains.push(main);
@@ -601,6 +601,30 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     }
   };
 
+  const movePlayer = (newPlayer: BuildPlayer, oldBuild?: number, send: boolean = true): void => {
+    removePlayerFromRaid(newPlayer, false, false, oldBuild);
+    addPlayerToRaid(newPlayer, false);
+    const currentBuild = getBuildCopy(builds[oldBuild ?? newPlayer.raid]);
+    if (send) {
+      message.message_type = "moveplayer";
+      const oldPlayer: BuildPlayer = {
+        id: newPlayer.id,
+        name: newPlayer.name,
+        class_name: newPlayer.class_name,
+        alt: newPlayer.alt,
+        main: newPlayer.main,
+        oldName: newPlayer.oldName,
+        group_id: newPlayer.group_id,
+        race: newPlayer.race,
+        status: newPlayer.status,
+        spec: newPlayer.spec,
+        raid: oldBuild
+      };
+      message.data = { player: newPlayer, build_id: currentBuild.id, oldData: oldPlayer };
+      sendMessage(JSON.stringify(message));
+    }
+  };
+
   const importPlayer = (
     newPlayer: BuildPlayer,
     ignoreErrors: boolean = false,
@@ -656,8 +680,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
       isSameInstance(newPlayer) &&
       isSameLockout(newPlayer)
     ) {
-      removePlayerFromRaid(newPlayer, false, true, oldBuild);
-      addPlayerToRaid(newPlayer);
+      movePlayer(newPlayer, oldBuild);
       saveBuild(builds[newPlayer.raid]);
       return;
     }
@@ -985,6 +1008,19 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         }
         break;
       }
+      case "moveplayer": {
+        const data: PlayerData = received_message.data as PlayerData;
+        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
+        const foundBuild = selectedBuilds.find(
+          (selectedBuild) => selectedBuild?.value === data.build_id
+        );
+        if (foundPlayer && foundBuild) {
+          data.player.raid = selectedBuilds.indexOf(foundBuild);
+          console.log(`Moving player ${JSON.stringify(data.player)}`);
+          movePlayer(data.player, data.oldData?.raid, false);
+        }
+        break;
+      }
       case "addbuild": {
         const data: BuildData = received_message.data as BuildData;
         const foundBuild = builds.find((build) => build?.id === data.build.id);
@@ -1111,12 +1147,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
                 })}`
               };
             });
-            BuildHelper.parseGetMessages(MESSAGES_TO_LOAD, buildNames, update.players).then(
-              (messages) => {
-                setMessageHistory(messages.sort((a, b) => b.date - a.date));
-                setIsLoading(false);
-              }
-            );
+            BuildHelper.parseGetMessages(MESSAGES_TO_LOAD, buildNames).then((messages) => {
+              setMessageHistory(messages.sort((a, b) => b.date - a.date));
+              setIsLoading(false);
+            });
           })
           .catch(handleError);
         break;

@@ -1,4 +1,5 @@
 import {
+  Instance,
   InviteStatus,
   MessageType,
   WarcraftPlayerClass,
@@ -97,7 +98,7 @@ export abstract class BuildHelper {
               group_id: "roster",
               oldName: player.name,
               main: player.main ?? "",
-              alt: player.alt
+              alt: player.alt ?? "None"
             });
           }
         }
@@ -163,7 +164,7 @@ export abstract class BuildHelper {
               group_id: player.group_id as GroupId,
               oldName: player.oldName,
               main: player.main ?? "",
-              alt: player.alt
+              alt: player.alt ?? "None"
             });
           }
         }
@@ -220,7 +221,13 @@ export abstract class BuildHelper {
       embeds: [
         {
           description: note,
-          title: `${build.name} - ${new Date(build.date).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}`,
+          title: `${build.name} - ${new Date(build.date).toLocaleString("de-DE", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          })}`,
           color: null,
           url: sheetUrl,
           fields: [
@@ -322,7 +329,7 @@ export abstract class BuildHelper {
               group_id: "roster",
               oldName: player.name,
               main: player.main ?? "",
-              alt: player.alt
+              alt: player.alt ?? "None"
             });
           }
         }
@@ -349,7 +356,7 @@ export abstract class BuildHelper {
                 group_id: player.group_id as GroupId,
                 oldName: player.oldName,
                 main: player.main ?? "",
-                alt: player.alt
+                alt: player.alt ?? "None"
               });
             }
           }
@@ -360,11 +367,7 @@ export abstract class BuildHelper {
     return updates;
   }
 
-  public static async parseGetMessages(
-    amount: number,
-    builds: SelectOption[],
-    roster: BuildPlayer[]
-  ): Promise<Message[]> {
+  public static async parseGetMessages(amount: number, builds: SelectOption[]): Promise<Message[]> {
     const messages: Message[] = [];
     await RosterProvider.getMessages(amount).then((response) => {
       if (response) {
@@ -409,6 +412,7 @@ export abstract class BuildHelper {
   }
 
   public static parseMessage(message: WebSocketMessage, builds: SelectOption[]) {
+    console.log(message);
     return {
       type: MessageType[message.message_type] ?? message.message_type,
       date: message.date,
@@ -419,36 +423,117 @@ export abstract class BuildHelper {
               typeof message.data === "string"
                 ? (JSON.parse(message.data.toString()) as PlayerData)
                 : (message.data as PlayerData),
-              builds
+              builds,
+              message.message_type.includes("remove")
             )
-          : this.getBuildChanges(message.data as BuildData)
+          : this.getBuildChanges(
+              typeof message.data === "string"
+                ? (JSON.parse(message.data.toString()) as BuildData)
+                : (message.data as BuildData),
+              builds,
+              message.message_type.includes("remove") || message.message_type.includes("delete")
+            )
     } as Message;
   }
 
-  private static getPlayerChanges(message: PlayerData, builds: SelectOption[]) {
+  private static getPlayerChanges(message: PlayerData, builds: SelectOption[], remove?: boolean) {
     const changes: Difference[] = [];
-    const differences = Object.fromEntries(
-      Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
-    );
     const foundBuild = builds.find((build) => build?.value === message.build_id);
-    console.log(foundBuild);
-    Object.keys(differences).forEach((key) => {
+
+    // Update message
+    if (message.oldData) {
+      const differences = Object.fromEntries(
+        Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
+      );
+      console.log(differences);
+      Object.keys(differences).forEach((key) => {
+        const changeMessage = {
+          key,
+          objectType: "Build",
+          objectName: foundBuild?.label ?? message.build_id,
+          propertyName: message.player.name,
+          propertyType: "Player",
+          old: ["raid"].includes(key)
+            ? message.oldData[key] + 1
+            : ["spec"].includes(key)
+            ? message.oldData[key].split(/(?=[A-Z])/).pop()
+            : message.oldData[key],
+          new: ["raid"].includes(key)
+            ? message.player[key] + 1
+            : ["spec"].includes(key)
+            ? message.player[key].split(/(?=[A-Z])/).pop()
+            : message.player[key]
+        };
+        changes.push(changeMessage);
+      });
+    } else {
       const changeMessage = {
-        key,
+        key: remove ? "remove" : "add",
         objectType: "Build",
         objectName: foundBuild?.label ?? message.build_id,
         propertyName: message.player.name,
         propertyType: "Player",
-        old: message.oldData[key],
-        new: message.player[key]
-      }; //`${key} in ${foundBuild?.label ?? message.build_id}: Player ${message.player.name} ${message.oldData[key]} -> ${message.player[key]}`;
+        new: message.player.raid
+      };
       changes.push(changeMessage);
-    });
+    }
+
     return changes;
   }
 
-  private static getBuildChanges(message: BuildData) {
-    const changes: string[] = [];
+  private static getBuildChanges(message: BuildData, builds: SelectOption[], remove?: boolean) {
+    const changes: Difference[] = [];
+    const foundBuild = builds.find((build) => build?.value === message.build.id);
+
+    // Update message
+    if (message.oldData) {
+      const differences = Object.fromEntries(
+        Object.entries(message.oldData ?? []).filter(
+          ([key, val]) => key !== "players" && message.build[key] !== val
+        )
+      );
+      console.log(differences);
+      const version = localStorage.getItem("lastVersion") ?? "Wotlk";
+      Object.keys(differences).forEach((key) => {
+        console.log(key);
+        const changeMessage = {
+          key,
+          objectType: "Build",
+          propertyName: foundBuild?.label ?? message.build.name,
+          propertyType: "Build",
+          old: ["date"].includes(key)
+            ? new Date(message.oldData[key]).toLocaleString("de-de", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              })
+            : Instance[version].find((instance) => instance.abbreviation === message.oldData[key])
+                .name,
+          new: ["date"].includes(key)
+            ? new Date(message.build[key]).toLocaleString("de-de", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              })
+            : Instance[version].find((instance) => instance.abbreviation === message.build[key])
+                .name
+        };
+        changes.push(changeMessage);
+      });
+    } else {
+      const changeMessage = {
+        key: remove ? "remove" : "add",
+        objectType: "Build",
+        propertyName: foundBuild?.label ?? message.build.name,
+        propertyType: "Build",
+        new: foundBuild?.label ?? message.build.name
+      };
+      changes.push(changeMessage);
+    }
 
     return changes;
   }

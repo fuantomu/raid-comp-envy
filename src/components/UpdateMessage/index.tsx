@@ -39,28 +39,36 @@ const UpdateMessage: FC<UpdateMessageProps> = (props) => {
           {`${new Date(date).toLocaleString("de-de")} by ${from}`}
         </Typography>
       </Box>
-      {visible ? (
-        changes.length > 0 ? (
-          changes.map((changeMessage) => (
-            <Box key={UUID()} css={styles.change}>
-              {`${common(`message.${changeMessage.key}`)} of ${changeMessage.propertyType} '${
-                changeMessage.propertyName
-              }' has changed from ${`${changeMessage.old}`
-                .split(/(?=[A-Z])/)
-                .pop()} to ${`${changeMessage.new}`.split(/(?=[A-Z])/).pop()}`}
-            </Box>
-          ))
+      <Box sx={{ borderLeft: "1px solid black" }}>
+        {visible ? (
+          changes.length > 0 ? (
+            changes.map((changeMessage) =>
+              changeMessage.old ? (
+                <Box key={UUID()} css={styles.change}>
+                  {`${common(`message.${changeMessage.key}`)} of ${changeMessage.propertyType} '${
+                    changeMessage.propertyName
+                  }' was changed from '${`${changeMessage.old}`}' to '${`${changeMessage.new}`}'`}
+                </Box>
+              ) : (
+                <Box key={UUID()} css={styles.change}>
+                  {`${changeMessage.propertyType} '${changeMessage.propertyName}' was ${common(
+                    `message.${changeMessage.key}`
+                  )}`}
+                </Box>
+              )
+            )
+          ) : (
+            <Typography
+              style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}
+              variant="subtitle2"
+            >
+              Empty
+            </Typography>
+          )
         ) : (
-          <Typography
-            style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}
-            variant="subtitle2"
-          >
-            Empty
-          </Typography>
-        )
-      ) : (
-        <></>
-      )}
+          <></>
+        )}
+      </Box>
     </Box>
   );
 };
