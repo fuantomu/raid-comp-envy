@@ -71,6 +71,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
       console.log(event);
       setSocketId(UUID());
     },
+    heartbeat: {
+      message: "Ping",
+      returnMessage: "Pong",
+      timeout: 60000,
+      interval: 60000
+    },
     reconnectAttempts: 10,
     reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000)
   });
@@ -955,6 +961,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   };
 
   const handleWebsocketUpdate = (event: MessageEvent<any>) => {
+    if (event.data === "Pong") {
+      return;
+    }
     const received_message: WebSocketMessage = JSON.parse(event.data);
     if (!["update"].includes(received_message.message_type)) {
       const newMessage = BuildHelper.parseMessage(received_message, buildSelection, roster);
