@@ -43,11 +43,15 @@ const UpdateMessage: FC<UpdateMessageProps> = (props) => {
         {visible ? (
           changes.length > 0 ? (
             changes.map((changeMessage) =>
-              changeMessage.old ? (
+              changeMessage.key === "absence" ? (
+                <Box key={UUID()} css={styles.change}>
+                  {`${changeMessage.propertyType} '${changeMessage.propertyName}' is absent from ${changeMessage.old} to ${changeMessage.new}`}
+                </Box>
+              ) : changeMessage.old ? (
                 <Box key={UUID()} css={styles.change}>
                   {`${common(`message.${changeMessage.key}`)} of ${changeMessage.propertyType} '${
                     changeMessage.propertyName
-                  }' was changed from '${`${changeMessage.old}`}' to '${`${changeMessage.new}`}'`}
+                  }' was changed from '${changeMessage.old}' to '${changeMessage.new}'`}
                 </Box>
               ) : (
                 <Box key={UUID()} css={styles.change}>

@@ -62,9 +62,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   const manager = createDragDropManager(HTML5Backend);
 
   const { sendMessage } = useWebSocket(socketUrl, {
-    shouldReconnect: (closeEvent) => true,
+    shouldReconnect: (closeEvent) => {
+      console.log(closeEvent);
+      return true;
+    },
     onMessage: (event: MessageEvent) => handleWebsocketUpdate(event),
     onOpen: (event: MessageEvent) => {
+      console.log(event);
       setSocketId(UUID());
     },
     reconnectAttempts: 10,
@@ -256,7 +260,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     newBuild.raid_id = currentBuild.raid_id;
     builds[build_id] = newBuild;
     updateBuildStatus();
-    updateRosterStatus(roster, builds);
+    updateRosterStatus();
     setBuilds([...builds]);
     saveBuild(newBuild);
     if (send) {
@@ -394,21 +398,18 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     handleModalOpen = callback;
   };
 
-  const getPlayerAbsence = (player: string, build?: Build | undefined) => {
-    if (!build) {
-      build = builds[0];
-    }
+  const getPlayerAbsence = (player: string, date: number = new Date().getTime()) => {
     return absence.filter(
       (absentPlayer) =>
         (absentPlayer.player.name === player || absentPlayer.player.main === player) &&
-        absentPlayer.end_date >= build?.date
+        absentPlayer.end_date >= date
     );
   };
 
-  const getAbsentPlayers = (build_id: number): BuildPlayer[] => {
-    const playerBuild = builds[build_id];
+  const getAbsentPlayers = (build_id: number, build?: Build): BuildPlayer[] => {
+    const playerBuild = builds[build_id] ?? build;
     const foundPlayers = roster.filter((player: BuildPlayer) => {
-      const playerAbsence = getPlayerAbsence(player.main ?? player.name, playerBuild);
+      const playerAbsence = getPlayerAbsence(player.main ?? player.name, playerBuild.date);
       if (player.name !== player.main) {
         return false;
       }
@@ -574,7 +575,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     currentBuild.players = [...newPlayers];
 
     builds[oldBuild ?? newPlayer.raid] = currentBuild;
-    updateRosterStatus(roster, builds, absence);
+    updateRosterStatus();
     updateBuildStatus();
     setBuilds([...builds]);
 
@@ -690,7 +691,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   };
 
   const loadAbsence = (absenceResponse: Absence[], newRoster: BuildPlayer[]) => {
-    const absenceObject: Absence[] = [];
     for (const absenceItem of absenceResponse) {
       newRoster.map((player) => {
         if (player.id === absenceItem.player.id) {
@@ -701,14 +701,14 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             end_date: absenceItem.end_date,
             reason: absenceItem.reason
           } as Absence;
-          if (!absenceObject.find((currentAbsence) => currentAbsence.id === newAbsence.id)) {
-            absenceObject.push(newAbsence);
+          if (!absence.find((currentAbsence) => currentAbsence.id === newAbsence.id)) {
+            absence.push(newAbsence);
           }
         }
         return false;
       });
     }
-    setAbsence(absenceObject);
+    setAbsence(absence);
   };
 
   const loadBuildNames = (buildData: Build[]) => {
@@ -747,7 +747,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             return build.id === newestBuilds[1].id;
           }
         });
-        console.log(foundBuild);
         if (foundBuild) {
           initialBuilds[0] = foundBuild;
         }
@@ -787,7 +786,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
           newestBuilds[newestBuilds.length - 1 - initialBuild.build_id] ?? getEmptyBuild();
         initialBuild.build_id = old_build_id;
       }
-      console.log(initialBuild);
       builds[initialBuild.build_id] = initialBuild;
     });
     setBuilds([...builds]);
@@ -840,8 +838,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
 
       currentBuilds.map((build) => {
         currentAbsences.map((currentAbsence) => {
-          if (currentAbsence.end_date >= build?.date) {
-            if (currentAbsence.player.id === rosterPlayer.id) {
+          if (currentAbsence.player.id === rosterPlayer.id) {
+            if (currentAbsence.end_date >= build?.date) {
               rosterPlayer.status = InviteStatus.Tentative;
             }
           }
@@ -952,22 +950,19 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     if (differencesRoster.length > 0 || data.players.length !== roster.length) {
       console.log("Roster has changed. Reloading");
       setRoster(data.players.sort(sortFunctions[sorting]));
-      updateRosterStatus(data.players, data.builds, data.absences);
+      updateRosterStatus(data.players);
     }
   };
 
   const handleWebsocketUpdate = (event: MessageEvent<any>) => {
     const received_message: WebSocketMessage = JSON.parse(event.data);
-    if (!["update", "absence"].includes(received_message.message_type)) {
-      const newMessage = BuildHelper.parseMessage(received_message, buildSelection);
-      console.log(newMessage);
+    if (!["update"].includes(received_message.message_type)) {
+      const newMessage = BuildHelper.parseMessage(received_message, buildSelection, roster);
       setMessageHistory([newMessage, ...messageHistory]);
     }
     if (received_message.socketId === socketId) {
-      console.log("Message is from self");
       return;
     }
-    console.log(received_message);
     switch (received_message.message_type) {
       case "addplayer": {
         const data: PlayerData = received_message.data as PlayerData;
@@ -977,7 +972,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         );
         if (foundPlayer && foundBuild) {
           data.player.raid = selectedBuilds.indexOf(foundBuild);
-          console.log(`Adding player ${JSON.stringify(data.player)}`);
           addPlayerToRaid(data.player, false);
         }
         break;
@@ -990,7 +984,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         );
         if (foundPlayer && foundBuild) {
           data.player.raid = selectedBuilds.indexOf(foundBuild);
-          console.log(`Updating player ${JSON.stringify(data.player)}`);
           updatePlayer(data.player, false);
         }
         break;
@@ -1003,7 +996,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         );
         if (foundPlayer && foundBuild) {
           data.player.raid = selectedBuilds.indexOf(foundBuild);
-          console.log(`Removing player ${JSON.stringify(data.player)}`);
           removePlayerFromRaid(data.player, false, false);
         }
         break;
@@ -1016,7 +1008,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         );
         if (foundPlayer && foundBuild) {
           data.player.raid = selectedBuilds.indexOf(foundBuild);
-          console.log(`Moving player ${JSON.stringify(data.player)}`);
           movePlayer(data.player, data.oldData?.raid, false);
         }
         break;
@@ -1025,7 +1016,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         const data: BuildData = received_message.data as BuildData;
         const foundBuild = builds.find((build) => build?.id === data.build.id);
         if (!foundBuild) {
-          console.log(`Adding build ${JSON.stringify(data)}`);
           addBuild(data.build.name, data.build.build_id, false, false, data.build.id);
         }
         break;
@@ -1034,7 +1024,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         const data: BuildData = received_message.data as BuildData;
         const foundBuild = builds.find((build) => build?.id === data.build.id);
         if (foundBuild) {
-          console.log(`Removing build ${JSON.stringify(data)}`);
           deleteBuild(foundBuild.id, false);
         } else {
           setBuildSelection(buildSelection.filter((build) => build.value !== data.build.id));
@@ -1045,18 +1034,15 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         const data: BuildData = received_message.data as BuildData;
         const foundBuild = selectedBuilds.find((build) => build.value === data.build.id);
         if (foundBuild) {
-          console.log(`Resetting build ${JSON.stringify(data)}`);
           resetBuild(selectedBuilds.indexOf(foundBuild), false);
         }
         break;
       }
       case "updatebuild": {
         const data: BuildData = received_message.data as BuildData;
-        console.log(data);
         const foundBuild = selectedBuilds.find((build) => build.value === data.build.id);
         if (foundBuild) {
           if (foundBuild.date !== data.build.date) {
-            console.log(`Updating build date ${JSON.stringify(data)}`);
             handleDateSelect(
               builds[selectedBuilds.indexOf(foundBuild)].build_id,
               data.build.date,
@@ -1064,7 +1050,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             );
           }
           if (builds[selectedBuilds.indexOf(foundBuild)].instance !== data.build.instance) {
-            console.log(`Updating build instance ${JSON.stringify(data)}`);
             setBuildInstance(
               builds[selectedBuilds.indexOf(foundBuild)].build_id,
               data.build.instance,
@@ -1090,7 +1075,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
       case "updateroster": {
         const data: PlayerData = received_message.data as PlayerData;
         if (data) {
-          console.log(`Updating roster ${JSON.stringify(data)}`);
           updateRoster(data.player, false, false);
         }
         break;
@@ -1099,14 +1083,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         const data: PlayerData = received_message.data as PlayerData;
         const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
         if (foundPlayer) {
-          console.log(`Deleting from roster ${JSON.stringify(data)}`);
           removeFromRoster(data.player, false, false);
         }
         break;
       }
       case "absence": {
         const data: AbsenceData = received_message.data as AbsenceData;
-        console.log(`Updating absence ${JSON.stringify(data)}`);
         const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player_id);
         if (foundPlayer) {
           const newAbsence = {
@@ -1123,7 +1105,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         break;
       }
       case "update":
-        console.log("Updating");
+        if (!isLoading) {
+          return;
+        }
         BuildHelper.parseGetUpdate()
           .then((update) => {
             loadData(update);
@@ -1147,10 +1131,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
                 })}`
               };
             });
-            BuildHelper.parseGetMessages(MESSAGES_TO_LOAD, buildNames).then((messages) => {
-              setMessageHistory(messages.sort((a, b) => b.date - a.date));
-              setIsLoading(false);
-            });
+            BuildHelper.parseGetMessages(MESSAGES_TO_LOAD, buildNames, update.players).then(
+              (messages) => {
+                setMessageHistory(messages.sort((a, b) => b.date - a.date));
+                setIsLoading(false);
+              }
+            );
           })
           .catch(handleError);
         break;
@@ -1232,23 +1218,23 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             justifySelf={"center"}
           >
             <MessageBuild messages={messageHistory} accountRole={accountRole}></MessageBuild>
-            <Button
-              sx={{
-                marginBottom: "56px",
-                height: "100%",
-                display: "grid",
-                gridTemplateColumns: "4fr fr",
-                justifyContent: "center"
-              }}
-              onClick={logout}
-            >
-              <Box>{`Currently logged in as ${accountName}`}</Box>
-              <Box>
-                <Tooltip title={common(`logout`)}>
+            <Tooltip title={common(`logout`)}>
+              <Button
+                sx={{
+                  marginBottom: "56px",
+                  height: "100%",
+                  display: "grid",
+                  gridTemplateColumns: "4fr fr",
+                  justifyContent: "center"
+                }}
+                onClick={logout}
+              >
+                <Box>{`Currently logged in as ${accountName}`}</Box>
+                <Box>
                   <Logout />
-                </Tooltip>
-              </Box>
-            </Button>
+                </Box>
+              </Button>
+            </Tooltip>
           </Box>
         </StickyBox>
         <div style={{ width: "100%", borderLeft: "1px solid black" }}>

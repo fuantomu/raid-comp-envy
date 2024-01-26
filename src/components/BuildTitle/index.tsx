@@ -83,7 +83,6 @@ const BuildTitle: FC<BuildTitleProps> = ({
         content: common("error.build.alreadyset")
       });
     } else {
-      console.log(newValue);
       setSelectedOption(newValue);
       context?.handleBuildSelect(build_id, newValue);
     }

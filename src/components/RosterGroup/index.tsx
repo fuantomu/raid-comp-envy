@@ -40,19 +40,23 @@ const RosterGroup: FC<RosterGroupProps> = ({
     () => ({
       accept: DragItemTypes.PLAYER,
       drop: (player: BuildPlayer) => {
-        context?.importPlayer({
-          id: player.id,
-          name: player.name,
-          class_name: player.class_name,
-          spec: player.spec,
-          race: player.race,
-          raid: player.raid,
-          status: player.status,
-          group_id: "roster" as GroupId,
-          oldName: player.oldName,
-          main: player.main,
-          alt: player.alt
-        });
+        context?.importPlayer(
+          {
+            id: player.id,
+            name: player.name,
+            class_name: player.class_name,
+            spec: player.spec,
+            race: player.race,
+            raid: -5,
+            status: player.status,
+            group_id: "roster" as GroupId,
+            oldName: player.oldName,
+            main: player.main,
+            alt: player.alt
+          },
+          false,
+          player.raid
+        );
       }
     }),
     []

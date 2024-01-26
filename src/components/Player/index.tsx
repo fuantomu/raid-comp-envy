@@ -96,7 +96,14 @@ const Player: FC<PlayerProps> = (props) => {
             <></>
           )}
           {status === "tentative" ? (
-            <AttendanceIcon status={status} absence={context?.getPlayerAbsence(main ?? name)} />
+            <AttendanceIcon
+              status={status}
+              absence={
+                group_id === "roster"
+                  ? context?.getPlayerAbsence(main ?? name, 0)
+                  : context?.getPlayerAbsence(main ?? name, context.getBuild(raid).date)
+              }
+            />
           ) : null}
 
           {alts.length > 0 ? (

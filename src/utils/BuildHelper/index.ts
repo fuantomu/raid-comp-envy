@@ -7,6 +7,7 @@ import {
   WarcraftPlayerSpec
 } from "../../consts";
 import {
+  AbsenceData,
   AbsenceResponse,
   Build,
   BuildData,
@@ -125,8 +126,10 @@ export abstract class BuildHelper {
   }
 
   public static async parseSaveRoster(players: BuildPlayer[]) {
+    const savePlayers = [...players];
+    savePlayers.map((player) => (player.status = InviteStatus.Unknown));
     const buildPlayerRequest: BuildPlayerResponse = {
-      players: players
+      players: savePlayers
     };
     await RosterProvider.saveRoster(buildPlayerRequest).then((response) => {});
   }
@@ -367,14 +370,16 @@ export abstract class BuildHelper {
     return updates;
   }
 
-  public static async parseGetMessages(amount: number, builds: SelectOption[]): Promise<Message[]> {
+  public static async parseGetMessages(
+    amount: number,
+    builds: SelectOption[],
+    players: BuildPlayer[]
+  ): Promise<Message[]> {
     const messages: Message[] = [];
     await RosterProvider.getMessages(amount).then((response) => {
       if (response) {
-        console.log(response);
-
         response.map((message) => {
-          messages.push(this.parseMessage(message, builds));
+          messages.push(this.parseMessage(message, builds, players));
           return false;
         });
       }
@@ -411,8 +416,11 @@ export abstract class BuildHelper {
     }
   }
 
-  public static parseMessage(message: WebSocketMessage, builds: SelectOption[]) {
-    console.log(message);
+  public static parseMessage(
+    message: WebSocketMessage,
+    builds: SelectOption[],
+    players: BuildPlayer[]
+  ) {
     return {
       type: MessageType[message.message_type] ?? message.message_type,
       date: message.date,
@@ -425,6 +433,13 @@ export abstract class BuildHelper {
                 : (message.data as PlayerData),
               builds,
               message.message_type.includes("remove")
+            )
+          : message.message_type === "absence"
+          ? this.getAbsenceChanges(
+              typeof message.data === "string"
+                ? (JSON.parse(message.data.toString()) as AbsenceData)
+                : (message.data as AbsenceData),
+              players
             )
           : this.getBuildChanges(
               typeof message.data === "string"
@@ -445,7 +460,6 @@ export abstract class BuildHelper {
       const differences = Object.fromEntries(
         Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
       );
-      console.log(differences);
       Object.keys(differences).forEach((key) => {
         const changeMessage = {
           key,
@@ -492,10 +506,8 @@ export abstract class BuildHelper {
           ([key, val]) => key !== "players" && message.build[key] !== val
         )
       );
-      console.log(differences);
       const version = localStorage.getItem("lastVersion") ?? "Wotlk";
       Object.keys(differences).forEach((key) => {
-        console.log(key);
         const changeMessage = {
           key,
           objectType: "Build",
@@ -534,6 +546,31 @@ export abstract class BuildHelper {
       };
       changes.push(changeMessage);
     }
+
+    return changes;
+  }
+
+  private static getAbsenceChanges(message: AbsenceData, players: BuildPlayer[]) {
+    const changes: Difference[] = [];
+    const foundPlayer = players.find((player) => player?.id === message.player_id);
+
+    const changeMessage = {
+      key: "absence",
+      objectType: "Absence",
+      propertyName: foundPlayer.name ?? message.player_id,
+      propertyType: "Player",
+      new: new Date(message.end_date).toLocaleDateString("de-de", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }),
+      old: new Date(message.start_date).toLocaleDateString("de-de", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      })
+    };
+    changes.push(changeMessage);
 
     return changes;
   }
