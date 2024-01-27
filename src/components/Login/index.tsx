@@ -33,6 +33,10 @@ const Login: FC<Props> = ({
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if (username.length === 0 || password.length === 0) {
+      showError(true);
+      return;
+    }
     const hash = getHash(username, password);
     RosterProvider.getAccountLogin(username, hash).then((response) => {
       if (response === -1) {
