@@ -18,7 +18,7 @@ const UpdateMessage: FC<UpdateMessageProps> = (props) => {
   const [visible, setVisible] = useState(false);
 
   return (
-    <Box>
+    <Box sx={{ marginRight: "8px" }}>
       <Box
         key={UUID()}
         css={styles.message()}
@@ -36,10 +36,17 @@ const UpdateMessage: FC<UpdateMessageProps> = (props) => {
           css={[styles.name, { pointerEvents: "none" }]}
           title={new Date(date).toLocaleString("de-de")}
         >
-          {`${new Date(date).toLocaleString("de-de")} by ${from}`}
+          {`${new Date(date).toLocaleString("de-de", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          })} by ${from}`}
         </Typography>
       </Box>
-      <Box sx={{ borderLeft: "1px solid black" }}>
+      <Box>
         {visible ? (
           changes.length > 0 ? (
             changes.map((changeMessage) =>

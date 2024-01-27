@@ -46,7 +46,7 @@ const RaidBuffChecklist: FC<RaidBuffChecklistProps> = ({ build, version }) => {
   const infoBadgeStyles = useInfoBadgeStyles();
 
   return (
-    <Card>
+    <Card sx={{ border: "1px solid black" }}>
       <CardContent css={infoBadgeStyles.container}>
         <UtilityInfoBadge />
         <Typography style={{ caretColor: "transparent" }} variant="subtitle1">

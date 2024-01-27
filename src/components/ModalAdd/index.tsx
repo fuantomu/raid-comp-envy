@@ -320,8 +320,8 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
               color="success"
               variant="contained"
               size="large"
-              css={{ height: "80%" }}
               onClick={handleOpen}
+              sx={{ height: "100%", width: "80px" }}
             >
               <PersonAddIcon />
             </Button>

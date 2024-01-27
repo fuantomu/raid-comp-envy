@@ -276,7 +276,7 @@
     "healer": "Healer first",
     "melee": "Melee first",
     "ranged": "Ranged first",
-    "default": "Default sorting (Tanks->Healer->Melee->Ranged)"
+    "default": "Default"
   },
   "version": {
     "Cataclysm": "Switch to Wrath of the Lich King",

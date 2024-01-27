@@ -1222,7 +1222,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
               backgroundImage: `url(${envy})`,
               backgroundRepeat: "no-repeat",
               backgroundPosition: "bottom right",
-              backgroundSize: "20%"
+              backgroundSize: "15%"
             }}
             justifySelf={"center"}
           >
@@ -1234,7 +1234,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
                   height: "100%",
                   display: "grid",
                   gridTemplateColumns: "4fr fr",
-                  justifyContent: "center"
+                  justifyContent: "center",
+                  marginTop: "-1px",
+                  borderTop: "1px solid black"
                 }}
                 onClick={logout}
               >

@@ -29,7 +29,14 @@ const MessageGroup: FC<BasicGroupProps> = ({ messages = [], accountRole }) => {
         <Box
           key={UUID()}
           css={[styles.default, styles.scroll]}
-          sx={{ maxHeight: window.innerHeight / 6, border: "1px solid black" }}
+          sx={{
+            maxHeight: window.innerHeight / 5.0,
+            borderLeft: "1px solid black",
+            borderRight: "1px solid black",
+            borderTop: "1px solid black",
+            marginBottom: "-24px",
+            borderRadius: "2px"
+          }}
         >
           {messages.length > 0 ? (
             messages.map((message) => (

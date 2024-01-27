@@ -52,7 +52,7 @@ const CompositionRole: FC<CompositionRoleProps> = ({
   };
 
   return (
-    <Card>
+    <Card sx={{ border: "1px solid black" }}>
       <CardContent>
         <Box css={styles.header}>
           <WarcraftIcon src={IconProvider.getRoleIcon(role)} />

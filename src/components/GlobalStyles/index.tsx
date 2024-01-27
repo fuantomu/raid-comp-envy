@@ -15,6 +15,7 @@ const GlobalStyles: FC = () => {
 
         :root {
           font-size: ${typography.fontSize}px;
+          scrollbar-color: #ad0a0a #1d1d1d !important;
         }
 
         html {

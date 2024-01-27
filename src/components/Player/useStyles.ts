@@ -13,7 +13,7 @@ export default (class_name: WarcraftPlayerClass) => {
         grid-template-columns: 22px 22px 1fr 14px auto;
         gap: ${spacing(Spacing.xs)};
         padding: ${spacing(Spacing.xxs)};
-        margin: ${spacing(Spacing.xxs)} 0;
+        margin: 1px;
         background-color: ${status === "accepted"
           ? "#2c4a2c"
           : status === "declined"

@@ -10,17 +10,17 @@ export default () => {
       return css`
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: ${spacing(Spacing.xxs)};
         padding: ${spacing(Spacing.xxs)};
-        margin: 2px;
         background-color: ${palette.background.default};
-        border-radius: ${spacing(Spacing.xxs)};
         align-items: center;
         user-select: none;
         cursor: pointer;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+        gap: ${theme.spacing(Spacing.s)};
 
         &:hover {
-          background-color: ${palette.secondary.dark};
+          background-color: ${palette.primary.dark};
         }
       `;
     },
@@ -35,9 +35,16 @@ export default () => {
     change: css`
       display: grid;
       grid-template-columns: 1fr auto;
-      background-color: ${palette.primary.dark};
-      padding: 1px;
+      background-color: ${palette.secondary.dark};
+      padding: 4px;
+      margin-left: 4px;
       gap: ${theme.spacing(Spacing.xxs)};
+      font-size: 12px;
+      font-weight: ${theme.typography.fontWeightMedium}!important;
+      border-left: 1px solid black;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      text-shadow: 1px 1px black;
     `
   };
 };

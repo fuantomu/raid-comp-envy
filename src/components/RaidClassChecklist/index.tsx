@@ -39,7 +39,7 @@ const buildClassChecklist = (build: Build) => {
 const RaidClassChecklist: FC<RaidClassChecklistProps> = ({ build }) => {
   const [common] = useTranslation("common");
   return (
-    <Card>
+    <Card sx={{ border: "1px solid black" }}>
       <CardContent>
         <Typography style={{ caretColor: "transparent" }} variant="subtitle1">
           {common("build.checklist.classes")}

@@ -68,8 +68,13 @@ const RosterGroup: FC<RosterGroupProps> = ({
 
   return (
     <Card ref={drop}>
-      <CardContent sx={{ maxHeight: window.innerHeight / 1.6 }}>
-        <Box key={UUID()} display={"grid"} gridTemplateColumns={"2.5fr 1.2fr 1.8fr 3fr"}>
+      <CardContent sx={{ maxHeight: window.innerHeight / 1.7 }}>
+        <Box
+          key={UUID()}
+          display={"grid"}
+          gridTemplateColumns={"2.5fr auto 1.2fr 1.3fr"}
+          marginBottom={"10px"}
+        >
           <Typography
             style={{ caretColor: "transparent", userSelect: "none" }}
             fontSize={"26px"}
@@ -79,8 +84,12 @@ const RosterGroup: FC<RosterGroupProps> = ({
           </Typography>
           <ModalAdd accountRole={accountRole} />
           <Button
-            css={{ height: "80%" }}
-            sx={{ color: "white", border: "1px solid #424242" }}
+            sx={{
+              color: "white",
+              border: "1px solid black",
+              marginLeft: "10px",
+              marginRight: "10px"
+            }}
             onClick={() => {
               context?.setRosterExpanded(!context?.getRosterExpanded());
             }}
@@ -93,6 +102,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             onChange={context?.handleSorting}
             select // tell TextField to render select
             label="Sort by"
+            sx={{ border: "1px solid black" }}
           >
             <MenuItem id={"alphabetical"} value={"NAME"}>
               {common("sorting.alphabetical")}
@@ -116,7 +126,11 @@ const RosterGroup: FC<RosterGroupProps> = ({
         </Box>
         <Box
           key={UUID()}
-          sx={{ maxHeight: window.innerHeight / 1.6 }}
+          sx={{
+            maxHeight: window.innerHeight / 1.7,
+            border: "1px solid black",
+            borderRadius: "5px"
+          }}
           css={[styles.scroll, styles.spread(window.innerWidth)]}
         >
           {players

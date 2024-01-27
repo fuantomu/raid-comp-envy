@@ -14,6 +14,7 @@ export default (spread: boolean) => {
     ],
     scroll: css`
       overflow-y: scroll;
+      scrollbar-gutter: auto;
     `,
     gridBox: css`
       margin: ${theme.spacing(Spacing.xs)} auto !important;

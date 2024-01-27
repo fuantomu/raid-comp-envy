@@ -68,7 +68,12 @@ const Raid: FC<RaidProps> = ({
       >
         <Box
           key={UUID()}
-          sx={{ cursor: "pointer", border: `1px solid black`, marginBottom: "10px" }}
+          sx={{
+            cursor: "pointer",
+            border: `1px solid black`,
+            borderRadius: "5px",
+            marginBottom: "10px"
+          }}
           onClick={(event) => {
             event.stopPropagation();
             setVisible(!visible);
@@ -115,7 +120,11 @@ const Raid: FC<RaidProps> = ({
               <Box sx={{ marginLeft: "5px" }}>
                 <Box
                   key={UUID()}
-                  sx={{ cursor: "pointer", border: `1px solid black` }}
+                  sx={{
+                    cursor: "pointer",
+                    border: `1px solid black`,
+                    borderRadius: "5px 5px 0px 0px"
+                  }}
                   onClick={(event) => {
                     event.stopPropagation();
                     setVisibleNotSet(!visibleNotSet);
@@ -145,7 +154,11 @@ const Raid: FC<RaidProps> = ({
               <Box sx={{ marginLeft: "5px" }}>
                 <Box
                   key={UUID()}
-                  sx={{ cursor: "pointer", border: `1px solid black` }}
+                  sx={{
+                    cursor: "pointer",
+                    border: `1px solid black`,
+                    borderRadius: "5px 5px 0px 0px"
+                  }}
                   onClick={(event) => {
                     event.stopPropagation();
                     setVisibleAbsent(!visibleAbsent);
@@ -185,7 +198,12 @@ const Raid: FC<RaidProps> = ({
       >
         <Box
           key={UUID()}
-          sx={{ cursor: "pointer", border: `1px solid black`, marginBottom: "10px" }}
+          sx={{
+            cursor: "pointer",
+            border: `1px solid black`,
+            marginBottom: "10px",
+            borderRadius: "5px"
+          }}
           onClick={(event) => {
             event.stopPropagation();
             setVisibleComposition(!visibleComposition);
@@ -225,7 +243,12 @@ const Raid: FC<RaidProps> = ({
       <CardContent key={UUID()} style={{ backgroundColor: "#242424" }}>
         <Box
           key={UUID()}
-          sx={{ cursor: "pointer", border: `1px solid black`, marginBottom: "10px" }}
+          sx={{
+            cursor: "pointer",
+            border: `1px solid black`,
+            marginBottom: "10px",
+            borderRadius: "5px"
+          }}
           onClick={(event) => {
             event.stopPropagation();
             setVisibleChecklist(!visibleChecklist);
