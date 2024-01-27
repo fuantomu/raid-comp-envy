@@ -405,11 +405,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   };
 
   const getPlayerAbsence = (player: string, date: number = new Date().getTime()) => {
-    return absence.filter(
-      (absentPlayer) =>
-        (absentPlayer.player.name === player || absentPlayer.player.main === player) &&
-        absentPlayer.end_date >= date
-    );
+    return [
+      ...absence.filter(
+        (absentPlayer) =>
+          (absentPlayer.player.name === player || absentPlayer.player.main === player) &&
+          absentPlayer.end_date >= date
+      )
+    ];
   };
 
   const getAbsentPlayers = (build_id: number, build?: Build): BuildPlayer[] => {

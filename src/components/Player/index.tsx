@@ -4,11 +4,10 @@ import Typography from "@mui/material/Typography";
 import { FC, useState } from "react";
 import { useDrag } from "react-dnd";
 import { useTranslation } from "react-i18next";
-import { AccountRole, DragItemTypes, WarcraftPlayerRace } from "../../consts";
+import { DragItemTypes, InviteStatus, WarcraftPlayerRace } from "../../consts";
 import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
-import AttendanceIcon from "../AttendanceIcon";
 import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 import { useAppContext } from "../App/context";
@@ -16,6 +15,7 @@ import { ArrowDropDown, ArrowLeft, Star } from "@mui/icons-material";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import { Tooltip } from "@mui/material";
 import { sortFunctions } from "../../utils/sorting";
+import AbsenceTooltip from "../AbsenceTooltip";
 
 export interface PlayerProps extends BuildPlayer {
   showRole?: boolean;
@@ -56,9 +56,37 @@ const Player: FC<PlayerProps> = (props) => {
 
   return (
     <Tooltip
-      title={accountRole === AccountRole.Admin ? "" : common("build.add.view")}
+      title={
+        status === InviteStatus.Tentative ? (
+          <AbsenceTooltip
+            absences={
+              group_id === "roster"
+                ? context
+                    ?.getPlayerAbsence(main ?? name, 0)
+                    .sort((a, b) => b.start_date - a.start_date)
+                    .slice(0, 10)
+                : context
+                    ?.getPlayerAbsence(main ?? name, context.getBuild(raid).date)
+                    .sort((a, b) => b.start_date - a.start_date)
+                    .slice(0, 10)
+            }
+          ></AbsenceTooltip>
+        ) : (
+          ""
+        )
+      }
       placement="top"
       arrow
+      componentsProps={{
+        tooltip: {
+          sx: {
+            backgroundColor: "transparent",
+            color: "rgba(255, 255, 255, 0.87)",
+            maxWidth: "800px"
+          }
+        }
+      }}
+      disableInteractive
     >
       <Box>
         <Box
@@ -95,17 +123,6 @@ const Player: FC<PlayerProps> = (props) => {
           ) : (
             <></>
           )}
-          {status === "tentative" ? (
-            <AttendanceIcon
-              status={status}
-              absence={
-                group_id === "roster"
-                  ? context?.getPlayerAbsence(main ?? name, 0)
-                  : context?.getPlayerAbsence(main ?? name, context.getBuild(raid).date)
-              }
-            />
-          ) : null}
-
           {alts.length > 0 ? (
             <Box
               onClick={(event) => {

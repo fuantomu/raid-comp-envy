@@ -314,5 +314,11 @@
     "alt": "Alt",
     "date": "Date",
     "instance": "Instance"
+  },
+  "absence": {
+    "title": "Absence",
+    "start": "Startdate",
+    "end": "Enddate",
+    "reason": "Reason"
   }
 }
