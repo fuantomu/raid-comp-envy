@@ -227,8 +227,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     return roster.filter((rosterPlayer) => isAlt(rosterPlayer, player));
   };
 
-  const getMains = (): BuildPlayer[] => {
-    return roster.filter((rosterPlayer) => {
+  const getMains = (players: BuildPlayer[] = roster): BuildPlayer[] => {
+    return players.filter((rosterPlayer) => {
       return rosterPlayer.main === rosterPlayer.name;
     });
   };
@@ -291,32 +291,32 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     BuildHelper.parseGetBuild(value.value).then((build) => {
       build.build_id = build_id;
       builds[build_id] = build;
-      updateBuildStatus();
-      updateRosterStatus();
       selectedBuilds[build_id] = buildSelection.find(
         (buildSelect) => buildSelect.value === build.id
       );
+      updateBuildStatus();
+      updateRosterStatus();
     });
   };
 
   const handleDateSelect = (build_id: number, value: any, send: boolean = true) => {
     const oldBuild = getBuildCopy(builds[build_id]);
     builds[build_id].date = value.valueOf();
-    updateBuildStatus();
-    updateRosterStatus();
-    saveBuild(builds[build_id]);
     buildSelection.map((buildSelect) => {
       if (buildSelect.value === builds[build_id].id) {
         buildSelect.date = value.valueOf();
-        buildSelect.label = `${builds[build_id].name} - ${new Date(value.valueOf()).toLocaleString(
+        buildSelect.label = `${builds[build_id].name} - ${new Date(buildSelect.date).toLocaleString(
           "de-DE",
           { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }
         )}`;
         selectedBuilds[build_id].label = buildSelect.label;
-        selectedBuilds[build_id].date = value.valueOf();
+        selectedBuilds[build_id].date = buildSelect.date;
       }
       return false;
     });
+    updateBuildStatus();
+    updateRosterStatus();
+    saveBuild(builds[build_id]);
     if (send) {
       message.message_type = "updatebuild";
       message.data["build"] = getBuildCopy(builds[build_id]);
@@ -837,21 +837,28 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   const updateRosterStatus = (
     currentRoster: BuildPlayer[] = roster,
     currentBuilds: Build[] = builds,
-    currentAbsences: Absence[] = absence
+    currentAbsences: Absence[] = absence,
+    currentSelection: SelectOption[] = selectedBuilds
   ) => {
     const charactersSet = {};
     currentRoster.map((rosterPlayer) => {
       rosterPlayer.status = InviteStatus.Unknown;
 
-      currentBuilds.map((build) => {
+      currentSelection.map((build) => {
         currentAbsences.map((currentAbsence) => {
           if (currentAbsence.player.id === rosterPlayer.id) {
-            if (currentAbsence.end_date >= build?.date) {
+            if (
+              currentAbsence.end_date >= build?.date ||
+              currentAbsence.end_date >= new Date().getTime()
+            ) {
               rosterPlayer.status = InviteStatus.Tentative;
             }
           }
           return false;
         });
+      });
+
+      currentBuilds.map((build) => {
         build?.players.map((buildPlayer) => {
           if (buildPlayer.id === rosterPlayer.id && rosterPlayer.status === InviteStatus.Unknown) {
             rosterPlayer.status = InviteStatus.Accepted;
@@ -877,15 +884,15 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         });
       }
 
-      currentRoster.map((otherRosterPlayer) => {
-        if (
-          isAlt(rosterPlayer, otherRosterPlayer) &&
-          otherRosterPlayer.status === InviteStatus.Tentative
-        ) {
-          rosterPlayer.status = InviteStatus.Tentative;
-        }
-        return false;
-      });
+      if (rosterPlayer.main !== rosterPlayer.name) {
+        getMains(currentRoster).map((main) => {
+          if (main.name === rosterPlayer.main && main.status === InviteStatus.Tentative) {
+            rosterPlayer.status = InviteStatus.Tentative;
+          }
+          return false;
+        });
+      }
+
       return false;
     });
     setRoster([...currentRoster.sort(sortFunctions[sorting])]);

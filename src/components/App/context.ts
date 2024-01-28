@@ -27,7 +27,7 @@ type AppContextApi = {
   handleShowError: (callback: any) => void;
   getAlts: (player: BuildPlayer) => BuildPlayer[];
   getMains: () => BuildPlayer[];
-  getSelectedBuilds: (build_id: number) => SelectOption[];
+  getSelectedBuilds: () => SelectOption[];
 };
 
 const AppContext = createContext<AppContextApi | null>(null);

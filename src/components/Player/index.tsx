@@ -62,7 +62,17 @@ const Player: FC<PlayerProps> = (props) => {
             absences={
               group_id === "roster"
                 ? context
-                    ?.getPlayerAbsence(main ?? name, 0)
+                    ?.getPlayerAbsence(
+                      main ?? name,
+                      Math.min(
+                        new Date().setDate(
+                          new Date().getDate() + ((3 - 7 - new Date().getDay()) % 7 || 7)
+                        ),
+                        context?.getSelectedBuilds().reduce((a, b) => {
+                          return a.date < b.date ? a : b;
+                        }).date
+                      )
+                    )
                     .sort((a, b) => b.start_date - a.start_date)
                     .slice(0, 10)
                 : context

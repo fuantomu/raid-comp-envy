@@ -76,7 +76,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
       return;
     }
     const buildFound = context
-      ?.getSelectedBuilds(build_id)
+      ?.getSelectedBuilds()
       .find((build) => build?.value === newValue.value);
     if (buildFound) {
       handleModalOpen({
