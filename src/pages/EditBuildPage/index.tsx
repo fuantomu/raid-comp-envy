@@ -156,21 +156,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     return rosterExpanded;
   };
 
-  const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
-    const oldBuild = getBuildCopy(builds[build_id]);
-    builds[build_id].instance = value.value ?? value;
-    updateRosterStatus();
-    saveBuild(builds[build_id]);
-    if (send) {
-      message.message_type = "updatebuild";
-      message.data["build"] = getBuildCopy(builds[build_id]);
-      message.data["build"]["players"] = [];
-      message.data["oldData"] = oldBuild;
-      message.data["oldData"]["players"] = [];
-      sendMessage(JSON.stringify(message));
-    }
-  };
-
   const getBuild = (build_id: number): Build => {
     return builds[build_id];
   };
@@ -285,6 +270,20 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
     const newVersion = version === "Cataclysm" ? "Wotlk" : "Cataclysm";
     setVersion(newVersion);
     localStorage.setItem("LastVersion", newVersion);
+  };
+
+  const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
+    const oldBuild = getBuildCopy(builds[build_id]);
+    builds[build_id].instance = value.value ?? value;
+    saveBuild(builds[build_id]);
+    if (send) {
+      message.message_type = "updatebuild";
+      message.data["build"] = getBuildCopy(builds[build_id]);
+      message.data["build"]["players"] = [];
+      message.data["oldData"] = oldBuild;
+      message.data["oldData"]["players"] = [];
+      sendMessage(JSON.stringify(message));
+    }
   };
 
   const handleBuildSelect = (build_id: number, value: any) => {
@@ -1261,8 +1260,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             editing
             accountRole={accountRole}
           ></Raid>
-          <br></br>
-          <br></br>
           <Raid
             manager={manager}
             id={1}

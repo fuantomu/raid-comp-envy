@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { FC, useState } from "react";
-import { Box } from "@mui/material";
-import { ActionMeta } from "react-select";
-import Select from "react-select";
+import { Autocomplete, Box, TextField } from "@mui/material";
 import { SelectOption } from "../../types";
 import { useAppContext } from "../App/context";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -73,7 +71,10 @@ const BuildTitle: FC<BuildTitleProps> = ({
     handleModalOpen = callback;
   };
 
-  const handleChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
+  const handleChange = (event: any, newValue: SelectOption) => {
+    if (!newValue) {
+      return;
+    }
     const buildFound = context
       ?.getSelectedBuilds(build_id)
       .find((build) => build?.value === newValue.value);
@@ -88,7 +89,10 @@ const BuildTitle: FC<BuildTitleProps> = ({
     }
   };
 
-  const handleInstanceChange = (newValue: SelectOption, actionMeta: ActionMeta<never>) => {
+  const handleInstanceChange = (event: any, newValue: SelectOption) => {
+    if (!newValue) {
+      return;
+    }
     setInstance(newValue);
     context?.setBuildInstance(build_id, newValue);
   };
@@ -99,46 +103,40 @@ const BuildTitle: FC<BuildTitleProps> = ({
     context?.handleDateSelect(build_id, newDate);
   };
 
-  const customStyles = {
-    control: (provided: any, state: any) => ({
-      ...provided,
-      boxShadow: "none",
-      backgroundColor: "#1d1d1d",
-      border: "1px solid black",
-      color: "black",
-      width: "100%"
-    }),
-    singleValue: (provided: any, state: any) => ({
-      ...provided,
-      fontSize: 20,
-      color: "white"
-    }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      fontSize: 16,
-      color: "#fff",
-      backgroundColor: state.isSelected ? "#ad0a0a" : state.isFocused ? "#757575" : "#1d1d1d"
-    })
-  };
-
   return (
     <Box>
       <ModalAlert handleOpen={handleOpen} />
-      <Select
-        value={selectedOption}
+
+      <Autocomplete
+        value={selectedOption ?? options[0]}
         options={options}
         onChange={handleChange}
-        styles={customStyles}
-        isDisabled={!isAccountRoleAllowed(accountRole, "ChangeBuild")}
+        clearOnEscape
+        isOptionEqualToValue={(option, value) => option.value === value.value}
+        readOnly={!isAccountRoleAllowed(accountRole, "ChangeBuild")}
+        renderInput={(params) => <TextField {...params} variant="outlined" />}
+        sx={{
+          backgroundColor: "#1d1d1d",
+          border: "1px solid black",
+          borderRadius: "5px",
+          color: "white"
+        }}
       />
       <br></br>
-      <Select
+      <Autocomplete
         value={instance}
         options={raids}
         onChange={handleInstanceChange}
-        styles={customStyles}
-        isDisabled={!isAccountRoleAllowed(accountRole, "ChangeInstance")}
-      ></Select>
+        isOptionEqualToValue={(option, value) => option.value === value.value}
+        clearOnEscape
+        readOnly={!isAccountRoleAllowed(accountRole, "ChangeInstance")}
+        renderInput={(params) => <TextField {...params} variant="outlined" />}
+        sx={{
+          backgroundColor: "#1d1d1d",
+          border: "1px solid black",
+          borderRadius: "5px"
+        }}
+      />
       <br></br>
       <Box display={"grid"} gridTemplateColumns={"1fr"}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
