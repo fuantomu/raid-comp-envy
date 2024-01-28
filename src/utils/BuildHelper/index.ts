@@ -127,7 +127,6 @@ export abstract class BuildHelper {
 
   public static async parseSaveRoster(players: BuildPlayer[]) {
     const savePlayers = [...players];
-    savePlayers.map((player) => (player.status = InviteStatus.Unknown));
     const buildPlayerRequest: BuildPlayerResponse = {
       players: savePlayers
     };
