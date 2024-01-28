@@ -1,0 +1,1144 @@
+{
+  "WarlockAffliction": {
+    "Healthstone":{
+      "Wotlk":{
+        "id": "47875",
+        "name": "Fel Healthstone"
+      }
+    },
+    "Spirit":{
+      "Wotlk":{
+        "id": "57567",
+        "name": "Fel Intelligence"
+      }
+    },
+    "Intellect":{
+      "Wotlk":{
+        "id": "57567",
+        "name": "Fel Intelligence"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "50511",
+        "name": "Curse of Weakness"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "18180",
+        "name": "Improved Curse of Weakness 2/2"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "11719",
+        "name": "Curse of Tongues"
+      }
+    },
+    "SpellCritReceived":{
+      "Wotlk":{
+        "id": "17803",
+        "name": "Improved Shadow Bolt 5/5"
+      }
+    },
+    "SpellDamageReceived13":{
+      "Wotlk":{
+        "id": "47865",
+        "name": "Curse of the Elements"
+      }
+    },
+    "CombatResurrection":{
+      "Wotlk":{
+        "id": "6203",
+        "name": "Soulstone"
+      }
+    }
+  },
+  "WarlockDemonology": {
+    "Healthstone":{
+      "Wotlk":{
+        "id": "47877",
+        "name": "Fel Healthstone 2/2"
+      }
+    },
+    "SpellPower":{
+      "Wotlk":{
+        "id": "47240",
+        "name": "Demonic Pact"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "50511",
+        "name": "Curse of Weakness"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "50511",
+        "name": "Curse of Weakness"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "11719",
+        "name": "Curse of Tongues"
+      }
+    },
+    "SpellCritReceived":{
+      "Wotlk":{
+        "id": "17803",
+        "name": "Improved Shadow Bolt 5/5"
+      }
+    },
+    "SpellDamageReceived13":{
+      "Wotlk":{
+        "id": "47865",
+        "name": "Curse of the Elements"
+      }
+    },
+    "CombatResurrection":{
+      "Wotlk":{
+        "id": "6203",
+        "name": "Soulstone"
+      }
+    }
+  },
+  "WarlockDestruction": {
+    "Healthstone":{
+      "Wotlk":{
+        "id": "47875",
+        "name": "Fel Healthstone"
+      }
+    },
+    "MaxHealth":{
+      "Wotlk":{
+        "id": "18696",
+        "name": "Improved Imp 3/3"
+      }
+    },
+    "Replenishment": {
+      "Wotlk":{
+        "id": "54118",
+        "name": "Improved Soul Leech 2/2"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "50511",
+        "name": "Curse of Weakness"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "50511",
+        "name": "Curse of Weakness"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "11719",
+        "name": "Curse of Tongues"
+      }
+    },
+    "SpellDamageReceived13":{
+      "Wotlk":{
+        "id": "47865",
+        "name": "Curse of the Elements"
+      }
+    },
+    "CombatResurrection":{
+      "Wotlk":{
+        "id": "6203",
+        "name": "Soulstone"
+      }
+    }
+  },
+  "ShamanEnhancement": {
+    "SpellHaste":{
+      "Wotlk":{
+        "id": "3738",
+        "name": "Wrath of Air Totem"
+      }
+    },
+    "SpellPower":{
+      "Wotlk":{
+        "id": "58656",
+        "name": "Flametongue Totem"
+      }
+    },
+    "MeleeHaste20":{
+      "Wotlk":{
+        "id": "29193",
+        "name": "Improved Windfury Totem"
+      }
+    },
+    "StrengthAgility":{
+      "Wotlk":{
+        "id": "58643",
+        "name": "Strength of Earth Totem"
+      }
+    },
+    "AttackPower10Wotlk": {
+      "Wotlk":{
+        "id": "30809",
+        "name": "Unleashed Rage"
+      }
+    },
+    "Bloodlust":{
+      "Wotlk":{
+        "id": "32182",
+        "name": "Heroism"
+      }
+    }
+  },
+  "ShamanElemental": {
+    "SpellHaste":{
+      "Wotlk":{
+        "id": "3738",
+        "name": "Wrath of Air Totem"
+      }
+    },
+    "SpellPower":{
+      "Wotlk":{
+        "id": "57722",
+        "name": "Totem of Wrath"
+      }
+    },
+    "SpellCrit":{
+      "Wotlk":{
+        "id": "51470",
+        "name": "Elemental Oath"
+      }
+    },
+    "MeleeHaste20":{
+      "Wotlk":{
+        "id": "8512",
+        "name": "Windfury Totem"
+      }
+    },
+    "StrengthAgility":{
+      "Wotlk":{
+        "id": "58643",
+        "name": "Strength of Earth Totem"
+      }
+    },
+    "CritChanceReceived":{
+      "Wotlk":{
+        "id": "57722",
+        "name": "Totem of Wrath"
+      }
+    },
+    "Bloodlust":{
+      "Wotlk":{
+        "id": "32182",
+        "name": "Heroism"
+      }
+    }
+  },
+  "ShamanRestoration": {
+    "SpellHaste":{
+      "Wotlk":{
+        "id": "3738",
+        "name": "Wrath of Air Totem"
+      }
+    },
+    "SpellPower":{
+      "Wotlk":{
+        "id": "58656",
+        "name": "Flametongue Totem"
+      }
+    },
+    "MeleeHaste20":{
+      "Wotlk":{
+        "id": "8512",
+        "name": "Windfury Totem"
+      }
+    },
+    "StrengthAgility":{
+      "Wotlk":{
+        "id": "52456",
+        "name": "Strength of Earth Totem 3/3"
+      }
+    },
+    "DamageReduction10":{
+      "Wotlk":{
+        "id":"16240",
+        "name": "Ancestral Healing"
+      }
+    },
+    "ManaTide":{
+      "Wotlk":{
+        "id":"16190",
+        "name": "Mana Tide Totem"
+      }
+    },
+    "Bloodlust":{
+      "Wotlk":{
+        "id": "32182",
+        "name": "Heroism"
+      }
+    }
+  },
+  "PaladinRetribution": {
+    "Kings":{
+      "Wotlk":{
+        "id": "25898",
+        "name": "Blessing of Kings"
+      }
+    },
+    "Haste3":{
+      "Wotlk":{
+        "id": "53648",
+        "name": "Swift Retribution 3/3"
+      }
+    },
+    "AttackPower":{
+      "Wotlk":{
+        "id": "48934",
+        "name": "Blessing of Might 2/2"
+      }
+    },
+    "IncDamage": {
+      "Wotlk":{
+        "id": "31869",
+        "name": "Sanctified Retribution"
+      }
+    },
+    "Replenishment": {
+      "Wotlk":{
+        "id": "31878",
+        "name": "Judgements of the Wise"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "26016",
+        "name": "Vindication"
+      }
+    },
+    "CritChanceReceived":{
+      "Wotlk":{
+        "id": "20337",
+        "name": "Heart of the Crusader"
+      }
+    },
+    "DivineGuardian":{
+      "Wotlk":{
+        "id": "53530",
+        "name": "Divine Guardian 2/2"
+      }
+    },
+    "BlessingOfProtection":{
+      "Wotlk":{
+        "id":"41450",
+        "name": "Blessing of Protection"
+      }
+    }
+  },
+  "PaladinProtection": {
+    "Kings":{
+      "Wotlk":{
+        "id": "25898",
+        "name": "Blessing of Kings"
+      }
+    },
+    "AttackPower":{
+      "Wotlk":{
+        "id": "48934",
+        "name": "Blessing of Might 2/2"
+      }
+    },
+    "DamageReduction3":{
+      "Wotlk":{
+        "id":"20911",
+        "name": "Blessing of Sanctuary"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "26016",
+        "name": "Vindication"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "53696",
+        "name": "Judgements of the Just"
+      }
+    },
+    "DivineGuardian":{
+      "Wotlk":{
+        "id": "53530",
+        "name": "Divine Guardian 2/2"
+      }
+    },
+    "BlessingOfProtection":{
+      "Wotlk":{
+        "id":"41450",
+        "name": "Blessing of Protection"
+      }
+    }
+  },
+  "PaladinHoly": {
+    "Kings":{
+      "Wotlk":{
+        "id": "25898",
+        "name": "Blessing of Kings"
+      }
+    },
+    "AttackPower":{
+      "Wotlk":{
+        "id": "48934",
+        "name": "Blessing of Might"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id":"20140",
+        "name": "Improved Devotion Aura 3/3"
+      }
+    },
+    "DivineGuardian":{
+      "Wotlk":{
+        "id": "53530",
+        "name": "Divine Guardian 2/2"
+      }
+    },
+    "BlessingOfProtection":{
+      "Wotlk":{
+        "id":"41450",
+        "name": "Blessing of Protection"
+      }
+    }
+  },
+  "DruidRestoration": {
+    "MarkOfTheWild": {
+      "Wotlk":{
+        "id": "48469",
+        "name": "Mark of the Wild 2/2"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id":"65139",
+        "name": "Tree of Life"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "770",
+        "name": "Faerie Fire"
+      }
+    },
+    "Innervate":{
+      "Wotlk":{
+        "id":"29166",
+        "name": "Innervate"
+      }
+    },
+    "CombatResurrection":{
+      "Wotlk":{
+        "id": "48477",
+        "name": "Rebirth"
+      }
+    }
+  },
+  "DruidBalance": {
+    "Haste3":{
+      "Wotlk":{
+        "id": "48396",
+        "name": "Improved Moonkin Form 3/3"
+      }
+    },
+    "SpellCrit":{
+      "Wotlk":{
+        "id": "24907",
+        "name": "Moonkin Aura"
+      }
+    },
+    "MarkOfTheWild": {
+      "Wotlk":{
+        "id": "48469",
+        "name": "Mark of the Wild 2/2"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "770",
+        "name": "Faerie Fire"
+      }
+    },
+    "PhysicalHitDown":{
+      "Wotlk":{
+        "id": "5570",
+        "name": "Insect Swarm"
+      }
+    },
+    "SpellDamageReceived13":{
+      "Wotlk":{
+        "id": "48511",
+        "name": "Earth and Moon"
+      }
+    },
+    "SpellHit":{
+      "Wotlk":{
+        "id": "33602",
+        "name": "Improved Faerie Fire"
+      }
+    },
+    "Innervate":{
+      "Wotlk":{
+        "id":"29166",
+        "name": "Innervate"
+      }
+    },
+    "CombatResurrection":{
+      "Wotlk":{
+        "id": "48477",
+        "name": "Rebirth"
+      }
+    }
+  },
+  "DruidFeral": {
+    "MarkOfTheWild": {
+      "Wotlk":{
+        "id": "48469",
+        "name": "Mark of the Wild 2/2"
+      }
+    },
+    "PhysicalCrit":{
+      "Wotlk":{
+        "id": "17007",
+        "name": "Leader of the Pack"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "16857",
+        "name": "Faerie Fire (Feral)"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "16862",
+        "name": "Demoralizing Roar 5/5"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "48485",
+        "name": "Infested Wounds"
+      }
+    },
+    "BleedDamageReceived":{
+      "Wotlk":{
+        "id": "33917",
+        "name": "Mangle"
+      }
+    },
+    "Innervate":{
+      "Wotlk":{
+        "id":"29166",
+        "name": "Innervate"
+      }
+    },
+    "CombatResurrection":{
+      "Wotlk":{
+        "id": "48477",
+        "name": "Rebirth"
+      }
+    }
+  },
+  "DruidGuardian": {
+    "MarkOfTheWild": {
+      "Wotlk":{
+        "id": "48469",
+        "name": "Mark of the Wild 2/2"
+      }
+    },
+    "PhysicalCrit":{
+      "Wotlk":{
+        "id": "17007",
+        "name": "Leader of the Pack"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "16857",
+        "name": "Faerie Fire (Feral)"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "48560",
+        "name": "Demoralizing Roar"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "48485",
+        "name": "Infested Wounds"
+      }
+    },
+    "BleedDamageReceived":{
+      "Wotlk":{
+        "id": "33917",
+        "name": "Mangle"
+      }
+    },
+    "Innervate":{
+      "Wotlk":{
+        "id":"29166",
+        "name": "Innervate"
+      }
+    },
+    "CombatResurrection":{
+      "Wotlk":{
+        "id": "48477",
+        "name": "Rebirth"
+      }
+    }
+  },
+  "WarriorFury": {
+    "AttackPower": {
+      "Wotlk":{
+        "id": "12861",
+        "name": "Battle Shout 5/5"
+      }
+    },
+    "PhysicalCrit":{
+      "Wotlk":{
+        "id": "29801",
+        "name": "Rampage"
+      }
+    },
+    "MaxHealth":{
+      "Wotlk":{
+        "id": "12861",
+        "name": "Commanding Shout 5/5"
+      }
+    },
+    "ArmorDown20":{
+      "Wotlk":{
+        "id": "7386",
+        "name": "Sunder Armor"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "47437",
+        "name": "Demoralizing Shout"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "47502",
+        "name": "Thunder Clap"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "46911",
+        "name": "Furious Attacks 2/2"
+      }
+    }
+  },
+  "WarriorArms": {
+    "AttackPower": {
+      "Wotlk":{
+        "id": "47436",
+        "name": "Battle Shout"
+      }
+    },
+    "MaxHealth":{
+      "Wotlk":{
+        "id": "47440",
+        "name": "Commanding Shout"
+      }
+    },
+    "ArmorDown20":{
+      "Wotlk":{
+        "id": "7386",
+        "name": "Sunder Armor"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "12879",
+        "name": "Demoralizing Shout 5/5"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "12666",
+        "name": "Improved Thunder Clap 3/3"
+      }
+    },
+    "BleedDamageReceived":{
+      "Wotlk":{
+        "id": "46855",
+        "name": "Trauma"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "12294",
+        "name": "Mortal Strike"
+      }
+    },
+    "PhysicalDamageReceived":{
+      "Wotlk":{
+        "id": "58413",
+        "name": "Savage Combat"
+      }
+    }
+  },
+  "WarriorProtection": {
+    "AttackPower": {
+      "Wotlk":{
+        "id": "47436",
+        "name": "Battle Shout"
+      }
+    },
+    "MaxHealth":{
+      "Wotlk":{
+        "id": "47440",
+        "name": "Commanding Shout"
+      }
+    },
+    "ArmorDown20":{
+      "Wotlk":{
+        "id": "7386",
+        "name": "Sunder Armor"
+      }
+    },
+    "AttackPowerDown":{
+      "Wotlk":{
+        "id": "47437",
+        "name": "Demoralizing Shout"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "12666",
+        "name": "Improved Thunder Clap 3/3"
+      }
+    }
+  },
+  "DeathknightBlood": {
+    "MeleeHaste20":{
+      "Wotlk":{
+        "id": "55610",
+        "name": "Improved Icy Talons"
+      }
+    },
+    "StrengthAgility":{
+      "Wotlk":{
+        "id": "57623",
+        "name": "Horn of Winter"
+      }
+    },
+    "AttackPower10Wotlk": {
+      "Wotlk":{
+        "id": "53138",
+        "name": "Abomination's Might"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "51456",
+        "name": "Improved Icy Touch 3/3"
+      }
+    },
+    "UnholyFrenzy":{
+      "Wotlk":{
+        "id": "49016",
+        "name": "Unholy Frenzy"
+      }
+    }
+  },
+  "DeathknightUnholy": {
+    "StrengthAgility":{
+      "Wotlk":{
+        "id": "57623",
+        "name": "Horn of Winter"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "49909",
+        "name": "Icy Touch"
+      }
+    },
+    "SpellDamageReceived13":{
+      "Wotlk":{
+        "id": "51161",
+        "name": "Ebon Plaguebringer"
+      }
+    }
+  },
+  "DeathknightFrost":{
+    "MeleeHaste20":{
+      "Wotlk":{
+        "id": "55610",
+        "name": "Improved Icy Talons"
+      }
+    },
+    "StrengthAgility":{
+      "Wotlk":{
+        "id": "57623",
+        "name": "Horn of Winter"
+      }
+    },
+    "MeleeHaste":{
+      "Wotlk":{
+        "id": "51456",
+        "name": "Improved Icy Touch 3/3"
+      }
+    }
+  },
+  "HunterMarksmanship":{
+    "AttackPower10Wotlk": {
+      "Wotlk":{
+        "id": "19506",
+        "name": "Trueshot Aura"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "56631",
+        "name": "Sting"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "19434",
+        "name": "Aimed Shot"
+      }
+    },
+    "PhysicalHitDown":{
+      "Wotlk":{
+        "id": "3043",
+        "name": "Scorpid Sting"
+      }
+    }
+  },
+  "HunterBeastmastery":{
+    "IncDamage": {
+      "Wotlk":{
+        "id": "34460",
+        "name": "Ferocious Inspiration"
+      }
+    },
+    "ArmorDown20":{
+      "Wotlk":{
+        "id": "55754",
+        "name": "Acid Spit"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "56631",
+        "name": "Sting"
+      }
+    },
+    "BleedDamageReceived":{
+      "Wotlk":{
+        "id": "57393",
+        "name": "Stampede"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "58611",
+        "name": "Lava Breath"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "19434",
+        "name": "Aimed Shot"
+      }
+    },
+    "PhysicalHitDown":{
+      "Wotlk":{
+        "id": "3043",
+        "name": "Scorpid Sting"
+      }
+    }
+  },
+  "HunterSurvival":{
+    "Replenishment": {
+      "Wotlk":{
+        "id": "53292",
+        "name": "Hunting Party"
+      }
+    },
+    "ArmorDown5":{
+      "Wotlk":{
+        "id": "56631",
+        "name": "Sting"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "19434",
+        "name": "Aimed Shot"
+      }
+    },
+    "PhysicalHitDown":{
+      "Wotlk":{
+        "id": "3043",
+        "name": "Scorpid Sting"
+      }
+    }
+  },
+  "MageArcane": {
+    "IncDamage": {
+      "Wotlk":{
+        "id": "31583",
+        "name": "Arcane Empowerment"
+      }
+    },
+    "Intellect":{
+      "Wotlk":{
+        "id": "42995",
+        "name": "Arcane Intelligence"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "31589",
+        "name": "Slow"
+      }
+    },
+    "FocusMagic":{
+      "Wotlk":{
+        "id": "54646",
+        "name": "Focus Magic"
+      }
+    }
+  },
+  "MageFire": {
+    "Intellect":{
+      "Wotlk":{
+        "id": "42995",
+        "name": "Arcane Intelligence"
+      }
+    },
+    "SpellCritReceived":{
+      "Wotlk":{
+        "id": "12873",
+        "name": "Improved Scorch 3/3"
+      }
+    },
+    "FocusMagic":{
+      "Wotlk":{
+        "id": "54646",
+        "name": "Focus Magic"
+      }
+    }
+  },
+  "MageFrost": {
+    "Intellect":{
+      "Wotlk":{
+        "id": "42995",
+        "name": "Arcane Intelligence"
+      }
+    },
+    "Replenishment":{
+      "Wotlk":{
+        "id":"44561",
+        "name": "Enduring Winter"
+      }
+    },
+    "SpellCritReceived":{
+      "Wotlk":{
+        "id": "28593",
+        "name": "Winter's Chill 3/3"
+      }
+    },
+    "FocusMagic":{
+      "Wotlk":{
+        "id": "54646",
+        "name": "Focus Magic"
+      }
+    }
+  },
+  "PriestHoly": {
+    "Spirit":{
+      "Wotlk":{
+        "id": "48073",
+        "name": "Divine Spirit"
+      }
+    },
+    "Stamina":{
+      "Wotlk":{
+        "id": "14767",
+        "name": "Improved Power Word: Fortitude 2/2"
+      }
+    },
+    "DamageReduction3":{
+      "Wotlk":{
+        "id":"57472",
+        "name": "Renewed Hope"
+      }
+    },
+    "DamageReduction10":{
+      "Wotlk":{
+        "id":"15363",
+        "name": "Inspiration"
+      }
+    }
+  },
+  "PriestShadow": {
+    "Spirit":{
+      "Wotlk":{
+        "id": "48073",
+        "name": "Divine Spirit"
+      }
+    },
+    "Stamina":{
+      "Wotlk":{
+        "id": "48161",
+        "name": "Power Word: Fortitude"
+      }
+    },
+    "Replenishment":{
+      "Wotlk":{
+        "id":"34914",
+        "name": "Vampiric Touch"
+      }
+    },
+    "SpellHit":{
+      "Wotlk":{
+        "id": "33193",
+        "name": "Misery"
+      }
+    }
+  },
+  "PriestDiscipline": {
+    "Spirit":{
+      "Wotlk":{
+        "id": "48073",
+        "name": "Divine Spirit"
+      }
+    },
+    "Stamina":{
+      "Wotlk":{
+        "id": "14767",
+        "name": "Improved Power Word: Fortitude 2/2"
+      }
+    },
+    "DamageReduction10":{
+      "Wotlk":{
+        "id":"15363",
+        "name": "Inspiration"
+      }
+    },
+    "PowerInfusion":{
+      "Wotlk":{
+        "id": "10060",
+        "name": "Power Infusion"
+      }
+    }
+  },
+  "RogueCombat": {
+    "ArmorDown20":{
+      "Wotlk":{
+        "id": "8647",
+        "name": "Expose Armor"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "5760",
+        "name": "Mind-numbing Poison"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "13219",
+        "name": "Wound Poison"
+      }
+    },
+    "PhysicalDamageReceived":{
+      "Wotlk":{
+        "id": "58413",
+        "name": "Savage Combat"
+      }
+    },
+    "TricksOfTheTrade":{
+      "Wotlk":{
+        "id": "57934",
+        "name": "Tricks of the Trade"
+      }
+    }
+  },
+  "RogueAssassination": {
+    "ArmorDown20":{
+      "Wotlk":{
+        "id": "8647",
+        "name": "Expose Armor"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "5760",
+        "name": "Mind-numbing Poison"
+      }
+    },
+    "CritChanceReceived":{
+      "Wotlk":{
+        "id": "58410",
+        "name": "Master Poisoner"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "13219",
+        "name": "Wound Poison"
+      }
+    },
+    "TricksOfTheTrade":{
+      "Wotlk":{
+        "id": "57934",
+        "name": "Tricks of the Trade"
+      }
+    }
+  },
+  "RogueSubtlety": {
+    "ArmorDown20":{
+      "Wotlk":{
+        "id": "8647",
+        "name": "Expose Armor"
+      }
+    },
+    "CastSpeed30":{
+      "Wotlk":{
+        "id": "5760",
+        "name": "Mind-numbing Poison"
+      }
+    },
+    "HealingReceived":{
+      "Wotlk":{
+        "id": "13219",
+        "name": "Wound Poison"
+      }
+    },
+    "TricksOfTheTrade":{
+      "Wotlk":{
+        "id": "57934",
+        "name": "Tricks of the Trade"
+      }
+    }
+  },
+  "DraeneiHit":{
+    "Wotlk":{
+      "id": "6562",
+      "name": "Heroic Presence"
+    }
+  }
+}

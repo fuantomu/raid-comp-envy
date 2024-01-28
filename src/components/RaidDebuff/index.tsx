@@ -37,6 +37,8 @@ const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players, version }) => {
       iconSource={IconProvider.getDebuffIcon(debuff)}
       players={players}
       specs={buildDebuffSpeclist(debuff, version)}
+      source={debuff}
+      version={version}
     />
   );
 };

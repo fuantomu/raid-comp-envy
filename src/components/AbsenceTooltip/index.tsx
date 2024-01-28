@@ -3,6 +3,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Absence } from "../../types";
 import { Box, Typography } from "@mui/material";
+import UUID from "../../utils/UUID";
 
 export type Props = {
   absences: Absence[];
@@ -44,6 +45,7 @@ const AbsenceTooltip: FC<Props> = ({ absences }) => {
             }}
             display={"grid"}
             gridTemplateColumns={"1.5fr 1.5fr 3fr"}
+            key={UUID()}
           >
             <Typography sx={{ marginRight: "15px", justifySelf: "center" }}>
               {new Date(absence.start_date).toLocaleDateString("de-DE", {

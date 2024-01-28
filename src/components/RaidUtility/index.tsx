@@ -6,7 +6,7 @@ import { IconProvider } from "../../utils/IconProvider";
 import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 import ChecklistItem from "../ChecklistItem";
 import { RoleProvider } from "../../utils/RoleProvider";
-import { WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 
 export interface RaidUtilityProps {
   utility: WarcraftRaidUtility;
@@ -25,6 +25,15 @@ const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: string) => 
       specs.push(spec as WarcraftPlayerSpec);
     }
   }
+  for (const race in WarcraftPlayerRace) {
+    if (
+      RoleProvider.getRaceUtilities(race as WarcraftPlayerRace, version).includes(
+        utility as WarcraftRaidUtility
+      )
+    ) {
+      specs.push(race as WarcraftPlayerRace);
+    }
+  }
   return specs;
 };
 
@@ -37,6 +46,8 @@ const RaidUtility: FC<RaidUtilityProps> = ({ utility, players, version }) => {
       iconSource={IconProvider.getUtilityIcon(utility)}
       players={players}
       specs={buildUtilitySpeclist(utility, version)}
+      source={utility}
+      version={version}
     />
   );
 };

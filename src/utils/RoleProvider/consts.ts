@@ -186,7 +186,10 @@ export const WarcraftSpecRaidBuffsWotlk: {
     ...WarcraftClassRaidBuffsWotlk.Druid,
     WarcraftRaidBuff.PhysicalCrit
   ],
-  [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassRaidBuffsWotlk.Druid],
+  [WarcraftPlayerSpec.DruidGuardian]: [
+    ...WarcraftClassRaidBuffsWotlk.Druid,
+    WarcraftRaidBuff.PhysicalCrit
+  ],
   [WarcraftPlayerSpec.DruidRestoration]: [
     ...WarcraftClassRaidBuffsWotlk.Druid,
     WarcraftRaidBuff.HealingReceived
@@ -367,6 +370,7 @@ export enum WarcraftRaidDebuffWotlk {
   ArmorDown5 = "ArmorDown5",
   ArmorDown20 = "ArmorDown20",
   BleedDamageReceived = "BleedDamageReceived",
+  SpellCritReceived = "SpellCritReceived",
   CritChanceReceived = "CritChanceReceived",
   MeleeHaste = "MeleeHaste",
   CastSpeed30 = "CastSpeed30",

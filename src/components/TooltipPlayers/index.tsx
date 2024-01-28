@@ -3,27 +3,42 @@ import Tooltip from "@mui/material/Tooltip";
 import { FC, ReactElement } from "react";
 import { BuildPlayer } from "../../types";
 import { WarcraftPlayerSpec } from "../../consts";
+import ChecklistTooltip from "../ChecklistTooltip";
 
 export interface TooltipPlayersProps {
   players: BuildPlayer[];
   specs?: WarcraftPlayerSpec[];
+  source?: any;
   children: ReactElement;
+  version?: string;
+  displayName?: string;
 }
 
 const TooltipPlayers: FC<TooltipPlayersProps> = (props) => {
-  const { children, players, specs } = props;
+  const { children, players, specs, source, version, displayName } = props;
 
-  const includedPlayers = players.length > 0 ? players.map(({ name }) => name).join(", ") : "None";
-  const includedSpecs = specs ? "\n\nProvided by: " + specs.join(", ") : "";
   return (
     <Tooltip
       title={
-        <div style={{ whiteSpace: "pre-line" }}>
-          {"Players: " + includedPlayers + includedSpecs}
-        </div>
+        <ChecklistTooltip
+          players={players}
+          specs={specs}
+          source={source}
+          version={version}
+          displayName={displayName}
+        ></ChecklistTooltip>
       }
       placement="top"
       arrow
+      componentsProps={{
+        tooltip: {
+          sx: {
+            backgroundColor: "transparent",
+            color: "rgba(255, 255, 255, 0.87)",
+            maxWidth: "none"
+          }
+        }
+      }}
     >
       {children}
     </Tooltip>

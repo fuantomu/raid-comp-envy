@@ -37,6 +37,8 @@ const RaidBuff: FC<RaidBuffProps> = ({ buff, players, version }) => {
       iconSource={IconProvider.getBuffIcon(buff)}
       players={players}
       specs={buildBuffSpeclist(buff, version)}
+      source={buff}
+      version={version}
     />
   );
 };

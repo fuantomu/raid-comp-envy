@@ -7,7 +7,7 @@ export default () => {
   return {
     gridBox: css`
       margin: ${theme.spacing(Spacing.xs)} auto !important;
-      maxheight: "m";
+      max-height: 30%;
     `,
     header: css`
       display: grid;

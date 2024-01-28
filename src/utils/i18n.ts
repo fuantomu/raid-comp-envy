@@ -10,7 +10,7 @@ export default i18n
   .use(initReactI18next)
   .use(HttpApi)
   .init({
-    ns: "common",
+    ns: ["common", "tooltip"],
     defaultNS: "common",
     lng: defaultLocale,
     fallbackLng: defaultLocale,

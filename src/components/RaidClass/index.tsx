@@ -23,6 +23,7 @@ const RaidClass: FC<RaidClassProps> = ({ class_name, players }) => {
       displayName={common(`classes.${class_name}`)}
       iconSource={IconProvider.getClassIcon(class_name)}
       players={players}
+      source={class_name}
     />
   );
 };

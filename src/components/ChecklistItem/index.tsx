@@ -17,6 +17,8 @@ export interface ChecklistItemProps {
   };
   players: BuildPlayer[];
   specs?: WarcraftPlayerSpec[];
+  source?: any;
+  version?: string;
 }
 
 const ChecklistItem: FC<ChecklistItemProps> = ({
@@ -24,6 +26,8 @@ const ChecklistItem: FC<ChecklistItemProps> = ({
   displayName,
   players,
   specs,
+  source,
+  version,
   styles: stylesOverride
 }) => {
   const count = players.length;
@@ -33,7 +37,14 @@ const ChecklistItem: FC<ChecklistItemProps> = ({
   };
 
   return (
-    <TooltipPlayers key={UUID()} players={players} specs={specs ? specs : undefined}>
+    <TooltipPlayers
+      key={UUID()}
+      players={players}
+      specs={specs ? specs : undefined}
+      source={source}
+      version={version}
+      displayName={displayName}
+    >
       <Box css={styles.container}>
         <WarcraftIcon src={iconSource} />
         <Typography css={styles.name}>{displayName}</Typography>

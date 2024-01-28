@@ -89,9 +89,9 @@ const Raid: FC<RaidProps> = ({
             {common(`build.raid.raid${id}`)}
           </Typography>
           {visible ? (
-            <ArrowDropDown sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowDropDown>
+            <ArrowDropDown sx={{ width: "48px", height: "48px" }}></ArrowDropDown>
           ) : (
-            <ArrowLeft sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowLeft>
+            <ArrowLeft sx={{ width: "48px", height: "48px" }}></ArrowLeft>
           )}
         </Box>
 
@@ -219,9 +219,9 @@ const Raid: FC<RaidProps> = ({
             {common("build.raid.composition")}
           </Typography>
           {visibleComposition ? (
-            <ArrowDropDown sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowDropDown>
+            <ArrowDropDown sx={{ width: "48px", height: "48px" }}></ArrowDropDown>
           ) : (
-            <ArrowLeft sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowLeft>
+            <ArrowLeft sx={{ width: "48px", height: "48px" }}></ArrowLeft>
           )}
         </Box>
         {visibleComposition ? (
@@ -264,9 +264,9 @@ const Raid: FC<RaidProps> = ({
             {common("build.raid.checklist")}
           </Typography>
           {visibleChecklist ? (
-            <ArrowDropDown sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowDropDown>
+            <ArrowDropDown sx={{ width: "48px", height: "48px" }}></ArrowDropDown>
           ) : (
-            <ArrowLeft sx={{ padding: "24", width: "48px", height: "48px" }}></ArrowLeft>
+            <ArrowLeft sx={{ width: "48px", height: "48px" }}></ArrowLeft>
           )}
         </Box>
         {visibleChecklist ? (
