@@ -198,7 +198,6 @@ export abstract class RosterProvider {
     })
       .then((response) => response.json())
       .then((message) => {
-        console.log(message);
         return message;
       });
   }

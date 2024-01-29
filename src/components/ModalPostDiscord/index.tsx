@@ -51,7 +51,8 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id, accountRole }) 
         build,
         sheetUrl,
         checked ? context?.getUnsetMains(build_id) : [],
-        noteRef.current?.value
+        noteRef.current?.value,
+        context?.getVersion()
       );
     }
     setOpen(false);

@@ -27,6 +27,7 @@ type AppContextApi = {
   getAlts: (player: BuildPlayer) => BuildPlayer[];
   getMains: () => BuildPlayer[];
   getSelectedBuilds: () => SelectOption[];
+  getVersion: () => string;
 };
 
 const AppContext = createContext<AppContextApi | null>(null);

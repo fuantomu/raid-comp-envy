@@ -62,12 +62,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
 
   const { sendMessage } = useWebSocket(socketUrl, {
     shouldReconnect: (closeEvent) => {
-      console.log(closeEvent);
       return true;
     },
     onMessage: (event: MessageEvent) => handleWebsocketUpdate(event),
     onOpen: (event: MessageEvent) => {
-      console.log(event);
       setSocketId(UUID());
     },
     heartbeat: {
@@ -163,6 +161,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
 
   const getBuilds = (): Build[] => {
     return builds;
+  };
+
+  const getVersion = (): string => {
+    return version;
   };
 
   const getOtherRaids = (build_id: number): Build[] => {
@@ -1186,7 +1188,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         removePlayerFromRaids,
         getAlts,
         getMains,
-        getSelectedBuilds
+        getSelectedBuilds,
+        getVersion
       }}
     >
       <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole} />

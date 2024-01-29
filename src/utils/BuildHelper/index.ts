@@ -23,6 +23,8 @@ import {
   WebSocketMessage
 } from "../../types";
 import { RosterProvider } from "../../utils/RosterProvider";
+import { IconProvider } from "../IconProvider";
+import { CustomIcon } from "../IconProvider/consts";
 import { RoleProvider } from "../RoleProvider";
 import { WarcraftRole } from "../RoleProvider/consts";
 import UUID from "../UUID";
@@ -206,7 +208,8 @@ export abstract class BuildHelper {
     build: Build,
     sheetUrl: string,
     sendMains?: BuildPlayer[],
-    note?: string
+    note?: string,
+    version?: string
   ) {
     //@Crenox
     const data = {
@@ -279,7 +282,12 @@ export abstract class BuildHelper {
                 .join("\r\n"),
               inline: true
             }
-          ]
+          ],
+          footer: {
+            text: Instance[version].find((instance) => instance.abbreviation === build.instance)
+              .name,
+            icon_url: IconProvider.getCustomIcon(CustomIcon[build.instance])
+          }
         }
       ]
     };

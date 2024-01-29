@@ -170,5 +170,7 @@ export const WarcraftUtilityIcon: {
 export enum CustomIcon {
   GroupNeedMore = "inv_misc_groupneedmore",
   WRATH = "achievement_boss_lichking",
-  CATACLYSM = "achievment_boss_madnessofdeathwing"
+  CATACLYSM = "achievment_boss_madnessofdeathwing",
+  ICC = "achievement_zone_icecrown_01",
+  RS = "spell_shadow_twilight"
 }
