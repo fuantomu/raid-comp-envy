@@ -113,6 +113,7 @@ export type WebSocketMessage = {
   date: number;
   id?: string;
   account_name: string;
+  version?: string;
 };
 
 export type PlayerData = {
@@ -139,6 +140,7 @@ export type Message = {
   date: number;
   changes: Difference[];
   buildId?: string;
+  version?: string;
 };
 
 export type Difference = {

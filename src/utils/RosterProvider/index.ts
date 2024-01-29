@@ -37,7 +37,7 @@ export abstract class RosterProvider {
     });
   }
 
-  public static async getBuild(build_id: string): Promise<BuildResponse> {
+  public static async getRaid(build_id: string): Promise<BuildResponse> {
     return await fetch(`${process.env.REACT_APP_API}/build/${build_id}`, {
       method: "GET",
       mode: "cors",
@@ -198,6 +198,7 @@ export abstract class RosterProvider {
     })
       .then((response) => response.json())
       .then((message) => {
+        console.log(message);
         return message;
       });
   }

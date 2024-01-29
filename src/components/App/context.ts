@@ -2,14 +2,14 @@ import { createContext, useContext } from "react";
 import { Absence, Build, BuildPlayer, SelectOption } from "../../types";
 
 type AppContextApi = {
-  importPlayer: (player: BuildPlayer, ignoreErrors?: boolean, oldBuild?: number) => void;
+  importPlayer: (player: BuildPlayer, ignoreErrors?: boolean, oldRaid?: number) => void;
   removePlayerFromRaid: (player: BuildPlayer, save: boolean, saveRoster?: boolean) => void;
   removePlayerFromRaids: (player: BuildPlayer, save: boolean, saveRoster?: boolean) => void;
   updateRoster: (player: BuildPlayer, save?: boolean) => void;
   removeFromRoster: (player: BuildPlayer, save?: boolean) => void;
   resetBuild: (build_id: number) => void;
-  getBuild: (build_id: number) => Build;
-  getOtherBuilds: (build_id: number) => Build[];
+  getRaid: (build_id: number) => Build;
+  getBuilds: () => Build[];
   setRosterExpanded: (state: boolean) => void;
   getRosterExpanded: () => boolean;
   editPlayer: (player: BuildPlayer) => void;
@@ -17,14 +17,13 @@ type AppContextApi = {
   getCurrentSorting: () => string;
   handleBuildSelect: (build_id: number, value: any) => void;
   handleDateSelect: (build_id: number, value: any) => void;
-  getBuilds: () => SelectOption[];
+  getBuildSelections: () => SelectOption[];
   addBuild: (title: string, build_id: number, save?: boolean) => void;
   deleteBuild: (id: string) => void;
   getPlayerAbsence: (player: string, date?: number) => Absence[];
   setBuildInstance: (build_id: number, value: any) => void;
   getAbsentPlayers: (build_id: number) => BuildPlayer[];
   getUnsetMains: (build_id: number) => BuildPlayer[];
-  handleShowError: (callback: any) => void;
   getAlts: (player: BuildPlayer) => BuildPlayer[];
   getMains: () => BuildPlayer[];
   getSelectedBuilds: () => SelectOption[];

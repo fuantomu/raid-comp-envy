@@ -1,4 +1,6 @@
 import { css } from "@emotion/react";
+import cataclysm from "../../icons/cataclysm_background.png";
+import wotlk from "../../icons/wotlk_background.png";
 import useTheme, { Spacing } from "../../utils/useTheme";
 
 export default () => {
@@ -6,21 +8,32 @@ export default () => {
   const { palette, spacing } = theme;
 
   return {
-    message: () => {
+    message: (version?: string) => {
       return css`
         display: grid;
         grid-template-columns: 1fr auto;
         padding: ${spacing(Spacing.xxs)};
-        background-color: ${palette.background.default};
         align-items: center;
         user-select: none;
         cursor: pointer;
         border-bottom: 1px solid black;
         border-right: 1px solid black;
         gap: ${theme.spacing(Spacing.s)};
-
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          ${version === "Cataclysm"
+            ? `url(${cataclysm})`
+            : version === "Wotlk"
+            ? `url(${wotlk})`
+            : palette.background.default};
+        background-position: 0% 22%;
         &:hover {
-          background-color: ${palette.primary.dark};
+          background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(166, 166, 166, 0.1)),
+            ${version === "Cataclysm"
+              ? `url(${cataclysm})`
+              : version === "Wotlk"
+              ? `url(${wotlk})`
+              : palette.background.default};
+          background-position: 0% 22%;
         }
       `;
     },

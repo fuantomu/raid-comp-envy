@@ -45,7 +45,7 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id, accountRole }) 
   };
 
   const handlePostDiscord = (sheetUrl: string) => {
-    const build = context?.getBuild(build_id);
+    const build = context?.getRaid(build_id);
     if (build) {
       BuildHelper.parsePostSetup(
         build,

@@ -5,7 +5,7 @@ import { FC, useState } from "react";
 import { useDrag } from "react-dnd";
 import { useTranslation } from "react-i18next";
 import { DragItemTypes, InviteStatus, WarcraftPlayerRace } from "../../consts";
-import { BuildPlayer } from "../../types";
+import { Build, BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
 import WarcraftIcon from "../Icon";
@@ -54,32 +54,29 @@ const Player: FC<PlayerProps> = (props) => {
   }));
   const fullName = `${name}`;
 
+  const absences = [];
+
+  if (group_id === "roster" && context?.getPlayerAbsence(main ?? name, 0).length > 0) {
+    const lastReset = new Date().setDate(
+      new Date().getDate() + ((3 - 7 - new Date().getDay()) % 7 || 7)
+    );
+    const lastRaid = context?.getBuilds().reduce(
+      (a: any, b: any) => {
+        return a?.date < b?.date ? a?.date : b?.date;
+      },
+      { date: new Date().getTime() } as Build
+    );
+    absences.push(...context?.getPlayerAbsence(main ?? name, Math.min(lastRaid, lastReset)));
+  } else {
+    absences.push(...context?.getPlayerAbsence(main ?? name, context.getRaid(raid).date));
+  }
+
   return (
     <Tooltip
       title={
         status === InviteStatus.Tentative ? (
           <AbsenceTooltip
-            absences={
-              group_id === "roster"
-                ? context
-                    ?.getPlayerAbsence(
-                      main ?? name,
-                      Math.min(
-                        new Date().setDate(
-                          new Date().getDate() + ((3 - 7 - new Date().getDay()) % 7 || 7)
-                        ),
-                        context?.getSelectedBuilds().reduce((a, b) => {
-                          return a.date < b.date ? a : b;
-                        }).date
-                      )
-                    )
-                    .sort((a, b) => b.start_date - a.start_date)
-                    .slice(0, 10)
-                : context
-                    ?.getPlayerAbsence(main ?? name, context.getBuild(raid).date)
-                    .sort((a, b) => b.start_date - a.start_date)
-                    .slice(0, 10)
-            }
+            absences={absences.sort((a, b) => b.start_date - a.start_date).slice(0, 10)}
           ></AbsenceTooltip>
         ) : (
           ""

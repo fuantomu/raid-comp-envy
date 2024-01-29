@@ -29,7 +29,7 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({ build_id, accountRole }) 
       setErrorMessage("Name is empty");
       showError(true);
     } else {
-      const builds = context?.getBuilds();
+      const builds = context?.getBuildSelections();
       if (builds) {
         context?.addBuild(currentTitle, build_id, true);
       }

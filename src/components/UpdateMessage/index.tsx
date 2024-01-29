@@ -13,7 +13,7 @@ export interface UpdateMessageProps extends Message {
 
 const UpdateMessage: FC<UpdateMessageProps> = (props) => {
   const [common] = useTranslation();
-  const { type, from, date, changes } = props;
+  const { type, from, date, changes, version } = props;
   const styles = useStyles();
   const [visible, setVisible] = useState(false);
 
@@ -21,7 +21,7 @@ const UpdateMessage: FC<UpdateMessageProps> = (props) => {
     <Box sx={{ marginRight: "8px" }}>
       <Box
         key={UUID()}
-        css={styles.message()}
+        css={styles.message(version)}
         onClick={() => {
           setVisible(!visible);
         }}

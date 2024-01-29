@@ -53,7 +53,7 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({ id, accountRole }) => {
           <h2>{common("build.delete.title")}</h2>
           {common("build.delete.confirm") +
             "'" +
-            context?.getBuilds().find((build) => build.value === id)?.label +
+            context?.getBuildSelections().find((build) => build.value === id)?.label +
             "'?"}
           <br />
           <Box css={styles.buttons}>

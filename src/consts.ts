@@ -191,6 +191,7 @@ export const MessageType = {
   updatebuild: "Build updated",
   removeroster: "Roster updated",
   addbuild: "Build added",
+  resetbuild: "Build resetted",
   deletebuild: "Build deleted",
   absence: "Absence received"
 };

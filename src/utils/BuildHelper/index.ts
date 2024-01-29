@@ -19,7 +19,6 @@ import {
   GroupId,
   Message,
   PlayerData,
-  SelectOption,
   Update,
   WebSocketMessage
 } from "../../types";
@@ -94,7 +93,7 @@ export abstract class BuildHelper {
               spec: (BuildHelper.capitalize(spec[0]) +
                 BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
               race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
-              status: InviteStatus.Unknown,
+              status: player.status,
               raid: -1,
               group_id: "roster",
               oldName: player.name,
@@ -148,7 +147,7 @@ export abstract class BuildHelper {
       raid_id: 0
     };
 
-    await RosterProvider.getBuild(build_id).then((responseBuild) => {
+    await RosterProvider.getRaid(build_id).then((responseBuild) => {
       if (responseBuild) {
         build.id = responseBuild.id;
         build.name = responseBuild.name;
@@ -326,7 +325,7 @@ export abstract class BuildHelper {
               spec: (BuildHelper.capitalize(spec[0]) +
                 BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
               race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
-              status: InviteStatus[BuildHelper.capitalize(player.status)],
+              status: InviteStatus.Unknown,
               raid: -1,
               group_id: "roster",
               oldName: player.name,
@@ -371,7 +370,7 @@ export abstract class BuildHelper {
 
   public static async parseGetMessages(
     amount: number,
-    builds: SelectOption[],
+    builds: Build[],
     players: BuildPlayer[]
   ): Promise<Message[]> {
     const messages: Message[] = [];
@@ -415,15 +414,12 @@ export abstract class BuildHelper {
     }
   }
 
-  public static parseMessage(
-    message: WebSocketMessage,
-    builds: SelectOption[],
-    players: BuildPlayer[]
-  ) {
+  public static parseMessage(message: WebSocketMessage, builds: Build[], players: BuildPlayer[]) {
     return {
       type: MessageType[message.message_type] ?? message.message_type,
       date: message.date,
       from: message.account_name,
+      version: message.version ?? "System",
       changes:
         message.message_type.includes("player") || message.message_type.includes("roster")
           ? this.getPlayerChanges(
@@ -445,14 +441,16 @@ export abstract class BuildHelper {
                 ? (JSON.parse(message.data.toString()) as BuildData)
                 : (message.data as BuildData),
               builds,
-              message.message_type.includes("remove") || message.message_type.includes("delete")
+              message.message_type.includes("remove") ||
+                message.message_type.includes("delete") ||
+                message.message_type.includes("reset")
             )
     } as Message;
   }
 
-  private static getPlayerChanges(message: PlayerData, builds: SelectOption[], remove?: boolean) {
+  private static getPlayerChanges(message: PlayerData, builds: Build[], remove?: boolean) {
     const changes: Difference[] = [];
-    const foundBuild = builds.find((build) => build?.value === message.build_id);
+    const foundBuild = builds.find((build) => build?.id === message.build_id);
 
     // Update message
     if (message.oldData) {
@@ -463,7 +461,14 @@ export abstract class BuildHelper {
         const changeMessage = {
           key,
           objectType: "Build",
-          objectName: foundBuild?.label ?? message.build_id,
+          objectName:
+            `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}` ?? message.build_id,
           propertyName: message.player.name,
           propertyType: "Player",
           old: ["raid"].includes(key)
@@ -483,7 +488,14 @@ export abstract class BuildHelper {
       const changeMessage = {
         key: remove ? "remove" : "add",
         objectType: "Build",
-        objectName: foundBuild?.label ?? message.build_id,
+        objectName:
+          `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          })}` ?? message.build_id,
         propertyName: message.player.name,
         propertyType: "Player",
         new: message.player.raid
@@ -494,9 +506,9 @@ export abstract class BuildHelper {
     return changes;
   }
 
-  private static getBuildChanges(message: BuildData, builds: SelectOption[], remove?: boolean) {
+  private static getBuildChanges(message: BuildData, builds: Build[], remove?: boolean) {
     const changes: Difference[] = [];
-    const foundBuild = builds.find((build) => build?.value === message.build.id);
+    const foundBuild = builds.find((build) => build?.id === message.build.id);
 
     // Update message
     if (message.oldData) {
@@ -505,12 +517,19 @@ export abstract class BuildHelper {
           ([key, val]) => key !== "players" && message.build[key] !== val
         )
       );
-      const version = localStorage.getItem("lastVersion") ?? "Wotlk";
+      const version = localStorage.getItem("LastVersion") ?? "Wotlk";
       Object.keys(differences).forEach((key) => {
         const changeMessage = {
           key,
           objectType: "Build",
-          propertyName: foundBuild?.label ?? message.build.name,
+          propertyName:
+            `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}` ?? message.build.name,
           propertyType: "Build",
           old: ["date"].includes(key)
             ? new Date(message.oldData[key]).toLocaleString("de-de", {
@@ -520,8 +539,8 @@ export abstract class BuildHelper {
                 hour: "2-digit",
                 minute: "2-digit"
               })
-            : Instance[version].find((instance) => instance.abbreviation === message.oldData[key])
-                .name,
+            : Instance[version] ??
+              [].find((instance) => instance.abbreviation === message.oldData[key]).name,
           new: ["date"].includes(key)
             ? new Date(message.build[key]).toLocaleString("de-de", {
                 day: "2-digit",
@@ -530,8 +549,8 @@ export abstract class BuildHelper {
                 hour: "2-digit",
                 minute: "2-digit"
               })
-            : Instance[version].find((instance) => instance.abbreviation === message.build[key])
-                .name
+            : Instance[version] ??
+              [].find((instance) => instance.abbreviation === message.build[key]).name
         };
         changes.push(changeMessage);
       });
@@ -539,9 +558,23 @@ export abstract class BuildHelper {
       const changeMessage = {
         key: remove ? "remove" : "add",
         objectType: "Build",
-        propertyName: foundBuild?.label ?? message.build.name,
+        propertyName:
+          `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          })}` ?? message.build.name,
         propertyType: "Build",
-        new: foundBuild?.label ?? message.build.name
+        new:
+          `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+          })}` ?? message.build.name
       };
       changes.push(changeMessage);
     }
