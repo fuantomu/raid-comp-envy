@@ -39,8 +39,8 @@ const BuildTitle: FC<BuildTitleProps> = ({
   const [selectedOption, setSelectedOption] = useState(selected);
   const [date, setDate] = useState<Dayjs | null>(
     buildDate
-      ? dayjs(buildDate).set("minutes", 0).set("seconds", 0).set("milliseconds", 0)
-      : dayjs().set("minutes", 0).set("seconds", 0).set("milliseconds", 0)
+      ? dayjs(buildDate).set("seconds", 0).set("milliseconds", 0)
+      : dayjs().set("seconds", 0).set("milliseconds", 0)
   );
   const instances = version === "Cataclysm" ? Instance.Cataclysm : Instance.Wotlk;
   const context = useAppContext();
@@ -98,7 +98,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
   };
 
   const handleDateChange = (date: Dayjs) => {
-    const newDate = date.set("minutes", 0).set("seconds", 0).set("milliseconds", 0);
+    const newDate = date.set("seconds", 0).set("milliseconds", 0);
     setDate(newDate);
     context?.handleDateSelect(build_id, newDate);
   };
