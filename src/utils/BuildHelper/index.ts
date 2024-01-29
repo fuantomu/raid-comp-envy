@@ -547,8 +547,8 @@ export abstract class BuildHelper {
                 hour: "2-digit",
                 minute: "2-digit"
               })
-            : Instance[version] ??
-              [].find((instance) => instance.abbreviation === message.oldData[key]).name,
+            : Instance[version].find((instance) => instance.abbreviation === message.oldData[key])
+                .name,
           new: ["date"].includes(key)
             ? new Date(message.build[key]).toLocaleString("de-de", {
                 day: "2-digit",
@@ -557,8 +557,8 @@ export abstract class BuildHelper {
                 hour: "2-digit",
                 minute: "2-digit"
               })
-            : Instance[version] ??
-              [].find((instance) => instance.abbreviation === message.build[key]).name
+            : Instance[version].find((instance) => instance.abbreviation === message.build[key])
+                .name
         };
         changes.push(changeMessage);
       });
