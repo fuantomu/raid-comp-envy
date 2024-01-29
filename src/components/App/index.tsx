@@ -10,6 +10,7 @@ import UUID from "../../utils/UUID";
 import useErrorHandler from "../../utils/useErrorHandler";
 import Account from "../Account";
 import { accountRoleTimeouts } from "../../consts";
+import LogoutTimer from "../LogoutTimer";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -96,13 +97,13 @@ const App: FC = () => {
                     accountName={accountName}
                     accountRole={accountRole}
                     logout={logout}
-                    issueTime={issueTime}
                   />
                 }
               />
             </Routes>
           </Suspense>
         </ErrorBoundary>
+        <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
       </Box>
     </Fragment>
   );

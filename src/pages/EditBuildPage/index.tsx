@@ -20,7 +20,7 @@ import {
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
-import { Instance, InviteStatus, accountRoleTimeouts } from "../../consts";
+import { Instance, InviteStatus } from "../../consts";
 import { Button, Tooltip } from "@mui/material";
 import cataclysm from "../../icons/Cata.png";
 import wotlk from "../../icons/Wotlk.png";
@@ -39,10 +39,9 @@ export interface EditBuildPageProps {
   accountName: string;
   accountRole: number;
   logout: () => void;
-  issueTime: number;
 }
 
-const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logout, issueTime }) => {
+const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logout }) => {
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
   const handleError = useErrorHandler();
@@ -55,7 +54,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Wotlk");
   const [rosterExpanded, setRosterExpanded] = useState(false);
   const [absence, setAbsence] = useState<Absence[]>([]);
-  const [logoutTime, setLogoutTime] = useState(0);
   const [maxRaidId, setMaxRaidId] = useState(0);
   const [socketUrl] = useState(process.env.REACT_APP_WEBSOCKET);
   const [socketId, setSocketId] = useState(UUID());
@@ -1144,15 +1142,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setLogoutTime(
-        Math.floor(accountRoleTimeouts[accountRole] / 60) -
-          Math.floor((new Date().getTime() - issueTime) / 60000)
-      );
-    }, parseInt(process.env.REACT_APP_UPDATE_INTERVAL));
-
-    return () => clearInterval(interval);
-
     //eslint-disable-next-line
   }, [
     handleError,
@@ -1283,9 +1272,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
                 ></img>
               </Tooltip>
             </Button>
-          </Box>
-          <Box display={"flex"} justifyContent={"center"} marginBottom={"20px"}>
-            Automatic logout in {logoutTime} {logoutTime > 1 ? "Minutes" : "Minute"}
           </Box>
         </div>
       </div>
