@@ -423,6 +423,7 @@ export abstract class BuildHelper {
   }
 
   public static parseMessage(message: WebSocketMessage, builds: Build[], players: BuildPlayer[]) {
+    console.log(message);
     return {
       type: MessageType[message.message_type] ?? message.message_type,
       date: message.date,
@@ -465,18 +466,22 @@ export abstract class BuildHelper {
       const differences = Object.fromEntries(
         Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
       );
-      Object.keys(differences).forEach((key) => {
+      for (const key of Object.keys(differences)) {
+        if (key === "raid" && message.oldData[key] === -1) {
+          continue;
+        }
         const changeMessage = {
           key,
-          objectType: "Build",
-          objectName:
-            `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}` ?? message.build_id,
+          objectType: "Raid",
+          objectName: foundBuild
+            ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              })}` ?? message.build_id
+            : undefined,
           propertyName: message.player.name,
           propertyType: "Player",
           old: ["raid"].includes(key)
@@ -491,26 +496,27 @@ export abstract class BuildHelper {
             : message.player[key]
         };
         changes.push(changeMessage);
-      });
+      }
     } else {
       const changeMessage = {
         key: remove ? "remove" : "add",
-        objectType: "Build",
-        objectName:
-          `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          })}` ?? message.build_id,
+        objectType: "Raid",
+        objectName: foundBuild
+          ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}` ?? message.build_id
+          : undefined,
         propertyName: message.player.name,
         propertyType: "Player",
         new: message.player.raid
       };
       changes.push(changeMessage);
     }
-
+    console.log(changes);
     return changes;
   }
 
