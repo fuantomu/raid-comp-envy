@@ -11,7 +11,6 @@ import useErrorHandler from "../../utils/useErrorHandler";
 import Account from "../Account";
 import { accountRoleTimeouts } from "../../consts";
 import LogoutTimer from "../LogoutTimer";
-import useWebSocket from "react-use-websocket";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { createDragDropManager } from "dnd-core";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
