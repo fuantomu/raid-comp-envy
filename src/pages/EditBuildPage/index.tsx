@@ -788,14 +788,14 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         const foundBuild = versionBuilds.pop();
         if (foundBuild) {
           await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
-            response.build_id = x;
-            raids[x] = response;
+            response.build_id = MAX_RAIDS - 1 - x;
+            raids[MAX_RAIDS - 1 - x] = response;
           });
           continue;
         }
       }
-      raids[x] = getEmptyBuild(activeVersion);
-      raids[x].build_id = x;
+      raids[MAX_RAIDS - 1 - x] = getEmptyBuild(activeVersion);
+      raids[MAX_RAIDS - 1 - x].build_id = MAX_RAIDS - 1 - x;
     }
 
     loadBuildNames(
