@@ -24,9 +24,7 @@ import { Instance, InviteStatus } from "../../consts";
 import { Button, Tooltip } from "@mui/material";
 import cataclysm from "../../icons/Cata.png";
 import wotlk from "../../icons/Wotlk.png";
-import { createDragDropManager } from "dnd-core";
 import Raid from "../../components/Raid";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import ModalAlert from "../../components/ModalAlert";
 import { sortFunctions } from "../../utils/sorting";
 import StickyBox from "react-sticky-box";
@@ -39,9 +37,10 @@ export interface EditBuildPageProps {
   accountName: string;
   accountRole: number;
   logout: () => void;
+  manager: any;
 }
 
-const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logout }) => {
+const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logout, manager }) => {
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
   const handleError = useErrorHandler();
@@ -58,7 +57,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
   const [socketUrl] = useState(process.env.REACT_APP_WEBSOCKET);
   const [socketId, setSocketId] = useState(UUID());
   const [messageHistory, setMessageHistory] = useState([]);
-  const manager = createDragDropManager(HTML5Backend);
 
   const { sendMessage } = useWebSocket(socketUrl, {
     shouldReconnect: (closeEvent) => {

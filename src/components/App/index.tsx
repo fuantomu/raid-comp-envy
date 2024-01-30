@@ -11,6 +11,9 @@ import useErrorHandler from "../../utils/useErrorHandler";
 import Account from "../Account";
 import { accountRoleTimeouts } from "../../consts";
 import LogoutTimer from "../LogoutTimer";
+import useWebSocket from "react-use-websocket";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { createDragDropManager } from "dnd-core";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -25,6 +28,7 @@ const App: FC = () => {
   const [newAccount, setNewAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
   const handleError = useErrorHandler();
+  const manager = createDragDropManager(HTML5Backend);
 
   const logout = () => {
     setToken(undefined);
@@ -97,6 +101,7 @@ const App: FC = () => {
                     accountName={accountName}
                     accountRole={accountRole}
                     logout={logout}
+                    manager={manager}
                   />
                 }
               />
