@@ -17,18 +17,11 @@ import useStyles from "./useStyles";
 export interface CompositionRoleProps {
   role: WarcraftRole;
   players: BuildPlayer[];
-  editing?: boolean;
   raid: number;
   accountRole: number;
 }
 
-const CompositionRole: FC<CompositionRoleProps> = ({
-  role,
-  players,
-  editing = false,
-  raid,
-  accountRole
-}) => {
+const CompositionRole: FC<CompositionRoleProps> = ({ role, players, raid, accountRole }) => {
   const context = useAppContext();
   const [common] = useTranslation("common");
   const styles = useStyles();
@@ -38,11 +31,9 @@ const CompositionRole: FC<CompositionRoleProps> = ({
       <Player
         key={UUID()}
         {...player}
-        {...(editing
-          ? {
-              onClick: () => context?.editPlayer(player)
-            }
-          : {})}
+        {...{
+          onClick: () => context?.editPlayer(player)
+        }}
         accountRole={accountRole}
         raid={raid}
       />

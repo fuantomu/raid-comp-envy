@@ -57,10 +57,6 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
     []
   );
 
-  if (players.length === 0) {
-    return <></>;
-  }
-
   return (
     <Card sx={{ border: "1px solid black" }} ref={drop}>
       <CardContent>
@@ -69,7 +65,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             {common("build.groups.group_each", { group_id: group_id.toString() })}
           </Typography>
           {players.filter((player) => player.race === WarcraftPlayerRace.Draenei).length > 0 &&
-          localStorage.getItem("LastVersion") === "Wotlk" ? (
+          context.getVersion() === "Wotlk" ? (
             <WarcraftIcon
               title={`${common(`races.Draenei`)}`}
               src={IconProvider.getUtilityIcon(WarcraftRaidUtility.DraeneiHit)}

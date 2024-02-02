@@ -31,6 +31,7 @@ import StickyBox from "react-sticky-box";
 import useWebSocket from "react-use-websocket";
 import MessageGroup from "../../components/MessageGroup";
 import envy from "../../icons/envy-ts-wenig-schatten.png";
+import { useUpdateSocketContext } from "../../components/UpdateSocket/context";
 
 export interface EditBuildPageProps {
   accountName: string;
@@ -55,24 +56,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const [socketUrl] = useState(process.env.REACT_APP_WEBSOCKET);
   const [socketId, setSocketId] = useState(UUID());
   const [messageHistory, setMessageHistory] = useState([]);
-
-  const { sendMessage } = useWebSocket(socketUrl, {
-    shouldReconnect: (closeEvent) => {
-      return true;
-    },
-    onMessage: (event: MessageEvent) => handleWebsocketUpdate(event),
-    onOpen: (event: MessageEvent) => {
-      setSocketId(UUID());
-    },
-    heartbeat: {
-      message: "Ping",
-      returnMessage: "Pong",
-      timeout: 60000,
-      interval: 60000
-    },
-    reconnectAttempts: 10,
-    reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000)
-  });
+  const webSocket = useUpdateSocketContext(() => {});
 
   const message = {
     socketId,
@@ -104,7 +88,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       message.message_type = "updateroster";
       message.data["player"] = newPlayer;
       message.data["oldData"] = oldPlayer;
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -130,7 +114,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     if (send) {
       message.message_type = "removeroster";
       message.data["player"] = removedPlayer;
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -256,7 +240,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     if (send) {
       message.message_type = "resetbuild";
       message.data["build"] = newBuild;
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -284,7 +268,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       message.data["build"]["players"] = [];
       message.data["oldData"] = oldRaid;
       message.data["oldData"]["players"] = [];
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -325,7 +309,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       message.data["build"]["players"] = [];
       message.data["oldData"] = oldRaid;
       message.data["oldData"]["players"] = [];
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -374,7 +358,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     if (send) {
       message.message_type = "addbuild";
       message.data["build"] = newBuild;
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -397,7 +381,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     if (send) {
       message.message_type = "deletebuild";
       message.data["build"] = oldRaid;
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -538,7 +522,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     if (send) {
       message.message_type = "addplayer";
       message.data = { player: newPlayer, build_id: currentRaid.id };
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -557,7 +541,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     if (send) {
       message.message_type = "updateplayer";
       message.data = { player: newPlayer, build_id: currentRaid.id, oldData: oldPlayer };
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -606,7 +590,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         raid: oldRaid ?? newPlayer.raid
       };
       message.data = { player: newPlayerCopy, build_id: currentRaid.id };
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -629,7 +613,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         raid: oldRaid
       };
       message.data = { player: newPlayer, build_id: currentRaid.id, oldData: oldPlayer };
-      sendMessage(JSON.stringify(message));
+      webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
@@ -907,50 +891,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   };
 
   const loadData = async (data: Update) => {
-    const currentBuildIds = builds.map((build) => build?.id);
+    await loadBuilds(data.builds);
+    await loadAbsence(data.absences, data.players);
+    setRoster(data.players.sort(sortFunctions[sorting]));
+    updateRosterStatus(data.players);
 
-    const differencesBuilds = _.differenceWith(
-      data.builds.filter((build) => currentBuildIds.includes(build?.id)),
-      builds,
-      (a: Build[], b: Build[]) => {
-        return _.isEqual(
-          _.omit(a, ["raid_id", "build_id", "id"]),
-          _.omit(b, ["raid_id", "build_id", "id"])
-        );
-      }
-    );
-    if (differencesBuilds.length > 0 || isLoading) {
-      console.log("Builds have changed. Reloading");
-      await loadBuilds(data.builds);
-    }
-
-    const newAbsence = data.absences.filter((absencePlayer) => {
-      return (
-        roster.find((rosterPlayer) => {
-          return rosterPlayer.id === absencePlayer.player.id;
-        }) !== undefined
-      );
-    });
-    if (newAbsence.length !== absence.length || isLoading) {
-      console.log("Absences have changed. Reloading");
-      await loadAbsence(data.absences, data.players);
-    }
-
-    const differencesRoster = _.differenceWith(
-      data.players,
-      roster,
-      (a: BuildPlayer[], b: BuildPlayer[]) => {
-        return _.isEqual(
-          _.omit(a, ["group_id", "id", "raid", "status"]),
-          _.omit(b, ["group_id", "id", "raid", "status"])
-        );
-      }
-    );
-    if (differencesRoster.length > 0 || data.players.length !== roster.length) {
-      console.log("Roster has changed. Reloading");
-      setRoster(data.players.sort(sortFunctions[sorting]));
-      updateRosterStatus(data.players);
-    }
     setIsLoading(false);
   };
 
@@ -1107,24 +1052,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         }
         break;
       }
-      case "update":
-        if (!isLoading) {
-          return;
-        }
-        BuildHelper.parseGetUpdate()
-          .then((update) => {
-            loadData(update);
-            setMaxRaidId(
-              Math.max.apply(
-                null,
-                update.builds.map((build) => {
-                  return build?.raid_id;
-                })
-              )
-            );
-          })
-          .catch(handleError);
-        break;
       default:
         console.log(`No method implemented for ${received_message.message_type}`);
         break;
@@ -1136,18 +1063,20 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   };
 
   useEffect(() => {
-    //eslint-disable-next-line
-  }, [
-    handleError,
-    isLoading,
-    builds,
-    roster,
-    absence,
-    buildSelection,
-    selectedBuilds,
-    version,
-    raids
-  ]);
+    BuildHelper.parseGetUpdate()
+      .then((update) => {
+        loadData(update);
+        setMaxRaidId(
+          Math.max.apply(
+            null,
+            update.builds.map((build) => {
+              return build?.raid_id;
+            })
+          )
+        );
+      })
+      .catch(handleError);
+  }, [handleError]);
 
   if (isLoading) {
     return <Loading />;
