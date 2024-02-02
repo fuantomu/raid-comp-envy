@@ -289,13 +289,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const handleDateSelect = (build_id: number, value: any, send: boolean = true) => {
     const oldRaid = BuildHelper.getBuildCopy(raids[build_id]);
-    raids.map((raid) => {
-      if (raid.build_id === build_id) {
-        raid.date = value.valueOf();
-      }
-      return raid;
-    });
+    raids[build_id].date = value.valueOf();
     setRaids([...raids]);
+    builds.map((build) => {
+      build.date = value.valueOf();
+      return build;
+    });
     buildSelection.map((buildSelect) => {
       if (buildSelect.value === raids[build_id].id) {
         buildSelect.date = value.valueOf();

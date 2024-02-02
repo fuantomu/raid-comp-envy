@@ -514,7 +514,6 @@ export abstract class BuildHelper {
   private static getBuildChanges(message: BuildData, builds: Build[], remove?: boolean) {
     const changes: Difference[] = [];
     const foundBuild = builds.find((build) => build?.id === message?.build.id);
-
     // Update message
     if (message?.oldData) {
       const differences = Object.fromEntries(
@@ -527,14 +526,16 @@ export abstract class BuildHelper {
         const changeMessage = {
           key,
           objectType: "Build",
-          propertyName:
-            `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+          propertyName: `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString(
+            "de-de",
+            {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",
               hour: "2-digit",
               minute: "2-digit"
-            })}` ?? message.build.name,
+            }
+          )}`,
           propertyType: "Build",
           old: ["date"].includes(key)
             ? new Date(message.oldData[key]).toLocaleString("de-de", {
