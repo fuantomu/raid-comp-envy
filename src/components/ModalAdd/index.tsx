@@ -25,11 +25,12 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalAddProps {
-  editPlayer?: (callback: (player: BuildPlayer) => void) => void;
+  editPlayer?: (callback: (player: BuildPlayer, fromRoster: boolean) => void) => void;
   accountRole: number;
+  fromRoster?: boolean;
 }
 
-const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
+const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole, fromRoster = false }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
@@ -46,11 +47,13 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   const [checked, setChecked] = useState(false);
   const [altOptions, setAltOptions] = useState<any[]>([]);
   const [mainOptions, setMainOptions] = useState<any[]>([]);
+  const [roster, setRoster] = useState(fromRoster);
   const context = useAppContext();
   let playerName = name;
 
   if (editPlayer) {
-    editPlayer((player) => {
+    editPlayer((player, isRoster) => {
+      setRoster(isRoster);
       if (player) {
         setId(player.id);
         setName(player.name);
@@ -112,10 +115,18 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     playerName = event.currentTarget.value;
-  };
-
-  const handleNameBlur = () => {
     setName(playerName);
+    setMainOptions(
+      [
+        ...context?.getMains().map((main) => main.name),
+        context
+          ?.getMains()
+          .map((main) => main.name)
+          .includes(playerName)
+          ? ""
+          : playerName
+      ].sort((a, b) => a.localeCompare(b))
+    );
   };
 
   const sendImportToContext = (nameOverride = name, remove = false) => {
@@ -131,23 +142,24 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       main: main === "DEFAULT" ? playerName : main,
       alt: alt === "DEFAULT" ? "None" : alt
     };
+    if (roster || checked) {
+      context?.updateRoster({ ...playerInfo, group_id: "roster" as GroupId }, true, remove);
+    }
 
     if (remove) {
       if (checked) {
         context?.removePlayerFromRaids(playerInfo, true, false);
-        context?.removeFromRoster({ ...playerInfo, group_id: "roster" as GroupId }, true);
       } else {
         context?.removePlayerFromRaid(playerInfo, true);
       }
     } else {
-      if (checked) {
-        context?.updateRoster({ ...playerInfo, group_id: "roster" as GroupId }, true);
-      } else {
+      if (!roster) {
         context?.importPlayer(playerInfo);
       }
     }
     setAlt("DEFAULT");
     setMain("DEFAULT");
+    setName("");
     setChecked(false);
     setOpen(false);
   };
@@ -170,6 +182,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     setChecked(false);
     setAlt("DEFAULT");
     setMain("DEFAULT");
+    setName("");
     setOpen(false);
   };
 
@@ -259,7 +272,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
     return (
       <FormControl css={{ justifyContent: "center", width: "500px", marginTop: "20px" }}>
         <Autocomplete
-          value={main}
+          value={main === "DEFAULT" ? "" : main}
           options={mainOptions}
           sx={{
             backgroundColor: "#1d1d1d",
@@ -299,7 +312,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
 
   return (
     <>
-      {!editPlayer ? (
+      {!editPlayer || fromRoster ? (
         <Tooltip title={common("cta.addPlayer")} placement="top" arrow>
           <span>
             <Button
@@ -322,7 +335,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         aria-describedby="simple-modal-description"
       >
         <Box css={styles.modal}>
-          <h2>{editPlayer ? common("build.edit.title") : common("build.add.title")}</h2>
+          <h2>{name ? common("build.edit.title") : common("build.add.title")}</h2>
           <Box css={styles.content}>
             <Box css={styles.nameInputWrapper}>
               <Input
@@ -332,7 +345,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
                 autoFocus={true}
                 defaultValue={name}
                 onChange={handleNameChange}
-                onBlur={handleNameBlur}
                 placeholder="Character name"
               />
             </Box>
@@ -343,19 +355,24 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
             {main === name ? renderAlt() : <></>}
           </Box>
           <Box css={styles.buttons}>
-            <Box>
-              <Checkbox name="checked" checked={checked} onChange={handleChange} />
-              {common("build.roster.save")}
-            </Box>
-            {editPlayer ? (
+            {!roster ? (
+              <Box>
+                <Checkbox name="checked" checked={checked} onChange={handleChange} />
+                {common("build.roster.save")}
+              </Box>
+            ) : (
+              <></>
+            )}
+
+            {name ? (
               <Button color="info" variant="contained" onClick={handleViewPlayer}>
                 {common("build.add.view")}
               </Button>
             ) : null}
             <Button color="success" variant="contained" onClick={handleAddPlayer}>
-              {editPlayer ? common("build.edit.save") : common("build.add.add")}
+              {name ? common("build.edit.save") : common("build.add.add")}
             </Button>
-            {editPlayer ? (
+            {name ? (
               <Button color="primary" variant="contained" onClick={handleRemovePlayer}>
                 {common("build.edit.remove")}
               </Button>

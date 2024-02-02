@@ -415,7 +415,6 @@ export abstract class BuildHelper {
   }
 
   public static parseMessage(message: WebSocketMessage, builds: Build[], players: BuildPlayer[]) {
-    console.log(message);
     return {
       type: MessageType[message.message_type] ?? message.message_type,
       date: message.date,
@@ -508,7 +507,6 @@ export abstract class BuildHelper {
       };
       changes.push(changeMessage);
     }
-    console.log(changes);
     return changes;
   }
 

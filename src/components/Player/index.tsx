@@ -152,7 +152,7 @@ const Player: FC<PlayerProps> = (props) => {
                 <Player
                   key={UUID()}
                   {...player}
-                  {...{ onClick: () => context?.editPlayer(player) }}
+                  {...{ onClick: () => context?.editPlayer(player, true) }}
                   accountRole={accountRole}
                   raid={raid}
                 />

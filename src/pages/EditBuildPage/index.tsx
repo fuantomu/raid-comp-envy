@@ -65,11 +65,24 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const MAX_SET_CHARACTERS = 2;
   const MAX_RAIDS = 2;
 
-  const updateRoster = (newPlayer: BuildPlayer, save?: boolean, send: boolean = true): void => {
+  const updateRoster = (
+    newPlayer: BuildPlayer,
+    save?: boolean,
+    send: boolean = true,
+    remove: boolean = false
+  ): void => {
     const oldPlayer = roster.find((player) => player.id === newPlayer.id);
     const newRoster = [...roster.filter((player) => player.id !== newPlayer.id), newPlayer].sort(
       sortFunctions["DEFAULT"]
     );
+    if (oldPlayer) {
+      const differences = Object.fromEntries(
+        Object.entries(oldPlayer).filter(([key, val]) => newPlayer[key] !== val)
+      );
+      if (Object.entries(differences).length === 0 && !remove) {
+        return;
+      }
+    }
     updateRosterStatus(newRoster);
     if (save) {
       BuildHelper.parseSaveRoster(newRoster);
@@ -290,13 +303,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     }
   };
 
-  const editPlayerModalFn = (callback: (player: BuildPlayer) => void) => {
+  const editPlayerModalFn = (callback: (player: BuildPlayer, fromRoster: boolean) => void) => {
     openEditModal = callback;
   };
 
-  const editPlayer = (player: BuildPlayer) => {
+  const editPlayer = (player: BuildPlayer, fromRoster: boolean = false) => {
     if (openEditModal) {
-      openEditModal(player);
+      openEditModal(player, fromRoster);
     }
   };
 

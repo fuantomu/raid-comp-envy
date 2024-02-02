@@ -52,6 +52,8 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
     []
   );
 
+  let openEditModal: any = () => {};
+
   return (
     <Card ref={drop}>
       <CardContent sx={{ maxHeight: window.innerHeight / 1.5 }}>
@@ -68,7 +70,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
           >
             {common("build.groups.group_each", { group_id: "roster" })}
           </Typography>
-          <ModalAdd accountRole={accountRole} />
+          <ModalAdd accountRole={accountRole} fromRoster={true} />
           <Button
             sx={{
               color: "white",
@@ -129,7 +131,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
                 key={UUID()}
                 {...player}
                 {...{
-                  onClick: () => context?.editPlayer(player)
+                  onClick: () => context.editPlayer(player, true)
                 }}
                 rosterVisible={rosterExpanded}
                 alts={players
@@ -151,7 +153,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
                 key={UUID()}
                 {...player}
                 {...{
-                  onClick: () => context?.editPlayer(player)
+                  onClick: () => context.editPlayer(player, true)
                 }}
                 accountRole={accountRole}
                 raid={player.raid}
@@ -170,7 +172,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
                 key={UUID()}
                 {...player}
                 {...{
-                  onClick: () => context?.editPlayer(player)
+                  onClick: () => context.editPlayer(player, true)
                 }}
                 accountRole={accountRole}
                 raid={player.raid}
