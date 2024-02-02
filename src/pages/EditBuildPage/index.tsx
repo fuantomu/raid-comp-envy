@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { AppContextProvider } from "../../components/App/context";
 import Loading from "../../components/Loading";
 import ModalAdd from "../../components/ModalAdd";
-import Roster from "../../components/Roster";
 import {
   Absence,
   AbsenceData,
@@ -27,11 +26,8 @@ import wotlk from "../../icons/Wotlk.png";
 import Raid from "../../components/Raid";
 import ModalAlert from "../../components/ModalAlert";
 import { sortFunctions } from "../../utils/sorting";
-import StickyBox from "react-sticky-box";
-import useWebSocket from "react-use-websocket";
-import MessageGroup from "../../components/MessageGroup";
-import envy from "../../icons/envy-ts-wenig-schatten.png";
 import { useUpdateSocketContext } from "../../components/UpdateSocket/context";
+import ScrollingSidebar from "../../components/ScrollingSidebar";
 
 export interface EditBuildPageProps {
   accountName: string;
@@ -46,16 +42,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const [builds, setBuilds] = useState<Build[]>([]);
   const [raids, setRaids] = useState<Build[]>([]);
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
-  const [sorting, setSorting] = useState("DEFAULT");
   const [buildSelection, setBuildSelection] = useState<SelectOption[]>([]);
   const [selectedBuilds, setSelectedBuilds] = useState<SelectOption[]>([]);
   const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Wotlk");
-  const [rosterExpanded, setRosterExpanded] = useState(false);
   const [absence, setAbsence] = useState<Absence[]>([]);
   const [maxRaidId, setMaxRaidId] = useState(0);
-  const [socketUrl] = useState(process.env.REACT_APP_WEBSOCKET);
   const [socketId, setSocketId] = useState(UUID());
-  const [messageHistory, setMessageHistory] = useState([]);
   const webSocket = useUpdateSocketContext(() => {});
 
   const message = {
@@ -67,8 +59,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     version: version
   };
 
-  const _ = require("lodash");
-
   let openEditModal: any = () => {};
   let handleModalOpen: any = () => {};
 
@@ -78,7 +68,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const updateRoster = (newPlayer: BuildPlayer, save?: boolean, send: boolean = true): void => {
     const oldPlayer = roster.find((player) => player.id === newPlayer.id);
     const newRoster = [...roster.filter((player) => player.id !== newPlayer.id), newPlayer].sort(
-      sortFunctions[sorting]
+      sortFunctions["DEFAULT"]
     );
     updateRosterStatus(newRoster);
     if (save) {
@@ -99,7 +89,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   ): void => {
     const newRoster = [
       ...roster.filter((player: BuildPlayer) => removedPlayer.id !== player.id)
-    ].sort(sortFunctions[sorting]);
+    ].sort(sortFunctions["DEFAULT"]);
 
     newRoster.map((otherPlayer) => {
       if (otherPlayer.main === removedPlayer.name && otherPlayer.id !== removedPlayer.id) {
@@ -122,16 +112,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     return selectedBuilds ?? [];
   };
 
-  const getCurrentSorting = () => {
-    return sorting ?? "Alphabetical";
-  };
-
   const getBuildSelections = () => {
     return buildSelection ?? [];
-  };
-
-  const getRosterExpanded = () => {
-    return rosterExpanded;
   };
 
   const getRaid = (build_id: number): Build => {
@@ -242,11 +224,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       message.data["build"] = newBuild;
       webSocket.sendMessage(JSON.stringify(message));
     }
-  };
-
-  const handleSorting = (e: any) => {
-    setSorting(e.target.value);
-    setRoster([...roster].sort(sortFunctions[e.target.value]));
   };
 
   const handleChangeVersion = async () => {
@@ -436,7 +413,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     const unsetMains = [];
     mains.forEach((main) => {
       if (!setMains.includes(main)) {
-        if (main.alt !== undefined && main.alt !== "None") {
+        if (
+          main.alt !== undefined &&
+          main.alt !== "None" &&
+          main.status === InviteStatus.Accepted
+        ) {
           unsetMains.push(roster.find((rosterPlayer) => rosterPlayer.name === main.alt));
         } else {
           unsetMains.push(main);
@@ -887,15 +868,14 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
       return false;
     });
-    setRoster([...currentRoster.sort(sortFunctions[sorting])]);
+    setRoster([...currentRoster.sort(sortFunctions["DEFAULT"])]);
   };
 
   const loadData = async (data: Update) => {
     await loadBuilds(data.builds);
     await loadAbsence(data.absences, data.players);
-    setRoster(data.players.sort(sortFunctions[sorting]));
+    setRoster(data.players.sort(sortFunctions["DEFAULT"]));
     updateRosterStatus(data.players);
-
     setIsLoading(false);
   };
 
@@ -904,13 +884,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       return;
     }
     const received_message: WebSocketMessage = JSON.parse(event.data);
-    if (!["update"].includes(received_message.message_type)) {
-      const newMessage = BuildHelper.parseMessage(received_message, builds, roster);
-      setMessageHistory([newMessage, ...messageHistory]);
-    }
-    if (received_message.socketId === socketId) {
-      return;
-    }
+
     switch (received_message.message_type) {
       case "addplayer": {
         const data: PlayerData = received_message.data as PlayerData;
@@ -1093,15 +1067,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         editPlayer,
         updateRoster,
         removeFromRoster,
-        handleSorting,
-        getCurrentSorting,
         handleBuildSelect,
         handleDateSelect,
         getBuildSelections,
         addBuild,
         deleteBuild,
-        setRosterExpanded,
-        getRosterExpanded,
         getPlayerAbsence,
         setBuildInstance,
         getAbsentPlayers,
@@ -1117,29 +1087,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole} />
       <ModalAlert handleOpen={handleShowError} />
       <div style={{ display: "flex", alignItems: "flex-start" }}>
-        <StickyBox
-          style={{
-            width: "40%",
-            borderBottom: `1px solid black`,
-            borderRight: "1px solid black",
-            marginRight: "30px"
-          }}
-        >
-          <Roster manager={manager} players={roster} />
-          <Box
-            display={"grid"}
-            sx={{
-              background: "#1d1d1d",
-              backgroundImage: `url(${envy})`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "bottom right",
-              backgroundSize: "15%"
-            }}
-            justifySelf={"center"}
-          >
-            <MessageGroup rosterRef={roster}></MessageGroup>
-          </Box>
-        </StickyBox>
+        <ScrollingSidebar manager={manager} rosterRef={roster} />
         <div style={{ width: "100%", borderLeft: "1px solid black" }}>
           <Raid
             manager={manager}

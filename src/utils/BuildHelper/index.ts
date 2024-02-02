@@ -595,7 +595,7 @@ export abstract class BuildHelper {
     const changeMessage = {
       key: "absence",
       objectType: "Absence",
-      propertyName: foundPlayer.name ?? message.player_id,
+      propertyName: foundPlayer?.name ?? message.player_id,
       propertyType: "Player",
       new: new Date(message.end_date).toLocaleDateString("de-de", {
         year: "numeric",

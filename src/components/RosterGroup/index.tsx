@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
 import { DragItemTypes } from "../../consts";
@@ -24,6 +24,8 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const context = useAppContext();
+  const [sorting, setSorting] = useState("DEFAULT");
+  const [rosterExpanded, setRosterExpanded] = useState(false);
   const accountRole = context.getAccountRole();
   const [, drop] = useDrop(
     () => ({
@@ -75,15 +77,17 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
               marginRight: "10px"
             }}
             onClick={() => {
-              context?.setRosterExpanded(!context?.getRosterExpanded());
+              setRosterExpanded(!rosterExpanded);
             }}
           >
             {common("build.roster.expand")}
           </Button>
           <TextField
             defaultValue="NAME"
-            value={context?.getCurrentSorting()}
-            onChange={context?.handleSorting}
+            value={sorting}
+            onChange={(e) => {
+              setSorting(e.target.value);
+            }}
             select // tell TextField to render select
             label="Sort by"
             sx={{ border: "1px solid black" }}
@@ -119,6 +123,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
         >
           {players
             .filter((player) => player.main?.toLowerCase() === player.name.toLowerCase())
+            .sort(sortFunctions[sorting])
             .map((player) => (
               <Player
                 key={UUID()}
@@ -126,7 +131,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
                 {...{
                   onClick: () => context?.editPlayer(player)
                 }}
-                rosterVisible={context?.getRosterExpanded()}
+                rosterVisible={rosterExpanded}
                 alts={players
                   .filter(
                     (altPlayer) =>
@@ -140,6 +145,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
             ))}
           {players
             .filter((player) => player.main === undefined || player.main === "")
+            .sort(sortFunctions[sorting])
             .map((player) => (
               <Player
                 key={UUID()}
@@ -158,6 +164,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
               }
               return true;
             })
+            .sort(sortFunctions[sorting])
             .map((player) => (
               <Player
                 key={UUID()}
