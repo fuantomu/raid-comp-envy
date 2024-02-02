@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useEffect, useRef, useState } from "react";
+import { FC } from "react";
 import StickyBox from "react-sticky-box";
 import Roster from "../Roster";
 import { Box } from "@mui/material";
@@ -13,8 +13,6 @@ export interface ScrollingSidebarProps {
 }
 
 const ScrollingSidebar: FC<ScrollingSidebarProps> = ({ manager, rosterRef }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
     <StickyBox
       style={{
@@ -36,7 +34,7 @@ const ScrollingSidebar: FC<ScrollingSidebarProps> = ({ manager, rosterRef }) => 
         }}
         justifySelf={"center"}
       >
-        {isLoading ? <></> : <MessageGroup rosterRef={rosterRef} />}
+        {<MessageGroup rosterRef={rosterRef} />}
       </Box>
     </StickyBox>
   );

@@ -28,7 +28,6 @@ import Raid from "../../components/Raid";
 import ModalAlert from "../../components/ModalAlert";
 import { sortFunctions } from "../../utils/sorting";
 import StickyBox from "react-sticky-box";
-import { Logout } from "@mui/icons-material";
 import useWebSocket from "react-use-websocket";
 import MessageGroup from "../../components/MessageGroup";
 import envy from "../../icons/envy-ts-wenig-schatten.png";
@@ -90,7 +89,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   let handleModalOpen: any = () => {};
 
   const MAX_SET_CHARACTERS = 2;
-  const MESSAGES_TO_LOAD = 50;
   const MAX_RAIDS = 2;
 
   const updateRoster = (newPlayer: BuildPlayer, save?: boolean, send: boolean = true): void => {
@@ -1221,7 +1219,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
             builds={buildSelection}
             selectedBuild={selectedBuilds[0]}
             version={version}
-            editing
             accountRole={accountRole}
           ></Raid>
           <Raid
@@ -1231,7 +1228,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
             builds={buildSelection}
             selectedBuild={selectedBuilds[1]}
             version={version}
-            editing
             accountRole={accountRole}
           ></Raid>
           <br></br>

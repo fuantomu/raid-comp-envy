@@ -18,7 +18,6 @@ import { sortFunctions } from "../../utils/sorting";
 import AbsenceTooltip from "../AbsenceTooltip";
 
 export interface PlayerProps extends BuildPlayer {
-  showRole?: boolean;
   onClick?: () => void;
   alts?: BuildPlayer[];
   rosterVisible?: boolean;
@@ -36,7 +35,6 @@ const Player: FC<PlayerProps> = (props) => {
     race,
     group_id,
     raid,
-    showRole,
     onClick,
     rosterVisible,
     alts = [],
@@ -108,7 +106,6 @@ const Player: FC<PlayerProps> = (props) => {
           ref={isClickable && isAccountRoleAllowed(accountRole, "ClickPlayer") ? drag : undefined}
         >
           <Box css={styles.icons}>
-            {showRole && <WarcraftIcon src={IconProvider.getSpecRoleIcon(spec)} />}
             <WarcraftIcon
               title={`${common(`specs.${spec}`)} ${common(`classes.${class_name}`)}`}
               src={spec ? IconProvider.getSpecIcon(spec) : IconProvider.getClassIcon(class_name)}

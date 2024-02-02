@@ -19,7 +19,6 @@ import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 export interface CompositionGroupProps {
   players: BuildPlayer[];
   group_id: GroupId;
-  editing?: boolean;
   raid: number;
   accountRole: number;
 }
@@ -27,7 +26,6 @@ export interface CompositionGroupProps {
 const CompositionGroup: FC<CompositionGroupProps> = ({
   group_id,
   players = [],
-  editing,
   raid,
   accountRole
 }) => {
@@ -59,7 +57,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
     []
   );
 
-  if (players.length === 0 && !editing) {
+  if (players.length === 0) {
     return <></>;
   }
 
@@ -84,11 +82,9 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
               <Player
                 key={UUID()}
                 {...player}
-                {...(editing
-                  ? {
-                      onClick: () => context?.editPlayer(player)
-                    }
-                  : {})}
+                {...{
+                  onClick: () => context?.editPlayer(player)
+                }}
                 accountRole={accountRole}
                 raid={raid}
               />

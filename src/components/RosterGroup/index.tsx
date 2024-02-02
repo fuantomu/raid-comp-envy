@@ -18,10 +18,9 @@ import { sortFunctions } from "../../utils/sorting";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
-  editing?: boolean;
 }
 
-const RosterGroup: FC<RosterGroupProps> = ({ players = [], editing }) => {
+const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const context = useAppContext();
@@ -51,7 +50,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [], editing }) => {
     []
   );
 
-  if (players.length === 0 && !editing) {
+  if (players.length === 0) {
     return <></>;
   }
 
@@ -128,11 +127,9 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [], editing }) => {
               <Player
                 key={UUID()}
                 {...player}
-                {...(editing
-                  ? {
-                      onClick: () => context?.editPlayer(player)
-                    }
-                  : {})}
+                {...{
+                  onClick: () => context?.editPlayer(player)
+                }}
                 rosterVisible={context?.getRosterExpanded()}
                 alts={players
                   .filter(
@@ -151,11 +148,9 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [], editing }) => {
               <Player
                 key={UUID()}
                 {...player}
-                {...(editing
-                  ? {
-                      onClick: () => context?.editPlayer(player)
-                    }
-                  : {})}
+                {...{
+                  onClick: () => context?.editPlayer(player)
+                }}
                 accountRole={accountRole}
                 raid={player.raid}
               />
@@ -171,11 +166,9 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [], editing }) => {
               <Player
                 key={UUID()}
                 {...player}
-                {...(editing
-                  ? {
-                      onClick: () => context?.editPlayer(player)
-                    }
-                  : {})}
+                {...{
+                  onClick: () => context?.editPlayer(player)
+                }}
                 accountRole={accountRole}
                 raid={player.raid}
               />

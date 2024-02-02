@@ -30,8 +30,8 @@ import { WarcraftRole } from "../RoleProvider/consts";
 import UUID from "../UUID";
 
 export abstract class BuildHelper {
-  public static getGroups(players: BuildPlayer[], getEmpty: boolean = false): BuildGroups {
-    const emptyGroups = getEmpty ? BuildHelper.getEmptyGroups() : {};
+  public static getGroups(players: BuildPlayer[]): BuildGroups {
+    const emptyGroups = BuildHelper.getEmptyGroups();
     const groups: BuildGroups = {
       ...emptyGroups,
       none: {

@@ -8,7 +8,6 @@ import RolesComposition from "./RolesComposition";
 export interface RaidCompositionProps {
   players: BuildPlayer[];
   grouped?: boolean;
-  editing?: boolean;
   manager: any;
   raid: number;
   accountRole: number;
@@ -17,7 +16,6 @@ export interface RaidCompositionProps {
 const RaidComposition: FC<RaidCompositionProps> = ({
   players,
   grouped,
-  editing = false,
   manager,
   raid,
   accountRole
@@ -25,19 +23,9 @@ const RaidComposition: FC<RaidCompositionProps> = ({
   return (
     <DndProvider manager={manager}>
       {grouped ? (
-        <GroupsComposition
-          raid={raid}
-          players={players}
-          editing={editing}
-          accountRole={accountRole}
-        />
+        <GroupsComposition raid={raid} players={players} accountRole={accountRole} />
       ) : (
-        <RolesComposition
-          raid={raid}
-          players={players}
-          editing={editing}
-          accountRole={accountRole}
-        />
+        <RolesComposition raid={raid} players={players} accountRole={accountRole} />
       )}
     </DndProvider>
   );

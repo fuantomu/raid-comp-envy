@@ -20,7 +20,6 @@ import ModalPostDiscord from "../ModalPostDiscord";
 
 export interface RaidProps {
   raidBuild: Build;
-  editing?: boolean;
   builds: SelectOption[];
   version: string;
   id: number;
@@ -31,7 +30,6 @@ export interface RaidProps {
 
 const Raid: FC<RaidProps> = ({
   raidBuild,
-  editing = false,
   builds,
   version,
   id,
@@ -230,7 +228,6 @@ const Raid: FC<RaidProps> = ({
               manager={manager}
               players={raidBuild?.players}
               raid={id}
-              editing
               grouped={grouped}
               accountRole={accountRole}
             />
