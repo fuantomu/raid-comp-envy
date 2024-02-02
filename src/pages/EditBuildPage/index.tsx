@@ -75,8 +75,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
               return;
             }
             case "moveplayer": {
-              console.log(data.player);
-              console.log(data.oldData);
               movePlayer(data.player, data.oldData?.raid, false);
               return;
             }
@@ -127,21 +125,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
                     data.build.instance,
                     false
                   );
-                }
-                const foundBuildSelection = buildSelection.find(
-                  (build) => build.value === data.build.id
-                );
-                if (foundBuildSelection) {
-                  foundBuildSelection.date = data.build.date;
-                  foundBuildSelection.label = `${data.build.name} - ${new Date(
-                    data.build.date
-                  ).toLocaleString("de-DE", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit"
-                  })}`;
                 }
               }
               return;
@@ -298,6 +281,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       selectedBuilds[build_id] = buildSelection.find(
         (buildSelect) => buildSelect.value === build.id
       );
+      console.log(selectedBuilds);
       updateRaidStatus();
       updateRosterStatus();
     });
@@ -305,7 +289,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const handleDateSelect = (build_id: number, value: any, send: boolean = true) => {
     const oldRaid = BuildHelper.getBuildCopy(raids[build_id]);
-    raids[build_id].date = value.valueOf();
+    raids.map((raid) => {
+      if (raid.build_id === build_id) {
+        raid.date = value.valueOf();
+      }
+      return raid;
+    });
+    setRaids([...raids]);
     buildSelection.map((buildSelect) => {
       if (buildSelect.value === raids[build_id].id) {
         buildSelect.date = value.valueOf();
@@ -316,8 +306,22 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         selectedBuilds[build_id].label = buildSelect.label;
         selectedBuilds[build_id].date = buildSelect.date;
       }
-      return false;
+      return buildSelect;
     });
+    selectedBuilds.map((build) => {
+      if (build.value === raids[build_id].id) {
+        build.date = value.valueOf();
+        build.label = `${raids[build_id].name} - ${new Date(build.date).toLocaleString("de-DE", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        })}`;
+      }
+      return build;
+    });
+    setSelectedBuilds([...selectedBuilds]);
     updateRaidStatus();
     updateRosterStatus();
     saveBuild(raids[build_id]);
@@ -343,7 +347,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
     const oldRaid = BuildHelper.getBuildCopy(raids[build_id]);
-    raids[build_id].instance = value.value ?? value;
+    const newRaids = raids.map((raid) => {
+      if (raid.build_id === build_id) {
+        raid.instance = value.value ?? value;
+      }
+      return raid;
+    });
+    setRaids([...newRaids]);
     saveBuild(raids[build_id]);
     if (send) {
       message.message_type = "updatebuild";
@@ -919,15 +929,15 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
             manager={manager}
             raidBuild={raids.find((raid) => raid?.build_id === 0) ?? raids[0]}
             builds={buildSelection}
-            selectedBuild={selectedBuilds[0]}
             version={version}
+            selected={selectedBuilds[0]}
           ></Raid>
           <Raid
             manager={manager}
             raidBuild={raids.find((raid) => raid?.build_id === 1) ?? raids[1]}
             builds={buildSelection}
-            selectedBuild={selectedBuilds[1]}
             version={version}
+            selected={selectedBuilds[1]}
           ></Raid>
           <br></br>
 

@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { FC, useState } from "react";
 import { Autocomplete, Box, TextField } from "@mui/material";
-import { SelectOption } from "../../types";
+import { Build, BuildData, MessageData, SelectOption } from "../../types";
 import { useAppContext } from "../App/context";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
-import { Instance } from "../../consts";
+import { Instance, RegisteredMessages } from "../../consts";
 import { useTranslation } from "react-i18next";
 import ModalAlert from "../ModalAlert";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import updateLocale from "dayjs/plugin/updateLocale";
+import { useUpdateSocketContext } from "../UpdateSocket/context";
 
 dayjs.extend(updateLocale);
 dayjs.updateLocale("en", {
@@ -19,51 +20,63 @@ dayjs.updateLocale("en", {
 
 export interface BuildTitleProps {
   options: SelectOption[];
-  selected: SelectOption;
-  build_id: number;
-  buildDate?: number;
+  raidBuild: Build;
   version: string;
-  selectedInstance?: string;
+  selected: SelectOption;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({
-  options,
-  selected,
-  build_id,
-  buildDate,
-  version,
-  selectedInstance
-}) => {
+const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild, version, selected }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
   const [date, setDate] = useState<Dayjs | null>(
-    buildDate
-      ? dayjs(buildDate).set("seconds", 0).set("milliseconds", 0)
+    raidBuild.date
+      ? dayjs(raidBuild.date).set("seconds", 0).set("milliseconds", 0)
       : dayjs().set("seconds", 0).set("milliseconds", 0)
   );
-  const instances = version === "Cataclysm" ? Instance.Cataclysm : Instance.Wotlk;
+  const instances = Instance[version];
   const context = useAppContext();
   const [common] = useTranslation("common");
   let handleModalOpen: any = () => {};
 
-  const raids: SelectOption[] = [];
-  instances.map((instance) => {
-    return raids.push({
+  const raids: SelectOption[] = instances.map((instance) => {
+    return {
       label: instance.name,
       value: instance.abbreviation
-    });
+    };
   });
-  const currentInstance: SelectOption =
-    selectedInstance === undefined
-      ? raids[0]
-      : {
-          label:
-            instances.find((instance) => instance.abbreviation === selectedInstance)?.name ??
-            selectedInstance,
-          value:
-            instances.find((instance) => instance.abbreviation === selectedInstance)
-              ?.abbreviation ?? selectedInstance
-        };
+
+  const currentInstance: SelectOption = {
+    label:
+      instances.find((instance) => instance.abbreviation === raidBuild.instance)?.name ??
+      raidBuild.instance,
+    value:
+      instances.find((instance) => instance.abbreviation === raidBuild.instance)?.abbreviation ??
+      raidBuild.instance
+  };
   const [instance, setInstance] = useState(currentInstance);
+
+  useUpdateSocketContext((message: MessageData) => {
+    if (RegisteredMessages.build.includes(message.message_type)) {
+      if (message.message_type === "updatebuild") {
+        const data: BuildData = message.data as BuildData;
+        if (data.build.id === raidBuild.id) {
+          setDate(dayjs(data.build.date));
+          setInstance(raids.find((raid) => raid.value === data.build.instance));
+
+          selectedOption.date = data.build.date;
+          selectedOption.label = `${data.build.name} - ${new Date(data.build.date).toLocaleString(
+            "de-DE",
+            {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          )}`;
+        }
+      }
+    }
+  });
 
   const handleOpen = (callback: any) => {
     handleModalOpen = callback;
@@ -83,7 +96,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
       });
     } else {
       setSelectedOption(newValue);
-      context?.handleBuildSelect(build_id, newValue);
+      context?.handleBuildSelect(raidBuild.build_id, newValue);
     }
   };
 
@@ -92,13 +105,13 @@ const BuildTitle: FC<BuildTitleProps> = ({
       return;
     }
     setInstance(newValue);
-    context?.setBuildInstance(build_id, newValue);
+    context?.setBuildInstance(raidBuild.build_id, newValue);
   };
 
   const handleDateChange = (date: Dayjs) => {
     const newDate = date.set("seconds", 0).set("milliseconds", 0);
     setDate(newDate);
-    context?.handleDateSelect(build_id, newDate);
+    context?.handleDateSelect(raidBuild.build_id, newDate);
   };
 
   return (
@@ -106,7 +119,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
       <ModalAlert handleOpen={handleOpen} />
 
       <Autocomplete
-        value={selectedOption ?? options[0]}
+        value={selectedOption}
         options={options}
         onChange={handleChange}
         clearOnEscape
