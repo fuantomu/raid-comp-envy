@@ -7,9 +7,7 @@ import { Message } from "../../types";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 
-export interface UpdateMessageProps extends Message {
-  accountRole: number;
-}
+export interface UpdateMessageProps extends Message {}
 
 const UpdateMessage: FC<UpdateMessageProps> = (props) => {
   const [common] = useTranslation();

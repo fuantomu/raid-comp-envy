@@ -25,7 +25,6 @@ export type BuildPlayer = {
   raid: number;
   status: InviteStatus;
   group_id?: GroupId;
-  oldName?: string;
   main?: string;
   alt?: string;
 };
@@ -151,4 +150,13 @@ export type Difference = {
   propertyName: string;
   old?: any;
   new: any;
+};
+
+export type MessageData = {
+  socketId: string;
+  message_type: string;
+  data: any;
+  account_name: string;
+  date: number;
+  version: string;
 };

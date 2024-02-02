@@ -13,6 +13,8 @@ import { accountRoleTimeouts } from "../../consts";
 import LogoutTimer from "../LogoutTimer";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { createDragDropManager } from "dnd-core";
+import { Button, Tooltip } from "@mui/material";
+import { Logout } from "@mui/icons-material";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -99,7 +101,6 @@ const App: FC = () => {
                   <EditBuildPage
                     accountName={accountName}
                     accountRole={accountRole}
-                    logout={logout}
                     manager={manager}
                   />
                 }
@@ -107,6 +108,18 @@ const App: FC = () => {
             </Routes>
           </Suspense>
         </ErrorBoundary>
+      </Box>
+      <Box display={"grid"} sx={{ width: "100%", border: "1px solid black" }}>
+        <Tooltip title={"Logout"}>
+          <Button onClick={logout}>
+            <Box>
+              <Box>{`Currently logged in as ${accountName}`}</Box>
+              <Logout />
+            </Box>
+          </Button>
+        </Tooltip>
+      </Box>
+      <Box sx={{ width: "100%" }}>
         <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
       </Box>
     </Fragment>

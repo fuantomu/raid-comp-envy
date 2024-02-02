@@ -18,7 +18,6 @@ export interface ChecklistItemProps {
   players: BuildPlayer[];
   specs?: WarcraftPlayerSpec[];
   source?: any;
-  version?: string;
 }
 
 const ChecklistItem: FC<ChecklistItemProps> = ({
@@ -27,7 +26,6 @@ const ChecklistItem: FC<ChecklistItemProps> = ({
   players,
   specs,
   source,
-  version,
   styles: stylesOverride
 }) => {
   const count = players.length;
@@ -42,7 +40,6 @@ const ChecklistItem: FC<ChecklistItemProps> = ({
       players={players}
       specs={specs ? specs : undefined}
       source={source}
-      version={version}
       displayName={displayName}
     >
       <Box css={styles.container}>

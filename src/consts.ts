@@ -195,3 +195,8 @@ export const MessageType = {
   deletebuild: "Build deleted",
   absence: "Absence received"
 };
+
+export const RegisteredMessages = {
+  roster: ["updateroster", "removeroster"],
+  build: ["addplayer"]
+};

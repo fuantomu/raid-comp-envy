@@ -10,12 +10,11 @@ export interface TooltipPlayersProps {
   specs?: WarcraftPlayerSpec[];
   source?: any;
   children: ReactElement;
-  version?: string;
   displayName?: string;
 }
 
 const TooltipPlayers: FC<TooltipPlayersProps> = (props) => {
-  const { children, players, specs, source, version, displayName } = props;
+  const { children, players, specs, source, displayName } = props;
 
   return (
     <Tooltip
@@ -24,7 +23,6 @@ const TooltipPlayers: FC<TooltipPlayersProps> = (props) => {
           players={players}
           specs={specs}
           source={source}
-          version={version}
           displayName={displayName}
         ></ChecklistTooltip>
       }

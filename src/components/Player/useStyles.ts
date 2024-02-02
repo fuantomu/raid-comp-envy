@@ -37,9 +37,9 @@ export default (class_name: WarcraftPlayerClass) => {
         }
       `;
     },
-    icons: (showRole?: boolean) => css`
+    icons: css`
       display: grid;
-      grid-template-columns: repeat(${showRole ? 2 : 1}, 1fr);
+      grid-template-columns: repeat(1, 1fr);
       gap: 0.2ch;
     `,
     name: css`

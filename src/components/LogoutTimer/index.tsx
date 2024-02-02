@@ -26,7 +26,7 @@ const LogoutTimer: FC<Props> = ({ issueTime, accountRole }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logoutTime]);
   return (
-    <Box display={"flex"} justifyContent={"center"} marginBottom={"20px"} marginLeft={"30%"}>
+    <Box display={"flex"} justifyContent={"center"}>
       Automatic logout in {logoutTime}s
     </Box>
   );

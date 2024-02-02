@@ -3,21 +3,28 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { BuildPlayer } from "../../types";
 import { Box, Typography } from "@mui/material";
-import { WarcraftClassColour, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
+import {
+  WarcraftClassColour,
+  WarcraftPlayerClass,
+  WarcraftPlayerRace,
+  WarcraftPlayerSpec
+} from "../../consts";
 import WarcraftIcon from "../Icon";
 import { IconProvider } from "../../utils/IconProvider";
 import { openWowheadLink } from "../../utils/Wowhead";
 import UUID from "../../utils/UUID";
+import { useAppContext } from "../App/context";
 
 export type Props = {
   players: BuildPlayer[];
   specs?: WarcraftPlayerSpec[];
   source?: any;
-  version?: string;
   displayName?: string;
 };
 
-const ChecklistTooltip: FC<Props> = ({ players, specs, source, version, displayName }) => {
+const ChecklistTooltip: FC<Props> = ({ players, specs, source, displayName }) => {
+  const context = useAppContext();
+  const version = context.getVersion();
   const [tooltip] = useTranslation("tooltip");
   return (
     <Box
@@ -49,7 +56,7 @@ const ChecklistTooltip: FC<Props> = ({ players, specs, source, version, displayN
                 source && version
                   ? () => {
                       openWowheadLink(
-                        WarcraftPlayerRace[specs.toString()]
+                        WarcraftPlayerRace[specs?.toString()]
                           ? tooltip(`${source}.${version}.id`)
                           : tooltip(`${player.spec}.${source}.${version}.id`),
                         "spell",
@@ -71,7 +78,7 @@ const ChecklistTooltip: FC<Props> = ({ players, specs, source, version, displayN
               >
                 {player.name}
               </Typography>
-              {source && version ? (
+              {source && !WarcraftPlayerClass[source] ? (
                 <Typography
                   sx={{
                     textShadow: "1px 1px black",
@@ -80,7 +87,7 @@ const ChecklistTooltip: FC<Props> = ({ players, specs, source, version, displayN
                     justifySelf: "end"
                   }}
                 >{`( ${
-                  WarcraftPlayerRace[specs.toString()]
+                  WarcraftPlayerRace[specs?.toString()]
                     ? tooltip(`${source}.${version}.name`)
                     : tooltip(`${player.spec}.${source}.${version}.name`)
                 } )`}</Typography>

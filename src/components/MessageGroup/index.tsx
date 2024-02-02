@@ -2,20 +2,47 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { FC } from "react";
-import { Message } from "../../types";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 import { Typography } from "@mui/material";
 import UpdateMessage from "../UpdateMessage";
+import { useAppContext } from "../App/context";
+import { BuildPlayer, Message, WebSocketMessage } from "../../types";
+import { useUpdateSocketContext } from "../UpdateSocket/context";
+import { BuildHelper } from "../../utils/BuildHelper";
+import { useRosterContext } from "../Roster/context";
 
-export interface BasicGroupProps {
-  messages: Message[];
-  accountRole: number;
+export interface MessageGroupProps {
+  rosterRef: BuildPlayer[];
 }
 
-const MessageGroup: FC<BasicGroupProps> = ({ messages = [], accountRole }) => {
+const MessageGroup: FC<MessageGroupProps> = ({ rosterRef }) => {
   const styles = useStyles();
+  const context = useAppContext();
+  const MAX_MESSAGES_TO_LOAD = 50;
+  const websocket = useUpdateSocketContext((message) => {
+    const parsedMessage = BuildHelper.parseMessage(message, context.getBuilds(), rosterRef);
+    setMessageHistory([parsedMessage, ...messageHistory].slice(0, MAX_MESSAGES_TO_LOAD));
+  }, true);
+
+  const [messageHistory, setMessageHistory] = useState<Message[]>([]);
+
+  const loadMessages = async () => {
+    await BuildHelper.getMessages(MAX_MESSAGES_TO_LOAD).then((messages) => {
+      setMessageHistory(
+        messages
+          .sort((a, b) => b.date - a.date)
+          .map((message) => {
+            return BuildHelper.parseMessage(message, context.getBuilds(), rosterRef);
+          })
+      );
+    });
+  };
+
+  useEffect(() => {
+    loadMessages();
+  }, []);
 
   return (
     <Card>
@@ -27,21 +54,15 @@ const MessageGroup: FC<BasicGroupProps> = ({ messages = [], accountRole }) => {
           Updates (Click to show)
         </Typography>
         <Box
-          key={UUID()}
           css={[styles.default, styles.scroll]}
           sx={{
-            maxHeight: window.innerHeight / 5.0,
-            borderLeft: "1px solid black",
-            borderRight: "1px solid black",
-            borderTop: "1px solid black",
-            marginBottom: "-24px",
+            maxHeight: window.innerHeight / 4.5,
+            border: "1px solid black",
             borderRadius: "2px"
           }}
         >
-          {messages.length > 0 ? (
-            messages.map((message) => (
-              <UpdateMessage key={UUID()} {...message} accountRole={accountRole} />
-            ))
+          {messageHistory.length > 0 ? (
+            messageHistory.map((message: Message) => <UpdateMessage key={UUID()} {...message} />)
           ) : (
             <Typography
               style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}
