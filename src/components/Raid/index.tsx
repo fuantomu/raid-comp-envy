@@ -24,19 +24,10 @@ export interface RaidProps {
   version: string;
   id: number;
   manager: any;
-  accountRole: number;
   selectedBuild: SelectOption;
 }
 
-const Raid: FC<RaidProps> = ({
-  raidBuild,
-  builds,
-  version,
-  id,
-  manager,
-  accountRole,
-  selectedBuild
-}) => {
+const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selectedBuild }) => {
   const [common] = useTranslation("common");
   const context = useAppContext();
   const styles = useStyles();
@@ -104,14 +95,13 @@ const Raid: FC<RaidProps> = ({
                 buildDate={raidBuild?.date}
                 version={version}
                 selectedInstance={raidBuild?.instance}
-                accountRole={accountRole}
               />
               <br></br>
               <BuildRolesCount key={UUID()} build={raidBuild} />
               <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
                 <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping} />
-                <ModalCreateBuild build_id={id} accountRole={accountRole} />
-                <ModalDeleteBuild id={raidBuild?.id} accountRole={accountRole} />
+                <ModalCreateBuild build_id={id} />
+                <ModalDeleteBuild id={raidBuild?.id} />
               </Box>
             </Box>
             <Box display={"grid"} gridTemplateColumns={"2fr 1fr"}>
@@ -143,7 +133,6 @@ const Raid: FC<RaidProps> = ({
                     manager={manager}
                     players={context?.getUnsetMains(id) ?? []}
                     raid={id}
-                    accountRole={accountRole}
                   />
                 ) : (
                   <></>
@@ -177,7 +166,6 @@ const Raid: FC<RaidProps> = ({
                     manager={manager}
                     players={context?.getAbsentPlayers(id) ?? []}
                     raid={id}
-                    accountRole={accountRole}
                   />
                 ) : (
                   <></>
@@ -229,7 +217,6 @@ const Raid: FC<RaidProps> = ({
               players={raidBuild?.players}
               raid={id}
               grouped={grouped}
-              accountRole={accountRole}
             />
           </Box>
         ) : (
@@ -274,8 +261,8 @@ const Raid: FC<RaidProps> = ({
           <></>
         )}
         <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-          <ModalPostDiscord build_id={id} accountRole={accountRole} />
-          <ModalResetBuild build_id={id} accountRole={accountRole} />
+          <ModalPostDiscord build_id={id} />
+          <ModalResetBuild build_id={id} />
         </Box>
       </CardContent>
     </Card>

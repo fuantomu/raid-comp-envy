@@ -10,10 +10,9 @@ import useStyles from "./useStyles";
 interface GroupsCompositionProps {
   players: BuildPlayer[];
   raid: number;
-  accountRole: number;
 }
 
-const GroupsComposition: FC<GroupsCompositionProps> = ({ players, raid, accountRole }) => {
+const GroupsComposition: FC<GroupsCompositionProps> = ({ players, raid }) => {
   const styles = useStyles();
   const groups = BuildHelper.getGroups(players);
   return (
@@ -25,13 +24,7 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, raid, accountR
             if (!group) return <></>;
             const { group_id, players } = group;
             return (
-              <CompositionGroup
-                key={UUID()}
-                raid={raid}
-                group_id={group_id}
-                players={players}
-                accountRole={accountRole}
-              />
+              <CompositionGroup key={UUID()} raid={raid} group_id={group_id} players={players} />
             );
           })}
       </Box>
@@ -41,7 +34,6 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, raid, accountR
           group_id={"bench"}
           players={groups["bench"]?.players ?? []}
           raid={raid}
-          accountRole={accountRole}
         />
       </Box>
     </>

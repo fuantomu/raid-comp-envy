@@ -21,7 +21,6 @@ export interface PlayerProps extends BuildPlayer {
   onClick?: () => void;
   alts?: BuildPlayer[];
   rosterVisible?: boolean;
-  accountRole: number;
   raid: number;
 }
 
@@ -39,8 +38,7 @@ const Player: FC<PlayerProps> = (props) => {
     rosterVisible,
     alts = [],
     main,
-    alt,
-    accountRole
+    alt
   } = props;
   const styles = useStyles(class_name);
   const context = useAppContext();
@@ -98,12 +96,16 @@ const Player: FC<PlayerProps> = (props) => {
           key={UUID()}
           css={styles.player(isClickable, status)}
           onClick={
-            onClick && isAccountRoleAllowed(accountRole, "ClickPlayer")
+            onClick && isAccountRoleAllowed(context.getAccountRole(), "ClickPlayer")
               ? onClick
               : () =>
                   window.open(`${process.env.REACT_APP_DASHBOARD}/user.php?user=${name}`, "_blank")
           }
-          ref={isClickable && isAccountRoleAllowed(accountRole, "ClickPlayer") ? drag : undefined}
+          ref={
+            isClickable && isAccountRoleAllowed(context.getAccountRole(), "ClickPlayer")
+              ? drag
+              : undefined
+          }
         >
           <Box css={styles.icons}>
             <WarcraftIcon
@@ -153,7 +155,6 @@ const Player: FC<PlayerProps> = (props) => {
                   key={UUID()}
                   {...player}
                   {...{ onClick: () => context?.editPlayer(player, true) }}
-                  accountRole={accountRole}
                   raid={raid}
                 />
               ))}

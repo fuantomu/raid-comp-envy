@@ -26,7 +26,6 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
   const context = useAppContext();
   const [sorting, setSorting] = useState("DEFAULT");
   const [rosterExpanded, setRosterExpanded] = useState(false);
-  const accountRole = context.getAccountRole();
   const [, drop] = useDrop(
     () => ({
       accept: DragItemTypes.PLAYER,
@@ -68,7 +67,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
           >
             {common("build.groups.group_each", { group_id: "roster" })}
           </Typography>
-          <ModalAdd accountRole={accountRole} fromRoster={true} />
+          <ModalAdd fromRoster={true} />
           <Button
             sx={{
               color: "white",
@@ -139,7 +138,6 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
                       altPlayer.name.toLowerCase() !== player.name.toLowerCase()
                   )
                   .sort((a, b) => sortFunctions.DEFAULT(a, b))}
-                accountRole={accountRole}
                 raid={player.raid}
               />
             ))}
@@ -153,7 +151,6 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
                 {...{
                   onClick: () => context.editPlayer(player, true)
                 }}
-                accountRole={accountRole}
                 raid={player.raid}
               />
             ))}
@@ -172,7 +169,6 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
                 {...{
                   onClick: () => context.editPlayer(player, true)
                 }}
-                accountRole={accountRole}
                 raid={player.raid}
               />
             ))}

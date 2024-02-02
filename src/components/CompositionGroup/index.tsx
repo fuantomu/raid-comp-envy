@@ -20,15 +20,9 @@ export interface CompositionGroupProps {
   players: BuildPlayer[];
   group_id: GroupId;
   raid: number;
-  accountRole: number;
 }
 
-const CompositionGroup: FC<CompositionGroupProps> = ({
-  group_id,
-  players = [],
-  raid,
-  accountRole
-}) => {
+const CompositionGroup: FC<CompositionGroupProps> = ({ group_id, players = [], raid }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const context = useAppContext();
@@ -81,7 +75,6 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
                 {...{
                   onClick: () => context?.editPlayer(player)
                 }}
-                accountRole={accountRole}
                 raid={raid}
               />
             ))

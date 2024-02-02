@@ -11,10 +11,9 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalCreateBuildProps {
   build_id: number;
-  accountRole: number;
 }
 
-const ModalCreateBuild: FC<ModalCreateBuildProps> = ({ build_id, accountRole }) => {
+const ModalCreateBuild: FC<ModalCreateBuildProps> = ({ build_id }) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [error, showError] = useState(false);
@@ -51,7 +50,7 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({ build_id, accountRole }) 
       <Tooltip title={common("cta.createBuild")} placement="top" arrow>
         <span css={{ width: "31%" }}>
           <Button
-            disabled={!isAccountRoleAllowed(accountRole, "CreateBuild")}
+            disabled={!isAccountRoleAllowed(context.getAccountRole(), "CreateBuild")}
             color="success"
             variant="contained"
             size="large"

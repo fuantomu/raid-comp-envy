@@ -181,6 +181,269 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const MAX_SET_CHARACTERS = 2;
   const MAX_RAIDS = 2;
 
+  const getSelectedBuilds = () => {
+    return selectedBuilds ?? [];
+  };
+
+  const getBuildSelections = () => {
+    return buildSelection ?? [];
+  };
+
+  const getAccountRole = () => {
+    return accountRole;
+  };
+
+  const getRaid = (build_id: number): Build => {
+    return raids[build_id] ?? BuildHelper.getEmptyBuild(version);
+  };
+
+  const getBuilds = (): Build[] => {
+    return builds;
+  };
+
+  const getVersion = (): string => {
+    return version;
+  };
+
+  const getAlts = (player: BuildPlayer): BuildPlayer[] => {
+    return roster.filter((rosterPlayer) => BuildHelper.isAlt(rosterPlayer, player));
+  };
+
+  const getMains = (players: BuildPlayer[] = roster): BuildPlayer[] => {
+    return players.filter((rosterPlayer) => {
+      return rosterPlayer.main === rosterPlayer.name;
+    });
+  };
+
+  const handleShowError = (callback: any) => {
+    handleModalOpen = callback;
+  };
+
+  const getPlayerAbsence = (player: string, date: number) => {
+    return [
+      ...absence.filter(
+        (absentPlayer) =>
+          (absentPlayer.player.name === player || absentPlayer.player.main === player) &&
+          absentPlayer.end_date >= date
+      )
+    ];
+  };
+
+  const getAbsentPlayers = (build_id: number, raid?: Build): BuildPlayer[] => {
+    const playerBuild = raids[build_id] ?? raid;
+    const foundPlayers = roster.filter((player: BuildPlayer) => {
+      const playerAbsence = getPlayerAbsence(player.main ?? player.name, playerBuild?.date);
+      if (player.name !== player.main) {
+        return false;
+      }
+      if (playerAbsence?.length !== 0) {
+        return playerAbsence?.find(
+          (absence) =>
+            absence.start_date <= playerBuild?.date && absence.end_date >= playerBuild?.date
+        );
+      }
+      return false;
+    });
+    return foundPlayers;
+  };
+
+  const getUnsetMains = (build_id: number): BuildPlayer[] => {
+    const mains = roster.filter((rosterPlayer) => {
+      return rosterPlayer.main === rosterPlayer.name;
+    });
+    const setMains: BuildPlayer[] = [];
+    mains.forEach((main) => {
+      raids.forEach((raid) => {
+        if (raid?.build_id === build_id) {
+          raid?.players.forEach((player) => {
+            if (BuildHelper.isAlt(player, main) || player.name === main.name) {
+              setMains.push(main);
+            }
+          });
+        }
+      });
+    });
+    const unsetMains = [];
+    mains.forEach((main) => {
+      if (!setMains.includes(main)) {
+        if (
+          main.alt !== undefined &&
+          main.alt !== "None" &&
+          main.status === InviteStatus.Accepted
+        ) {
+          unsetMains.push(roster.find((rosterPlayer) => rosterPlayer.name === main.alt));
+        } else {
+          unsetMains.push(main);
+        }
+      }
+    });
+    return unsetMains;
+  };
+
+  const handleChangeVersion = async () => {
+    const newVersion = version === "Cataclysm" ? "Wotlk" : "Cataclysm";
+    setVersion(newVersion);
+    loadBuilds(builds, newVersion).then(() => {
+      updateRosterStatus();
+    });
+    localStorage.setItem("LastVersion", newVersion);
+  };
+
+  const handleBuildSelect = (build_id: number, value: any) => {
+    localStorage.setItem(`LastBuild-${build_id}`, value.value ?? value);
+    BuildHelper.parseGetBuild(value.value ?? value).then((build) => {
+      build.build_id = build_id;
+      raids[build_id] = build;
+      selectedBuilds[build_id] = buildSelection.find(
+        (buildSelect) => buildSelect.value === build.id
+      );
+      updateRaidStatus();
+      updateRosterStatus();
+    });
+  };
+
+  const handleDateSelect = (build_id: number, value: any, send: boolean = true) => {
+    const oldRaid = BuildHelper.getBuildCopy(raids[build_id]);
+    raids[build_id].date = value.valueOf();
+    buildSelection.map((buildSelect) => {
+      if (buildSelect.value === raids[build_id].id) {
+        buildSelect.date = value.valueOf();
+        buildSelect.label = `${raids[build_id].name} - ${new Date(buildSelect.date).toLocaleString(
+          "de-DE",
+          { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }
+        )}`;
+        selectedBuilds[build_id].label = buildSelect.label;
+        selectedBuilds[build_id].date = buildSelect.date;
+      }
+      return false;
+    });
+    updateRaidStatus();
+    updateRosterStatus();
+    saveBuild(raids[build_id]);
+    if (send) {
+      message.message_type = "updatebuild";
+      message.data["build"] = BuildHelper.getBuildCopy(raids[build_id]);
+      message.data["build"]["players"] = [];
+      message.data["oldData"] = oldRaid;
+      message.data["oldData"]["players"] = [];
+      webSocket.sendMessage(JSON.stringify(message));
+    }
+  };
+
+  const editPlayerModalFn = (callback: (player: BuildPlayer, fromRoster: boolean) => void) => {
+    openEditModal = callback;
+  };
+
+  const editPlayer = (player: BuildPlayer, fromRoster: boolean = false) => {
+    if (openEditModal) {
+      openEditModal(player, fromRoster);
+    }
+  };
+
+  const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
+    const oldRaid = BuildHelper.getBuildCopy(raids[build_id]);
+    raids[build_id].instance = value.value ?? value;
+    saveBuild(raids[build_id]);
+    if (send) {
+      message.message_type = "updatebuild";
+      message.data["build"] = BuildHelper.getBuildCopy(raids[build_id]);
+      message.data["build"]["players"] = [];
+      message.data["oldData"] = oldRaid;
+      message.data["oldData"]["players"] = [];
+      webSocket.sendMessage(JSON.stringify(message));
+    }
+  };
+
+  const saveBuild = async (build: Build) => {
+    if (build.name === common("build.new")) {
+      return;
+    }
+    if (build.name === undefined) {
+      return;
+    }
+    BuildHelper.parseSaveBuild(build);
+  };
+
+  const resetBuild = (build_id: number, send: boolean = true) => {
+    const currentRaid = raids[build_id];
+    const newBuild = BuildHelper.getEmptyBuild(version);
+    newBuild.name = currentRaid.name;
+    newBuild.id = currentRaid.id;
+    newBuild.raid_id = currentRaid.raid_id;
+    raids[build_id] = newBuild;
+    updateRaidStatus();
+    updateRosterStatus();
+    setRaids([...raids]);
+    saveBuild(newBuild);
+    if (send) {
+      message.message_type = "resetbuild";
+      message.data["build"] = newBuild;
+      webSocket.sendMessage(JSON.stringify(message));
+    }
+  };
+
+  const addBuild = async (
+    name: string,
+    build_id: number,
+    save?: boolean,
+    send: boolean = true,
+    oldId?: string
+  ) => {
+    const newBuild = BuildHelper.getEmptyBuild(version);
+    newBuild.name = name;
+    newBuild.build_id = build_id;
+    newBuild.raid_id = maxRaidId + 1;
+    if (oldId) {
+      newBuild.id = oldId;
+    }
+    setMaxRaidId(maxRaidId + 1);
+
+    const newBuildSelect = {
+      value: newBuild.id,
+      label: `${name} - ${new Date(new Date().setHours(0, 0, 0)).toLocaleString("de-DE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      })}`,
+      date: new Date().setHours(0, 0, 0)
+    };
+    setBuildSelection([...buildSelection, newBuildSelect].sort((a, b) => b.date - a.date));
+    setBuilds([...builds, newBuild]);
+    if (save) {
+      saveBuild(newBuild);
+    }
+    if (send) {
+      message.message_type = "addbuild";
+      message.data["build"] = newBuild;
+      webSocket.sendMessage(JSON.stringify(message));
+    }
+  };
+
+  const deleteBuild = async (id: string, send: boolean = true) => {
+    const oldRaid = raids.find((raid) => raid.id === id);
+    const newBuilds = [...buildSelection.filter((build) => build.value !== oldRaid.id)];
+    setBuildSelection([...newBuilds].sort((a, b) => b.date - a.date));
+
+    const buildIsSet = selectedBuilds.find((selectedBuild) => selectedBuild.value === id);
+    if (buildIsSet) {
+      const newBuild = BuildHelper.getEmptyBuild(version);
+      newBuild.build_id = oldRaid.build_id;
+      raids[oldRaid.build_id] = newBuild;
+      selectedBuilds[oldRaid.build_id] = { value: newBuild.id, label: newBuild.name };
+      localStorage.removeItem(`LastBuild-${oldRaid.build_id}`);
+    }
+    updateRosterStatus();
+    setBuilds([...builds.filter((build) => build.id !== id)]);
+    BuildHelper.parseDeleteBuild(oldRaid.id);
+    if (send) {
+      message.message_type = "removebuild";
+      message.data["build"] = oldRaid;
+      webSocket.sendMessage(JSON.stringify(message));
+    }
+  };
+
   const updateRoster = (
     newPlayer: BuildPlayer,
     send: boolean = true,
@@ -230,321 +493,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       message.data["player"] = removedPlayer;
       webSocket.sendMessage(JSON.stringify(message));
     }
-  };
-
-  const getSelectedBuilds = () => {
-    return selectedBuilds ?? [];
-  };
-
-  const getBuildSelections = () => {
-    return buildSelection ?? [];
-  };
-
-  const getRaid = (build_id: number): Build => {
-    return raids[build_id] ?? getEmptyBuild();
-  };
-
-  const getBuilds = (): Build[] => {
-    return builds;
-  };
-
-  const getVersion = (): string => {
-    return version;
-  };
-
-  const getEmptyBuild = (game_version: string = version) => {
-    return {
-      id: UUID(),
-      name: common("build.new"),
-      date: new Date().setHours(0, 0, 0, 0),
-      players: [],
-      instance: Instance[game_version][0].abbreviation,
-      build_id: -1
-    } as Build;
-  };
-
-  const getBuildCopy = (build: Build): Build => {
-    if (!build) {
-      return getEmptyBuild();
-    }
-    const newBuild: Build = {
-      id: build.id,
-      date: build.date,
-      instance: build.instance,
-      name: build.name,
-      players: build.players,
-      raid_id: build.raid_id,
-      build_id: build.build_id
-    };
-    return newBuild;
-  };
-
-  const hasCharacterInRaid = (character: BuildPlayer, build_id: number) => {
-    if (raids[build_id].players.find((player) => isAlt(player, character))) {
-      return true;
-    }
-    return false;
-  };
-
-  const isPlayerAbsent = (player: BuildPlayer, time: number): boolean => {
-    for (const absentPlayer of absence) {
-      if (absentPlayer.player.name === player.name || absentPlayer.player.name === player.main) {
-        if (absentPlayer.start_date <= time && absentPlayer.end_date >= time) {
-          return true;
-        }
-        continue;
-      }
-    }
-    return false;
-  };
-
-  const isAlt = (potentialAlt: BuildPlayer, character: BuildPlayer): boolean => {
-    if (
-      potentialAlt.id !== character.id &&
-      (potentialAlt.main === character.name || potentialAlt.main === character.main)
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  const getAlts = (player: BuildPlayer): BuildPlayer[] => {
-    return roster.filter((rosterPlayer) => isAlt(rosterPlayer, player));
-  };
-
-  const getMains = (players: BuildPlayer[] = roster): BuildPlayer[] => {
-    return players.filter((rosterPlayer) => {
-      return rosterPlayer.main === rosterPlayer.name;
-    });
-  };
-
-  const saveBuild = async (build: Build) => {
-    if (build.name === common("build.new")) {
-      return;
-    }
-    if (build.name === undefined) {
-      return;
-    }
-    BuildHelper.parseSaveBuild(build);
-  };
-
-  const resetBuild = (build_id: number, send: boolean = true) => {
-    const currentRaid = raids[build_id];
-    const newBuild = getEmptyBuild();
-    newBuild.name = currentRaid.name;
-    newBuild.id = currentRaid.id;
-    newBuild.raid_id = currentRaid.raid_id;
-    raids[build_id] = newBuild;
-    updateRaidStatus();
-    updateRosterStatus();
-    setRaids([...raids]);
-    saveBuild(newBuild);
-    if (send) {
-      message.message_type = "resetbuild";
-      message.data["build"] = newBuild;
-      webSocket.sendMessage(JSON.stringify(message));
-    }
-  };
-
-  const handleChangeVersion = async () => {
-    const newVersion = version === "Cataclysm" ? "Wotlk" : "Cataclysm";
-    setVersion(newVersion);
-    loadBuilds(builds, newVersion).then(() => {
-      updateRosterStatus();
-    });
-    localStorage.setItem("LastVersion", newVersion);
-  };
-
-  const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
-    const oldRaid = getBuildCopy(raids[build_id]);
-    raids[build_id].instance = value.value ?? value;
-    saveBuild(raids[build_id]);
-    if (send) {
-      message.message_type = "updatebuild";
-      message.data["build"] = getBuildCopy(raids[build_id]);
-      message.data["build"]["players"] = [];
-      message.data["oldData"] = oldRaid;
-      message.data["oldData"]["players"] = [];
-      webSocket.sendMessage(JSON.stringify(message));
-    }
-  };
-
-  const handleBuildSelect = (build_id: number, value: any) => {
-    localStorage.setItem(`LastBuild-${build_id}`, value.value ?? value);
-    BuildHelper.parseGetBuild(value.value ?? value).then((build) => {
-      build.build_id = build_id;
-      raids[build_id] = build;
-      selectedBuilds[build_id] = buildSelection.find(
-        (buildSelect) => buildSelect.value === build.id
-      );
-      updateRaidStatus();
-      updateRosterStatus();
-    });
-  };
-
-  const handleDateSelect = (build_id: number, value: any, send: boolean = true) => {
-    const oldRaid = getBuildCopy(raids[build_id]);
-    raids[build_id].date = value.valueOf();
-    buildSelection.map((buildSelect) => {
-      if (buildSelect.value === raids[build_id].id) {
-        buildSelect.date = value.valueOf();
-        buildSelect.label = `${raids[build_id].name} - ${new Date(buildSelect.date).toLocaleString(
-          "de-DE",
-          { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }
-        )}`;
-        selectedBuilds[build_id].label = buildSelect.label;
-        selectedBuilds[build_id].date = buildSelect.date;
-      }
-      return false;
-    });
-    updateRaidStatus();
-    updateRosterStatus();
-    saveBuild(raids[build_id]);
-    if (send) {
-      message.message_type = "updatebuild";
-      message.data["build"] = getBuildCopy(raids[build_id]);
-      message.data["build"]["players"] = [];
-      message.data["oldData"] = oldRaid;
-      message.data["oldData"]["players"] = [];
-      webSocket.sendMessage(JSON.stringify(message));
-    }
-  };
-
-  const editPlayerModalFn = (callback: (player: BuildPlayer, fromRoster: boolean) => void) => {
-    openEditModal = callback;
-  };
-
-  const editPlayer = (player: BuildPlayer, fromRoster: boolean = false) => {
-    if (openEditModal) {
-      openEditModal(player, fromRoster);
-    }
-  };
-
-  const addBuild = async (
-    name: string,
-    build_id: number,
-    save?: boolean,
-    send: boolean = true,
-    oldId?: string
-  ) => {
-    const newBuild = getEmptyBuild();
-    newBuild.name = name;
-    newBuild.build_id = build_id;
-    newBuild.raid_id = maxRaidId + 1;
-    if (oldId) {
-      newBuild.id = oldId;
-    }
-    setMaxRaidId(maxRaidId + 1);
-
-    const newBuildSelect = {
-      value: newBuild.id,
-      label: `${name} - ${new Date(new Date().setHours(0, 0, 0)).toLocaleString("de-DE", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      })}`,
-      date: new Date().setHours(0, 0, 0)
-    };
-    setBuildSelection([...buildSelection, newBuildSelect].sort((a, b) => b.date - a.date));
-    setBuilds([...builds, newBuild]);
-    if (save) {
-      saveBuild(newBuild);
-    }
-    if (send) {
-      message.message_type = "addbuild";
-      message.data["build"] = newBuild;
-      webSocket.sendMessage(JSON.stringify(message));
-    }
-  };
-
-  const deleteBuild = async (id: string, send: boolean = true) => {
-    const oldRaid = raids.find((raid) => raid.id === id);
-    const newBuilds = [...buildSelection.filter((build) => build.value !== oldRaid.id)];
-    setBuildSelection([...newBuilds].sort((a, b) => b.date - a.date));
-
-    const buildIsSet = selectedBuilds.find((selectedBuild) => selectedBuild.value === id);
-    if (buildIsSet) {
-      const newBuild = getEmptyBuild();
-      newBuild.build_id = oldRaid.build_id;
-      raids[oldRaid.build_id] = newBuild;
-      selectedBuilds[oldRaid.build_id] = { value: newBuild.id, label: newBuild.name };
-      localStorage.removeItem(`LastBuild-${oldRaid.build_id}`);
-    }
-    updateRosterStatus();
-    setBuilds([...builds.filter((build) => build.id !== id)]);
-    BuildHelper.parseDeleteBuild(oldRaid.id);
-    if (send) {
-      message.message_type = "removebuild";
-      message.data["build"] = oldRaid;
-      webSocket.sendMessage(JSON.stringify(message));
-    }
-  };
-
-  const handleShowError = (callback: any) => {
-    handleModalOpen = callback;
-  };
-
-  const getPlayerAbsence = (player: string, date: number) => {
-    return [
-      ...absence.filter(
-        (absentPlayer) =>
-          (absentPlayer.player.name === player || absentPlayer.player.main === player) &&
-          absentPlayer.end_date >= date
-      )
-    ];
-  };
-
-  const getAbsentPlayers = (build_id: number, raid?: Build): BuildPlayer[] => {
-    const playerBuild = raids[build_id] ?? raid;
-    const foundPlayers = roster.filter((player: BuildPlayer) => {
-      const playerAbsence = getPlayerAbsence(player.main ?? player.name, playerBuild?.date);
-      if (player.name !== player.main) {
-        return false;
-      }
-      if (playerAbsence?.length !== 0) {
-        return playerAbsence?.find(
-          (absence) =>
-            absence.start_date <= playerBuild?.date && absence.end_date >= playerBuild?.date
-        );
-      }
-      return false;
-    });
-    return foundPlayers;
-  };
-
-  const getUnsetMains = (build_id: number): BuildPlayer[] => {
-    const mains = roster.filter((rosterPlayer) => {
-      return rosterPlayer.main === rosterPlayer.name;
-    });
-    const setMains: BuildPlayer[] = [];
-    mains.forEach((main) => {
-      raids.forEach((raid) => {
-        if (raid?.build_id === build_id) {
-          raid?.players.forEach((player) => {
-            if (isAlt(player, main) || player.name === main.name) {
-              setMains.push(main);
-            }
-          });
-        }
-      });
-    });
-    const unsetMains = [];
-    mains.forEach((main) => {
-      if (!setMains.includes(main)) {
-        if (
-          main.alt !== undefined &&
-          main.alt !== "None" &&
-          main.status === InviteStatus.Accepted
-        ) {
-          unsetMains.push(roster.find((rosterPlayer) => rosterPlayer.name === main.alt));
-        } else {
-          unsetMains.push(main);
-        }
-      }
-    });
-    return unsetMains;
   };
 
   const addPlayerToRaid = (newPlayer: BuildPlayer, send: boolean = true): void => {
@@ -597,7 +545,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     send: boolean = true,
     oldRaid?: number
   ): void => {
-    const currentRaid = getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
+    const currentRaid = BuildHelper.getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
     const newPlayers = currentRaid.players.filter((player) => {
       return player.id !== newPlayer.id;
     });
@@ -633,7 +581,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const movePlayer = (newPlayer: BuildPlayer, oldRaid?: number, send: boolean = true): void => {
     removePlayerFromRaid(newPlayer, false, false, oldRaid);
     addPlayerToRaid(newPlayer, false);
-    const currentRaid = getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
+    const currentRaid = BuildHelper.getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
     if (send) {
       message.message_type = "moveplayer";
       const oldPlayer: BuildPlayer = {
@@ -674,7 +622,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       saveBuild(raids[newPlayer.raid]);
       return;
     }
-    if (isPlayerAbsent(newPlayer, raids[newPlayer.raid].date) && !ignoreErrors) {
+    if (
+      BuildHelper.isPlayerAbsent(newPlayer, raids[newPlayer.raid].date, absence) &&
+      !ignoreErrors
+    ) {
       handleModalOpen({
         title: common("error.player.import"),
         content: common("error.player.tentative"),
@@ -691,7 +642,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       return;
     }
 
-    if (hasCharacterInRaid(newPlayer, newPlayer.raid) && !ignoreErrors) {
+    if (BuildHelper.hasCharacterInRaid(newPlayer, raids[newPlayer.raid]) && !ignoreErrors) {
       handleModalOpen({
         title: common("error.player.import"),
         content: common("error.player.exists"),
@@ -810,7 +761,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
           continue;
         }
       }
-      raids[MAX_RAIDS - 1 - x] = getEmptyBuild(activeVersion);
+      raids[MAX_RAIDS - 1 - x] = BuildHelper.getEmptyBuild(activeVersion);
       raids[MAX_RAIDS - 1 - x].build_id = MAX_RAIDS - 1 - x;
     }
 
@@ -843,7 +794,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
             );
             if (absentPlayer) {
               currentRoster.map((rosterPlayer) => {
-                if (isAlt(absentPlayer, rosterPlayer)) {
+                if (BuildHelper.isAlt(absentPlayer, rosterPlayer)) {
                   if (rosterPlayer.id === buildPlayer.id) {
                     buildPlayer.status = InviteStatus.Tentative;
                   }
@@ -904,7 +855,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       if (charactersSet[rosterPlayer.main] >= MAX_SET_CHARACTERS) {
         currentRoster.map((otherRosterPlayer) => {
           if (
-            isAlt(otherRosterPlayer, rosterPlayer) ||
+            BuildHelper.isAlt(otherRosterPlayer, rosterPlayer) ||
             otherRosterPlayer.name === rosterPlayer.name
           ) {
             if (otherRosterPlayer.status === InviteStatus.Unknown) {
@@ -935,10 +886,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     setRoster(data.players.sort(sortFunctions["DEFAULT"]));
     updateRosterStatus(data.players);
     setIsLoading(false);
-  };
-
-  const getAccountRole = () => {
-    return accountRole;
   };
 
   useEffect(() => {
@@ -990,7 +937,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         getAccountRole
       }}
     >
-      <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole} />
+      <ModalAdd editPlayer={editPlayerModalFn} />
       <ModalAlert handleOpen={handleShowError} />
       <div style={{ display: "flex", alignItems: "flex-start" }}>
         <ScrollingSidebar manager={manager} rosterRef={roster} />
@@ -1002,7 +949,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
             builds={buildSelection}
             selectedBuild={selectedBuilds[0]}
             version={version}
-            accountRole={accountRole}
           ></Raid>
           <Raid
             manager={manager}
@@ -1011,7 +957,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
             builds={buildSelection}
             selectedBuild={selectedBuilds[1]}
             version={version}
-            accountRole={accountRole}
           ></Raid>
           <br></br>
 

@@ -7,6 +7,7 @@ import {
   WarcraftPlayerSpec
 } from "../../consts";
 import {
+  Absence,
   AbsenceData,
   AbsenceResponse,
   Build,
@@ -673,6 +674,62 @@ export abstract class BuildHelper {
       );
     });
     if (sameLockout) {
+      return true;
+    }
+    return false;
+  }
+
+  public static getEmptyBuild(game_version: string) {
+    return {
+      id: UUID(),
+      name: "New Build",
+      date: new Date().setHours(0, 0, 0, 0),
+      players: [],
+      instance: Instance[game_version][0].abbreviation,
+      build_id: -1
+    } as Build;
+  }
+
+  public static getBuildCopy(build: Build): Build {
+    if (!build) {
+      return this.getEmptyBuild("Wotlk");
+    }
+    const newBuild: Build = {
+      id: build.id,
+      date: build.date,
+      instance: build.instance,
+      name: build.name,
+      players: build.players,
+      raid_id: build.raid_id,
+      build_id: build.build_id
+    };
+    return newBuild;
+  }
+
+  public static hasCharacterInRaid(character: BuildPlayer, raid: Build) {
+    if (raid.players.find((player) => this.isAlt(player, character))) {
+      return true;
+    }
+    return false;
+  }
+
+  public static isPlayerAbsent(player: BuildPlayer, time: number, absence: Absence[]): boolean {
+    for (const absentPlayer of absence) {
+      if (absentPlayer.player.name === player.name || absentPlayer.player.name === player.main) {
+        if (absentPlayer.start_date <= time && absentPlayer.end_date >= time) {
+          return true;
+        }
+        continue;
+      }
+    }
+    return false;
+  }
+
+  public static isAlt(potentialAlt: BuildPlayer, character: BuildPlayer): boolean {
+    if (
+      potentialAlt.id !== character.id &&
+      (potentialAlt.main === character.name || potentialAlt.main === character.main)
+    ) {
       return true;
     }
     return false;

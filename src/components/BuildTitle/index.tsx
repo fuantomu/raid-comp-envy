@@ -24,7 +24,6 @@ export interface BuildTitleProps {
   buildDate?: number;
   version: string;
   selectedInstance?: string;
-  accountRole: number;
 }
 
 const BuildTitle: FC<BuildTitleProps> = ({
@@ -33,8 +32,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
   build_id,
   buildDate,
   version,
-  selectedInstance,
-  accountRole
+  selectedInstance
 }) => {
   const [selectedOption, setSelectedOption] = useState(selected);
   const [date, setDate] = useState<Dayjs | null>(
@@ -113,7 +111,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
         onChange={handleChange}
         clearOnEscape
         isOptionEqualToValue={(option, value) => option.value === value.value}
-        readOnly={!isAccountRoleAllowed(accountRole, "ChangeBuild")}
+        readOnly={!isAccountRoleAllowed(context.getAccountRole(), "ChangeBuild")}
         renderInput={(params) => <TextField {...params} variant="outlined" />}
         sx={{
           backgroundColor: "#1d1d1d",
@@ -129,7 +127,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
         onChange={handleInstanceChange}
         isOptionEqualToValue={(option, value) => option.value === value.value}
         clearOnEscape
-        readOnly={!isAccountRoleAllowed(accountRole, "ChangeInstance")}
+        readOnly={!isAccountRoleAllowed(context.getAccountRole(), "ChangeInstance")}
         renderInput={(params) => <TextField {...params} variant="outlined" />}
         sx={{
           backgroundColor: "#1d1d1d",
@@ -151,7 +149,7 @@ const BuildTitle: FC<BuildTitleProps> = ({
             format="DD.MM.YYYY HH:mm"
             label="Raid time"
             value={date}
-            readOnly={!isAccountRoleAllowed(accountRole, "ChangeDate")}
+            readOnly={!isAccountRoleAllowed(context.getAccountRole(), "ChangeDate")}
             onChange={handleDateChange}
             views={["year", "month", "day", "hours", "minutes"]}
           />

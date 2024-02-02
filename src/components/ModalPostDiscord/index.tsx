@@ -13,10 +13,9 @@ import StyledTextField from "../StyledTextField";
 
 export interface ModalPostDiscordProps {
   build_id: number;
-  accountRole: number;
 }
 
-const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id, accountRole }) => {
+const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id }) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -64,7 +63,7 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id, accountRole }) 
         <Tooltip title={common("discord.send")} placement="top" arrow>
           <span>
             <Button
-              disabled={!isAccountRoleAllowed(accountRole, "PostDiscord")}
+              disabled={!isAccountRoleAllowed(context.getAccountRole(), "PostDiscord")}
               color="info"
               variant="contained"
               size="large"

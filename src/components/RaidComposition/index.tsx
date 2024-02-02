@@ -10,22 +10,15 @@ export interface RaidCompositionProps {
   grouped?: boolean;
   manager: any;
   raid: number;
-  accountRole: number;
 }
 
-const RaidComposition: FC<RaidCompositionProps> = ({
-  players,
-  grouped,
-  manager,
-  raid,
-  accountRole
-}) => {
+const RaidComposition: FC<RaidCompositionProps> = ({ players, grouped, manager, raid }) => {
   return (
     <DndProvider manager={manager}>
       {grouped ? (
-        <GroupsComposition raid={raid} players={players} accountRole={accountRole} />
+        <GroupsComposition raid={raid} players={players} />
       ) : (
-        <RolesComposition raid={raid} players={players} accountRole={accountRole} />
+        <RolesComposition raid={raid} players={players} />
       )}
     </DndProvider>
   );

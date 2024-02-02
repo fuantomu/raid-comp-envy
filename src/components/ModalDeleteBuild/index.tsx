@@ -11,10 +11,9 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalDeleteBuildProps {
   id: string;
-  accountRole: number;
 }
 
-const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({ id, accountRole }) => {
+const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({ id }) => {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [common] = useTranslation("common");
@@ -37,7 +36,7 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({ id, accountRole }) => {
       <Tooltip title={common("cta.deleteBuild")} placement="top" arrow>
         <span css={{ width: "31%" }}>
           <Button
-            disabled={!isAccountRoleAllowed(accountRole, "DeleteBuild")}
+            disabled={!isAccountRoleAllowed(context.getAccountRole(), "DeleteBuild")}
             color="error"
             variant="contained"
             size="large"

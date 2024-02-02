@@ -15,10 +15,9 @@ import { Typography } from "@mui/material";
 export interface BasicGroupProps {
   players: BuildPlayer[];
   raid: number;
-  accountRole: number;
 }
 
-const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid, accountRole }) => {
+const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid }) => {
   const styles = useStyles();
   const context = useAppContext();
   const [, drop] = useDrop(
@@ -69,7 +68,6 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid, accountRole }) =>
                 {...{
                   onClick: () => context?.editPlayer(player)
                 }}
-                accountRole={accountRole}
                 raid={raid}
               />
             ))

@@ -11,10 +11,9 @@ import useStyles from "./useStyles";
 interface RolesCompositionProps {
   players: BuildPlayer[];
   raid: number;
-  accountRole: number;
 }
 
-const RolesComposition: FC<RolesCompositionProps> = ({ players, raid, accountRole }) => {
+const RolesComposition: FC<RolesCompositionProps> = ({ players, raid }) => {
   const styles = useStyles();
   const buildRoles = BuildHelper.getRoles(players);
   return (
@@ -29,7 +28,6 @@ const RolesComposition: FC<RolesCompositionProps> = ({ players, raid, accountRol
                 role={role as WarcraftRole}
                 players={buildRoles[role as WarcraftRole]}
                 raid={raid}
-                accountRole={accountRole}
               />
             );
           })}
@@ -41,7 +39,6 @@ const RolesComposition: FC<RolesCompositionProps> = ({ players, raid, accountRol
             role={WarcraftRole.Unknown}
             players={buildRoles[WarcraftRole.Unknown]}
             raid={raid}
-            accountRole={accountRole}
           />
         </Box>
       ) : null}

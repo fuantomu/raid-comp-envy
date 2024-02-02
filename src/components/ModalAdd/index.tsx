@@ -26,11 +26,10 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalAddProps {
   editPlayer?: (callback: (player: BuildPlayer, fromRoster: boolean) => void) => void;
-  accountRole: number;
   fromRoster?: boolean;
 }
 
-const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole, fromRoster = false }) => {
+const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
@@ -316,7 +315,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole, fromRoster = fal
         <Tooltip title={common("cta.addPlayer")} placement="top" arrow>
           <span>
             <Button
-              disabled={!isAccountRoleAllowed(accountRole, "AddPlayer")}
+              disabled={!isAccountRoleAllowed(context.getAccountRole(), "AddPlayer")}
               color="success"
               variant="contained"
               size="large"

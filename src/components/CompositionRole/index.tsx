@@ -18,10 +18,9 @@ export interface CompositionRoleProps {
   role: WarcraftRole;
   players: BuildPlayer[];
   raid: number;
-  accountRole: number;
 }
 
-const CompositionRole: FC<CompositionRoleProps> = ({ role, players, raid, accountRole }) => {
+const CompositionRole: FC<CompositionRoleProps> = ({ role, players, raid }) => {
   const context = useAppContext();
   const [common] = useTranslation("common");
   const styles = useStyles();
@@ -34,7 +33,6 @@ const CompositionRole: FC<CompositionRoleProps> = ({ role, players, raid, accoun
         {...{
           onClick: () => context?.editPlayer(player)
         }}
-        accountRole={accountRole}
         raid={raid}
       />
     ));

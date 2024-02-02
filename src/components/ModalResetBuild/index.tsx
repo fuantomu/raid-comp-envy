@@ -10,10 +10,9 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalResetBuildProps {
   build_id: number;
-  accountRole: number;
 }
 
-const ModalResetBuild: FC<ModalResetBuildProps> = ({ build_id, accountRole }) => {
+const ModalResetBuild: FC<ModalResetBuildProps> = ({ build_id }) => {
   const [common] = useTranslation("common");
   let handleModalOpen: any = () => {};
   const context = useAppContext();
@@ -44,7 +43,7 @@ const ModalResetBuild: FC<ModalResetBuildProps> = ({ build_id, accountRole }) =>
       <Tooltip title={common("cta.resetBuild")} placement="top" arrow>
         <span>
           <Button
-            disabled={!isAccountRoleAllowed(accountRole, "ResetBuild")}
+            disabled={!isAccountRoleAllowed(context.getAccountRole(), "ResetBuild")}
             color="primary"
             size="large"
             variant="contained"

@@ -8,13 +8,12 @@ export interface BasicProps {
   players: BuildPlayer[];
   raid: number;
   manager: any;
-  accountRole: number;
 }
 
-const BasicBuild: FC<BasicProps> = ({ players, raid, manager, accountRole }) => {
+const BasicBuild: FC<BasicProps> = ({ players, raid, manager }) => {
   return (
     <DndProvider manager={manager}>
-      <BasicComposition players={players} raid={raid} accountRole={accountRole} />
+      <BasicComposition players={players} raid={raid} />
     </DndProvider>
   );
 };
