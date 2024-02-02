@@ -198,5 +198,15 @@ export const MessageType = {
 
 export const RegisteredMessages = {
   roster: ["updateroster", "removeroster"],
-  build: ["addplayer"]
+  build: [
+    "addplayer",
+    "updateplayer",
+    "removeplayer",
+    "moveplayer",
+    "addbuild",
+    "removebuild",
+    "resetbuild",
+    "updatebuild"
+  ],
+  absence: ["absence"]
 };

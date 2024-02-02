@@ -610,4 +610,71 @@ export abstract class BuildHelper {
 
     return changes;
   }
+
+  public static isPlayerAlreadyInRaid(player: BuildPlayer, raids: Build[]): boolean {
+    const playerRaid = raids.find((build) => {
+      return build.build_id === player.raid;
+    });
+    if (playerRaid) {
+      const isInParty = playerRaid.players.find((partyPlayer: BuildPlayer) => {
+        return partyPlayer.id === player.id;
+      });
+      if (isInParty) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  public static isPlayerMovedBetweenRaids(player: BuildPlayer, raids: Build[]): boolean {
+    const otherRaids = raids.filter((raid) => {
+      return raid.id !== raids[player.raid]?.id;
+    });
+    const otherPlayers = [];
+    otherRaids.map((otherRaid) => {
+      otherPlayers.push(...otherRaid.players);
+      return 1;
+    });
+    const isInOtherRaids = otherPlayers.find((raidPlayer: BuildPlayer) => {
+      return raidPlayer.id === player.id;
+    });
+    if (isInOtherRaids) {
+      return true;
+    }
+    return false;
+  }
+
+  public static isSameInstance(player: BuildPlayer, raids: Build[]): boolean {
+    const otherRaids = raids.filter((raid) => {
+      return raid.id !== raids[player.raid]?.id;
+    });
+    const sameInstance = otherRaids.find(
+      (otherRaid) => otherRaid.instance === raids[player.raid]?.instance
+    );
+    if (sameInstance) {
+      return true;
+    }
+    return false;
+  }
+
+  public static isSameLockout(player: BuildPlayer, raids: Build[]): boolean {
+    const currentDate = new Date();
+    const otherRaids = raids.filter((raid) => {
+      return raid.id !== raids[player.raid].id;
+    });
+    // Get the next reset time
+    currentDate.setDate(currentDate.getDate() + ((3 + 7 - currentDate.getDay()) % 7 || 7));
+    currentDate.setHours(0, 0, 0, 0);
+    const sameLockout = otherRaids.find((otherBuild) => {
+      return (
+        new Date(raids[player.raid].date).setHours(0, 0, 0, 0) - currentDate.getTime() < 0 &&
+        new Date(otherBuild.date).setHours(0, 0, 0, 0) - currentDate.getTime() < 0
+      );
+    });
+    if (sameLockout) {
+      return true;
+    }
+    return false;
+  }
 }

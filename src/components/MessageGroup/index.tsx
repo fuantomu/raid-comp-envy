@@ -20,7 +20,7 @@ const MessageGroup: FC<MessageGroupProps> = ({ rosterRef }) => {
   const styles = useStyles();
   const context = useAppContext();
   const MAX_MESSAGES_TO_LOAD = 50;
-  const websocket = useUpdateSocketContext((message) => {
+  useUpdateSocketContext((message) => {
     const parsedMessage = BuildHelper.parseMessage(message, context.getBuilds(), rosterRef);
     setMessageHistory([parsedMessage, ...messageHistory].slice(0, MAX_MESSAGES_TO_LOAD));
   }, true);
@@ -41,6 +41,7 @@ const MessageGroup: FC<MessageGroupProps> = ({ rosterRef }) => {
 
   useEffect(() => {
     loadMessages();
+    // eslint-disable-next-line
   }, []);
 
   return (

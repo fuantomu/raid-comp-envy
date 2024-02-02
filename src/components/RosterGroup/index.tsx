@@ -52,8 +52,6 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
     []
   );
 
-  let openEditModal: any = () => {};
-
   return (
     <Card ref={drop}>
       <CardContent sx={{ maxHeight: window.innerHeight / 1.5 }}>

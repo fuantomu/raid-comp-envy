@@ -11,22 +11,22 @@ import {
   Build,
   BuildData,
   BuildPlayer,
+  MessageData,
   PlayerData,
   SelectOption,
-  Update,
-  WebSocketMessage
+  Update
 } from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import UUID from "../../utils/UUID";
-import { Instance, InviteStatus } from "../../consts";
+import { Instance, InviteStatus, RegisteredMessages } from "../../consts";
 import { Button, Tooltip } from "@mui/material";
 import cataclysm from "../../icons/Cata.png";
 import wotlk from "../../icons/Wotlk.png";
 import Raid from "../../components/Raid";
 import ModalAlert from "../../components/ModalAlert";
 import { sortFunctions } from "../../utils/sorting";
-import { useUpdateSocketContext } from "../../components/UpdateSocket/context";
+import { socketId, useUpdateSocketContext } from "../../components/UpdateSocket/context";
 import ScrollingSidebar from "../../components/ScrollingSidebar";
 
 export interface EditBuildPageProps {
@@ -47,8 +47,124 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Wotlk");
   const [absence, setAbsence] = useState<Absence[]>([]);
   const [maxRaidId, setMaxRaidId] = useState(0);
-  const [socketId, setSocketId] = useState(UUID());
-  const webSocket = useUpdateSocketContext(() => {});
+  const webSocket = useUpdateSocketContext((message: MessageData) => {
+    if (RegisteredMessages.roster.includes(message.message_type)) {
+      const data: PlayerData = message.data as PlayerData;
+      if (data) {
+        updateRoster(data.player, false, message.message_type === "removeroster");
+      }
+    } else if (RegisteredMessages.build.includes(message.message_type)) {
+      if (message.message_type.includes("player")) {
+        const data: PlayerData = message.data as PlayerData;
+        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
+        const foundBuild = selectedBuilds.find(
+          (selectedBuild) => selectedBuild?.value === data.build_id
+        );
+        if (foundPlayer && foundBuild) {
+          data.player.raid = selectedBuilds.indexOf(foundBuild);
+          switch (message.message_type) {
+            case "addplayer": {
+              addPlayerToRaid(data.player, false);
+              return;
+            }
+            case "updateplayer": {
+              updatePlayer(data.player, false);
+              return;
+            }
+            case "removeplayer": {
+              removePlayerFromRaid(data.player, false, false);
+              return;
+            }
+            case "moveplayer": {
+              movePlayer(data.player, data.oldData?.raid, false);
+              return;
+            }
+          }
+        }
+      } else {
+        const data: BuildData = message.data as BuildData;
+        const foundBuild = builds.find((build) => build?.id === data.build.id);
+        if (!foundBuild) {
+          switch (message.message_type) {
+            case "addbuild": {
+              addBuild(data.build.name, data.build.build_id, false, false, data.build.id);
+              return;
+            }
+            case "deletebuild": {
+              setBuildSelection(buildSelection.filter((build) => build.value !== data.build.id));
+              return;
+            }
+          }
+        } else {
+          if (message.message_type === "deletebuild") {
+            deleteBuild(foundBuild.id, false);
+            return;
+          }
+        }
+
+        const foundSelectedBuild = selectedBuilds.find((build) => build.value === data.build.id);
+        if (foundSelectedBuild) {
+          switch (message.message_type) {
+            case "resetbuild": {
+              resetBuild(selectedBuilds.indexOf(foundSelectedBuild), false);
+              return;
+            }
+            case "updatebuild": {
+              if (foundSelectedBuild) {
+                if (foundSelectedBuild.date !== data.build.date) {
+                  handleDateSelect(
+                    raids[selectedBuilds.indexOf(foundSelectedBuild)].build_id,
+                    data.build.date,
+                    false
+                  );
+                }
+                if (
+                  raids[selectedBuilds.indexOf(foundSelectedBuild)].instance !== data.build.instance
+                ) {
+                  setBuildInstance(
+                    raids[selectedBuilds.indexOf(foundSelectedBuild)].build_id,
+                    data.build.instance,
+                    false
+                  );
+                }
+                const foundBuildSelection = buildSelection.find(
+                  (build) => build.value === data.build.id
+                );
+                if (foundBuildSelection) {
+                  foundBuildSelection.date = data.build.date;
+                  foundBuildSelection.label = `${data.build.name} - ${new Date(
+                    data.build.date
+                  ).toLocaleString("de-DE", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                  })}`;
+                }
+              }
+              return;
+            }
+          }
+        }
+      }
+    } else if (RegisteredMessages.absence.includes(message.message_type)) {
+      const data: AbsenceData = message.data as AbsenceData;
+      const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player_id);
+      if (foundPlayer) {
+        const newAbsence = {
+          id: `${foundPlayer.name}${data.start_date}${data.end_date}${data.reason?.length}`,
+          player: foundPlayer,
+          start_date: data.start_date,
+          end_date: data.end_date,
+          reason: data.reason
+        } as Absence;
+        setAbsence([...absence, newAbsence]);
+        updateRaidStatus(raids, roster, [...absence, newAbsence]);
+        updateRosterStatus(roster, raids, [...absence, newAbsence]);
+      }
+    }
+  });
 
   const message = {
     socketId,
@@ -67,14 +183,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const updateRoster = (
     newPlayer: BuildPlayer,
-    save?: boolean,
     send: boolean = true,
     remove: boolean = false
   ): void => {
     const oldPlayer = roster.find((player) => player.id === newPlayer.id);
-    const newRoster = [...roster.filter((player) => player.id !== newPlayer.id), newPlayer].sort(
-      sortFunctions["DEFAULT"]
-    );
+    const newRoster = [...roster.filter((player) => player.id !== newPlayer.id), newPlayer];
     if (oldPlayer) {
       const differences = Object.fromEntries(
         Object.entries(oldPlayer).filter(([key, val]) => newPlayer[key] !== val)
@@ -84,9 +197,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       }
     }
     updateRosterStatus(newRoster);
-    if (save) {
-      BuildHelper.parseSaveRoster(newRoster);
-    }
+    BuildHelper.parseSaveRoster(newRoster);
     if (send) {
       message.message_type = "updateroster";
       message.data["player"] = newPlayer;
@@ -139,10 +250,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const getVersion = (): string => {
     return version;
-  };
-
-  const getOtherRaids = (build_id: number): Build[] => {
-    return raids.filter((build) => build?.id !== raids[build_id]?.id);
   };
 
   const getEmptyBuild = (game_version: string = version) => {
@@ -369,7 +476,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     setBuilds([...builds.filter((build) => build.id !== id)]);
     BuildHelper.parseDeleteBuild(oldRaid.id);
     if (send) {
-      message.message_type = "deletebuild";
+      message.message_type = "removebuild";
       message.data["build"] = oldRaid;
       webSocket.sendMessage(JSON.stringify(message));
     }
@@ -438,71 +545,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       }
     });
     return unsetMains;
-  };
-
-  const isPlayerAlreadyInRaid = (player: BuildPlayer): boolean => {
-    const playerRaid = raids.find((build) => {
-      return build.build_id === player.raid;
-    });
-    if (playerRaid) {
-      const isInParty = playerRaid.players.find((partyPlayer: BuildPlayer) => {
-        return partyPlayer.id === player.id;
-      });
-      if (isInParty) {
-        return true;
-      }
-      return false;
-    }
-    return false;
-  };
-
-  const isPlayerMovedBetweenRaids = (player: BuildPlayer): boolean => {
-    const otherRaids = getOtherRaids(player.raid);
-    const otherPlayers = [];
-    otherRaids.map((otherRaid) => {
-      otherPlayers.push(...otherRaid.players);
-      return 1;
-    });
-    const isInOtherRaids = otherPlayers.find((raidPlayer: BuildPlayer) => {
-      return raidPlayer.id === player.id;
-    });
-    if (isInOtherRaids) {
-      return true;
-    }
-    return false;
-  };
-
-  const isSameInstance = (player: BuildPlayer): boolean => {
-    const otherRaids = raids.filter((raid) => {
-      return raid.id !== raids[player.raid]?.id;
-    });
-    const sameInstance = otherRaids.find(
-      (otherRaid) => otherRaid.instance === raids[player.raid]?.instance
-    );
-    if (sameInstance) {
-      return true;
-    }
-    return false;
-  };
-
-  const isSameLockout = (player: BuildPlayer): boolean => {
-    const currentDate = new Date();
-    const otherRaids = raids.filter((raid) => {
-      return raid.id !== raids[player.raid].id;
-    });
-    // Get the next reset time
-    currentDate.setDate(currentDate.getDate() + ((3 + 7 - currentDate.getDay()) % 7 || 7));
-    currentDate.setHours(0, 0, 0, 0);
-    const sameLockout = otherRaids.find((otherBuild) => {
-      return (
-        new Date(raids[player.raid].date).setHours(0, 0, 0, 0) - currentDate.getTime() < 0 &&
-        new Date(otherBuild.date).setHours(0, 0, 0, 0) - currentDate.getTime() < 0
-      );
-    });
-    if (sameLockout) {
-      return true;
-    }
-    return false;
   };
 
   const addPlayerToRaid = (newPlayer: BuildPlayer, send: boolean = true): void => {
@@ -620,7 +662,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       if (newPlayer.raid === -1) {
         return;
       }
-      if (isSameInstance(newPlayer) && isSameLockout(newPlayer)) {
+      if (
+        BuildHelper.isSameInstance(newPlayer, raids) &&
+        BuildHelper.isSameLockout(newPlayer, raids)
+      ) {
         removePlayerFromRaids(newPlayer);
       } else {
         newPlayer.raid = oldRaid;
@@ -655,16 +700,16 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       return;
     }
 
-    if (isPlayerAlreadyInRaid(newPlayer)) {
+    if (BuildHelper.isPlayerAlreadyInRaid(newPlayer, raids)) {
       updatePlayer(newPlayer);
       saveBuild(raids[newPlayer.raid]);
       return;
     }
 
     if (
-      isPlayerMovedBetweenRaids(newPlayer) &&
-      isSameInstance(newPlayer) &&
-      isSameLockout(newPlayer)
+      BuildHelper.isPlayerMovedBetweenRaids(newPlayer, raids) &&
+      BuildHelper.isSameInstance(newPlayer, raids) &&
+      BuildHelper.isSameLockout(newPlayer, raids)
     ) {
       movePlayer(newPlayer, oldRaid);
       saveBuild(raids[newPlayer.raid]);
@@ -892,159 +937,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     setIsLoading(false);
   };
 
-  const handleWebsocketUpdate = (event: MessageEvent<any>) => {
-    if (event.data === "Pong") {
-      return;
-    }
-    const received_message: WebSocketMessage = JSON.parse(event.data);
-
-    switch (received_message.message_type) {
-      case "addplayer": {
-        const data: PlayerData = received_message.data as PlayerData;
-        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
-        const foundBuild = selectedBuilds.find(
-          (selectedBuild) => selectedBuild?.value === data.build_id
-        );
-        if (foundPlayer && foundBuild) {
-          data.player.raid = selectedBuilds.indexOf(foundBuild);
-          addPlayerToRaid(data.player, false);
-        }
-        break;
-      }
-      case "updateplayer": {
-        const data: PlayerData = received_message.data as PlayerData;
-        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
-        const foundBuild = selectedBuilds.find(
-          (selectedBuild) => selectedBuild?.value === data.build_id
-        );
-        if (foundPlayer && foundBuild) {
-          data.player.raid = selectedBuilds.indexOf(foundBuild);
-          updatePlayer(data.player, false);
-        }
-        break;
-      }
-      case "removeplayer": {
-        const data: PlayerData = received_message.data as PlayerData;
-        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
-        const foundBuild = selectedBuilds.find(
-          (selectedBuild) => selectedBuild?.value === data.build_id
-        );
-        if (foundPlayer && foundBuild) {
-          data.player.raid = selectedBuilds.indexOf(foundBuild);
-          removePlayerFromRaid(data.player, false, false);
-        }
-        break;
-      }
-      case "moveplayer": {
-        const data: PlayerData = received_message.data as PlayerData;
-        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
-        const foundBuild = selectedBuilds.find(
-          (selectedBuild) => selectedBuild?.value === data.build_id
-        );
-        if (foundPlayer && foundBuild) {
-          data.player.raid = selectedBuilds.indexOf(foundBuild);
-          movePlayer(data.player, data.oldData?.raid, false);
-        }
-        break;
-      }
-      case "addbuild": {
-        const data: BuildData = received_message.data as BuildData;
-        const foundBuild = builds.find((build) => build?.id === data.build.id);
-        if (!foundBuild) {
-          addBuild(data.build.name, data.build.build_id, false, false, data.build.id);
-        }
-        break;
-      }
-      case "deletebuild": {
-        const data: BuildData = received_message.data as BuildData;
-        const foundBuild = builds.find((build) => build?.id === data.build.id);
-        if (foundBuild) {
-          deleteBuild(foundBuild.id, false);
-        } else {
-          setBuildSelection(buildSelection.filter((build) => build.value !== data.build.id));
-        }
-        break;
-      }
-      case "resetbuild": {
-        const data: BuildData = received_message.data as BuildData;
-        const foundBuild = selectedBuilds.find((build) => build.value === data.build.id);
-        if (foundBuild) {
-          resetBuild(selectedBuilds.indexOf(foundBuild), false);
-        }
-        break;
-      }
-      case "updatebuild": {
-        const data: BuildData = received_message.data as BuildData;
-        const foundBuild = selectedBuilds.find((build) => build.value === data.build.id);
-        if (foundBuild) {
-          if (foundBuild.date !== data.build.date) {
-            handleDateSelect(
-              raids[selectedBuilds.indexOf(foundBuild)].build_id,
-              data.build.date,
-              false
-            );
-          }
-          if (raids[selectedBuilds.indexOf(foundBuild)].instance !== data.build.instance) {
-            setBuildInstance(
-              raids[selectedBuilds.indexOf(foundBuild)].build_id,
-              data.build.instance,
-              false
-            );
-          }
-        }
-        const foundBuildSelection = buildSelection.find((build) => build.value === data.build.id);
-        if (foundBuildSelection) {
-          foundBuildSelection.date = data.build.date;
-          foundBuildSelection.label = `${data.build.name} - ${new Date(
-            data.build.date
-          ).toLocaleString("de-DE", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          })}`;
-        }
-        break;
-      }
-      case "updateroster": {
-        const data: PlayerData = received_message.data as PlayerData;
-        if (data) {
-          updateRoster(data.player, false, false);
-        }
-        break;
-      }
-      case "removeroster": {
-        const data: PlayerData = received_message.data as PlayerData;
-        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
-        if (foundPlayer) {
-          removeFromRoster(data.player, false, false);
-        }
-        break;
-      }
-      case "absence": {
-        const data: AbsenceData = received_message.data as AbsenceData;
-        const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player_id);
-        if (foundPlayer) {
-          const newAbsence = {
-            id: `${foundPlayer.name}${data.start_date}${data.end_date}${data.reason?.length}`,
-            player: foundPlayer,
-            start_date: data.start_date,
-            end_date: data.end_date,
-            reason: data.reason
-          } as Absence;
-          setAbsence([...absence, newAbsence]);
-          updateRaidStatus(raids, roster, [...absence, newAbsence]);
-          updateRosterStatus(roster, raids, [...absence, newAbsence]);
-        }
-        break;
-      }
-      default:
-        console.log(`No method implemented for ${received_message.message_type}`);
-        break;
-    }
-  };
-
   const getAccountRole = () => {
     return accountRole;
   };
@@ -1063,6 +955,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         );
       })
       .catch(handleError);
+    // eslint-disable-next-line
   }, [handleError]);
 
   if (isLoading) {
