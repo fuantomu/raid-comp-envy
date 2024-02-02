@@ -2,19 +2,17 @@
 import { FC } from "react";
 import { DndProvider } from "react-dnd";
 import { BuildPlayer } from "../../types";
-import RosterComposition from "./RosterComposition";
+import RosterGroup from "../RosterGroup";
 
 export interface RosterProps {
   players: BuildPlayer[];
-  editing?: boolean;
   manager: any;
-  accountRole: number;
 }
 
-const Roster: FC<RosterProps> = ({ players, editing = false, manager, accountRole }) => {
+const Roster: FC<RosterProps> = ({ players, manager }) => {
   return (
     <DndProvider manager={manager}>
-      <RosterComposition players={players} editing={editing} accountRole={accountRole} />
+      <RosterGroup players={players} />
     </DndProvider>
   );
 };

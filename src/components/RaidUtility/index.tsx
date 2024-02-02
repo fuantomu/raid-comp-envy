@@ -47,7 +47,6 @@ const RaidUtility: FC<RaidUtilityProps> = ({ utility, players, version }) => {
       players={players}
       specs={buildUtilitySpeclist(utility, version)}
       source={utility}
-      version={version}
     />
   );
 };

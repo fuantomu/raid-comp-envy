@@ -24,7 +24,7 @@ const ScrollingSidebar: FC<ScrollingSidebarProps> = ({ manager, rosterRef }) => 
         marginRight: "30px"
       }}
     >
-      <Roster manager={manager} rosterRef={rosterRef} isLoading={setIsLoading} />
+      <Roster manager={manager} players={rosterRef} />
       <Box
         display={"grid"}
         sx={{

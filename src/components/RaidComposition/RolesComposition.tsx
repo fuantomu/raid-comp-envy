@@ -44,7 +44,6 @@ const RolesComposition: FC<RolesCompositionProps> = ({ players, editing, raid, a
             players={buildRoles[WarcraftRole.Unknown]}
             editing={editing}
             raid={raid}
-            spread
             accountRole={accountRole}
           />
         </Box>

@@ -30,17 +30,16 @@ import { sortFunctions } from "../../utils/sorting";
 import StickyBox from "react-sticky-box";
 import { Logout } from "@mui/icons-material";
 import useWebSocket from "react-use-websocket";
-import MessageBuild from "../../components/MessageBuild";
+import MessageGroup from "../../components/MessageGroup";
 import envy from "../../icons/envy-ts-wenig-schatten.png";
 
 export interface EditBuildPageProps {
   accountName: string;
   accountRole: number;
-  logout: () => void;
   manager: any;
 }
 
-const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logout, manager }) => {
+const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manager }) => {
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
   const handleError = useErrorHandler();
@@ -954,6 +953,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
       setRoster(data.players.sort(sortFunctions[sorting]));
       updateRosterStatus(data.players);
     }
+    setIsLoading(false);
   };
 
   const handleWebsocketUpdate = (event: MessageEvent<any>) => {
@@ -1124,12 +1124,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
                 })
               )
             );
-            BuildHelper.parseGetMessages(MESSAGES_TO_LOAD, update.builds, update.players).then(
-              (messages) => {
-                setMessageHistory(messages.sort((a, b) => b.date - a.date));
-                setIsLoading(false);
-              }
-            );
           })
           .catch(handleError);
         break;
@@ -1137,6 +1131,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         console.log(`No method implemented for ${received_message.message_type}`);
         break;
     }
+  };
+
+  const getAccountRole = () => {
+    return accountRole;
   };
 
   useEffect(() => {
@@ -1185,7 +1183,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         getAlts,
         getMains,
         getSelectedBuilds,
-        getVersion
+        getVersion,
+        getAccountRole
       }}
     >
       <ModalAdd editPlayer={editPlayerModalFn} accountRole={accountRole} />
@@ -1199,7 +1198,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             marginRight: "30px"
           }}
         >
-          <Roster manager={manager} players={roster} editing accountRole={accountRole} />
+          <Roster manager={manager} players={roster} />
           <Box
             display={"grid"}
             sx={{
@@ -1211,26 +1210,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
             }}
             justifySelf={"center"}
           >
-            <MessageBuild messages={messageHistory} accountRole={accountRole}></MessageBuild>
-            <Tooltip title={common(`logout`)}>
-              <Button
-                sx={{
-                  marginBottom: "56px",
-                  height: "100%",
-                  display: "grid",
-                  gridTemplateColumns: "4fr fr",
-                  justifyContent: "center",
-                  marginTop: "-1px",
-                  borderTop: "1px solid black"
-                }}
-                onClick={logout}
-              >
-                <Box>{`Currently logged in as ${accountName}`}</Box>
-                <Box>
-                  <Logout />
-                </Box>
-              </Button>
-            </Tooltip>
+            <MessageGroup rosterRef={roster}></MessageGroup>
           </Box>
         </StickyBox>
         <div style={{ width: "100%", borderLeft: "1px solid black" }}>

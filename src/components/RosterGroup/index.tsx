@@ -18,24 +18,14 @@ import { sortFunctions } from "../../utils/sorting";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
-  group_id: GroupId;
-  spread?: boolean;
   editing?: boolean;
-  build_id: number;
-  accountRole: number;
 }
 
-const RosterGroup: FC<RosterGroupProps> = ({
-  group_id,
-  players = [],
-  spread = false,
-  editing,
-  build_id,
-  accountRole
-}) => {
-  const styles = useStyles(spread);
+const RosterGroup: FC<RosterGroupProps> = ({ players = [], editing }) => {
+  const styles = useStyles();
   const [common] = useTranslation("common");
   const context = useAppContext();
+  const accountRole = context.getAccountRole();
   const [, drop] = useDrop(
     () => ({
       accept: DragItemTypes.PLAYER,
@@ -79,7 +69,7 @@ const RosterGroup: FC<RosterGroupProps> = ({
             fontSize={"26px"}
             variant="subtitle1"
           >
-            {common("build.groups.group_each", { group_id: group_id.toString() })}
+            {common("build.groups.group_each", { group_id: "roster" })}
           </Typography>
           <ModalAdd accountRole={accountRole} />
           <Button

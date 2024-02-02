@@ -514,13 +514,13 @@ export abstract class BuildHelper {
 
   private static getBuildChanges(message: BuildData, builds: Build[], remove?: boolean) {
     const changes: Difference[] = [];
-    const foundBuild = builds.find((build) => build?.id === message.build.id);
+    const foundBuild = builds.find((build) => build?.id === message?.build.id);
 
     // Update message
-    if (message.oldData) {
+    if (message?.oldData) {
       const differences = Object.fromEntries(
         Object.entries(message.oldData ?? []).filter(
-          ([key, val]) => key !== "players" && message.build[key] !== val
+          ([key, val]) => key !== "players" && message?.build[key] !== val
         )
       );
       const version = localStorage.getItem("LastVersion") ?? "Wotlk";

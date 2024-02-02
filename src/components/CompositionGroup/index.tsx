@@ -19,7 +19,6 @@ import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 export interface CompositionGroupProps {
   players: BuildPlayer[];
   group_id: GroupId;
-  spread?: boolean;
   editing?: boolean;
   raid: number;
   accountRole: number;
@@ -28,12 +27,11 @@ export interface CompositionGroupProps {
 const CompositionGroup: FC<CompositionGroupProps> = ({
   group_id,
   players = [],
-  spread = false,
   editing,
   raid,
   accountRole
 }) => {
-  const styles = useStyles(spread);
+  const styles = useStyles();
   const [common] = useTranslation("common");
   const context = useAppContext();
   const [, drop] = useDrop(

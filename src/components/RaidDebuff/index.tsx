@@ -38,7 +38,6 @@ const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players, version }) => {
       players={players}
       specs={buildDebuffSpeclist(debuff, version)}
       source={debuff}
-      version={version}
     />
   );
 };

@@ -43,7 +43,6 @@ const GroupsComposition: FC<GroupsCompositionProps> = ({ players, editing, raid,
           group_id={"bench"}
           players={groups["bench"]?.players ?? []}
           raid={raid}
-          spread
           editing={editing}
           accountRole={accountRole}
         />

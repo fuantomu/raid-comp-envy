@@ -107,7 +107,7 @@ const Player: FC<PlayerProps> = (props) => {
           }
           ref={isClickable && isAccountRoleAllowed(accountRole, "ClickPlayer") ? drag : undefined}
         >
-          <Box css={styles.icons(showRole)}>
+          <Box css={styles.icons}>
             {showRole && <WarcraftIcon src={IconProvider.getSpecRoleIcon(spec)} />}
             <WarcraftIcon
               title={`${common(`specs.${spec}`)} ${common(`classes.${class_name}`)}`}
