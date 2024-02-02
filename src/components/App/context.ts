@@ -6,7 +6,6 @@ type AppContextApi = {
   removePlayerFromRaid: (player: BuildPlayer, save: boolean, saveRoster?: boolean) => void;
   removePlayerFromRaids: (player: BuildPlayer, save: boolean, saveRoster?: boolean) => void;
   updateRoster: (player: BuildPlayer, send?: boolean, remove?: boolean) => void;
-  removeFromRoster: (player: BuildPlayer, save?: boolean) => void;
   resetBuild: (build_id: number) => void;
   getRaid: (build_id: number) => Build;
   getBuilds: () => Build[];

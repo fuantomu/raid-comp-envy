@@ -22,12 +22,11 @@ export interface RaidProps {
   raidBuild: Build;
   builds: SelectOption[];
   version: string;
-  id: number;
   manager: any;
   selectedBuild: SelectOption;
 }
 
-const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selectedBuild }) => {
+const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager, selectedBuild }) => {
   const [common] = useTranslation("common");
   const context = useAppContext();
   const styles = useStyles();
@@ -49,14 +48,9 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
         borderTop: `3px solid #ad0a0a`,
         borderRight: `1px solid black`
       }}
-      key={UUID()}
     >
-      <CardContent
-        key={UUID()}
-        style={{ borderBottom: `1px solid black`, backgroundColor: "#242424" }}
-      >
+      <CardContent style={{ borderBottom: `1px solid black`, backgroundColor: "#242424" }}>
         <Box
-          key={UUID()}
           sx={{
             cursor: "pointer",
             border: `1px solid black`,
@@ -75,7 +69,7 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
             fontSize={"26px"}
             variant="subtitle1"
           >
-            {common(`build.raid.raid${id}`)}
+            {common(`build.raid.raid${raidBuild.build_id}`)}
           </Typography>
           {visible ? (
             <ArrowDropDown sx={{ width: "48px", height: "48px" }}></ArrowDropDown>
@@ -88,26 +82,24 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
           <Box display={"grid"} gridTemplateColumns={"1fr 2fr"}>
             <Box>
               <BuildTitle
-                key={UUID()}
                 options={builds ?? []}
                 selected={selectedBuild}
-                build_id={id}
+                build_id={raidBuild.build_id}
                 buildDate={raidBuild?.date}
                 version={version}
                 selectedInstance={raidBuild?.instance}
               />
               <br></br>
-              <BuildRolesCount key={UUID()} build={raidBuild} />
-              <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
+              <BuildRolesCount build={raidBuild} />
+              <Box css={[styles.gridBox, styles.buttons]}>
                 <ChangeViewModeButton handleChangeGrouping={handleChangeGrouping} />
-                <ModalCreateBuild build_id={id} />
+                <ModalCreateBuild build_id={raidBuild.build_id} />
                 <ModalDeleteBuild id={raidBuild?.id} />
               </Box>
             </Box>
             <Box display={"grid"} gridTemplateColumns={"2fr 1fr"}>
               <Box sx={{ marginLeft: "5px" }}>
                 <Box
-                  key={UUID()}
                   sx={{
                     cursor: "pointer",
                     border: `1px solid black`,
@@ -131,8 +123,8 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
                 {visibleNotSet ? (
                   <BasicBuild
                     manager={manager}
-                    players={context?.getUnsetMains(id) ?? []}
-                    raid={id}
+                    players={context?.getUnsetMains(raidBuild.build_id) ?? []}
+                    raid={raidBuild.build_id}
                   />
                 ) : (
                   <></>
@@ -140,7 +132,6 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
               </Box>
               <Box sx={{ marginLeft: "5px" }}>
                 <Box
-                  key={UUID()}
                   sx={{
                     cursor: "pointer",
                     border: `1px solid black`,
@@ -164,8 +155,8 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
                 {visibleAbsent ? (
                   <BasicBuild
                     manager={manager}
-                    players={context?.getAbsentPlayers(id) ?? []}
-                    raid={id}
+                    players={context?.getAbsentPlayers(raidBuild.build_id) ?? []}
+                    raid={raidBuild.build_id}
                   />
                 ) : (
                   <></>
@@ -178,12 +169,8 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
         )}
       </CardContent>
 
-      <CardContent
-        key={UUID()}
-        style={{ borderBottom: `1px solid black`, backgroundColor: "#242424" }}
-      >
+      <CardContent style={{ borderBottom: `1px solid black`, backgroundColor: "#242424" }}>
         <Box
-          key={UUID()}
           sx={{
             cursor: "pointer",
             border: `1px solid black`,
@@ -211,11 +198,11 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
           )}
         </Box>
         {visibleComposition ? (
-          <Box key={UUID()} css={styles.gridBox}>
+          <Box css={styles.gridBox}>
             <RaidComposition
               manager={manager}
               players={raidBuild?.players}
-              raid={id}
+              raid={raidBuild.build_id}
               grouped={grouped}
             />
           </Box>
@@ -224,9 +211,8 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
         )}
       </CardContent>
 
-      <CardContent key={UUID()} style={{ backgroundColor: "#242424" }}>
+      <CardContent style={{ backgroundColor: "#242424" }}>
         <Box
-          key={UUID()}
           sx={{
             cursor: "pointer",
             border: `1px solid black`,
@@ -254,15 +240,15 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, id, manager, selected
           )}
         </Box>
         {visibleChecklist ? (
-          <Box key={UUID()} css={styles.gridBox}>
+          <Box css={styles.gridBox}>
             <RaidChecklist build={raidBuild} version={version} />
           </Box>
         ) : (
           <></>
         )}
-        <Box key={UUID()} css={[styles.gridBox, styles.buttons]}>
-          <ModalPostDiscord build_id={id} />
-          <ModalResetBuild build_id={id} />
+        <Box css={[styles.gridBox, styles.buttons]}>
+          <ModalPostDiscord build_id={raidBuild.build_id} />
+          <ModalResetBuild build_id={raidBuild.build_id} />
         </Box>
       </CardContent>
     </Card>

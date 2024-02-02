@@ -18,7 +18,6 @@ import {
 } from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
-import UUID from "../../utils/UUID";
 import { Instance, InviteStatus, RegisteredMessages } from "../../consts";
 import { Button, Tooltip } from "@mui/material";
 import cataclysm from "../../icons/Cata.png";
@@ -469,32 +468,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     }
   };
 
-  const removeFromRoster = (
-    removedPlayer: BuildPlayer,
-    save?: boolean,
-    send: boolean = true
-  ): void => {
-    const newRoster = [
-      ...roster.filter((player: BuildPlayer) => removedPlayer.id !== player.id)
-    ].sort(sortFunctions["DEFAULT"]);
-
-    newRoster.map((otherPlayer) => {
-      if (otherPlayer.main === removedPlayer.name && otherPlayer.id !== removedPlayer.id) {
-        otherPlayer.main = "";
-      }
-      return false;
-    });
-    setRoster(newRoster);
-    if (save) {
-      BuildHelper.parseDeleteRosterPlayer(removedPlayer);
-    }
-    if (send) {
-      message.message_type = "removeroster";
-      message.data["player"] = removedPlayer;
-      webSocket.sendMessage(JSON.stringify(message));
-    }
-  };
-
   const addPlayerToRaid = (newPlayer: BuildPlayer, send: boolean = true): void => {
     const currentRaid = raids[newPlayer.raid];
     currentRaid.players = [...currentRaid.players, newPlayer];
@@ -919,7 +892,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         getBuilds,
         editPlayer,
         updateRoster,
-        removeFromRoster,
         handleBuildSelect,
         handleDateSelect,
         getBuildSelections,
@@ -944,7 +916,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         <div style={{ width: "100%", borderLeft: "1px solid black" }}>
           <Raid
             manager={manager}
-            id={0}
             raidBuild={raids.find((raid) => raid?.build_id === 0) ?? raids[0]}
             builds={buildSelection}
             selectedBuild={selectedBuilds[0]}
@@ -952,7 +923,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
           ></Raid>
           <Raid
             manager={manager}
-            id={1}
             raidBuild={raids.find((raid) => raid?.build_id === 1) ?? raids[1]}
             builds={buildSelection}
             selectedBuild={selectedBuilds[1]}
@@ -961,11 +931,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
           <br></br>
 
           <Box display={"flex"} justifyContent={"center"}>
-            <Button
-              style={{ width: "250px", height: "150px" }}
-              key={UUID()}
-              onClick={handleChangeVersion}
-            >
+            <Button style={{ width: "250px", height: "150px" }} onClick={handleChangeVersion}>
               <Tooltip title={common(`version.${version}`)}>
                 <img
                   width={"250"}
