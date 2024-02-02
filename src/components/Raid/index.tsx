@@ -4,7 +4,6 @@ import { Build, SelectOption } from "../../types";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import { useAppContext } from "../App/context";
 import { useTranslation } from "react-i18next";
-import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 import BuildTitle from "../BuildTitle";
 import BuildRolesCount from "../BuildRolesCount";

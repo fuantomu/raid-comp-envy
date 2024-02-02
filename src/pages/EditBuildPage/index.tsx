@@ -75,6 +75,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
               return;
             }
             case "moveplayer": {
+              console.log(data.player);
+              console.log(data.oldData);
               movePlayer(data.player, data.oldData?.raid, false);
               return;
             }
@@ -554,7 +556,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const movePlayer = (newPlayer: BuildPlayer, oldRaid?: number, send: boolean = true): void => {
     removePlayerFromRaid(newPlayer, false, false, oldRaid);
     addPlayerToRaid(newPlayer, false);
-    const currentRaid = BuildHelper.getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
     if (send) {
       message.message_type = "moveplayer";
       const oldPlayer: BuildPlayer = {
@@ -569,7 +570,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         spec: newPlayer.spec,
         raid: oldRaid
       };
-      message.data = { player: newPlayer, build_id: currentRaid.id, oldData: oldPlayer };
+      message.data = { player: newPlayer, build_id: raids[newPlayer.raid].id, oldData: oldPlayer };
       webSocket.sendMessage(JSON.stringify(message));
     }
   };
