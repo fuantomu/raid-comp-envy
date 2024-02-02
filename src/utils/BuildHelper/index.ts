@@ -98,7 +98,6 @@ export abstract class BuildHelper {
               status: player.status,
               raid: -1,
               group_id: "roster",
-              oldName: player.name,
               main: player.main ?? "",
               alt: player.alt ?? "None"
             });
@@ -165,7 +164,6 @@ export abstract class BuildHelper {
               race: player.race as WarcraftPlayerRace,
               status: player.status as InviteStatus,
               group_id: player.group_id as GroupId,
-              oldName: player.oldName,
               main: player.main ?? "",
               alt: player.alt ?? "None"
             });
@@ -336,7 +334,6 @@ export abstract class BuildHelper {
               status: InviteStatus.Unknown,
               raid: -1,
               group_id: "roster",
-              oldName: player.name,
               main: player.main ?? "",
               alt: player.alt ?? "None"
             });
@@ -363,7 +360,6 @@ export abstract class BuildHelper {
                 race: player.race as WarcraftPlayerRace,
                 status: InviteStatus.Unknown,
                 group_id: player.group_id as GroupId,
-                oldName: player.oldName,
                 main: player.main ?? "",
                 alt: player.alt ?? "None"
               });
@@ -376,16 +372,12 @@ export abstract class BuildHelper {
     return updates;
   }
 
-  public static async parseGetMessages(
-    amount: number,
-    builds: Build[],
-    players: BuildPlayer[]
-  ): Promise<Message[]> {
-    const messages: Message[] = [];
+  public static async getMessages(amount: number): Promise<WebSocketMessage[]> {
+    const messages: WebSocketMessage[] = [];
     await RosterProvider.getMessages(amount).then((response) => {
       if (response) {
         response.map((message) => {
-          messages.push(this.parseMessage(message, builds, players));
+          messages.push(message);
           return false;
         });
       }

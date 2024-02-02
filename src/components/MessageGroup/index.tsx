@@ -2,16 +2,15 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import UUID from "../../utils/UUID";
 import useStyles from "./useStyles";
 import { Typography } from "@mui/material";
 import UpdateMessage from "../UpdateMessage";
 import { useAppContext } from "../App/context";
-import { BuildPlayer, Message, WebSocketMessage } from "../../types";
+import { BuildPlayer, Message } from "../../types";
 import { useUpdateSocketContext } from "../UpdateSocket/context";
 import { BuildHelper } from "../../utils/BuildHelper";
-import { useRosterContext } from "../Roster/context";
 
 export interface MessageGroupProps {
   rosterRef: BuildPlayer[];

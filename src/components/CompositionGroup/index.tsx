@@ -50,7 +50,6 @@ const CompositionGroup: FC<CompositionGroupProps> = ({
             raid: raid,
             status: player.status,
             group_id: group_id as GroupId,
-            oldName: player.oldName,
             main: player.main,
             alt: player.alt
           },

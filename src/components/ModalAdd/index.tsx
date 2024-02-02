@@ -43,7 +43,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
   const [raid, setRaid] = useState(Number);
   const [id, setId] = useState(String);
   const [alt, setAlt] = useState("DEFAULT");
-  const [oldName, setOldName] = useState<string>();
   const [checked, setChecked] = useState(false);
   const [altOptions, setAltOptions] = useState<any[]>([]);
   const [mainOptions, setMainOptions] = useState<any[]>([]);
@@ -55,7 +54,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       if (player) {
         setId(player.id);
         setName(player.name);
-        setOldName(player.oldName);
         setClassName(player.class_name);
         setStatus(player.status);
         setGroupId(player.group_id as GroupId);
@@ -130,7 +128,6 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
       race: raceName,
       status,
       group_id: group_id as GroupId,
-      oldName,
       main: main === "DEFAULT" ? playerName : main,
       alt: alt === "DEFAULT" ? "None" : alt
     };
@@ -325,7 +322,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
         aria-describedby="simple-modal-description"
       >
         <Box css={styles.modal}>
-          <h2>{oldName ? common("build.edit.title") : common("build.add.title")}</h2>
+          <h2>{editPlayer ? common("build.edit.title") : common("build.add.title")}</h2>
           <Box css={styles.content}>
             <Box css={styles.nameInputWrapper}>
               <Input
@@ -350,15 +347,15 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, accountRole }) => {
               <Checkbox name="checked" checked={checked} onChange={handleChange} />
               {common("build.roster.save")}
             </Box>
-            {oldName ? (
+            {editPlayer ? (
               <Button color="info" variant="contained" onClick={handleViewPlayer}>
                 {common("build.add.view")}
               </Button>
             ) : null}
             <Button color="success" variant="contained" onClick={handleAddPlayer}>
-              {oldName ? common("build.edit.save") : common("build.add.add")}
+              {editPlayer ? common("build.edit.save") : common("build.add.add")}
             </Button>
-            {oldName ? (
+            {editPlayer ? (
               <Button color="primary" variant="contained" onClick={handleRemovePlayer}>
                 {common("build.edit.remove")}
               </Button>

@@ -602,7 +602,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         class_name: newPlayer.class_name,
         alt: newPlayer.alt,
         main: newPlayer.main,
-        oldName: newPlayer.oldName,
         group_id: newPlayer.group_id,
         race: newPlayer.race,
         status: newPlayer.status,
@@ -626,7 +625,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
         class_name: newPlayer.class_name,
         alt: newPlayer.alt,
         main: newPlayer.main,
-        oldName: newPlayer.oldName,
         group_id: newPlayer.group_id,
         race: newPlayer.race,
         status: newPlayer.status,
@@ -946,8 +944,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, logou
       roster,
       (a: BuildPlayer[], b: BuildPlayer[]) => {
         return _.isEqual(
-          _.omit(a, ["group_id", "id", "raid", "status", "oldName"]),
-          _.omit(b, ["group_id", "id", "raid", "status", "oldName"])
+          _.omit(a, ["group_id", "id", "raid", "status"]),
+          _.omit(b, ["group_id", "id", "raid", "status"])
         );
       }
     );

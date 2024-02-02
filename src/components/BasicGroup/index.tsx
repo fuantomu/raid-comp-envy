@@ -35,7 +35,6 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid, accountRole }) =>
             raid,
             status: player.status,
             group_id: "roster" as GroupId,
-            oldName: player.oldName,
             main: player.main,
             alt: player.alt
           },
@@ -56,10 +55,10 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid, accountRole }) =>
             players.length > 24
               ? styles.extremeInput
               : players.length > 16
-                ? styles.largeInput
-                : players.length > 8
-                  ? styles.mediumInput
-                  : styles.input
+              ? styles.largeInput
+              : players.length > 8
+              ? styles.mediumInput
+              : styles.input
           ]}
         >
           {players.length > 0 ? (

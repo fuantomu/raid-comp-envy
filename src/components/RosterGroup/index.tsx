@@ -50,7 +50,6 @@ const RosterGroup: FC<RosterGroupProps> = ({
             raid: -5,
             status: player.status,
             group_id: "roster" as GroupId,
-            oldName: player.oldName,
             main: player.main,
             alt: player.alt
           },
