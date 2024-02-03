@@ -15,6 +15,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { createDragDropManager } from "dnd-core";
 import { Button, Tooltip } from "@mui/material";
 import { Logout } from "@mui/icons-material";
+import StickyBox from "react-sticky-box";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -109,19 +110,28 @@ const App: FC = () => {
           </Suspense>
         </ErrorBoundary>
       </Box>
-      <Box display={"grid"} sx={{ width: "100%", border: "1px solid black" }}>
-        <Tooltip title={"Logout"}>
-          <Button onClick={logout}>
-            <Box>
-              <Box>{`Currently logged in as ${accountName}`}</Box>
-              <Logout />
-            </Box>
-          </Button>
-        </Tooltip>
-      </Box>
-      <Box sx={{ width: "100%" }}>
-        <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
-      </Box>
+      <StickyBox
+        style={{
+          width: "100%",
+          background: "#1d1d1d",
+          left: "0",
+          bottom: "0"
+        }}
+      >
+        <Box display={"grid"} sx={{ width: "100%", border: "1px solid black" }}>
+          <Tooltip title={"Logout"}>
+            <Button onClick={logout}>
+              <Box>
+                <Box>{`Currently logged in as ${accountName}`}</Box>
+                <Logout />
+              </Box>
+            </Button>
+          </Tooltip>
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
+        </Box>
+      </StickyBox>
     </Fragment>
   );
 };
