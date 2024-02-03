@@ -90,13 +90,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
               addBuild(data.build.name, data.build.build_id, false, false, data.build.id);
               return;
             }
-            case "deletebuild": {
+            case "removebuild": {
               setBuildSelection(buildSelection.filter((build) => build.value !== data.build.id));
               return;
             }
           }
         } else {
-          if (message.message_type === "deletebuild") {
+          if (message.message_type === "removebuild") {
             deleteBuild(foundBuild.id, false);
             return;
           }
@@ -319,6 +319,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const handleDateSelect = (build_id: number, value: any, send: boolean = true) => {
     const oldRaid = getBuildCopy(raids[build_id]);
+    if (oldRaid) {
+      if (oldRaid.date === value.valueOf()) {
+        return;
+      }
+    }
     raids[build_id].date = value.valueOf();
     setRaids([...raids]);
     builds.map((build) => {
@@ -376,6 +381,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
     const oldRaid = getBuildCopy(raids[build_id]);
+    if (oldRaid) {
+      if (oldRaid.instance === value.value ?? value) {
+        return;
+      }
+    }
     const newRaids = raids.map((raid) => {
       if (raid.build_id === build_id) {
         raid.instance = value.value ?? value;
@@ -528,6 +538,14 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const updatePlayer = (newPlayer: BuildPlayer, send: boolean = true): void => {
     const currentRaid = raids[newPlayer.raid];
     const oldPlayer = currentRaid.players.find((player) => player.id === newPlayer.id);
+    if (oldPlayer) {
+      const differences = Object.fromEntries(
+        Object.entries(oldPlayer).filter(([key, val]) => newPlayer[key] !== val)
+      );
+      if (Object.entries(differences).length === 0) {
+        return;
+      }
+    }
     const otherPlayers = currentRaid.players.filter((player) => {
       return player.id !== newPlayer.id;
     });

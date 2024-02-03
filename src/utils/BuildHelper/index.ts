@@ -527,16 +527,15 @@ export abstract class BuildHelper {
         const changeMessage = {
           key,
           objectType: "Build",
-          propertyName: `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString(
-            "de-de",
-            {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            }
-          )}`,
+          propertyName: foundBuild
+            ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              })}`
+            : message.build.name,
           propertyType: "Build",
           old: ["date"].includes(key)
             ? new Date(message.oldData[key]).toLocaleString("de-de", {
@@ -563,27 +562,28 @@ export abstract class BuildHelper {
       const changeMessage = {
         key: remove ? "remove" : "add",
         objectType: "Build",
-        propertyName:
-          `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          })}` ?? message.build.name,
+        propertyName: foundBuild
+          ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+          : message.build.name,
         propertyType: "Build",
-        new:
-          `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-          })}` ?? message.build.name
+        new: foundBuild
+          ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            })}`
+          : message.build.name
       };
       changes.push(changeMessage);
     }
-
     return changes;
   }
 
