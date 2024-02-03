@@ -27,6 +27,7 @@ import ModalAlert from "../../components/ModalAlert";
 import { sortFunctions } from "../../utils/sorting";
 import { socketId, useUpdateSocketContext } from "../../components/UpdateSocket/context";
 import ScrollingSidebar from "../../components/ScrollingSidebar";
+import UUID from "../../utils/UUID";
 
 export interface EditBuildPageProps {
   accountName: string;
@@ -43,7 +44,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [buildSelection, setBuildSelection] = useState<SelectOption[]>([]);
   const [selectedBuilds, setSelectedBuilds] = useState<SelectOption[]>([]);
-  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Wotlk");
+  const [version, setVersion] = useState(localStorage.getItem("LastVersion"));
   const [absence, setAbsence] = useState<Absence[]>([]);
   const [maxRaidId, setMaxRaidId] = useState(0);
   const webSocket = useUpdateSocketContext((message: MessageData) => {
@@ -178,7 +179,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   };
 
   const getRaid = (build_id: number): Build => {
-    return raids[build_id] ?? BuildHelper.getEmptyBuild(version);
+    return raids[build_id] ?? getEmptyBuild(version);
   };
 
   const getBuilds = (): Build[] => {
@@ -264,6 +265,35 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     return unsetMains;
   };
 
+  const getEmptyBuild = (game_version?: string, build_id?: number) => {
+    return {
+      id: UUID(),
+      name: "New Build",
+      date: new Date().setHours(0, 0, 0, 0),
+      players: [],
+      instance: Instance[game_version]
+        ? Instance[game_version][0].abbreviation
+        : Instance["Wotlk"][0].abbreviation,
+      build_id: build_id ?? -1
+    } as Build;
+  };
+
+  const getBuildCopy = (build: Build): Build => {
+    if (!build) {
+      return getEmptyBuild(version);
+    }
+    const newBuild: Build = {
+      id: build.id,
+      date: build.date,
+      instance: build.instance,
+      name: build.name,
+      players: build.players,
+      raid_id: build.raid_id,
+      build_id: build.build_id
+    };
+    return newBuild;
+  };
+
   const handleChangeVersion = async () => {
     const newVersion = version === "Cataclysm" ? "Wotlk" : "Cataclysm";
     setVersion(newVersion);
@@ -277,18 +307,18 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     localStorage.setItem(`LastBuild-${build_id}`, value.value ?? value);
     BuildHelper.parseGetBuild(value.value ?? value).then((build) => {
       build.build_id = build_id;
-      raids[build_id] = build;
       selectedBuilds[build_id] = buildSelection.find(
         (buildSelect) => buildSelect.value === build.id
       );
-      console.log(selectedBuilds);
+      raids[build_id] = build;
+      setRaids([...raids]);
       updateRaidStatus();
       updateRosterStatus();
     });
   };
 
   const handleDateSelect = (build_id: number, value: any, send: boolean = true) => {
-    const oldRaid = BuildHelper.getBuildCopy(raids[build_id]);
+    const oldRaid = getBuildCopy(raids[build_id]);
     raids[build_id].date = value.valueOf();
     setRaids([...raids]);
     builds.map((build) => {
@@ -326,7 +356,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     saveBuild(raids[build_id]);
     if (send) {
       message.message_type = "updatebuild";
-      message.data["build"] = BuildHelper.getBuildCopy(raids[build_id]);
+      message.data["build"] = getBuildCopy(raids[build_id]);
       message.data["build"]["players"] = [];
       message.data["oldData"] = oldRaid;
       message.data["oldData"]["players"] = [];
@@ -345,7 +375,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   };
 
   const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
-    const oldRaid = BuildHelper.getBuildCopy(raids[build_id]);
+    const oldRaid = getBuildCopy(raids[build_id]);
     const newRaids = raids.map((raid) => {
       if (raid.build_id === build_id) {
         raid.instance = value.value ?? value;
@@ -356,7 +386,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     saveBuild(raids[build_id]);
     if (send) {
       message.message_type = "updatebuild";
-      message.data["build"] = BuildHelper.getBuildCopy(raids[build_id]);
+      message.data["build"] = getBuildCopy(raids[build_id]);
       message.data["build"]["players"] = [];
       message.data["oldData"] = oldRaid;
       message.data["oldData"]["players"] = [];
@@ -376,7 +406,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
   const resetBuild = (build_id: number, send: boolean = true) => {
     const currentRaid = raids[build_id];
-    const newBuild = BuildHelper.getEmptyBuild(version);
+    const newBuild = getEmptyBuild(version);
     newBuild.name = currentRaid.name;
     newBuild.id = currentRaid.id;
     newBuild.raid_id = currentRaid.raid_id;
@@ -399,7 +429,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     send: boolean = true,
     oldId?: string
   ) => {
-    const newBuild = BuildHelper.getEmptyBuild(version);
+    const newBuild = getEmptyBuild(version);
     newBuild.name = name;
     newBuild.build_id = build_id;
     newBuild.raid_id = maxRaidId + 1;
@@ -438,7 +468,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
 
     const buildIsSet = selectedBuilds.find((selectedBuild) => selectedBuild.value === id);
     if (buildIsSet) {
-      const newBuild = BuildHelper.getEmptyBuild(version);
+      const newBuild = getEmptyBuild(version);
       newBuild.build_id = oldRaid.build_id;
       raids[oldRaid.build_id] = newBuild;
       selectedBuilds[oldRaid.build_id] = { value: newBuild.id, label: newBuild.name };
@@ -473,6 +503,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     BuildHelper.parseSaveRoster(newRoster);
     if (send) {
       message.message_type = "updateroster";
+      message.version = "None";
       message.data["player"] = newPlayer;
       message.data["oldData"] = oldPlayer;
       webSocket.sendMessage(JSON.stringify(message));
@@ -529,7 +560,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     send: boolean = true,
     oldRaid?: number
   ): void => {
-    const currentRaid = BuildHelper.getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
+    const currentRaid = getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
     const newPlayers = currentRaid.players.filter((player) => {
       return player.id !== newPlayer.id;
     });
@@ -707,6 +738,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       (instance) => instance.abbreviation
     );
 
+    setRaids([getEmptyBuild(version), getEmptyBuild(version)]);
+
     const versionBuilds = buildData
       .filter((build) => versionInstances.includes(build.instance))
       .sort((a, b) => a.date - b.date);
@@ -744,9 +777,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
           continue;
         }
       }
-      raids[MAX_RAIDS - 1 - x] = BuildHelper.getEmptyBuild(activeVersion);
+
       raids[MAX_RAIDS - 1 - x].build_id = MAX_RAIDS - 1 - x;
     }
+    setRaids(raids);
 
     loadBuildNames(
       buildData
@@ -924,20 +958,14 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
       <div style={{ display: "flex", alignItems: "flex-start" }}>
         <ScrollingSidebar manager={manager} rosterRef={roster} />
         <div style={{ width: "100%", borderLeft: "1px solid black" }}>
-          <Raid
-            manager={manager}
-            raidBuild={raids.find((raid) => raid?.build_id === 0) ?? raids[0]}
-            builds={buildSelection}
-            version={version}
-            selected={selectedBuilds[0]}
-          ></Raid>
-          <Raid
-            manager={manager}
-            raidBuild={raids.find((raid) => raid?.build_id === 1) ?? raids[1]}
-            builds={buildSelection}
-            version={version}
-            selected={selectedBuilds[1]}
-          ></Raid>
+          {raids.map((raid) => (
+            <Raid
+              manager={manager}
+              raidBuild={raid}
+              builds={buildSelection}
+              version={version}
+            ></Raid>
+          ))}
           <br></br>
 
           <Box display={"flex"} justifyContent={"center"}>

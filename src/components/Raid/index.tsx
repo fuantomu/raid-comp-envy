@@ -22,10 +22,9 @@ export interface RaidProps {
   builds: SelectOption[];
   version: string;
   manager: any;
-  selected: SelectOption;
 }
 
-const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager, selected }) => {
+const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager }) => {
   const [common] = useTranslation("common");
   const context = useAppContext();
   const styles = useStyles();
@@ -80,12 +79,7 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager, selected }) 
         {visible ? (
           <Box display={"grid"} gridTemplateColumns={"1fr 2fr"}>
             <Box>
-              <BuildTitle
-                options={builds ?? []}
-                raidBuild={raidBuild}
-                version={version}
-                selected={selected}
-              />
+              <BuildTitle options={builds ?? []} raidBuild={raidBuild} />
               <br></br>
               <BuildRolesCount build={raidBuild} />
               <Box css={[styles.gridBox, styles.buttons]}>

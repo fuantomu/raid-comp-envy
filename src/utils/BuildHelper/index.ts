@@ -284,7 +284,7 @@ export abstract class BuildHelper {
           ],
           footer: {
             text: Instance[version].find((instance) => instance.abbreviation === build.instance)
-              .name,
+              ?.name,
             icon_url: IconProvider.getCustomIcon(CustomIcon[build.instance])
           }
         }
@@ -521,7 +521,8 @@ export abstract class BuildHelper {
           ([key, val]) => key !== "players" && message?.build[key] !== val
         )
       );
-      const version = localStorage.getItem("LastVersion") ?? "Wotlk";
+      const version = localStorage.getItem("LastVersion");
+      const instances = Instance[version] ?? [];
       Object.keys(differences).forEach((key) => {
         const changeMessage = {
           key,
@@ -545,8 +546,7 @@ export abstract class BuildHelper {
                 hour: "2-digit",
                 minute: "2-digit"
               })
-            : Instance[version].find((instance) => instance.abbreviation === message.oldData[key])
-                .name,
+            : instances.find((instance) => instance.abbreviation === message.oldData[key])?.name,
           new: ["date"].includes(key)
             ? new Date(message.build[key]).toLocaleString("de-de", {
                 day: "2-digit",
@@ -555,8 +555,7 @@ export abstract class BuildHelper {
                 hour: "2-digit",
                 minute: "2-digit"
               })
-            : Instance[version].find((instance) => instance.abbreviation === message.build[key])
-                .name
+            : instances.find((instance) => instance.abbreviation === message.build[key])?.name
         };
         changes.push(changeMessage);
       });
@@ -678,33 +677,6 @@ export abstract class BuildHelper {
       return true;
     }
     return false;
-  }
-
-  public static getEmptyBuild(game_version: string) {
-    return {
-      id: UUID(),
-      name: "New Build",
-      date: new Date().setHours(0, 0, 0, 0),
-      players: [],
-      instance: Instance[game_version][0].abbreviation,
-      build_id: -1
-    } as Build;
-  }
-
-  public static getBuildCopy(build: Build): Build {
-    if (!build) {
-      return this.getEmptyBuild("Wotlk");
-    }
-    const newBuild: Build = {
-      id: build.id,
-      date: build.date,
-      instance: build.instance,
-      name: build.name,
-      players: build.players,
-      raid_id: build.raid_id,
-      build_id: build.build_id
-    };
-    return newBuild;
   }
 
   public static hasCharacterInRaid(character: BuildPlayer, raid: Build) {

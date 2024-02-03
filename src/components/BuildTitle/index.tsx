@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Autocomplete, Box, TextField } from "@mui/material";
 import { Build, BuildData, MessageData, SelectOption } from "../../types";
 import { useAppContext } from "../App/context";
@@ -21,19 +21,14 @@ dayjs.updateLocale("en", {
 export interface BuildTitleProps {
   options: SelectOption[];
   raidBuild: Build;
-  version: string;
-  selected: SelectOption;
 }
 
-const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild, version, selected }) => {
-  const [selectedOption, setSelectedOption] = useState(selected);
-  const [date, setDate] = useState<Dayjs | null>(
-    raidBuild.date
-      ? dayjs(raidBuild.date).set("seconds", 0).set("milliseconds", 0)
-      : dayjs().set("seconds", 0).set("milliseconds", 0)
-  );
-  const instances = Instance[version];
+const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [date, setDate] = useState<Dayjs | null>(dayjs().set("seconds", 0).set("milliseconds", 0));
   const context = useAppContext();
+  const instances = Instance[context.getVersion()];
+
   const [common] = useTranslation("common");
   let handleModalOpen: any = () => {};
 
@@ -52,7 +47,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild, version, selected
       instances.find((instance) => instance.abbreviation === raidBuild.instance)?.abbreviation ??
       raidBuild.instance
   };
-  const [instance, setInstance] = useState(currentInstance);
+  const [instance, setInstance] = useState(null);
 
   useUpdateSocketContext((message: MessageData) => {
     if (RegisteredMessages.build.includes(message.message_type)) {
@@ -77,6 +72,12 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild, version, selected
       }
     }
   });
+
+  useEffect(() => {
+    setDate(dayjs(raidBuild.date));
+    setSelectedOption(context?.getSelectedBuilds().find((build) => build?.value === raidBuild.id));
+    setInstance(currentInstance);
+  }, [raidBuild, context.getVersion()]);
 
   const handleOpen = (callback: any) => {
     handleModalOpen = callback;
@@ -123,7 +124,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild, version, selected
         options={options}
         onChange={handleChange}
         clearOnEscape
-        isOptionEqualToValue={(option, value) => option.value === value.value}
+        isOptionEqualToValue={(option, value) => option?.value === value?.value}
         readOnly={!isAccountRoleAllowed(context.getAccountRole(), "ChangeBuild")}
         renderInput={(params) => <TextField {...params} variant="outlined" />}
         sx={{
@@ -138,8 +139,8 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild, version, selected
         value={instance}
         options={raids}
         onChange={handleInstanceChange}
-        isOptionEqualToValue={(option, value) => option.value === value.value}
         clearOnEscape
+        isOptionEqualToValue={(option, value) => option?.value === value?.value}
         readOnly={!isAccountRoleAllowed(context.getAccountRole(), "ChangeInstance")}
         renderInput={(params) => <TextField {...params} variant="outlined" />}
         sx={{
