@@ -77,7 +77,8 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
     setDate(dayjs(raidBuild.date));
     setSelectedOption(context?.getSelectedBuilds().find((build) => build?.value === raidBuild.id));
     setInstance(currentInstance);
-  }, [raidBuild, context.getVersion()]);
+    // eslint-disable-next-line
+  }, [raidBuild]);
 
   const handleOpen = (callback: any) => {
     handleModalOpen = callback;

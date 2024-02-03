@@ -30,6 +30,7 @@ const ModalCreateBuild: FC<ModalCreateBuildProps> = ({ build_id }) => {
     } else {
       const builds = context?.getBuildSelections();
       if (builds) {
+        setOpen(false);
         context?.addBuild(currentTitle, build_id, true);
       }
     }

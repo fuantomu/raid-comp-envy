@@ -20,6 +20,7 @@ const ModalDeleteBuild: FC<ModalDeleteBuildProps> = ({ id }) => {
   const context = useAppContext();
 
   const handleDelete = async () => {
+    setOpen(false);
     context?.deleteBuild(id);
   };
 
