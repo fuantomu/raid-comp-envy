@@ -44,7 +44,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [buildSelection, setBuildSelection] = useState<SelectOption[]>([]);
   const [selectedBuilds, setSelectedBuilds] = useState<SelectOption[]>([]);
-  const [version, setVersion] = useState(localStorage.getItem("LastVersion"));
+  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Wotlk");
   const [absence, setAbsence] = useState<Absence[]>([]);
   const [maxRaidId, setMaxRaidId] = useState(0);
   const webSocket = useUpdateSocketContext((message: MessageData) => {
