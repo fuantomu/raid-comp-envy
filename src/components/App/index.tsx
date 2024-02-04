@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Box from "@mui/material/Box";
-import { FC, Fragment, lazy, Suspense, useEffect, useState } from "react";
+import { FC, Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "../../utils/i18n";
 import useStyles from "./useStyles";
@@ -13,9 +13,13 @@ import { accountRoleTimeouts } from "../../consts";
 import LogoutTimer from "../LogoutTimer";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { createDragDropManager } from "dnd-core";
-import { Button, Tooltip } from "@mui/material";
+import { Button, MenuItem, TextField, Tooltip } from "@mui/material";
 import { Logout } from "@mui/icons-material";
 import StickyBox from "react-sticky-box";
+import cataclysm from "../../icons/Cata.png";
+import mop from "../../icons/Mop.png";
+import wotlk from "../../icons/Wotlk.png";
+import { useTranslation } from "react-i18next";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -31,6 +35,11 @@ const App: FC = () => {
   const [accountName, setAccountName] = useState("");
   const handleError = useErrorHandler();
   const manager = createDragDropManager(HTML5Backend);
+  const changeVersionRef = useRef<any>();
+  const [common] = useTranslation("common");
+  const [selectedVersion, setSelectedVersion] = useState(
+    localStorage.getItem("LastVersion") ?? "Wotlk"
+  );
 
   const logout = () => {
     setToken(undefined);
@@ -103,6 +112,7 @@ const App: FC = () => {
                     accountName={accountName}
                     accountRole={accountRole}
                     manager={manager}
+                    changeVersionRef={changeVersionRef}
                   />
                 }
               />
@@ -118,7 +128,11 @@ const App: FC = () => {
           bottom: "0"
         }}
       >
-        <Box display={"grid"} sx={{ width: "100%", border: "1px solid black" }}>
+        <Box
+          display={"grid"}
+          gridTemplateColumns={"4fr auto"}
+          sx={{ width: "100%", border: "1px solid black" }}
+        >
           <Tooltip title={"Logout"}>
             <Button onClick={logout}>
               <Box>
@@ -127,6 +141,26 @@ const App: FC = () => {
               </Box>
             </Button>
           </Tooltip>
+          <TextField
+            defaultValue="Wotlk"
+            value={selectedVersion}
+            onChange={(e) => {
+              changeVersionRef.current?.handleChangeVersion(e.target.value);
+              setSelectedVersion(e.target.value);
+            }}
+            select // tell TextField to render select
+            label="Game Version"
+          >
+            <MenuItem id={"Wotlk"} value={"Wotlk"}>
+              <img width={"125"} height={"75"} alt={common(`version.Wotlk`)} src={wotlk} />
+            </MenuItem>
+            <MenuItem id={"Cataclysm"} value={"Cataclysm"}>
+              <img width={"125"} height={"75"} alt={common(`version.Cataclysm`)} src={cataclysm} />
+            </MenuItem>
+            <MenuItem id={"Mop"} disabled value={"Mop"}>
+              <img width={"125"} height={"75"} alt={common(`version.Mop`)} src={mop} />
+            </MenuItem>
+          </TextField>
         </Box>
         <Box sx={{ width: "100%" }}>
           <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>

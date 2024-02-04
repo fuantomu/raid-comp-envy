@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import Box from "@mui/material/Box";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useImperativeHandle, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AppContextProvider } from "../../components/App/context";
 import Loading from "../../components/Loading";
@@ -19,9 +18,6 @@ import {
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
 import { Instance, InviteStatus, RegisteredMessages } from "../../consts";
-import { Button, Tooltip } from "@mui/material";
-import cataclysm from "../../icons/Cata.png";
-import wotlk from "../../icons/Wotlk.png";
 import Raid from "../../components/Raid";
 import ModalAlert from "../../components/ModalAlert";
 import { sortFunctions } from "../../utils/sorting";
@@ -33,9 +29,15 @@ export interface EditBuildPageProps {
   accountName: string;
   accountRole: number;
   manager: any;
+  changeVersionRef: any;
 }
 
-const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manager }) => {
+const EditBuildPage: FC<EditBuildPageProps> = ({
+  accountName,
+  accountRole,
+  manager,
+  changeVersionRef
+}) => {
   const [common] = useTranslation("common");
   const [isLoading, setIsLoading] = useState(true);
   const handleError = useErrorHandler();
@@ -294,13 +296,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     return newBuild;
   };
 
-  const handleChangeVersion = async () => {
-    const newVersion = version === "Cataclysm" ? "Wotlk" : "Cataclysm";
-    setVersion(newVersion);
-    loadBuilds(builds, newVersion).then(() => {
+  const handleChangeVersion = async (selectedVersion: string) => {
+    //const newVersion = version === "Cataclysm" ? "Wotlk" : "Cataclysm";
+    setVersion(selectedVersion);
+    loadBuilds(builds, selectedVersion).then(() => {
       updateRosterStatus();
     });
-    localStorage.setItem("LastVersion", newVersion);
+    localStorage.setItem("LastVersion", selectedVersion);
   };
 
   const handleBuildSelect = (build_id: number, value: any) => {
@@ -938,6 +940,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     // eslint-disable-next-line
   }, [handleError]);
 
+  useImperativeHandle(changeVersionRef, () => ({
+    handleChangeVersion
+  }));
+
   if (isLoading) {
     return <Loading />;
   }
@@ -976,26 +982,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
         <div style={{ width: "100%", borderLeft: "1px solid black" }}>
           {raids.map((raid) => (
             <Raid
+              key={UUID()}
               manager={manager}
               raidBuild={raid}
               builds={buildSelection}
               version={version}
             ></Raid>
           ))}
-          <br></br>
-
-          <Box display={"flex"} justifyContent={"center"}>
-            <Button style={{ width: "250px", height: "150px" }} onClick={handleChangeVersion}>
-              <Tooltip title={common(`version.${version}`)}>
-                <img
-                  width={"250"}
-                  height={"150"}
-                  alt={common(`version.${version}`)}
-                  src={version === "Cataclysm" ? cataclysm : wotlk}
-                ></img>
-              </Tooltip>
-            </Button>
-          </Box>
         </div>
       </div>
     </AppContextProvider>
