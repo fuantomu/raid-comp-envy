@@ -521,8 +521,9 @@ export abstract class BuildHelper {
           ([key, val]) => key !== "players" && message?.build[key] !== val
         )
       );
-      const version = localStorage.getItem("LastVersion");
-      const instances = Instance[version] ?? [];
+      const instances = Object.keys(Instance)
+        .map((key) => Instance[key])
+        .flat();
       Object.keys(differences).forEach((key) => {
         const changeMessage = {
           key,
