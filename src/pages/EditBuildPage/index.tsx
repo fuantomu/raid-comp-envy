@@ -187,7 +187,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   };
 
   const getVersion = (): string => {
-    return version;
+    return version ?? "Wotlk";
   };
 
   const getAlts = (player: BuildPlayer): BuildPlayer[] => {
@@ -751,10 +751,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
     setBuildSelection(buildObject.sort((a, b) => b.date - a.date));
   };
 
-  const loadBuilds = async (buildData: Build[], activeVersion?: string) => {
-    const versionInstances = Instance[activeVersion ?? version].map(
-      (instance) => instance.abbreviation
-    );
+  const loadBuilds = async (buildData: Build[], activeVersion: string = version) => {
+    const versionInstances = Instance[activeVersion].map((instance) => instance.abbreviation);
 
     setRaids([getEmptyBuild(version), getEmptyBuild(version)]);
 
@@ -916,7 +914,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({ accountName, accountRole, manag
   };
 
   const loadData = async (data: Update) => {
-    await loadBuilds(data.builds);
+    await loadBuilds(data.builds, version ?? "Wotlk");
     await loadAbsence(data.absences, data.players);
     setRoster(data.players.sort(sortFunctions["DEFAULT"]));
     updateRosterStatus(data.players);
