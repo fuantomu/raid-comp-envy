@@ -24,7 +24,11 @@ export interface BuildTitleProps {
 }
 
 const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState({
+    date: undefined,
+    label: "",
+    value: ""
+  } as SelectOption);
   const [date, setDate] = useState<Dayjs | null>(dayjs().set("seconds", 0).set("milliseconds", 0));
   const context = useAppContext();
   const instances = Instance[context.getVersion()];
@@ -42,12 +46,12 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
   const currentInstance: SelectOption = {
     label:
       instances.find((instance) => instance.abbreviation === raidBuild.instance)?.name ??
-      raidBuild.instance,
+      raids[0].label,
     value:
       instances.find((instance) => instance.abbreviation === raidBuild.instance)?.abbreviation ??
-      raidBuild.instance
+      raids[0].value
   };
-  const [instance, setInstance] = useState(null);
+  const [instance, setInstance] = useState({ label: "", value: "" } as SelectOption);
 
   useUpdateSocketContext((message: MessageData) => {
     if (RegisteredMessages.build.includes(message.message_type)) {
@@ -75,7 +79,14 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
 
   useEffect(() => {
     setDate(dayjs(raidBuild.date));
-    setSelectedOption(context?.getSelectedBuilds().find((build) => build?.value === raidBuild.id));
+    setSelectedOption(
+      context?.getSelectedBuilds().find((build) => build?.value === raidBuild.id) ??
+        ({
+          date: undefined,
+          label: "",
+          value: ""
+        } as SelectOption)
+    );
     setInstance(currentInstance);
     // eslint-disable-next-line
   }, [raidBuild]);
@@ -126,6 +137,7 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
         onChange={handleChange}
         clearOnEscape
         isOptionEqualToValue={(option, value) => option?.value === value?.value}
+        getOptionLabel={(option) => option.label}
         readOnly={!isAccountRoleAllowed(context.getAccountRole(), "ChangeBuild")}
         renderInput={(params) => <TextField {...params} variant="outlined" />}
         sx={{
