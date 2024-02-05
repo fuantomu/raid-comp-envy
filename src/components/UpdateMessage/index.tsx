@@ -54,7 +54,7 @@ const UpdateMessage: FC<UpdateMessageProps> = (props) => {
                 </Box>
               ) : changeMessage.key === "swap" ? (
                 <Box key={UUID()} css={styles.change}>
-                  {`${changeMessage.propertyType} '${changeMessage.old}' and '${changeMessage.new}' were swapped`}
+                  {`${changeMessage.propertyType} '${changeMessage.old.name}' and '${changeMessage.new.name}' were swapped`}
                 </Box>
               ) : changeMessage.old ? (
                 <Box key={UUID()} css={styles.change}>

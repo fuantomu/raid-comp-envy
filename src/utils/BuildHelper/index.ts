@@ -452,18 +452,17 @@ export abstract class BuildHelper {
   private static getPlayerChanges(message: PlayerData, builds: Build[], remove?: boolean) {
     const changes: Difference[] = [];
     const foundBuild = builds.find((build) => build?.id === message.build_id);
-
     // Update message
     if (message.oldData) {
       const differences = Object.fromEntries(
         Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
       );
       for (const key of Object.keys(differences)) {
-        if (key === "raid" && message.oldData[key] === -1) {
+        if ((key === "raid" && message.oldData[key] === -1) || key === "1") {
           continue;
         }
         const changeMessage = {
-          key: key === "0" || key === "1" ? "swap" : key,
+          key: key === "0" ? "swap" : key,
           objectType: "Raid",
           objectName: foundBuild
             ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
@@ -480,15 +479,13 @@ export abstract class BuildHelper {
             ? message.oldData[key] + 1
             : ["spec"].includes(key)
             ? message.oldData[key].split(/(?=[A-Z])/).pop()
-            : key === "0"
-            ? message.oldData[key].name
             : message.oldData[key],
           new: ["raid"].includes(key)
             ? message.player[key] + 1
             : ["spec"].includes(key)
             ? message.player[key].split(/(?=[A-Z])/).pop()
             : key === "0"
-            ? message.player.name
+            ? message.player
             : message.player[key]
         };
         changes.push(changeMessage);
