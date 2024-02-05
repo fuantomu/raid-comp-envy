@@ -662,7 +662,7 @@ export abstract class BuildHelper {
   }
 
   public static isSameLockout(player: BuildPlayer, raids: Build[]): boolean {
-    const currentDate = new Date();
+    const currentDate = new Date(Math.min(...raids.map((raid) => raid.date)));
     const otherRaids = raids.filter((raid) => {
       return raid.id !== raids[player.raid].id;
     });
@@ -671,8 +671,8 @@ export abstract class BuildHelper {
     currentDate.setHours(0, 0, 0, 0);
     const sameLockout = otherRaids.find((otherBuild) => {
       return (
-        new Date(raids[player.raid].date).setHours(0, 0, 0, 0) - currentDate.getTime() < 0 &&
-        new Date(otherBuild.date).setHours(0, 0, 0, 0) - currentDate.getTime() < 0
+        new Date(raids[player.raid].date).setHours(0, 0, 0, 0) - currentDate.getTime() <= 0 &&
+        new Date(otherBuild.date).setHours(0, 0, 0, 0) - currentDate.getTime() <= 0
       );
     });
     if (sameLockout) {
