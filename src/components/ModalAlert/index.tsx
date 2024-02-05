@@ -34,6 +34,8 @@ const ModalAlert: FC<ModalAlertProps> = ({
   const [boxTitle, setTitle] = useState(title);
   const context = useAppContext();
   const [continuePlayer, setContinuePlayer] = useState();
+  const [swap, setSwap] = useState(false);
+  const [oldRaid, setOldRaid] = useState();
 
   const handleClose = () => {
     setOpen(false);
@@ -45,6 +47,10 @@ const ModalAlert: FC<ModalAlertProps> = ({
         for (const param in props.params) {
           if (param === "continue") {
             setContinuePlayer(props.params[param]);
+          } else if (param === "swap") {
+            setSwap(props.params[param]);
+          } else if (param === "oldRaid") {
+            setOldRaid(props.params[param]);
           } else {
             props.content = props.content.replace(`$${param.toUpperCase()}`, props.params[param]);
           }
@@ -68,7 +74,7 @@ const ModalAlert: FC<ModalAlertProps> = ({
   const handleContinue = (response: ModalAlertResponse) => {
     return async () => {
       if (continuePlayer) {
-        context.importPlayer(continuePlayer, true);
+        context.importPlayer(continuePlayer, true, oldRaid, swap);
       }
       setOpen(false);
     };

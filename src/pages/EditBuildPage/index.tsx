@@ -635,10 +635,66 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     }
   };
 
+  const swapPlayer = (newPlayer: BuildPlayer, oldRaid: number, send: boolean = true) => {
+    const swappedCharacters: BuildPlayer[] = [];
+    if (oldRaid === -1) {
+      const otherCharacters = raids
+        .map((raid) => raid.players)
+        .flat()
+        .filter((player) => player.main === newPlayer.main);
+      for (const character of otherCharacters) {
+        if (
+          (BuildHelper.isSameInstance(newPlayer, raids) &&
+            BuildHelper.isSameLockout(newPlayer, raids)) ||
+          raids[character.raid].build_id === newPlayer.raid
+        ) {
+          removePlayerFromRaid(character, false, false);
+          swappedCharacters.push(character);
+        }
+      }
+      addPlayerToRaid(newPlayer, false);
+    } else {
+      const currentPlayer = raids
+        .map((raid) => raid.players)
+        .flat()
+        .find((player) => player.id === newPlayer.id);
+      const otherCharacter = raids
+        .map((raid) => raid.players)
+        .flat()
+        .find((player) => player.main === newPlayer.main && player.id !== newPlayer.id);
+
+      removePlayerFromRaid(newPlayer, false, false, oldRaid);
+      currentPlayer.raid = otherCharacter.raid;
+      addPlayerToRaid(currentPlayer, false);
+
+      removePlayerFromRaid(otherCharacter, false, false, newPlayer.raid);
+      otherCharacter.raid = oldRaid;
+      addPlayerToRaid(otherCharacter, false);
+      swappedCharacters.push(otherCharacter);
+    }
+    if (newPlayer.raid !== -1) {
+      saveBuild(raids[newPlayer.raid]);
+    }
+    if (oldRaid !== -1) {
+      saveBuild(raids[oldRaid]);
+    }
+
+    if (send) {
+      message.message_type = "swapplayer";
+      message.data = {
+        player: newPlayer,
+        build_id: raids[newPlayer.raid].id,
+        oldData: swappedCharacters
+      };
+      webSocket.sendMessage(JSON.stringify(message));
+    }
+  };
+
   const importPlayer = (
     newPlayer: BuildPlayer,
     ignoreErrors: boolean = false,
-    oldRaid?: number
+    oldRaid?: number,
+    swap: boolean = false
   ): void => {
     if (newPlayer.group_id === "roster") {
       if (newPlayer.raid === -1) {
@@ -671,7 +727,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       handleModalOpen({
         title: common("error.player.import"),
         content: common("error.player.declined"),
-        params: { player: newPlayer.main, continue: newPlayer }
+        params: { player: newPlayer.main, continue: newPlayer, swap: true, oldRaid: oldRaid }
       });
       return;
     }
@@ -680,8 +736,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       handleModalOpen({
         title: common("error.player.import"),
         content: common("error.player.exists"),
-        params: { player: newPlayer.main, continue: newPlayer }
+        params: { player: newPlayer.main, continue: newPlayer, swap: true, oldRaid: oldRaid }
       });
+      return;
+    }
+
+    if (swap) {
+      swapPlayer(newPlayer, oldRaid);
       return;
     }
 

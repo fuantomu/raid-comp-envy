@@ -463,7 +463,7 @@ export abstract class BuildHelper {
           continue;
         }
         const changeMessage = {
-          key,
+          key: key === "0" || key === "1" ? "swap" : key,
           objectType: "Raid",
           objectName: foundBuild
             ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
@@ -480,11 +480,15 @@ export abstract class BuildHelper {
             ? message.oldData[key] + 1
             : ["spec"].includes(key)
             ? message.oldData[key].split(/(?=[A-Z])/).pop()
+            : key === "0"
+            ? message.oldData[key].name
             : message.oldData[key],
           new: ["raid"].includes(key)
             ? message.player[key] + 1
             : ["spec"].includes(key)
             ? message.player[key].split(/(?=[A-Z])/).pop()
+            : key === "0"
+            ? message.player.name
             : message.player[key]
         };
         changes.push(changeMessage);

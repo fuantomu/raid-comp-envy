@@ -90,7 +90,8 @@
       "composition": "Composition",
       "checklist": "Checklist",
       "raid0": "Raid 1",
-      "raid1": "Raid 2"
+      "raid1": "Raid 2",
+      "raid-1": "Loading Raid"
     },
     "roster": {
       "expand": "Expand all",
@@ -262,8 +263,8 @@
     "player": {
       "import": "Error during import",
       "tentative": "Player '$PLAYER' is absent during the raid period. If you are sure to set them, click 'Continue'",
-      "declined": "There are already characters from '$PLAYER' in each raid. If you are sure to set them, click 'Continue'",
-      "exists": "There is already another character from '$PLAYER' in this raid. If you are sure to set them, click 'Continue'"
+      "declined": "There are already characters from '$PLAYER' in each raid. If you want to swap them, click 'Continue'",
+      "exists": "There is already another character from '$PLAYER' in this raid. If you want to swap them, click 'Continue'"
     },
     "build": {
       "title": "Error setting build",

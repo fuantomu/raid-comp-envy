@@ -193,7 +193,8 @@ export const MessageType = {
   addbuild: "Build added",
   resetbuild: "Build resetted",
   removebuild: "Build deleted",
-  absence: "Absence received"
+  absence: "Absence received",
+  swapplayer: "Player swapped"
 };
 
 export const RegisteredMessages = {
@@ -206,7 +207,8 @@ export const RegisteredMessages = {
     "addbuild",
     "removebuild",
     "resetbuild",
-    "updatebuild"
+    "updatebuild",
+    "swapplayer"
   ],
   absence: ["absence"]
 };
