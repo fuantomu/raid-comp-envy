@@ -143,19 +143,18 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     };
     if (roster || checked) {
       context?.updateRoster({ ...playerInfo, group_id: "roster" as GroupId }, true, remove);
-    }
-
-    if (remove) {
-      if (checked) {
-        context?.removePlayerFromRaids(playerInfo, true, false);
+    } else if (!roster) {
+      if (remove) {
+        if (checked) {
+          context?.removePlayerFromRaids(playerInfo, true, false);
+        } else {
+          context?.removePlayerFromRaid(playerInfo, true);
+        }
       } else {
-        context?.removePlayerFromRaid(playerInfo, true);
-      }
-    } else {
-      if (!roster) {
         context?.importPlayer(playerInfo);
       }
     }
+
     setAlt("DEFAULT");
     setMain("DEFAULT");
     setName("");

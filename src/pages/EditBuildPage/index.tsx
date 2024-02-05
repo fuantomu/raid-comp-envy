@@ -502,16 +502,19 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     remove: boolean = false
   ): void => {
     const oldPlayer = roster.find((player) => player.id === newPlayer.id);
-    const newRoster = [...roster.filter((player) => player.id !== newPlayer.id), newPlayer];
-    if (oldPlayer) {
+    const newRoster = [...roster.filter((player) => player.id !== newPlayer.id)];
+    if (!remove) {
+      newRoster.push(newPlayer);
+    }
+    if (oldPlayer && !remove) {
       const differences = Object.fromEntries(
         Object.entries(oldPlayer).filter(([key, val]) => newPlayer[key] !== val)
       );
-      if (Object.entries(differences).length === 0 && !remove) {
+      if (Object.entries(differences).length === 0) {
         return;
       }
     }
-    updateRosterStatus(newRoster);
+    updateRosterStatus([...newRoster]);
     BuildHelper.parseSaveRoster(newRoster);
     if (send) {
       message.message_type = "updateroster";
@@ -554,6 +557,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     currentRaid.players = [...otherPlayers, newPlayer];
 
     raids[newPlayer.raid] = currentRaid;
+
     updateRosterStatus();
     updateRaidStatus();
     setRaids([...raids]);
@@ -587,6 +591,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     currentRaid.players = [...newPlayers];
 
     raids[oldRaid ?? newPlayer.raid] = currentRaid;
+
     updateRosterStatus();
     updateRaidStatus();
     setRaids([...raids]);
