@@ -172,5 +172,10 @@ export enum CustomIcon {
   WRATH = "achievement_boss_lichking",
   CATACLYSM = "achievment_boss_madnessofdeathwing",
   ICC = "achievement_zone_icecrown_01",
-  RS = "spell_shadow_twilight"
+  RS = "spell_shadow_twilight",
+  BWD = "achievement_boss_nefarion",
+  BOT = "spell_fire_twilightcano",
+  FOURWINDS = "achievement_boss_murmur",
+  FL = "achievement_zone_firelands",
+  DS = "achievment_boss_madnessofdeathwing"
 }

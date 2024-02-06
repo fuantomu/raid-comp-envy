@@ -141,11 +141,11 @@ export const Instance = {
     },
     {
       name: "The Bastion of Twilight",
-      abbreviation: "BoT"
+      abbreviation: "BOT"
     },
     {
       name: "Throne of the Four Winds",
-      abbreviation: "4Winds"
+      abbreviation: "FOURWINDS"
     },
     {
       name: "Firelands",
