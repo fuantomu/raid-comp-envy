@@ -842,15 +842,23 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   const loadBuilds = async (buildData: Build[], activeVersion: string = version) => {
     const versionInstances = Instance[activeVersion].map((instance) => instance.abbreviation);
 
-    const temp_raids = [
-      Instance[activeVersion].includes(buildData[buildData.length - 1].instance)
+    if (raids.length === 0) {
+      raids.push(
+        Instance[activeVersion].includes(buildData[buildData.length - 1].instance)
+          ? buildData[buildData.length - 1] ?? getEmptyBuild()
+          : getEmptyBuild(),
+        Instance[activeVersion].includes(buildData[buildData.length - 2].instance)
+          ? buildData[buildData.length - 2] ?? getEmptyBuild()
+          : getEmptyBuild()
+      );
+    } else {
+      raids[0] = Instance[activeVersion].includes(buildData[buildData.length - 1].instance)
         ? buildData[buildData.length - 1] ?? getEmptyBuild()
-        : getEmptyBuild(),
-      Instance[activeVersion].includes(buildData[buildData.length - 2].instance)
+        : getEmptyBuild();
+      raids[1] = Instance[activeVersion].includes(buildData[buildData.length - 2].instance)
         ? buildData[buildData.length - 2] ?? getEmptyBuild()
-        : getEmptyBuild()
-    ];
-    setRaids(temp_raids);
+        : getEmptyBuild();
+    }
 
     const versionBuilds = buildData
       .filter((build) => versionInstances.includes(build.instance))
@@ -864,7 +872,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         if (foundBuild) {
           await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
             response.build_id = x;
-            temp_raids[x] = response;
+            raids[x] = response;
           });
           continue;
         } else {
@@ -873,7 +881,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
             if (foundBuild) {
               await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
                 response.build_id = x;
-                temp_raids[x] = response;
+                raids[x] = response;
               });
               continue;
             }
@@ -884,21 +892,21 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         if (foundBuild) {
           await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
             response.build_id = MAX_RAIDS - 1 - x;
-            temp_raids[MAX_RAIDS - 1 - x] = response;
+            raids[MAX_RAIDS - 1 - x] = response;
           });
           continue;
         }
       }
 
-      temp_raids[MAX_RAIDS - 1 - x].build_id = MAX_RAIDS - 1 - x;
+      raids[MAX_RAIDS - 1 - x].build_id = MAX_RAIDS - 1 - x;
     }
-    setRaids(temp_raids);
+    setRaids(raids);
 
     loadBuildNames(
       buildData
         .filter((build) => versionInstances.includes(build.instance))
         .sort((a, b) => a.date - b.date),
-      temp_raids
+      raids
     );
 
     buildData.forEach((build) => {
