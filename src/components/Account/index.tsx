@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Box, Button, Container, Input, Typography } from "@mui/material";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useStyles from "./useStyles";
 import { getHash } from "../../utils/hash";
@@ -9,25 +9,27 @@ import UUID from "../../utils/UUID";
 import { useNavigate } from "react-router-dom";
 import Logo from "../Logo";
 
-export type Props = {
-  setNewAccount: Dispatch<SetStateAction<boolean>>;
-};
+export type Props = {};
 
-const Account: FC<Props> = ({ setNewAccount }) => {
+const Account: FC<Props> = () => {
   const [common] = useTranslation("common");
   const styles = useStyles();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, showError] = useState(false);
+  const [empty, showEmpty] = useState(false);
   const [created, setCreated] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e: any) => {
+    if (!username || !password) {
+      showEmpty(true);
+      return;
+    }
     e.preventDefault();
     const hash = getHash(username, password);
     RosterProvider.saveAccountLogin(username, JSON.stringify({ hash })).then((response) => {
       if (response === -1) {
-        setNewAccount(false);
         showError(true);
       } else {
         setCreated(true);
@@ -42,7 +44,6 @@ const Account: FC<Props> = ({ setNewAccount }) => {
   };
 
   const handleGoBack = () => {
-    setNewAccount(true);
     navigate("/");
   };
 
@@ -88,6 +89,7 @@ const Account: FC<Props> = ({ setNewAccount }) => {
               onChange={(e) => {
                 setUserName(e.target.value);
                 showError(false);
+                showEmpty(false);
               }}
               onKeyDown={handleKeyDown}
             />
@@ -98,10 +100,12 @@ const Account: FC<Props> = ({ setNewAccount }) => {
               type="password"
               onChange={(e) => {
                 setPassword(e.target.value);
+                showEmpty(false);
               }}
               onKeyDown={handleKeyDown}
             />
             <h4 style={{ color: "red" }}>{error ? common("account.error") : null}</h4>
+            <h4 style={{ color: "red" }}>{empty ? common("account.empty") : null}</h4>
             <Box display={"flex"} css={{ justifyContent: "center" }}>
               <Button color="primary" variant="contained" onClick={handleSubmit}>
                 {common("account.submit")}

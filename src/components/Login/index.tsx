@@ -52,6 +52,8 @@ const Login: FC<Props> = ({
         setToken(newToken);
         setIssueTime(new Date().getTime());
         setLoggedIn(true);
+
+        window.location.pathname = "/edit";
         setRole(response);
         RosterProvider.saveLoginAge(host, JSON.stringify({ role: response, username }));
       }

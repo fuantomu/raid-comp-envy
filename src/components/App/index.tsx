@@ -26,12 +26,11 @@ const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
 
 const App: FC = () => {
   const style = useStyles();
-  const [token, setToken] = useState(localStorage.getItem("token") ?? undefined);
+  const [token, setToken] = useState(localStorage.getItem("token") ?? null);
   const [host] = useState(localStorage.getItem("host") ?? UUID());
   const [issueTime, setIssueTime] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
   const [accountRole, setAccountRole] = useState(-1);
-  const [newAccount, setNewAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
   const handleError = useErrorHandler();
   const manager = createDragDropManager(HTML5Backend);
@@ -42,9 +41,10 @@ const App: FC = () => {
   );
 
   const logout = () => {
-    setToken(undefined);
+    setToken(null);
     localStorage.removeItem("token");
     setLoggedIn(false);
+    RosterProvider.deleteLogin(host);
   };
 
   useEffect(() => {
@@ -75,7 +75,6 @@ const App: FC = () => {
 
         if (newTime >= parseFloat(accountRoleTimeouts[accountRole])) {
           logout();
-          RosterProvider.deleteLogin(host);
         }
       }
     }, 1000);
@@ -84,88 +83,113 @@ const App: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleError, loggedIn]);
 
-  if (window.location.pathname === "/account" && !newAccount) {
-    return <Account setNewAccount={setNewAccount}></Account>;
-  }
-  if (!token || issueTime === 0) {
-    return (
-      <Login
-        setToken={setToken}
-        setIssueTime={setIssueTime}
-        setLoggedIn={setLoggedIn}
-        setRole={setAccountRole}
-        setAccountName={setAccountName}
-        host={host}
-      />
-    );
-  }
   return (
     <Fragment>
       <Box css={style.content} test-id="mui-root">
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route
-                path="*"
-                element={
-                  <EditBuildPage
-                    accountName={accountName}
-                    accountRole={accountRole}
-                    manager={manager}
-                    changeVersionRef={changeVersionRef}
-                  />
-                }
-              />
-            </Routes>
+            {!token || issueTime <= 0 ? (
+              <Routes>
+                <Route path="/account" element={<Account></Account>} />
+                <Route
+                  path="*"
+                  element={
+                    <Login
+                      setToken={setToken}
+                      setIssueTime={setIssueTime}
+                      setLoggedIn={setLoggedIn}
+                      setRole={setAccountRole}
+                      setAccountName={setAccountName}
+                      host={host}
+                    />
+                  }
+                />
+              </Routes>
+            ) : (
+              <Routes>
+                <Route path="/account" element={<Account></Account>} />
+                <Route
+                  path="/edit"
+                  element={
+                    <EditBuildPage
+                      accountName={accountName}
+                      accountRole={accountRole}
+                      manager={manager}
+                      changeVersionRef={changeVersionRef}
+                    />
+                  }
+                />
+                <Route
+                  path="*"
+                  element={
+                    <EditBuildPage
+                      accountName={accountName}
+                      accountRole={accountRole}
+                      manager={manager}
+                      changeVersionRef={changeVersionRef}
+                    />
+                  }
+                />
+              </Routes>
+            )}
           </Suspense>
         </ErrorBoundary>
       </Box>
-      <StickyBox
-        style={{
-          width: "100%",
-          background: "#1d1d1d",
-          left: "0",
-          bottom: "0"
-        }}
-      >
-        <Box
-          display={"grid"}
-          gridTemplateColumns={"4fr auto"}
-          sx={{ width: "100%", border: "1px solid black" }}
+      {loggedIn && window.location.pathname !== "/account" ? (
+        <StickyBox
+          style={{
+            width: "100%",
+            background: "#1d1d1d",
+            left: "0",
+            bottom: "0"
+          }}
         >
-          <Tooltip title={"Logout"}>
-            <Button onClick={logout}>
-              <Box>
-                <Box>{`Currently logged in as ${accountName}`}</Box>
-                <Logout />
-              </Box>
-            </Button>
-          </Tooltip>
-          <TextField
-            defaultValue="Wotlk"
-            value={selectedVersion}
-            onChange={(e) => {
-              changeVersionRef.current?.handleChangeVersion(e.target.value);
-              setSelectedVersion(e.target.value);
-            }}
-            select // tell TextField to render select
-            label="Game Version"
+          <Box
+            display={"grid"}
+            gridTemplateColumns={"4fr auto"}
+            sx={{ width: "100%", border: "1px solid black" }}
           >
-            <MenuItem id={"Wotlk"} value={"Wotlk"}>
-              <img width={"125"} height={"75"} alt={common(`version.Wotlk`)} src={wotlk} />
-            </MenuItem>
-            <MenuItem id={"Cataclysm"} value={"Cataclysm"}>
-              <img width={"125"} height={"75"} alt={common(`version.Cataclysm`)} src={cataclysm} />
-            </MenuItem>
-            <MenuItem id={"Mop"} disabled value={"Mop"}>
-              <img width={"125"} height={"75"} alt={common(`version.Mop`)} src={mop} />
-            </MenuItem>
-          </TextField>
-        </Box>
-        <Box sx={{ width: "100%" }}>
-          <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
-        </Box>
-      </StickyBox>
+            <Tooltip title={"Logout"}>
+              <Button onClick={logout}>
+                <Box>
+                  <Box>{`Currently logged in as ${accountName}`}</Box>
+                  <Logout />
+                </Box>
+              </Button>
+            </Tooltip>
+            <TextField
+              defaultValue="Wotlk"
+              value={selectedVersion}
+              onChange={(e) => {
+                changeVersionRef.current?.handleChangeVersion(e.target.value);
+                setSelectedVersion(e.target.value);
+              }}
+              select // tell TextField to render select
+              label="Game Version"
+            >
+              <MenuItem id={"Wotlk"} value={"Wotlk"}>
+                <img width={"125"} height={"75"} alt={common(`version.Wotlk`)} src={wotlk} />
+              </MenuItem>
+              <MenuItem id={"Cataclysm"} value={"Cataclysm"}>
+                <img
+                  width={"125"}
+                  height={"75"}
+                  alt={common(`version.Cataclysm`)}
+                  src={cataclysm}
+                />
+              </MenuItem>
+              <MenuItem id={"Mop"} disabled value={"Mop"}>
+                <img width={"125"} height={"75"} alt={common(`version.Mop`)} src={mop} />
+              </MenuItem>
+            </TextField>
+          </Box>
+          <Box sx={{ width: "100%" }}>
+            <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
+          </Box>
+        </StickyBox>
+      ) : (
+        <></>
+      )}
     </Fragment>
   );
 };

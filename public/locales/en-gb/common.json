@@ -301,6 +301,7 @@
     "title": "Create account",
     "submit": "Create",
     "error": "Account with that username already exists",
+    "empty": "Username or password is empty",
     "created": "Account has been created!",
     "gotologin": "Go to login"
   },
