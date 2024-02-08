@@ -35,7 +35,7 @@ export abstract class BuildHelper {
     const emptyGroups = BuildHelper.getEmptyGroups();
     const groups: BuildGroups = {
       ...emptyGroups,
-      none: {
+      bench: {
         group_id: "bench",
         players: []
       }

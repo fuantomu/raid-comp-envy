@@ -297,7 +297,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const handleChangeVersion = async (selectedVersion: string) => {
-    //const newVersion = version === "Cataclysm" ? "Wotlk" : "Cataclysm";
     setVersion(selectedVersion);
     loadBuilds(builds, selectedVersion).then(() => {
       updateRosterStatus();

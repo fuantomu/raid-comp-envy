@@ -7,6 +7,7 @@ import { getHash } from "../../utils/hash";
 import { RosterProvider } from "../../utils/RosterProvider";
 import UUID from "../../utils/UUID";
 import Logo from "../Logo";
+import { useNavigate } from "react-router-dom";
 
 export type Props = {
   setToken: Dispatch<SetStateAction<string>>;
@@ -30,6 +31,7 @@ const Login: FC<Props> = ({
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, showError] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -53,7 +55,7 @@ const Login: FC<Props> = ({
         setIssueTime(new Date().getTime());
         setLoggedIn(true);
 
-        window.location.pathname = "/edit";
+        navigate("/home");
         setRole(response);
         RosterProvider.saveLoginAge(host, JSON.stringify({ role: response, username }));
       }

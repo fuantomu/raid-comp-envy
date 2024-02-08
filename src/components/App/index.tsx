@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Box from "@mui/material/Box";
 import { FC, Fragment, lazy, Suspense, useEffect, useRef, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "../../utils/i18n";
 import useStyles from "./useStyles";
 import Login from "../Login";
@@ -20,6 +20,7 @@ import cataclysm from "../../icons/Cata.png";
 import mop from "../../icons/Mop.png";
 import wotlk from "../../icons/Wotlk.png";
 import { useTranslation } from "react-i18next";
+import HomePage from "../../pages/HomePage";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -39,12 +40,14 @@ const App: FC = () => {
   const [selectedVersion, setSelectedVersion] = useState(
     localStorage.getItem("LastVersion") ?? "Wotlk"
   );
+  const navigate = useNavigate();
 
   const logout = () => {
-    setToken(null);
-    localStorage.removeItem("token");
-    setLoggedIn(false);
-    RosterProvider.deleteLogin(host);
+    RosterProvider.deleteLogin(host).then(() => {
+      setToken(null);
+      localStorage.removeItem("token");
+      setLoggedIn(false);
+    });
   };
 
   useEffect(() => {
@@ -83,72 +86,71 @@ const App: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleError, loggedIn]);
 
+  if (
+    (!token || issueTime < 0) &&
+    window.location.pathname !== "/account" &&
+    window.location.pathname !== "/login"
+  ) {
+    window.location.pathname = "/login";
+  }
+
   return (
     <Fragment>
       <Box css={style.content} test-id="mui-root">
         <ErrorBoundary>
           <Suspense fallback={<Loading />}>
-            {!token || issueTime <= 0 ? (
-              <Routes>
-                <Route path="/account" element={<Account></Account>} />
-                <Route
-                  path="*"
-                  element={
-                    <Login
-                      setToken={setToken}
-                      setIssueTime={setIssueTime}
-                      setLoggedIn={setLoggedIn}
-                      setRole={setAccountRole}
-                      setAccountName={setAccountName}
-                      host={host}
-                    />
-                  }
-                />
-              </Routes>
-            ) : (
-              <Routes>
-                <Route path="/account" element={<Account></Account>} />
-                <Route
-                  path="/edit"
-                  element={
-                    <EditBuildPage
-                      accountName={accountName}
-                      accountRole={accountRole}
-                      manager={manager}
-                      changeVersionRef={changeVersionRef}
-                    />
-                  }
-                />
-                <Route
-                  path="*"
-                  element={
-                    <EditBuildPage
-                      accountName={accountName}
-                      accountRole={accountRole}
-                      manager={manager}
-                      changeVersionRef={changeVersionRef}
-                    />
-                  }
-                />
-              </Routes>
-            )}
+            <Routes>
+              <Route path="/account" element={<Account />} />
+              <Route
+                path="/login"
+                element={
+                  <Login
+                    setToken={setToken}
+                    setIssueTime={setIssueTime}
+                    setLoggedIn={setLoggedIn}
+                    setRole={setAccountRole}
+                    setAccountName={setAccountName}
+                    host={host}
+                  />
+                }
+              />
+              <Route
+                path="/edit"
+                element={
+                  <EditBuildPage
+                    accountName={accountName}
+                    accountRole={accountRole}
+                    manager={manager}
+                    changeVersionRef={changeVersionRef}
+                  />
+                }
+              />
+              <Route path="/home" element={<HomePage changeVersionRef={changeVersionRef} />} />
+            </Routes>
           </Suspense>
         </ErrorBoundary>
       </Box>
-      {loggedIn && window.location.pathname !== "/account" ? (
+      {loggedIn &&
+      window.location.pathname !== "/account" &&
+      window.location.pathname !== "/login" ? (
         <StickyBox
           style={{
             width: "100%",
-            background: "#1d1d1d",
-            left: "0",
-            bottom: "0"
+            background: "#1d1d1d"
           }}
+          bottom={true}
         >
           <Box
             display={"grid"}
-            gridTemplateColumns={"4fr auto"}
+            gridTemplateColumns={"0.5fr 0.5fr 4fr auto"}
             sx={{ width: "100%", border: "1px solid black" }}
           >
+            <Button sx={{ borderRight: "1px solid black" }} onClick={() => navigate("/home")}>
+              Home
+            </Button>
+            <Button sx={{ borderRight: "1px solid black" }} onClick={() => navigate("/edit")}>
+              Planner
+            </Button>
             <Tooltip title={"Logout"}>
               <Button onClick={logout}>
                 <Box>
