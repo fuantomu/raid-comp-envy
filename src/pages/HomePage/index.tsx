@@ -8,6 +8,7 @@ import { Instance } from "../../consts";
 import { Box, Typography } from "@mui/material";
 import UUID from "../../utils/UUID";
 import SetupBuild from "../../components/SetupBuild";
+import { getWeekNumber } from "../../utils/Calendar";
 
 export interface HomePageProps {
   changeVersionRef: any;
@@ -121,7 +122,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
             day: "2-digit",
             month: "2-digit",
             year: "numeric"
-          })}`}
+          })}, KW${getWeekNumber(getLockouts()[0])}`}
         </Typography>
         {raidsThisLockout.map((raid) => (
           <SetupBuild players={raid.players} name={raid.name} date={raid.date}></SetupBuild>
@@ -151,7 +152,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
             day: "2-digit",
             month: "2-digit",
             year: "numeric"
-          })}`}
+          })}, KW${getWeekNumber(getLockouts()[1])}`}
         </Typography>
         {raidsNextLockout.map((raid) => (
           <SetupBuild players={raid.players} name={raid.name} date={raid.date}></SetupBuild>
