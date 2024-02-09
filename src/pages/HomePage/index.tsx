@@ -34,7 +34,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
     const lockoutEnd = new Date();
     lockoutEnd.setDate(lockoutEnd.getDate() + (3 + 7 - lockoutEnd.getDay()));
     const nextLockoutEnd = new Date();
-    nextLockoutEnd.setDate(nextLockoutEnd.getDate() + (3 + 7 + nextLockoutEnd.getDay()));
+    nextLockoutEnd.setDate(nextLockoutEnd.getDate() + (3 + 14 - nextLockoutEnd.getDay()));
     return [lockoutStart, lockoutEnd, nextLockoutEnd];
   };
 
