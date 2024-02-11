@@ -507,24 +507,28 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   ): void => {
     const oldPlayer = roster.find((player) => player.id === newPlayer.id);
     const newRoster = [...roster.filter((player) => player.id !== newPlayer.id)];
-    if (!remove) {
-      newRoster.push(newPlayer);
-    }
-    if (oldPlayer && !remove) {
-      const differences = Object.fromEntries(
-        Object.entries(oldPlayer).filter(([key, val]) => newPlayer[key] !== val)
-      );
-      if (Object.entries(differences).length === 0) {
-        return;
+
+    if (remove) {
+      BuildHelper.parseDeleteRosterPlayer(newPlayer);
+    } else {
+      if (oldPlayer) {
+        const differences = Object.fromEntries(
+          Object.entries(oldPlayer).filter(([key, val]) => newPlayer[key] !== val)
+        );
+        if (Object.entries(differences).length === 0) {
+          return;
+        }
       }
+      newRoster.push(newPlayer);
+      BuildHelper.parseSaveRoster(newRoster);
     }
     updateRosterStatus([...newRoster]);
-    BuildHelper.parseSaveRoster(newRoster);
+
     if (send) {
-      message.message_type = "updateroster";
+      message.message_type = remove ? "removeroster" : "updateroster";
       message.version = "None";
       message.data["player"] = newPlayer;
-      message.data["oldData"] = oldPlayer;
+      message.data["oldData"] = remove ? undefined : oldPlayer;
       webSocket.sendMessage(JSON.stringify(message));
     }
   };
