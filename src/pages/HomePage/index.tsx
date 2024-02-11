@@ -58,23 +58,22 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
     setRaidsThisLockout([getEmptyBuild(), getEmptyBuild()]);
     setRaidsNextLockout([getEmptyBuild(), getEmptyBuild()]);
 
-    const lastLockout = new Date();
-    lastLockout.setDate(lastLockout.getDate() + ((3 - 7 - lastLockout.getDay()) % 7));
-    lastLockout.setHours(0, 0, 0, 0);
-    const nextLockout = new Date();
-    nextLockout.setDate(nextLockout.getDate() + (3 + 7 - nextLockout.getDay()));
-    nextLockout.setHours(0, 0, 0, 0);
+    const lockouts = getLockouts();
 
     const versionBuilds = buildData
       .filter((build) => versionInstances.includes(build.instance))
       .sort((a, b) => a.date - b.date);
     setRaidsThisLockout(
       versionBuilds.filter(
-        (build) => build.date >= lastLockout.getTime() && build.date < nextLockout.getTime()
+        (build) => build.date >= lockouts[0].getTime() && build.date <= lockouts[1].getTime()
       )
     );
 
-    setRaidsNextLockout(versionBuilds.filter((build) => build.date >= nextLockout.getTime()));
+    setRaidsNextLockout(
+      versionBuilds.filter(
+        (build) => build.date >= lockouts[1].getTime() && build.date < lockouts[2].getTime()
+      )
+    );
 
     setIsLoading(false);
   };
