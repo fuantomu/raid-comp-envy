@@ -32,10 +32,10 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
     const lockoutStart = new Date();
     lockoutStart.setDate(lockoutStart.getDate() + ((3 - 7 - lockoutStart.getDay()) % 7));
     const lockoutEnd = new Date();
-    lockoutEnd.setDate(lockoutEnd.getDate() + (3 + 7 - lockoutEnd.getDay()));
-    const nextLockoutEnd = new Date();
-    nextLockoutEnd.setDate(nextLockoutEnd.getDate() + (3 + 14 - nextLockoutEnd.getDay()));
-    return [lockoutStart, lockoutEnd, nextLockoutEnd];
+    lockoutEnd.setDate(lockoutEnd.getDate() + ((3 + 7 - lockoutEnd.getDay()) % 7));
+    const nextLockoutStart = new Date();
+    nextLockoutStart.setDate(nextLockoutStart.getDate() + (3 + 7 - nextLockoutStart.getDay()));
+    return [lockoutStart, lockoutEnd, nextLockoutStart];
   };
 
   const getEmptyBuild = (game_version?: string, build_id?: number) => {
@@ -122,7 +122,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
             day: "2-digit",
             month: "2-digit",
             year: "numeric"
-          })}, KW${getWeekNumber(getLockouts()[0])}`}
+          })}, KW${getWeekNumber(getLockouts()[0])}-KW${getWeekNumber(getLockouts()[1])}`}
         </Typography>
         {raidsThisLockout.map((raid) => (
           <SetupBuild players={raid.players} name={raid.name} date={raid.date}></SetupBuild>
@@ -152,7 +152,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
             day: "2-digit",
             month: "2-digit",
             year: "numeric"
-          })}, KW${getWeekNumber(getLockouts()[1])}`}
+          })}, KW${getWeekNumber(getLockouts()[1])}-KW${getWeekNumber(getLockouts()[2])}`}
         </Typography>
         {raidsNextLockout.map((raid) => (
           <SetupBuild players={raid.players} name={raid.name} date={raid.date}></SetupBuild>
