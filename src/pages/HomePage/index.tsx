@@ -99,7 +99,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
   }
 
   return (
-    <Box display={"flex"} width={"100%"} height={window.innerHeight * 0.91}>
+    <Box display={"flex"} width={"100%"} height={window.innerHeight - 116}>
       <Box
         border={"1px solid black"}
         margin={"8px"}

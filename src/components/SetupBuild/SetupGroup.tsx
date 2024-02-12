@@ -16,17 +16,16 @@ export interface SetupGroupProps {
 }
 
 const SetupGroup: FC<SetupGroupProps> = ({ players = [], group_id }) => {
-  const styles = useStyles();
   const [common] = useTranslation("common");
   return (
     <Card sx={{ border: "1px solid black" }}>
-      <CardContent>
-        <Box display={"grid"} gridTemplateColumns={"1fr 20px"}>
+      <CardContent sx={{ margin: "-12px" }}>
+        <Box display={"grid"} gridTemplateColumns={"1fr auto"}>
           <Typography style={{ caretColor: "transparent", userSelect: "none" }} variant="subtitle1">
             {common("build.groups.group_each", { group_id: group_id.toString() })}
           </Typography>
         </Box>
-        <Box css={styles.spread}>
+        <Box>
           {players.length > 0 ? (
             players.map((player) => <SetupPlayer key={UUID()} {...player} />)
           ) : (

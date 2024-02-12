@@ -16,7 +16,7 @@ export interface SetupPlayerProps extends BuildPlayer {}
 
 const SetupPlayer: FC<SetupPlayerProps> = (props) => {
   const [common] = useTranslation();
-  const { name, class_name, spec, status, race, group_id, main } = props;
+  const { name, class_name, spec, race, group_id, main } = props;
   const styles = useStyles(class_name);
   const fullName = `${name}`;
 
@@ -24,19 +24,21 @@ const SetupPlayer: FC<SetupPlayerProps> = (props) => {
     <Box>
       <Box
         key={UUID()}
-        css={styles.player(true, status)}
+        css={styles.player(true)}
         onClick={() =>
           window.open(`${process.env.REACT_APP_DASHBOARD}/user.php?user=${name}`, "_blank")
         }
       >
-        <Box css={styles.icons}>
+        <Box>
           <WarcraftIcon
+            css={styles.icons}
             title={`${common(`specs.${spec}`)} ${common(`classes.${class_name}`)}`}
             src={spec ? IconProvider.getSpecIcon(spec) : IconProvider.getClassIcon(class_name)}
           />
         </Box>
         <Box>
           <WarcraftIcon
+            css={styles.icons}
             title={`${common(`races.${race}`)}`}
             src={IconProvider.getRaceIcon(race ?? WarcraftPlayerRace.Human)}
           />

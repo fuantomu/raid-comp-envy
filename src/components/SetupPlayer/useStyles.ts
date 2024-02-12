@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { InviteStatus, WarcraftClassColour, WarcraftPlayerClass } from "../../consts";
+import { WarcraftClassColour, WarcraftPlayerClass } from "../../consts";
 import useTheme, { Spacing } from "../../utils/useTheme";
 
 export default (class_name: WarcraftPlayerClass) => {
@@ -7,40 +7,27 @@ export default (class_name: WarcraftPlayerClass) => {
   const { palette, spacing } = theme;
 
   return {
-    player: (isClickable: boolean, status?: InviteStatus) => {
+    player: (isClickable: boolean) => {
       return css`
         display: grid;
-        grid-template-columns: 22px 22px 1fr 14px auto;
+        grid-template-columns: 10px 10px 1fr 1em auto;
         gap: ${spacing(Spacing.xs)};
-        padding: ${spacing(Spacing.xxs)};
         margin: 1px;
-        background-color: ${status === "accepted"
-          ? "#2c4a2c"
-          : status === "declined"
-          ? "#4a2121"
-          : status === "tentative"
-          ? "#69670e"
-          : palette.background.default};
+        background-color: ${palette.background.default};
         border-radius: ${spacing(Spacing.xxs)};
         align-items: center;
         user-select: none;
         cursor: ${isClickable && "pointer"};
 
         &:hover {
-          background-color: ${status === "accepted"
-            ? palette.success.light
-            : status === "declined"
-            ? palette.error.light
-            : status === "tentative"
-            ? palette.warning.dark
-            : palette.secondary.dark};
+          background-color: ${palette.secondary.dark};
         }
       `;
     },
     icons: css`
       display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 0.2ch;
+      width: 16px;
+      height: 16px;
     `,
     name: css`
       font-weight: ${theme.typography.fontWeightMedium}!important;
@@ -48,7 +35,6 @@ export default (class_name: WarcraftPlayerClass) => {
       text-shadow: 1px 1px black;
       text-overflow: ellipsis;
       white-space: nowrap;
-      overflow: hidden;
     `
   };
 };
