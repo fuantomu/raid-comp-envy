@@ -11,9 +11,10 @@ export interface SetupProps {
   players: BuildPlayer[];
   name: string;
   date: number;
+  instance: string;
 }
 
-const SetupBuild: FC<SetupProps> = ({ players, name, date }) => {
+const SetupBuild: FC<SetupProps> = ({ players, name, date, instance }) => {
   const styles = useStyles();
   const groups = BuildHelper.getGroups(players);
   return (
@@ -26,15 +27,15 @@ const SetupBuild: FC<SetupProps> = ({ players, name, date }) => {
         }}
         variant="subtitle1"
       >
-        {`${name}, ${new Date(date).toLocaleString("de-DE", { weekday: "long" })} - ${new Date(
-          date
-        ).toLocaleString("de-DE", {
+        {`${name}, ${new Date(date).toLocaleString("de-DE", {
+          weekday: "long"
+        })} - ${new Date(date).toLocaleString("de-DE", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
           hour: "2-digit",
           minute: "2-digit"
-        })}`}
+        })} - ${instance}`}
       </Typography>
 
       <Box key={UUID()} css={styles.grouped}>

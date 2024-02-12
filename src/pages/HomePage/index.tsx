@@ -57,7 +57,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
   const loadRaids = async (buildData: Build[], activeVersion: string = version) => {
     const versionInstances = Instance[activeVersion].map((instance) => instance.abbreviation);
 
-    setBuilds([...builds, ...buildData]);
+    setBuilds([...buildData]);
     setRaidsThisLockout([getEmptyBuild(), getEmptyBuild()]);
     setRaidsNextLockout([getEmptyBuild(), getEmptyBuild()]);
 
@@ -131,6 +131,9 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
             key={UUID()}
             players={raid.players}
             name={raid.name}
+            instance={
+              Instance[version].find((instance) => instance.abbreviation === raid.instance).name
+            }
             date={raid.date}
           ></SetupBuild>
         ))}
@@ -166,6 +169,9 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
             key={UUID()}
             players={raid.players}
             name={raid.name}
+            instance={
+              Instance[version].find((instance) => instance.abbreviation === raid.instance).name
+            }
             date={raid.date}
           ></SetupBuild>
         ))}
