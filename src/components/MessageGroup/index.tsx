@@ -8,9 +8,10 @@ import useStyles from "./useStyles";
 import { Typography } from "@mui/material";
 import UpdateMessage from "../UpdateMessage";
 import { useAppContext } from "../App/context";
-import { BuildPlayer, Message } from "../../types";
+import { BuildPlayer, Message, MessageData } from "../../types";
 import { useUpdateSocketContext } from "../UpdateSocket/context";
 import { BuildHelper } from "../../utils/BuildHelper";
+import { RegisteredMessages } from "../../consts";
 
 export interface MessageGroupProps {
   rosterRef: BuildPlayer[];
@@ -20,9 +21,15 @@ const MessageGroup: FC<MessageGroupProps> = ({ rosterRef }) => {
   const styles = useStyles();
   const context = useAppContext();
   const MAX_MESSAGES_TO_LOAD = 50;
-  useUpdateSocketContext((message) => {
-    const parsedMessage = BuildHelper.parseMessage(message, context.getBuilds(), rosterRef);
-    setMessageHistory([parsedMessage, ...messageHistory].slice(0, MAX_MESSAGES_TO_LOAD));
+  useUpdateSocketContext((message: MessageData) => {
+    if (
+      RegisteredMessages.roster.includes(message.message_type) ||
+      RegisteredMessages.build.includes(message.message_type) ||
+      RegisteredMessages.absence.includes(message.message_type)
+    ) {
+      const parsedMessage = BuildHelper.parseMessage(message, context.getBuilds(), rosterRef);
+      setMessageHistory([parsedMessage, ...messageHistory].slice(0, MAX_MESSAGES_TO_LOAD));
+    }
   }, true);
 
   const [messageHistory, setMessageHistory] = useState<Message[]>([]);

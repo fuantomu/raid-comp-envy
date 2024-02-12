@@ -160,3 +160,8 @@ export type MessageData = {
   date: number;
   version: string;
 };
+
+export type LoggedInUser = {
+  host: string;
+  username: string;
+};

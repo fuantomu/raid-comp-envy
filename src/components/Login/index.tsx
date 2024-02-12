@@ -5,27 +5,18 @@ import { useTranslation } from "react-i18next";
 import useStyles from "./useStyles";
 import { getHash } from "../../utils/hash";
 import { RosterProvider } from "../../utils/RosterProvider";
-import UUID from "../../utils/UUID";
 import Logo from "../Logo";
 import { useNavigate } from "react-router-dom";
 
 export type Props = {
-  setToken: Dispatch<SetStateAction<string>>;
   setIssueTime: Dispatch<SetStateAction<number>>;
-  setLoggedIn: Dispatch<SetStateAction<boolean>>;
   setRole: Dispatch<SetStateAction<number>>;
   setAccountName: Dispatch<SetStateAction<string>>;
   host: string;
+  login: (username: string) => void;
 };
 
-const Login: FC<Props> = ({
-  setToken,
-  setIssueTime,
-  setLoggedIn,
-  setRole,
-  setAccountName,
-  host
-}) => {
+const Login: FC<Props> = ({ setIssueTime, setRole, setAccountName, host, login }) => {
   const [common] = useTranslation("common");
   const styles = useStyles();
   const [username, setUserName] = useState("");
@@ -42,19 +33,11 @@ const Login: FC<Props> = ({
     const hash = getHash(username, password);
     RosterProvider.getAccountLogin(username, hash).then((response) => {
       if (response === -1) {
-        setToken("");
-        setIssueTime(0);
-        setLoggedIn(false);
         showError(true);
       } else {
-        const newToken = UUID();
-        localStorage.setItem("token", newToken);
-        localStorage.setItem("host", host);
         setAccountName(username);
-        setToken(newToken);
         setIssueTime(new Date().getTime());
-        setLoggedIn(true);
-
+        login(username);
         navigate("/home");
         setRole(response);
         RosterProvider.saveLoginAge(host, JSON.stringify({ role: response, username }));

@@ -21,6 +21,8 @@ import mop from "../../icons/Mop.png";
 import wotlk from "../../icons/Wotlk.png";
 import { useTranslation } from "react-i18next";
 import HomePage from "../../pages/HomePage";
+import { LoggedInUser, MessageData } from "../../types";
+import { socketId, useUpdateSocketContext } from "../UpdateSocket/context";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -41,13 +43,53 @@ const App: FC = () => {
     localStorage.getItem("LastVersion") ?? "Wotlk"
   );
   const navigate = useNavigate();
+  const [users, setUsers] = useState<LoggedInUser[]>([]);
+  const webSocket = useUpdateSocketContext((message: MessageData) => {
+    if (message.message_type === "users") {
+      const newUsers: LoggedInUser[] = JSON.parse(message.data);
+      setUsers(newUsers);
+    } else if (message.message_type === "login") {
+      const newUsers: LoggedInUser[] = JSON.parse(message.data);
+      setUsers(newUsers);
+    } else if (message.message_type === "logout") {
+      const newUsers: LoggedInUser[] = users.filter((user) => user.host !== message.data["host"]);
+      setUsers([...newUsers]);
+    }
+  }, true);
+
+  const message = {
+    socketId,
+    message_type: "",
+    data: {},
+    account_name: accountName,
+    date: new Date().getTime(),
+    version: "System"
+  };
 
   const logout = () => {
     RosterProvider.deleteLogin(host).then(() => {
       setToken(null);
       localStorage.removeItem("token");
       setLoggedIn(false);
+      navigate("/login");
+      const newUsers = users.filter((user) => user.host !== host);
+      setUsers([...newUsers]);
+      message.data = { host: host, username: accountName };
+      message.message_type = "logout";
+      webSocket.sendMessage(JSON.stringify(message));
     });
+  };
+
+  const login = (username) => {
+    const newToken = UUID();
+    localStorage.setItem("token", newToken);
+    localStorage.setItem("host", host);
+    setToken(newToken);
+    setLoggedIn(true);
+    message.data = { host: host, username: username };
+    message.message_type = "login";
+    setUsers([{ host: host, username: username }]);
+    webSocket.sendMessage(JSON.stringify(message));
   };
 
   useEffect(() => {
@@ -60,11 +102,7 @@ const App: FC = () => {
             setAccountName(response.username);
             const timeDifference = (new Date().getTime() - response.created_date) / 1000;
             if (timeDifference <= parseFloat(accountRoleTimeouts[response.role])) {
-              const newToken = UUID();
-              localStorage.setItem("token", newToken);
-              localStorage.setItem("host", host);
-              setToken(newToken);
-              setLoggedIn(true);
+              login(response.username);
               return;
             }
           }
@@ -105,12 +143,11 @@ const App: FC = () => {
                 path="/login"
                 element={
                   <Login
-                    setToken={setToken}
                     setIssueTime={setIssueTime}
-                    setLoggedIn={setLoggedIn}
                     setRole={setAccountRole}
                     setAccountName={setAccountName}
                     host={host}
+                    login={login}
                   />
                 }
               />
@@ -135,24 +172,30 @@ const App: FC = () => {
       window.location.pathname !== "/login" ? (
         <StickyBox
           style={{
-            width: "100%",
-            background: "#1d1d1d"
+            background: "#1d1d1d",
+            height: "116px"
           }}
           bottom={true}
         >
           <Box
             display={"grid"}
             gridTemplateColumns={"0.5fr 0.5fr 4fr auto"}
-            sx={{ width: "100%", border: "1px solid black" }}
+            sx={{ width: "100%", border: "1px solid black", height: "95px" }}
           >
-            <Button sx={{ borderRight: "1px solid black" }} onClick={() => navigate("/home")}>
+            <Button
+              sx={{ borderRight: "1px solid black", height: "95px" }}
+              onClick={() => navigate("/home")}
+            >
               Home
             </Button>
-            <Button sx={{ borderRight: "1px solid black" }} onClick={() => navigate("/edit")}>
+            <Button
+              sx={{ borderRight: "1px solid black", height: "95px" }}
+              onClick={() => navigate("/edit")}
+            >
               Planner
             </Button>
             <Tooltip title={"Logout"}>
-              <Button onClick={logout}>
+              <Button sx={{ height: "95px" }} onClick={logout}>
                 <Box>
                   <Box>{`Currently logged in as ${accountName}`}</Box>
                   <Logout />
@@ -168,6 +211,7 @@ const App: FC = () => {
               }}
               select // tell TextField to render select
               label="Game Version"
+              size="small"
             >
               <MenuItem id={"Wotlk"} value={"Wotlk"}>
                 <img width={"125"} height={"75"} alt={common(`version.Wotlk`)} src={wotlk} />
@@ -185,8 +229,15 @@ const App: FC = () => {
               </MenuItem>
             </TextField>
           </Box>
-          <Box sx={{ width: "100%" }}>
-            <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
+          <Box sx={{ height: "16px" }} display={"grid"} gridTemplateColumns={"auto 4fr"}>
+            <Box marginLeft={"16px"}>
+              <Tooltip title={users.map((user) => user.username).join(",")}>
+                <Box>{`Active Users: ${users.length}`}</Box>
+              </Tooltip>
+            </Box>
+            <Box>
+              <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>
+            </Box>
           </Box>
         </StickyBox>
       ) : (

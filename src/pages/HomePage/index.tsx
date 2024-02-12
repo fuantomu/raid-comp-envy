@@ -96,7 +96,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
   }
 
   return (
-    <Box display={"flex"} width={"100%"} height={window.innerHeight * 0.88}>
+    <Box display={"flex"} width={"100%"} height={window.innerHeight * 0.91}>
       <Box
         border={"1px solid black"}
         margin={"8px"}
@@ -124,7 +124,12 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
           })}, KW${getWeekNumber(getLockouts()[0])}-KW${getWeekNumber(getLockouts()[1])}`}
         </Typography>
         {raidsThisLockout.map((raid) => (
-          <SetupBuild players={raid.players} name={raid.name} date={raid.date}></SetupBuild>
+          <SetupBuild
+            key={UUID()}
+            players={raid.players}
+            name={raid.name}
+            date={raid.date}
+          ></SetupBuild>
         ))}
       </Box>
       <Box
@@ -154,7 +159,12 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
           })}, KW${getWeekNumber(getLockouts()[1])}-KW${getWeekNumber(getLockouts()[2])}`}
         </Typography>
         {raidsNextLockout.map((raid) => (
-          <SetupBuild players={raid.players} name={raid.name} date={raid.date}></SetupBuild>
+          <SetupBuild
+            key={UUID()}
+            players={raid.players}
+            name={raid.name}
+            date={raid.date}
+          ></SetupBuild>
         ))}
       </Box>
     </Box>
