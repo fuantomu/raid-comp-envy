@@ -476,12 +476,12 @@ export abstract class BuildHelper {
           propertyName: message.player.name,
           propertyType: "Player",
           old: ["raid"].includes(key)
-            ? message.oldData[key] + 1
+            ? builds.find((build) => build?.id === message.oldData[key]).name
             : ["spec"].includes(key)
             ? message.oldData[key].split(/(?=[A-Z])/).pop()
             : message.oldData[key],
           new: ["raid"].includes(key)
-            ? message.player[key] + 1
+            ? builds.find((build) => build?.id === message.player[key]).name
             : ["spec"].includes(key)
             ? message.player[key].split(/(?=[A-Z])/).pop()
             : key === "0"
