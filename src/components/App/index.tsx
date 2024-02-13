@@ -30,7 +30,6 @@ const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
 const App: FC = () => {
   const style = useStyles();
   const [token, setToken] = useState(localStorage.getItem("token") ?? null);
-  const [host] = useState(localStorage.getItem("host") ?? UUID());
   const [issueTime, setIssueTime] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
   const [accountRole, setAccountRole] = useState(-1);
@@ -67,14 +66,14 @@ const App: FC = () => {
   };
 
   const logout = () => {
-    RosterProvider.deleteLogin(host).then(() => {
+    RosterProvider.deleteLogin(socketId).then(() => {
       setToken(null);
       localStorage.removeItem("token");
       setLoggedIn(false);
       navigate("/login");
-      const newUsers = users.filter((user) => user.host !== host);
+      const newUsers = users.filter((user) => user.host !== socketId);
       setUsers([...newUsers]);
-      message.data = { host: host, username: accountName };
+      message.data = { host: socketId, username: accountName };
       message.message_type = "logout";
       webSocket.sendMessage(JSON.stringify(message));
     });
@@ -83,18 +82,18 @@ const App: FC = () => {
   const login = (username) => {
     const newToken = UUID();
     localStorage.setItem("token", newToken);
-    localStorage.setItem("host", host);
+    localStorage.setItem("host", socketId);
     setToken(newToken);
     setLoggedIn(true);
-    message.data = { host: host, username: username };
+    message.data = { host: socketId, username: username };
     message.message_type = "login";
-    setUsers([{ host: host, username: username }]);
+    setUsers([{ host: socketId, username: username }]);
     webSocket.sendMessage(JSON.stringify(message));
   };
 
   useEffect(() => {
     if (!loggedIn && issueTime === 0) {
-      RosterProvider.getLoginAge(host)
+      RosterProvider.getLoginAge(socketId)
         .then((response) => {
           if (response.created_date > 0) {
             setIssueTime(response.created_date);
@@ -146,7 +145,7 @@ const App: FC = () => {
                     setIssueTime={setIssueTime}
                     setRole={setAccountRole}
                     setAccountName={setAccountName}
-                    host={host}
+                    host={socketId}
                     login={login}
                   />
                 }

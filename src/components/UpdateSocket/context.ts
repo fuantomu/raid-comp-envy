@@ -7,7 +7,7 @@ const UpdateSocketContext = createContext(undefined);
 
 export const UpdateSocketContextProvider = UpdateSocketContext.Provider;
 
-export const socketId = UUID();
+export const socketId = localStorage.getItem("host") ?? UUID();
 
 export const useUpdateSocketContext = (messageEvent, allowSelf?: boolean) =>
   useWebSocket(process.env.REACT_APP_WEBSOCKET, {
@@ -19,6 +19,12 @@ export const useUpdateSocketContext = (messageEvent, allowSelf?: boolean) =>
       if (message.socketId !== socketId || allowSelf) {
         return messageEvent(message);
       }
+    },
+    heartbeat: {
+      message: JSON.stringify({ message_type: "heartbeat", host: socketId }),
+      returnMessage: JSON.stringify({ message_type: "heartbeat" }),
+      timeout: 120000, // 2 minutes, if no response is received, the connection will be closed
+      interval: 45000 // every 45 seconds, a ping message will be sent
     },
     share: true,
     reconnectAttempts: 10,
