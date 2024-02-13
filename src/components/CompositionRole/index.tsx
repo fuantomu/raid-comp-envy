@@ -17,7 +17,7 @@ import useStyles from "./useStyles";
 export interface CompositionRoleProps {
   role: WarcraftRole;
   players: BuildPlayer[];
-  raid: number;
+  raid: string;
 }
 
 const CompositionRole: FC<CompositionRoleProps> = ({ role, players, raid }) => {
@@ -25,7 +25,7 @@ const CompositionRole: FC<CompositionRoleProps> = ({ role, players, raid }) => {
   const [common] = useTranslation("common");
   const styles = useStyles();
 
-  const buildRolePlayers = (players: BuildPlayer[], raid: number) => {
+  const buildRolePlayers = (players: BuildPlayer[], raid: string) => {
     return players.map((player) => (
       <Player
         key={UUID()}

@@ -40,7 +40,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
   const [group_id, setGroupId] = useState(1 as GroupId);
   const [main, setMain] = useState("DEFAULT");
   const [name, setName] = useState("");
-  const [raid, setRaid] = useState(Number);
+  const [raid, setRaid] = useState(String);
   const [id, setId] = useState(String);
   const [alt, setAlt] = useState("DEFAULT");
   const [checked, setChecked] = useState(false);
@@ -146,9 +146,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     } else if (!roster) {
       if (remove) {
         if (checked) {
-          context?.removePlayerFromRaids(playerInfo, true, false);
+          context?.removePlayerFromRaids(playerInfo, true, true);
         } else {
-          context?.removePlayerFromRaid(playerInfo, true);
+          context?.removePlayerFromRaid(playerInfo, true, true, raid);
         }
       } else {
         context?.importPlayer(playerInfo);

@@ -9,7 +9,7 @@ import ModalAlert, { ModalAlertResponse } from "../ModalAlert";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 
 export interface ModalResetBuildProps {
-  build_id: number;
+  build_id: string;
 }
 
 const ModalResetBuild: FC<ModalResetBuildProps> = ({ build_id }) => {

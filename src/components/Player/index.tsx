@@ -21,7 +21,7 @@ export interface PlayerProps extends BuildPlayer {
   onClick?: () => void;
   alts?: BuildPlayer[];
   rosterVisible?: boolean;
-  raid: number;
+  raid: string;
 }
 
 const Player: FC<PlayerProps> = (props) => {

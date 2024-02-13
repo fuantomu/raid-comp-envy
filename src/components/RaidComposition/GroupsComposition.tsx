@@ -9,7 +9,7 @@ import useStyles from "./useStyles";
 
 interface GroupsCompositionProps {
   players: BuildPlayer[];
-  raid: number;
+  raid: string;
 }
 
 const GroupsComposition: FC<GroupsCompositionProps> = ({ players, raid }) => {

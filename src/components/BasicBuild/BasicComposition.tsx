@@ -8,7 +8,7 @@ import useStyles from "./useStyles";
 
 interface BasicCompositionProps {
   players: BuildPlayer[];
-  raid: number;
+  raid: string;
 }
 
 const BasicComposition: FC<BasicCompositionProps> = ({ players, raid }) => {

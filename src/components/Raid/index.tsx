@@ -114,8 +114,8 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager }) => {
                 {visibleNotSet ? (
                   <BasicBuild
                     manager={manager}
-                    players={context?.getUnsetMains(raidBuild.build_id) ?? []}
-                    raid={raidBuild.build_id}
+                    players={context?.getUnsetMains(raidBuild.id) ?? []}
+                    raid={raidBuild.id}
                   />
                 ) : (
                   <></>
@@ -146,8 +146,8 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager }) => {
                 {visibleAbsent ? (
                   <BasicBuild
                     manager={manager}
-                    players={context?.getAbsentPlayers(raidBuild.build_id) ?? []}
-                    raid={raidBuild.build_id}
+                    players={context?.getAbsentPlayers(raidBuild.id) ?? []}
+                    raid={raidBuild.id}
                   />
                 ) : (
                   <></>
@@ -193,7 +193,7 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager }) => {
             <RaidComposition
               manager={manager}
               players={raidBuild?.players}
-              raid={raidBuild.build_id}
+              raid={raidBuild.id}
               grouped={grouped}
             />
           </Box>
@@ -238,8 +238,8 @@ const Raid: FC<RaidProps> = ({ raidBuild, builds, version, manager }) => {
           <></>
         )}
         <Box css={[styles.gridBox, styles.buttons]}>
-          <ModalPostDiscord build_id={raidBuild.build_id} />
-          <ModalResetBuild build_id={raidBuild.build_id} />
+          <ModalPostDiscord build_id={raidBuild.id} />
+          <ModalResetBuild build_id={raidBuild.id} />
         </Box>
       </CardContent>
     </Card>

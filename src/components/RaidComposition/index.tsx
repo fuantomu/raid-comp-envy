@@ -9,7 +9,7 @@ export interface RaidCompositionProps {
   players: BuildPlayer[];
   grouped?: boolean;
   manager: any;
-  raid: number;
+  raid: string;
 }
 
 const RaidComposition: FC<RaidCompositionProps> = ({ players, grouped, manager, raid }) => {

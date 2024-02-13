@@ -22,7 +22,7 @@ export type BuildPlayer = {
   class_name: WarcraftPlayerClass;
   spec: WarcraftPlayerSpec;
   race: WarcraftPlayerRace;
-  raid: number;
+  raid: string;
   status: InviteStatus;
   group_id?: GroupId;
   main?: string;

@@ -10,7 +10,7 @@ import useStyles from "./useStyles";
 
 interface RolesCompositionProps {
   players: BuildPlayer[];
-  raid: number;
+  raid: string;
 }
 
 const RolesComposition: FC<RolesCompositionProps> = ({ players, raid }) => {

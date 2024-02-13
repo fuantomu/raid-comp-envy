@@ -37,7 +37,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
             class_name: player.class_name,
             spec: player.spec,
             race: player.race,
-            raid: -5,
+            raid: player.raid,
             status: player.status,
             group_id: "roster" as GroupId,
             main: player.main,

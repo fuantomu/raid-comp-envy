@@ -14,7 +14,7 @@ import { Typography } from "@mui/material";
 
 export interface BasicGroupProps {
   players: BuildPlayer[];
-  raid: number;
+  raid: string;
 }
 
 const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid }) => {
@@ -31,7 +31,7 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid }) => {
             class_name: player.class_name,
             spec: player.spec,
             race: player.race,
-            raid,
+            raid: player.raid,
             status: player.status,
             group_id: "roster" as GroupId,
             main: player.main,

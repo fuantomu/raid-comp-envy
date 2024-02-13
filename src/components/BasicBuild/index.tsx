@@ -6,7 +6,7 @@ import BasicComposition from "./BasicComposition";
 
 export interface BasicProps {
   players: BuildPlayer[];
-  raid: number;
+  raid: string;
   manager: any;
 }
 

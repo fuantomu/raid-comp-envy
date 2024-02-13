@@ -19,7 +19,7 @@ import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 export interface CompositionGroupProps {
   players: BuildPlayer[];
   group_id: GroupId;
-  raid: number;
+  raid: string;
 }
 
 const CompositionGroup: FC<CompositionGroupProps> = ({ group_id, players = [], raid }) => {

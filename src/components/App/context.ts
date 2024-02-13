@@ -5,14 +5,19 @@ type AppContextApi = {
   importPlayer: (
     player: BuildPlayer,
     ignoreErrors?: boolean,
-    oldRaid?: number,
+    oldRaid?: string,
     swap?: boolean
   ) => void;
-  removePlayerFromRaid: (player: BuildPlayer, save: boolean, saveRoster?: boolean) => void;
-  removePlayerFromRaids: (player: BuildPlayer, save: boolean, saveRoster?: boolean) => void;
+  removePlayerFromRaid: (
+    player: BuildPlayer,
+    save: boolean,
+    send?: boolean,
+    oldRaid?: string
+  ) => void;
+  removePlayerFromRaids: (player: BuildPlayer, save: boolean, send?: boolean) => void;
   updateRoster: (player: BuildPlayer, send?: boolean, remove?: boolean) => void;
-  resetBuild: (build_id: number) => void;
-  getRaid: (build_id: number) => Build;
+  resetBuild: (id: string) => void;
+  getRaid: (id: string) => Build;
   getBuilds: () => Build[];
   editPlayer: (player: BuildPlayer, fromRoster?: boolean) => void;
   handleBuildSelect: (build_id: number, value: any) => void;
@@ -22,8 +27,8 @@ type AppContextApi = {
   deleteBuild: (id: string) => void;
   getPlayerAbsence: (player: string, date?: number) => Absence[];
   setBuildInstance: (build_id: number, value: any) => void;
-  getAbsentPlayers: (build_id: number) => BuildPlayer[];
-  getUnsetMains: (build_id: number) => BuildPlayer[];
+  getAbsentPlayers: (id: string) => BuildPlayer[];
+  getUnsetMains: (id: string) => BuildPlayer[];
   getAlts: (player: BuildPlayer) => BuildPlayer[];
   getMains: () => BuildPlayer[];
   getSelectedBuilds: () => SelectOption[];

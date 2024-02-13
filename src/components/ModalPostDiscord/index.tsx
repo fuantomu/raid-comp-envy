@@ -12,7 +12,7 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import StyledTextField from "../StyledTextField";
 
 export interface ModalPostDiscordProps {
-  build_id: number;
+  build_id: string;
 }
 
 const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id }) => {

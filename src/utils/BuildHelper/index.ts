@@ -97,7 +97,7 @@ export abstract class BuildHelper {
                 BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
               race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
               status: player.status,
-              raid: -1,
+              raid: "roster",
               group_id: "roster",
               main: player.main ?? "",
               alt: player.alt ?? "None"
@@ -161,7 +161,7 @@ export abstract class BuildHelper {
               name: player.name,
               class_name: player.class_name as WarcraftPlayerClass,
               spec: player.spec as WarcraftPlayerSpec,
-              raid: player.raid,
+              raid: responseBuild.id,
               race: player.race as WarcraftPlayerRace,
               status: player.status as InviteStatus,
               group_id: player.group_id as GroupId,
@@ -333,7 +333,7 @@ export abstract class BuildHelper {
                 BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
               race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
               status: InviteStatus.Unknown,
-              raid: -1,
+              raid: "roster",
               group_id: "roster",
               main: player.main ?? "",
               alt: player.alt ?? "None"
@@ -357,7 +357,7 @@ export abstract class BuildHelper {
                 name: player.name,
                 class_name: player.class_name as WarcraftPlayerClass,
                 spec: player.spec as WarcraftPlayerSpec,
-                raid: player.raid,
+                raid: build.id,
                 race: player.race as WarcraftPlayerRace,
                 status: InviteStatus.Unknown,
                 group_id: player.group_id as GroupId,
@@ -458,7 +458,7 @@ export abstract class BuildHelper {
         Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
       );
       for (const key of Object.keys(differences)) {
-        if ((key === "raid" && message.oldData[key] === -1) || key === "1") {
+        if ((key === "raid" && message.oldData[key] === "roster") || key === "1") {
           continue;
         }
         const changeMessage = {
@@ -616,7 +616,7 @@ export abstract class BuildHelper {
 
   public static isPlayerAlreadyInRaid(player: BuildPlayer, raids: Build[]): boolean {
     const playerRaid = raids.find((build) => {
-      return build.build_id === player.raid;
+      return build.id === player.raid;
     });
     if (playerRaid) {
       const isInParty = playerRaid.players.find((partyPlayer: BuildPlayer) => {
@@ -632,7 +632,7 @@ export abstract class BuildHelper {
 
   public static isPlayerMovedBetweenRaids(player: BuildPlayer, raids: Build[]): boolean {
     const otherRaids = raids.filter((raid) => {
-      return raid.id !== raids[player.raid]?.id;
+      return raid.id !== player.raid;
     });
     const otherPlayers = [];
     otherRaids.map((otherRaid) => {
@@ -650,10 +650,10 @@ export abstract class BuildHelper {
 
   public static isSameInstance(player: BuildPlayer, raids: Build[]): boolean {
     const otherRaids = raids.filter((raid) => {
-      return raid.id !== raids[player.raid]?.id;
+      return raid.id !== player.raid;
     });
     const sameInstance = otherRaids.find(
-      (otherRaid) => otherRaid.instance === raids[player.raid]?.instance
+      (otherRaid) => otherRaid.instance === raids.find((raid) => raid.id === player.raid)?.instance
     );
     if (sameInstance) {
       return true;
@@ -664,15 +664,16 @@ export abstract class BuildHelper {
   public static isSameLockout(player: BuildPlayer, raids: Build[]): boolean {
     const currentDate = new Date(Math.min(...raids.map((raid) => raid.date)));
     const otherRaids = raids.filter((raid) => {
-      return raid.id !== raids[player.raid].id;
+      return raid.id !== player.raid;
     });
     // Get the next reset time
     currentDate.setDate(currentDate.getDate() + ((3 + 7 - currentDate.getDay()) % 7 || 7));
     currentDate.setHours(0, 0, 0, 0);
     const sameLockout = otherRaids.find((otherBuild) => {
       return (
-        new Date(raids[player.raid].date).setHours(0, 0, 0, 0) - currentDate.getTime() <= 0 &&
-        new Date(otherBuild.date).setHours(0, 0, 0, 0) - currentDate.getTime() <= 0
+        new Date(raids.find((raid) => raid.id === player.raid)?.date).setHours(0, 0, 0, 0) -
+          currentDate.getTime() <=
+          0 && new Date(otherBuild.date).setHours(0, 0, 0, 0) - currentDate.getTime() <= 0
       );
     });
     if (sameLockout) {

@@ -60,10 +60,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         const data: PlayerData = message.data as PlayerData;
         const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player.id);
         const foundBuild = selectedBuilds.find(
-          (selectedBuild) => selectedBuild?.value === data.build_id
+          (selectedBuild) =>
+            selectedBuild?.value === (data.build_id === "roster" ? data.player.raid : data.build_id)
         );
         if (foundPlayer && foundBuild) {
-          data.player.raid = selectedBuilds.indexOf(foundBuild);
+          data.player.raid = foundBuild.value;
           switch (message.message_type) {
             case "addplayer": {
               addPlayerToRaid(data.player, false);
@@ -74,11 +75,15 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
               return;
             }
             case "removeplayer": {
-              removePlayerFromRaid(data.player, false, false);
+              removePlayerFromRaid(data.player, false, false, data.build_id);
               return;
             }
             case "moveplayer": {
               movePlayer(data.player, data.oldData?.raid, false);
+              return;
+            }
+            case "swapplayer": {
+              swapPlayer(data.player, data.oldData?.raid ?? data.build_id, false, false);
               return;
             }
           }
@@ -108,7 +113,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         if (foundSelectedBuild) {
           switch (message.message_type) {
             case "resetbuild": {
-              resetBuild(selectedBuilds.indexOf(foundSelectedBuild), false);
+              resetBuild(foundSelectedBuild.value, false);
               return;
             }
             case "updatebuild": {
@@ -180,8 +185,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     return accountRole;
   };
 
-  const getRaid = (build_id: number): Build => {
-    return raids[build_id] ?? getEmptyBuild(version);
+  const getRaid = (id: string): Build => {
+    return raids.find((raid) => raid.id === id) ?? getEmptyBuild(version);
   };
 
   const getBuilds = (): Build[] => {
@@ -216,8 +221,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     ];
   };
 
-  const getAbsentPlayers = (build_id: number, raid?: Build): BuildPlayer[] => {
-    const playerBuild = raids[build_id] ?? raid;
+  const getAbsentPlayers = (id: string, raid?: Build): BuildPlayer[] => {
+    const playerBuild = getRaid(id) ?? raid;
     const foundPlayers = roster.filter((player: BuildPlayer) => {
       const playerAbsence = getPlayerAbsence(player.main ?? player.name, playerBuild?.date);
       if (player.name !== player.main) {
@@ -234,14 +239,14 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     return foundPlayers;
   };
 
-  const getUnsetMains = (build_id: number): BuildPlayer[] => {
+  const getUnsetMains = (id: string): BuildPlayer[] => {
     const mains = roster.filter((rosterPlayer) => {
       return rosterPlayer.main === rosterPlayer.name;
     });
     const setMains: BuildPlayer[] = [];
     mains.forEach((main) => {
       raids.forEach((raid) => {
-        if (raid?.build_id === build_id) {
+        if (raid?.id === id) {
           raid?.players.forEach((player) => {
             if (BuildHelper.isAlt(player, main) || player.name === main.name) {
               setMains.push(main);
@@ -420,13 +425,18 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     BuildHelper.parseSaveBuild(build);
   };
 
-  const resetBuild = (build_id: number, send: boolean = true) => {
-    const currentRaid = raids[build_id];
+  const resetBuild = (id: string, send: boolean = true) => {
+    const currentRaid = getRaid(id);
     const newBuild = getEmptyBuild(version);
     newBuild.name = currentRaid.name;
     newBuild.id = currentRaid.id;
     newBuild.raid_id = currentRaid.raid_id;
-    raids[build_id] = newBuild;
+    raids.map((raid) => {
+      if (raid.id === newBuild.id) {
+        raid = newBuild;
+      }
+      return false;
+    });
     updateRaidStatus();
     updateRosterStatus();
     setRaids([...raids]);
@@ -478,7 +488,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const deleteBuild = async (id: string, send: boolean = true) => {
-    const oldRaid = raids.find((raid) => raid.id === id);
+    const oldRaid = getRaid(id);
     const newBuilds = [...buildSelection.filter((build) => build.value !== oldRaid.id)];
     setBuildSelection([...newBuilds].sort((a, b) => b.date - a.date));
 
@@ -534,22 +544,21 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const addPlayerToRaid = (newPlayer: BuildPlayer, send: boolean = true): void => {
-    const currentRaid = raids[newPlayer.raid];
+    const currentRaid = getRaid(newPlayer.raid);
     currentRaid.players = [...currentRaid.players, newPlayer];
 
-    raids[newPlayer.raid] = currentRaid;
     updateRosterStatus();
     updateRaidStatus();
     setRaids([...raids]);
     if (send) {
       message.message_type = "addplayer";
-      message.data = { player: newPlayer, build_id: currentRaid.id };
+      message.data = { player: newPlayer, build_id: newPlayer.raid };
       webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
   const updatePlayer = (newPlayer: BuildPlayer, send: boolean = true): void => {
-    const currentRaid = raids[newPlayer.raid];
+    const currentRaid = getRaid(newPlayer.raid);
     const oldPlayer = currentRaid.players.find((player) => player.id === newPlayer.id);
     if (oldPlayer) {
       const differences = Object.fromEntries(
@@ -564,14 +573,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     });
     currentRaid.players = [...otherPlayers, newPlayer];
 
-    raids[newPlayer.raid] = currentRaid;
-
     updateRosterStatus();
     updateRaidStatus();
     setRaids([...raids]);
     if (send) {
       message.message_type = "updateplayer";
-      message.data = { player: newPlayer, build_id: currentRaid.id, oldData: oldPlayer };
+      message.data = { player: newPlayer, build_id: newPlayer.raid, oldData: oldPlayer };
       webSocket.sendMessage(JSON.stringify(message));
     }
   };
@@ -582,7 +589,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     send: boolean = true
   ): void => {
     raids.forEach((raid) => {
-      removePlayerFromRaid(newPlayer, save, send, raid.build_id);
+      removePlayerFromRaid(newPlayer, save, send, raid.id);
     });
   };
 
@@ -590,22 +597,21 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     newPlayer: BuildPlayer,
     save: boolean = false,
     send: boolean = true,
-    oldRaid?: number
+    oldRaid?: string
   ): void => {
-    const currentRaid = getBuildCopy(raids[oldRaid ?? newPlayer.raid]);
-    const newPlayers = currentRaid.players.filter((player) => {
-      return player.id !== newPlayer.id;
+    raids.map((raid) => {
+      if (raid.id === oldRaid ?? newPlayer.raid) {
+        raid.players = raid.players.filter((player) => player.id !== newPlayer.id);
+      }
+      return false;
     });
-    currentRaid.players = [...newPlayers];
-
-    raids[oldRaid ?? newPlayer.raid] = currentRaid;
 
     updateRosterStatus();
     updateRaidStatus();
     setRaids([...raids]);
 
     if (save) {
-      saveBuild(currentRaid);
+      saveBuild(raids.find((raid) => raid.id === oldRaid ?? newPlayer.id));
     }
     if (send) {
       message.message_type = "removeplayer";
@@ -619,28 +625,28 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         race: newPlayer.race,
         status: newPlayer.status,
         spec: newPlayer.spec,
-        raid: oldRaid ?? newPlayer.raid
+        raid: newPlayer.raid
       };
-      message.data = { player: newPlayerCopy, build_id: currentRaid.id };
+      message.data = { player: newPlayerCopy, build_id: oldRaid };
       webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
-  const movePlayer = (newPlayer: BuildPlayer, oldRaid?: number, send: boolean = true): void => {
-    if (oldRaid === -1) {
+  const movePlayer = (newPlayer: BuildPlayer, oldRaid?: string, send: boolean = true): void => {
+    if (oldRaid === "roster") {
       raids.map((raid) => {
         if (
-          raid.build_id !== newPlayer.raid &&
+          raid.id !== newPlayer.raid &&
           BuildHelper.isSameInstance(newPlayer, raids) &&
           BuildHelper.isSameLockout(newPlayer, raids)
         ) {
-          removePlayerFromRaid(newPlayer, true, false, raid.build_id);
-          oldRaid = raid.build_id;
+          removePlayerFromRaid(newPlayer, true, false, raid.id);
+          oldRaid = raid.id;
         }
         return false;
       });
     } else {
-      removePlayerFromRaid(newPlayer, false, false, oldRaid);
+      removePlayerFromRaid(newPlayer, true, false, oldRaid);
     }
 
     addPlayerToRaid(newPlayer, false);
@@ -658,14 +664,19 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         spec: newPlayer.spec,
         raid: oldRaid
       };
-      message.data = { player: newPlayer, build_id: raids[newPlayer.raid].id, oldData: oldPlayer };
+      message.data = { player: newPlayer, build_id: newPlayer.raid, oldData: oldPlayer };
       webSocket.sendMessage(JSON.stringify(message));
     }
   };
 
-  const swapPlayer = (newPlayer: BuildPlayer, oldRaid: number, send: boolean = true) => {
+  const swapPlayer = (
+    newPlayer: BuildPlayer,
+    oldRaid: string,
+    send: boolean = true,
+    save: boolean = true
+  ) => {
     const swappedCharacters: BuildPlayer[] = [];
-    if (oldRaid === -1) {
+    if (oldRaid === "roster") {
       const otherCharacters = raids
         .map((raid) => raid.players)
         .flat()
@@ -674,9 +685,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         if (
           (BuildHelper.isSameInstance(newPlayer, raids) &&
             BuildHelper.isSameLockout(newPlayer, raids)) ||
-          raids[character.raid].build_id === newPlayer.raid
+          character.raid === newPlayer.raid
         ) {
-          removePlayerFromRaid(character, false, false);
+          removePlayerFromRaid(character, false, false, newPlayer.raid);
           swappedCharacters.push(character);
         }
       }
@@ -686,32 +697,37 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         .map((raid) => raid.players)
         .flat()
         .find((player) => player.id === newPlayer.id);
-      const otherCharacter = raids
+      const otherCharacters = raids
         .map((raid) => raid.players)
         .flat()
-        .find((player) => player.main === newPlayer.main && player.id !== newPlayer.id);
+        .filter((player) => player.main === newPlayer.main && player.id !== newPlayer.id);
 
-      removePlayerFromRaid(newPlayer, false, false, oldRaid);
-      currentPlayer.raid = otherCharacter.raid;
-      addPlayerToRaid(currentPlayer, false);
-
-      removePlayerFromRaid(otherCharacter, false, false, newPlayer.raid);
-      otherCharacter.raid = oldRaid;
-      addPlayerToRaid(otherCharacter, false);
-      swappedCharacters.push(otherCharacter);
+      for (const character of otherCharacters) {
+        if (currentPlayer) {
+          removePlayerFromRaids(newPlayer, false, false);
+          currentPlayer.raid = character.raid;
+          addPlayerToRaid(currentPlayer, false);
+        }
+        if (character) {
+          removePlayerFromRaids(character, false, false);
+          character.raid = oldRaid;
+          addPlayerToRaid(character, false);
+          swappedCharacters.push(character);
+        }
+      }
     }
-    if (newPlayer.raid !== -1) {
-      saveBuild(raids[newPlayer.raid]);
+    if (newPlayer.raid !== "roster" && save) {
+      saveBuild(getRaid(newPlayer.raid));
     }
-    if (oldRaid !== -1) {
-      saveBuild(raids[oldRaid]);
+    if (oldRaid !== "roster" && save) {
+      saveBuild(getRaid(oldRaid));
     }
 
     if (send) {
       message.message_type = "swapplayer";
       message.data = {
         player: newPlayer,
-        build_id: raids[newPlayer.raid].id,
+        build_id: oldRaid,
         oldData: swappedCharacters
       };
       webSocket.sendMessage(JSON.stringify(message));
@@ -721,11 +737,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   const importPlayer = (
     newPlayer: BuildPlayer,
     ignoreErrors: boolean = false,
-    oldRaid?: number,
+    oldRaid?: string,
     swap: boolean = false
   ): void => {
     if (newPlayer.group_id === "roster") {
-      if (newPlayer.raid === -1) {
+      if (oldRaid === "roster") {
         return;
       }
       if (
@@ -734,14 +750,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       ) {
         removePlayerFromRaids(newPlayer);
       } else {
-        newPlayer.raid = oldRaid;
-        removePlayerFromRaid(newPlayer);
+        removePlayerFromRaid(newPlayer, true, true, oldRaid);
       }
-      saveBuild(raids[newPlayer.raid]);
+      saveBuild(getRaid(newPlayer.raid));
       return;
     }
     if (
-      BuildHelper.isPlayerAbsent(newPlayer, raids[newPlayer.raid].date, absence) &&
+      BuildHelper.isPlayerAbsent(newPlayer, getRaid(newPlayer.raid).date, absence) &&
       !ignoreErrors
     ) {
       handleModalOpen({
@@ -759,8 +774,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       });
       return;
     }
-
-    if (BuildHelper.hasCharacterInRaid(newPlayer, raids[newPlayer.raid]) && !ignoreErrors) {
+    if (BuildHelper.hasCharacterInRaid(newPlayer, getRaid(newPlayer.raid)) && !ignoreErrors) {
       handleModalOpen({
         title: common("error.player.import"),
         content: common("error.player.exists"),
@@ -768,7 +782,6 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       });
       return;
     }
-
     if (swap) {
       swapPlayer(newPlayer, oldRaid);
       return;
@@ -776,7 +789,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
 
     if (BuildHelper.isPlayerAlreadyInRaid(newPlayer, raids)) {
       updatePlayer(newPlayer);
-      saveBuild(raids[newPlayer.raid]);
+      saveBuild(getRaid(newPlayer.raid));
       return;
     }
 
@@ -786,12 +799,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       BuildHelper.isSameLockout(newPlayer, raids)
     ) {
       movePlayer(newPlayer, oldRaid);
-      saveBuild(raids[newPlayer.raid]);
+      saveBuild(getRaid(newPlayer.raid));
       return;
     }
-
     addPlayerToRaid(newPlayer);
-    saveBuild(raids[newPlayer.raid]);
+    saveBuild(getRaid(newPlayer.raid));
   };
 
   const loadAbsence = async (absenceResponse: Absence[], newRoster: BuildPlayer[]) => {
