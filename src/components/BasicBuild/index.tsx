@@ -2,7 +2,9 @@
 import { FC } from "react";
 import { DndProvider } from "react-dnd";
 import { BuildPlayer } from "../../types";
-import BasicComposition from "./BasicComposition";
+import { Box } from "@mui/material";
+import UUID from "../../utils/UUID";
+import BasicGroup from "../BasicGroup";
 
 export interface BasicProps {
   players: BuildPlayer[];
@@ -13,7 +15,9 @@ export interface BasicProps {
 const BasicBuild: FC<BasicProps> = ({ players, raid, manager }) => {
   return (
     <DndProvider manager={manager}>
-      <BasicComposition players={players} raid={raid} />
+      <Box sx={{ border: `1px solid black`, borderRadius: "0px 0px 5px 5px" }} key={UUID()}>
+        <BasicGroup key={UUID()} players={players} raid={raid} />
+      </Box>
     </DndProvider>
   );
 };

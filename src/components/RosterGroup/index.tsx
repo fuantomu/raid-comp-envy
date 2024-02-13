@@ -53,7 +53,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
 
   return (
     <Card ref={drop}>
-      <CardContent sx={{ maxHeight: window.innerHeight / 1.5 }}>
+      <CardContent sx={{ maxHeight: window.innerHeight / 1.6 }}>
         <Box
           key={UUID()}
           display={"grid"}
@@ -114,7 +114,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
         <Box
           key={UUID()}
           sx={{
-            maxHeight: window.innerHeight / 1.5,
+            maxHeight: window.innerHeight / 2,
             border: "1px solid black",
             borderRadius: "5px"
           }}

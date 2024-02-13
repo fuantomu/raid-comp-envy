@@ -22,6 +22,7 @@ export interface PlayerProps extends BuildPlayer {
   alts?: BuildPlayer[];
   rosterVisible?: boolean;
   raid: string;
+  basic?: boolean;
 }
 
 const Player: FC<PlayerProps> = (props) => {
@@ -38,7 +39,8 @@ const Player: FC<PlayerProps> = (props) => {
     rosterVisible,
     alts = [],
     main,
-    alt
+    alt,
+    basic
   } = props;
   const styles = useStyles(class_name);
   const context = useAppContext();
@@ -94,7 +96,7 @@ const Player: FC<PlayerProps> = (props) => {
       <Box>
         <Box
           key={UUID()}
-          css={styles.player(isClickable, status)}
+          css={styles.player(isClickable, status, basic)}
           onClick={
             onClick && isAccountRoleAllowed(context.getAccountRole(), "ClickPlayer")
               ? onClick
@@ -107,14 +109,16 @@ const Player: FC<PlayerProps> = (props) => {
               : undefined
           }
         >
-          <Box css={styles.icons}>
+          <Box>
             <WarcraftIcon
+              css={styles.icons(basic)}
               title={`${common(`specs.${spec}`)} ${common(`classes.${class_name}`)}`}
               src={spec ? IconProvider.getSpecIcon(spec) : IconProvider.getClassIcon(class_name)}
             />
           </Box>
           <Box>
             <WarcraftIcon
+              css={styles.icons(basic)}
               title={`${common(`races.${race}`)}`}
               src={IconProvider.getRaceIcon(race ?? WarcraftPlayerRace.Human)}
             />

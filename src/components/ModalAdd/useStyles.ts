@@ -64,7 +64,7 @@ export default () => {
 
       & button.MuiButtonBase-root.MuiToggleButton-root {
         border: 1px solid rgba(0, 0, 0, 0.12);
-        padding: 11px;
+        padding: 7px;
       }
     `
   };

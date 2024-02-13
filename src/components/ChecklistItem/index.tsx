@@ -43,7 +43,7 @@ const ChecklistItem: FC<ChecklistItemProps> = ({
       displayName={displayName}
     >
       <Box css={styles.container}>
-        <WarcraftIcon src={iconSource} />
+        <WarcraftIcon css={{ width: "24px", height: "24px" }} src={iconSource} />
         <Typography css={styles.name}>{displayName}</Typography>
         <Typography css={styles.count} fontWeight="bold">
           {count}

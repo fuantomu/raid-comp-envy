@@ -220,7 +220,10 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
         >
           {Object.keys(WarcraftPlayerClass).map((class_name) => (
             <ToggleButton value={class_name} key={UUID()} title={common(`classes.${class_name}`)}>
-              <WarcraftIcon src={IconProvider.getClassIcon(class_name as WarcraftPlayerClass)} />
+              <WarcraftIcon
+                css={{ width: "28px", height: "28px" }}
+                src={IconProvider.getClassIcon(class_name as WarcraftPlayerClass)}
+              />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -239,7 +242,10 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
         >
           {WarcraftPlayerClassSpecs[class_name].map((spec) => (
             <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
-              <WarcraftIcon src={IconProvider.getSpecIcon(spec)} />
+              <WarcraftIcon
+                css={{ width: "28px", height: "28px" }}
+                src={IconProvider.getSpecIcon(spec)}
+              />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
@@ -258,7 +264,10 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
         >
           {Object.keys(WarcraftPlayerRace).map((race) => (
             <ToggleButton value={race} key={UUID()} title={common(`races.${race}`)}>
-              <WarcraftIcon src={IconProvider.getRaceIcon(race as WarcraftPlayerRace)} />
+              <WarcraftIcon
+                css={{ width: "28px", height: "28px" }}
+                src={IconProvider.getRaceIcon(race as WarcraftPlayerRace)}
+              />
             </ToggleButton>
           ))}
         </ToggleButtonGroup>

@@ -61,6 +61,7 @@ const CompositionGroup: FC<CompositionGroupProps> = ({ group_id, players = [], r
           {players.filter((player) => player.race === WarcraftPlayerRace.Draenei).length > 0 &&
           context.getVersion() === "Wotlk" ? (
             <WarcraftIcon
+              css={{ width: "24px", height: "24px" }}
               title={`${common(`races.Draenei`)}`}
               src={IconProvider.getUtilityIcon(WarcraftRaidUtility.DraeneiHit)}
             />

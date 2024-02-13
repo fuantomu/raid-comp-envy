@@ -47,7 +47,7 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid }) => {
 
   return (
     <Card ref={drop}>
-      <CardContent>
+      <CardContent sx={{ margin: "-10px" }}>
         <Box
           css={[
             styles.default,
@@ -69,6 +69,7 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid }) => {
                   onClick: () => context?.editPlayer(player)
                 }}
                 raid={raid}
+                basic={true}
               />
             ))
           ) : (

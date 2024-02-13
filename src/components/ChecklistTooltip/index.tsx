@@ -67,7 +67,10 @@ const ChecklistTooltip: FC<Props> = ({ players, specs, source, displayName }) =>
               }
               key={UUID()}
             >
-              <WarcraftIcon src={IconProvider.getSpecIcon(player.spec)}></WarcraftIcon>
+              <WarcraftIcon
+                css={{ width: "28px", height: "28px" }}
+                src={IconProvider.getSpecIcon(player.spec)}
+              ></WarcraftIcon>
               <Typography
                 sx={{
                   justifySelf: "start",
@@ -114,10 +117,11 @@ const ChecklistTooltip: FC<Props> = ({ players, specs, source, displayName }) =>
         specs.length > 0 ? (
           <Box display={"grid"}>
             <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provided by</Typography>
-            <Box display={"flex"}>
+            <Box css={{ width: "24px", height: "24px" }} display={"flex"}>
               {Object.values(specs).map((spec) => {
                 return (
                   <WarcraftIcon
+                    css={{ width: "24px", height: "24px" }}
                     sx={{ margin: "2px", cursor: "pointer" }}
                     src={
                       source === "DraeneiHit"

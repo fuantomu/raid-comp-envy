@@ -42,7 +42,10 @@ const CompositionRole: FC<CompositionRoleProps> = ({ role, players, raid }) => {
     <Card sx={{ border: "1px solid black" }}>
       <CardContent>
         <Box css={styles.header}>
-          <WarcraftIcon src={IconProvider.getRoleIcon(role)} />
+          <WarcraftIcon
+            css={{ width: "28px", height: "28px" }}
+            src={IconProvider.getRoleIcon(role)}
+          />
           <Typography style={{ caretColor: "transparent" }} variant="subtitle1">
             {common(`build.roles.${role}`)}
           </Typography>

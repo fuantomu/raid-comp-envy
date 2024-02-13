@@ -29,6 +29,7 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
             src={IconProvider.getCustomIcon(CustomIcon.GroupNeedMore)}
             alt={common("build.roles.total")}
             title={common("build.roles.total")}
+            css={{ width: "24px", height: "24px" }}
           />
           <Typography key={UUID()} variant="h5">
             {
@@ -52,6 +53,7 @@ const BuildRolesCount: FC<BuildRolesCountProps> = ({ build }) => {
               src={IconProvider.getRoleIcon(role as WarcraftRole)}
               alt={label}
               title={label}
+              css={{ width: "24px", height: "24px" }}
             />
             <Typography key={UUID()} variant="h5">
               {count}

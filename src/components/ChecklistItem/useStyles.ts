@@ -14,14 +14,14 @@ export default (count: number = 0) => {
     checklist: css`
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: ${theme.spacing(Spacing.m)};
+      gap: ${theme.spacing(Spacing.s)};
     `,
     container: css`
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: ${spacing(Spacing.xs)};
-      padding: ${spacing(Spacing.xs)};
+      padding: 3px;
       border-radius: ${spacing(Spacing.xxs)};
       user-select: none;
 
