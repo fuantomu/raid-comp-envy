@@ -6,9 +6,9 @@ import { useUpdateSocketContext } from "../UpdateSocket/context";
 
 export type Props = {};
 
-const ActiveUsers: FC<Props> = ({}) => {
+const ActiveUsers: FC<Props> = () => {
   const [users, setUsers] = useState<LoggedInUser[]>([]);
-  const webSocket = useUpdateSocketContext((message: MessageData) => {
+  useUpdateSocketContext((message: MessageData) => {
     if (message.message_type === "users") {
       const newUsers: LoggedInUser[] = JSON.parse(message.data);
       setUsers(newUsers);
