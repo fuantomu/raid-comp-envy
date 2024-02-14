@@ -23,6 +23,7 @@ import { useTranslation } from "react-i18next";
 import HomePage from "../../pages/HomePage";
 import { LoggedInUser, MessageData } from "../../types";
 import { socketId, useUpdateSocketContext } from "../UpdateSocket/context";
+import ActiveUsers from "../ActiveUsers";
 const ErrorBoundary = lazy(() => import("../ErrorBoundary"));
 const Loading = lazy(() => import("../Loading"));
 const EditBuildPage = lazy(() => import("../../pages/EditBuildPage"));
@@ -43,18 +44,7 @@ const App: FC = () => {
   );
   const navigate = useNavigate();
   const [users, setUsers] = useState<LoggedInUser[]>([]);
-  const webSocket = useUpdateSocketContext((message: MessageData) => {
-    if (message.message_type === "users") {
-      const newUsers: LoggedInUser[] = JSON.parse(message.data);
-      setUsers(newUsers);
-    } else if (message.message_type === "login") {
-      const newUsers: LoggedInUser[] = JSON.parse(message.data);
-      setUsers(newUsers);
-    } else if (message.message_type === "logout") {
-      const newUsers: LoggedInUser[] = users.filter((user) => user.host !== message.data["host"]);
-      setUsers([...newUsers]);
-    }
-  }, true);
+  const webSocket = useUpdateSocketContext((message: MessageData) => {});
 
   const message = {
     socketId,
@@ -230,9 +220,7 @@ const App: FC = () => {
           </Box>
           <Box sx={{ height: "16px" }} display={"grid"} gridTemplateColumns={"auto 4fr"}>
             <Box marginLeft={"16px"}>
-              <Tooltip title={users.map((user) => user.username).join(",")}>
-                <Box>{`Active Users: ${users.length}`}</Box>
-              </Tooltip>
+              <ActiveUsers />
             </Box>
             <Box>
               <LogoutTimer issueTime={issueTime} accountRole={accountRole}></LogoutTimer>

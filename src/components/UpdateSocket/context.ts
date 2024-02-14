@@ -16,13 +16,16 @@ export const useUpdateSocketContext = (messageEvent, allowSelf?: boolean) =>
     },
     onMessage: (event) => {
       const message: MessageData = JSON.parse(event.data);
+      if (message.message_type === "heartbeat") {
+        return;
+      }
       if (message.socketId !== socketId || allowSelf) {
         return messageEvent(message);
       }
     },
+    filter: () => false,
     heartbeat: {
       message: JSON.stringify({ message_type: "heartbeat", host: socketId }),
-      returnMessage: JSON.stringify({ message_type: "heartbeat" }),
       timeout: 120000, // 2 minutes, if no response is received, the connection will be closed
       interval: 45000 // every 45 seconds, a ping message will be sent
     },
