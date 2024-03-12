@@ -337,7 +337,10 @@ export abstract class BuildHelper {
               spec: (BuildHelper.capitalize(spec[0]) +
                 BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
               race: BuildHelper.capitalize(player.race.toString()) as WarcraftPlayerRace,
-              status: InviteStatus.Unknown,
+              status:
+                (player.status.toString().toLowerCase() as InviteStatus) !== InviteStatus.Benched
+                  ? InviteStatus.Unknown
+                  : InviteStatus.Benched,
               raid: "roster",
               group_id: "roster",
               main: player.main ?? "",

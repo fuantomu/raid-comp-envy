@@ -19,6 +19,8 @@ export default (class_name: WarcraftPlayerClass) => {
           ? "#4a2121"
           : status === "tentative"
           ? "#69670e"
+          : status === "benched"
+          ? palette.mode
           : palette.background.default};
         border-radius: ${spacing(Spacing.xxs)};
         align-items: center;
@@ -43,13 +45,17 @@ export default (class_name: WarcraftPlayerClass) => {
         height: ${basic ? "16px" : "24px"};
       `;
     },
-    name: css`
-      font-weight: ${theme.typography.fontWeightMedium}!important;
-      color: ${WarcraftClassColour[class_name]};
-      text-shadow: 1px 1px black;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: ellipsis;
-    `
+    name: (status = InviteStatus.Unknown) => {
+      return css`
+        font-weight: ${theme.typography.fontWeightMedium}!important;
+        color: ${status === InviteStatus.Benched
+          ? palette.grey.A700
+          : WarcraftClassColour[class_name]};
+        text-shadow: 1px 1px black;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: ellipsis;
+      `;
+    }
   };
 };

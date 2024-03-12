@@ -123,8 +123,8 @@ const Player: FC<PlayerProps> = (props) => {
               src={IconProvider.getRaceIcon(race ?? WarcraftPlayerRace.Human)}
             />
           </Box>
-          <Typography css={[styles.name, { pointerEvents: "none" }]} title={fullName}>
-            {fullName}
+          <Typography css={[styles.name(status), { pointerEvents: "none" }]} title={fullName}>
+            {`${fullName}${status === InviteStatus.Benched ? " (Inactive) " : ""}`}
           </Typography>
           {main === name && group_id !== "roster" ? (
             <Tooltip title="Main" placement="top" arrow>
@@ -133,7 +133,7 @@ const Player: FC<PlayerProps> = (props) => {
           ) : (
             <></>
           )}
-          {alts.length > 0 ? (
+          {alts.length > 0 && status !== InviteStatus.Benched ? (
             <Box
               onClick={(event) => {
                 event.preventDefault();
@@ -149,7 +149,7 @@ const Player: FC<PlayerProps> = (props) => {
             </Box>
           ) : null}
         </Box>
-        {alts.length > 0 && (visible || rosterVisible) ? (
+        {alts.length > 0 && (visible || rosterVisible) && status !== InviteStatus.Benched ? (
           <Box key={UUID()}>
             <></>
             {alts

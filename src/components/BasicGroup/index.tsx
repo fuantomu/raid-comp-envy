@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { FC } from "react";
 import { useDrop } from "react-dnd";
-import { DragItemTypes } from "../../consts";
+import { DragItemTypes, InviteStatus } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
@@ -61,17 +61,19 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid }) => {
           ]}
         >
           {players.length > 0 ? (
-            players.map((player) => (
-              <Player
-                key={UUID()}
-                {...player}
-                {...{
-                  onClick: () => context?.editPlayer(player)
-                }}
-                raid={raid}
-                basic={true}
-              />
-            ))
+            players.map((player) =>
+              player.status !== InviteStatus.Benched ? (
+                <Player
+                  key={UUID()}
+                  {...player}
+                  {...{
+                    onClick: () => context?.editPlayer(player)
+                  }}
+                  raid={raid}
+                  basic={true}
+                />
+              ) : null
+            )
           ) : (
             <Typography
               style={{ caretColor: "transparent", color: "dimgray", userSelect: "none" }}

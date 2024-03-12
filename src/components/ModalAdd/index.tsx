@@ -128,7 +128,11 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     );
   };
 
-  const sendImportToContext = (nameOverride = name, remove = false) => {
+  const sendImportToContext = (
+    nameOverride = name,
+    remove = false,
+    statusOverride?: InviteStatus
+  ) => {
     const playerInfo = {
       id: id.length ? id : UUID(),
       name: nameOverride ?? playerName,
@@ -136,7 +140,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
       spec,
       raid,
       race: raceName,
-      status,
+      status: statusOverride ?? status,
       group_id: group_id as GroupId,
       main: main === "DEFAULT" ? playerName : main,
       alt: alt === "DEFAULT" ? "None" : alt
@@ -174,6 +178,32 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
 
   const handleRemovePlayer = () => {
     sendImportToContext(name, true);
+  };
+
+  const handlePlayerStatus = () => {
+    const playerInfo = {
+      id: id.length ? id : UUID(),
+      name: playerName,
+      class_name,
+      spec,
+      raid,
+      race: raceName,
+      status,
+      group_id: group_id as GroupId,
+      main: main === "DEFAULT" ? playerName : main,
+      alt: alt === "DEFAULT" ? "None" : alt
+    };
+    if (status === InviteStatus.Benched) {
+      playerInfo.status = InviteStatus.Unknown;
+    } else {
+      playerInfo.status = InviteStatus.Benched;
+    }
+    context?.updateRoster({ ...playerInfo, group_id: "roster" as GroupId }, true);
+    setAlt("DEFAULT");
+    setMain("DEFAULT");
+    setName("");
+    setChecked(false);
+    setOpen(false);
   };
 
   const handleClose = () => {
@@ -374,6 +404,13 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
             {name ? (
               <Button color="info" variant="contained" onClick={handleViewPlayer}>
                 {common("build.add.view")}
+              </Button>
+            ) : null}
+            {name ? (
+              <Button color="warning" variant="contained" onClick={handlePlayerStatus}>
+                {status === InviteStatus.Benched
+                  ? common("build.add.activate")
+                  : common("build.add.deactivate")}
               </Button>
             ) : null}
             <Button color="success" variant="contained" onClick={handleAddPlayer}>
