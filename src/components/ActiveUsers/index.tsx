@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { FC, useState } from "react";
-import { Box, Tooltip } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import { LoggedInUser, MessageData } from "../../types";
 import { useUpdateSocketContext } from "../UpdateSocket/context";
+import UUID from "../../utils/UUID";
 
 export type Props = {};
 
@@ -22,7 +23,19 @@ const ActiveUsers: FC<Props> = () => {
   }, true);
 
   return (
-    <Tooltip title={users.map((user) => user.username).join(",")}>
+    <Tooltip
+      title={
+        <Typography sx={{ color: "white", fontSize: "12px", justifySelf: "center" }}>
+          {users.map((user) => {
+            return (
+              <Box key={UUID()}>
+                {user.username} ({user.host})
+              </Box>
+            );
+          })}
+        </Typography>
+      }
+    >
       <Box>{`Active Users: ${users.length}`}</Box>
     </Tooltip>
   );

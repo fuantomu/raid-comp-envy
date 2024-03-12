@@ -152,6 +152,18 @@ const App: FC = () => {
                 }
               />
               <Route path="/home" element={<HomePage changeVersionRef={changeVersionRef} />} />
+              <Route
+                path="*"
+                element={
+                  <Login
+                    setIssueTime={setIssueTime}
+                    setRole={setAccountRole}
+                    setAccountName={setAccountName}
+                    host={socketId}
+                    login={login}
+                  />
+                }
+              />
             </Routes>
           </Suspense>
         </ErrorBoundary>
