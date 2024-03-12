@@ -145,7 +145,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       const foundPlayer = roster.find((rosterPlayer) => rosterPlayer?.id === data.player_id);
       if (foundPlayer) {
         const newAbsence = {
-          id: `${foundPlayer.name}${data.start_date}${data.end_date}${data.reason?.length}`,
+          id: `${foundPlayer.name}-${data.start_date}-${data.end_date}-${data.reason?.length}`,
           player: foundPlayer,
           start_date: data.start_date,
           end_date: data.end_date,
@@ -299,6 +299,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       build_id: build.build_id
     };
     return newBuild;
+  };
+
+  const deleteAbsence = (item: Absence) => {
+    const newAbsence = absence.filter((absence) => absence.uid !== item.uid);
+    setAbsence(newAbsence);
+    BuildHelper.parseDeleteAbsence(item.uid);
   };
 
   const handleChangeVersion = async (selectedVersion: string) => {
@@ -811,11 +817,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       newRoster.map((player) => {
         if (player.id === absenceItem.player.id) {
           const newAbsence = {
-            id: `${player.name}${absenceItem.start_date}${absenceItem.end_date}${absenceItem.reason?.length}`,
+            id: `${player.name}-${absenceItem.start_date}-${absenceItem.end_date}-${absenceItem.reason?.length}`,
             player,
             start_date: absenceItem.start_date,
             end_date: absenceItem.end_date,
-            reason: absenceItem.reason
+            reason: absenceItem.reason,
+            uid: absenceItem.uid
           } as Absence;
           if (!absence.find((currentAbsence) => currentAbsence.id === newAbsence.id)) {
             absence.push(newAbsence);
@@ -1089,7 +1096,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         getMains,
         getSelectedBuilds,
         getVersion,
-        getAccountRole
+        getAccountRole,
+        deleteAbsence
       }}
     >
       <ModalAdd editPlayer={editPlayerModalFn} />

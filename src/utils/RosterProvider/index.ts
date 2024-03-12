@@ -124,6 +124,16 @@ export abstract class RosterProvider {
       });
   }
 
+  public static async deleteAbsence(id: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/absence/delete/${id}`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response;
+    });
+  }
+
   public static async getAccountLogin(username: string, hash: string): Promise<number> {
     return await fetch(`${process.env.REACT_APP_API}/account/${username}?hash=${hash}`, {
       method: "GET",

@@ -91,7 +91,7 @@ const Player: FC<PlayerProps> = (props) => {
           }
         }
       }}
-      disableInteractive
+      leaveDelay={50}
     >
       <Box>
         <Box

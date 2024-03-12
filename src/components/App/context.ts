@@ -34,6 +34,7 @@ type AppContextApi = {
   getSelectedBuilds: () => SelectOption[];
   getVersion: () => string;
   getAccountRole: () => number;
+  deleteAbsence: (absence: Absence) => void;
 };
 
 const AppContext = createContext<AppContextApi | null>(null);

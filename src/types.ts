@@ -77,6 +77,7 @@ export type AbsenceResponse = {
   start_date: number;
   end_date: number;
   reason?: string;
+  uid: string;
 };
 
 export type Absence = {
@@ -85,6 +86,7 @@ export type Absence = {
   start_date: number;
   end_date: number;
   reason?: string;
+  uid: string;
 };
 
 export type Login = {

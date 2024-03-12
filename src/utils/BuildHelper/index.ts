@@ -306,6 +306,10 @@ export abstract class BuildHelper {
     return absences;
   }
 
+  public static async parseDeleteAbsence(id: string) {
+    await RosterProvider.deleteAbsence(id).then((response) => {});
+  }
+
   public static async parseGetUpdate() {
     const updates: Update = { builds: [], players: [], absences: [] };
 
@@ -317,7 +321,8 @@ export abstract class BuildHelper {
             player: { id: absence.player_id } as BuildPlayer,
             start_date: absence.start_date,
             end_date: absence.end_date,
-            reason: absence.reason
+            reason: absence.reason,
+            uid: absence.id
           });
         }
         for (const player of response.players ?? []) {

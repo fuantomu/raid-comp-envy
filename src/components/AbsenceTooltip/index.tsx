@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { Absence } from "../../types";
 import { Box, Typography } from "@mui/material";
 import UUID from "../../utils/UUID";
+import { DeleteForever } from "@mui/icons-material";
+import { useAppContext } from "../App/context";
 
 export type Props = {
   absences: Absence[];
@@ -11,6 +13,8 @@ export type Props = {
 
 const AbsenceTooltip: FC<Props> = ({ absences }) => {
   const [common] = useTranslation("common");
+  const context = useAppContext();
+
   return (
     <Box
       sx={{
@@ -37,31 +41,38 @@ const AbsenceTooltip: FC<Props> = ({ absences }) => {
 
       {Object.values(absences).map((absence) => {
         return (
-          <Box
-            sx={{
-              background: "#424242",
-              padding: "4px",
-              border: "1px solid black"
-            }}
-            display={"grid"}
-            gridTemplateColumns={"1.5fr 1.5fr 3fr"}
-            key={UUID()}
-          >
-            <Typography sx={{ marginRight: "15px", justifySelf: "center" }}>
-              {new Date(absence.start_date).toLocaleDateString("de-DE", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-              })}
-            </Typography>
-            <Typography sx={{ marginRight: "15px", justifySelf: "center" }}>
-              {new Date(absence.end_date).toLocaleDateString("de-DE", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-              })}
-            </Typography>
-            <Typography>{absence.reason}</Typography>
+          <Box key={UUID()} display={"grid"} gridTemplateColumns={"auto 16px"}>
+            <Box
+              sx={{
+                background: "#424242",
+                padding: "4px",
+                border: "1px solid black"
+              }}
+              display={"grid"}
+              gridTemplateColumns={"1.5fr 1.5fr 3fr"}
+              key={UUID()}
+            >
+              <Typography sx={{ marginRight: "15px", justifySelf: "center" }}>
+                {new Date(absence.start_date).toLocaleDateString("de-DE", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                })}
+              </Typography>
+              <Typography sx={{ marginRight: "15px", justifySelf: "center" }}>
+                {new Date(absence.end_date).toLocaleDateString("de-DE", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                })}
+              </Typography>
+              <Typography>{absence.reason}</Typography>
+            </Box>
+            <DeleteForever
+              css={{ "marginTop": "4px", ":hover": { color: "red" } }}
+              onClick={() => context?.deleteAbsence(absence)}
+              key={UUID()}
+            ></DeleteForever>
           </Box>
         );
       })}
