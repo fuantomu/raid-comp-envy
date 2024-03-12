@@ -982,8 +982,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   ) => {
     const charactersSet = {};
     currentRoster.map((rosterPlayer) => {
-      if (rosterPlayer.status !== InviteStatus.Benched) {
-        rosterPlayer.status = InviteStatus.Unknown;
+      if (rosterPlayer.status === InviteStatus.Benched) {
         return false;
       }
 
