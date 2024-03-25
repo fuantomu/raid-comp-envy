@@ -99,18 +99,9 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
     if (!newValue) {
       return;
     }
-    const buildFound = context
-      ?.getSelectedBuilds()
-      .find((build) => build?.value === newValue.value);
-    if (buildFound) {
-      handleModalOpen({
-        title: common("error.build.title"),
-        content: common("error.build.alreadyset")
-      });
-    } else {
-      setSelectedOption(newValue);
-      context?.handleBuildSelect(raidBuild.build_id, newValue);
-    }
+
+    setSelectedOption(newValue);
+    context?.handleBuildSelect(raidBuild.build_id, newValue);
   };
 
   const handleInstanceChange = (event: any, newValue: SelectOption) => {
