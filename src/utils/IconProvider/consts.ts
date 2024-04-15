@@ -99,8 +99,8 @@ export const WarcraftBuffIcon: {
 } = {
   [WarcraftRaidBuff.MeleeHaste]: "spell_nature_windfury",
   [WarcraftRaidBuff.Crit]: "spell_nature_unyeildingstamina",
-  [WarcraftRaidBuff.AttackPower10]: "spell_holy_fistofjustice",
-  [WarcraftRaidBuff.AttackPower10Wotlk]: "ability_trueshot",
+  [WarcraftRaidBuff.AttackPower20]: "spell_holy_fistofjustice",
+  [WarcraftRaidBuff.AttackPower10]: "ability_trueshot",
   [WarcraftRaidBuff.AttackPower]: "spell_holy_fistofjustice",
   [WarcraftRaidBuff.SpellHaste]: "spell_nature_forceofnature",
   [WarcraftRaidBuff.SpellPower10]: "spell_shadow_demonicpact",
@@ -137,6 +137,7 @@ export const WarcraftDebuffIcon: {
   [WarcraftRaidDebuff.SpellDamageReceived13]: "spell_shadow_chilltouch",
   [WarcraftRaidDebuff.PhysicalDamageReceived]: "ability_warrior_bloodfrenzy",
   [WarcraftRaidDebuff.HealingReceived]: "ability_warrior_savageblow",
+  [WarcraftRaidDebuff.HealingReceived25]: "ability_warrior_savageblow",
   [WarcraftRaidDebuff.PhysicalDamageDealt]: "ability_warrior_warcry",
   [WarcraftRaidDebuff.CastSpeed]: "spell_shadow_curseoftounges",
   [WarcraftRaidDebuff.CastSpeed30]: "spell_nature_nullifydisease",
@@ -145,7 +146,8 @@ export const WarcraftDebuffIcon: {
   [WarcraftRaidDebuff.ArmorDown5]: "spell_nature_faeriefire",
   [WarcraftRaidDebuff.SpellHit]: "spell_shadow_misery",
   [WarcraftRaidDebuff.CritChanceReceived]: "ability_creature_poison_06",
-  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot"
+  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot",
+  [WarcraftRaidDebuff.MeleeHasteDown]: "spell_nature_thunderclap"
 };
 
 export const WarcraftUtilityIcon: {
@@ -160,11 +162,12 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.DraeneiHit]: "inv_helmet_21",
   [WarcraftRaidUtility.TricksOfTheTrade]: "ability_rogue_tricksofthetrade",
   [WarcraftRaidUtility.PowerInfusion]: "spell_holy_powerinfusion",
-  [WarcraftRaidUtility.UnholyFrenzy]: "spell_deathknight_bladedarmor",
+  [WarcraftRaidUtility.UnholyFrenzy]: "spell_shadow_unholyfrenzy",
   [WarcraftRaidUtility.FocusMagic]: "spell_arcane_studentofmagic",
   [WarcraftRaidUtility.DivineGuardian]: "spell_holy_powerwordbarrier",
   [WarcraftRaidUtility.DamageReduction10]: "spell_holy_layonhands",
-  [WarcraftRaidUtility.DamageReduction3]: "spell_holy_greaterblessingofsanctuary"
+  [WarcraftRaidUtility.DamageReduction3]: "spell_holy_greaterblessingofsanctuary",
+  [WarcraftRaidUtility.DarkIntent]: "spell_warlock_focusshadow"
 };
 
 export enum CustomIcon {

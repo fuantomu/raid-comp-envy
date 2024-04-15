@@ -183,7 +183,7 @@
     "Goblin": "Goblin"
   },
   "buff": {
-    "MaxMana": "Maximum Mana +X",
+    "MaxMana": "Maximum Mana +2126",
     "AttackPower": "Attackpower",
     "SpellPower": "Spellpower",
     "Stamina": "Stamina",
@@ -193,7 +193,7 @@
     "MarkOfTheWild": "All Stats",
     "MaxHealth": "Maximum Health",
     "AttackPower10": "Attackpower +10%",
-    "AttackPower10Wotlk": "Attackpower +10%",
+    "AttackPower20": "Attackpower +20%",
     "HealingReceived": "Healing Received +6%",
     "SpellHaste": "Spell Haste +5%",
     "SpellPower10": "Spellpower +10%",
@@ -207,17 +207,18 @@
     "Crit": "Crit +5%",
     "AllStats": "Stats +5%",
     "StrengthAgility": "Strength and Agility",
-    "Armor": "Armor +20%",
+    "Armor": "TODO: Armor +20%",
     "MP5": "MP5",
     "Replenishment": "Replenishment"
   },
   "debuff": {
-    "ArmorDown": "Armor -X%",
+    "ArmorDown": "Armor -12%",
     "ArmorDown5": "Armor -5%",
     "ArmorDown20": "Armor -20%",
     "BleedDamageReceived": "Bleed Damage taken +30%",
     "SpellCritReceived": "Spell Crit taken +5%",
     "MeleeHaste": "Melee Haste -20%",
+    "MeleeHasteDown": "Melee Haste -20%",
     "SpellDamageReceived": "Spell Damage taken +8%",
     "SpellDamageReceived13": "Spell Damage taken +13%",
     "CritChanceReceived": "Crit Chance taken +3%",
@@ -226,9 +227,10 @@
     "SpellHit": "Spell Hit Chance +3%",
     "PhysicalDamageReceived": "Physical Damage taken +4%",
     "HealingReceived": "Healing received -50%",
+    "HealingReceived25": "Healing received -25%",
     "PhysicalDamageDealt": "Physical Damage dealt -10%",
-    "CastSpeed": "Cast Speed -50%",
-    "CastSpeed30": "Cast Speed -30%"
+    "CastSpeed": "Cast Speed +50%",
+    "CastSpeed30": "Cast Speed +30%"
   },
   "utility": {
     "Bloodlust": "Bloodlust",
@@ -237,14 +239,15 @@
     "Innervate": "Innervate",
     "BlessingOfProtection": "Blessing of Protection",
     "ManaTide": "Mana Tide Totem",
-    "DraeneiHit": "Heroic Presence",
-    "TricksOfTheTrade": "Tricks of the Trade",
-    "PowerInfusion": "Power Infusion",
-    "UnholyFrenzy": "Unholy Frenzy",
-    "FocusMagic": "Focus Magic",
+    "DraeneiHit": "+1% Hit Chance",
+    "TricksOfTheTrade": "Increased Damage +15%",
+    "PowerInfusion": "Spell Haste +20%",
+    "UnholyFrenzy": "Melee/Range Haste +20%",
+    "FocusMagic": "Spell Crit +3%",
     "DivineGuardian": "Divine Guardian",
-    "DamageReduction10": "Damage Reduction 10%",
-    "DamageReduction3": "Damage Reduction 3%"
+    "DamageReduction10": "Damage Reduction +10%",
+    "DamageReduction3": "Damage Reduction +3%",
+    "DarkIntent": "Haste +3%"
   },
   "buttons": {
     "ok": "OK",
@@ -317,7 +320,8 @@
     "remove": "removed",
     "alt": "Alt",
     "date": "Date",
-    "instance": "Instance"
+    "instance": "Instance",
+    "main": "Main Character"
   },
   "absence": {
     "title": "Absence",

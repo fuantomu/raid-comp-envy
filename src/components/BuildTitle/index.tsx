@@ -7,8 +7,6 @@ import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import { Instance, RegisteredMessages } from "../../consts";
-import { useTranslation } from "react-i18next";
-import ModalAlert from "../ModalAlert";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import updateLocale from "dayjs/plugin/updateLocale";
 import { useUpdateSocketContext } from "../UpdateSocket/context";
@@ -32,9 +30,6 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
   const [date, setDate] = useState<Dayjs | null>(dayjs().set("seconds", 0).set("milliseconds", 0));
   const context = useAppContext();
   const instances = Instance[context.getVersion()];
-
-  const [common] = useTranslation("common");
-  let handleModalOpen: any = () => {};
 
   const raids: SelectOption[] = instances.map((instance) => {
     return {
@@ -91,10 +86,6 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
     // eslint-disable-next-line
   }, [raidBuild]);
 
-  const handleOpen = (callback: any) => {
-    handleModalOpen = callback;
-  };
-
   const handleChange = (event: any, newValue: SelectOption) => {
     if (!newValue) {
       return;
@@ -120,8 +111,6 @@ const BuildTitle: FC<BuildTitleProps> = ({ options, raidBuild }) => {
 
   return (
     <Box>
-      <ModalAlert handleOpen={handleOpen} />
-
       <Autocomplete
         value={selectedOption}
         options={options}
