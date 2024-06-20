@@ -25,9 +25,7 @@ const SetupPlayer: FC<SetupPlayerProps> = (props) => {
       <Box
         key={UUID()}
         css={styles.player(true)}
-        onClick={() =>
-          window.open(`${process.env.REACT_APP_DASHBOARD}/user.php?user=${name}`, "_blank")
-        }
+        onClick={() => window.open(`${process.env.REACT_APP_DASHBOARD}${name}`, "_blank")}
       >
         <Box>
           <WarcraftIcon

@@ -100,8 +100,7 @@ const Player: FC<PlayerProps> = (props) => {
           onClick={
             onClick && isAccountRoleAllowed(context.getAccountRole(), "ClickPlayer")
               ? onClick
-              : () =>
-                  window.open(`${process.env.REACT_APP_DASHBOARD}/user.php?user=${name}`, "_blank")
+              : () => window.open(`${process.env.REACT_APP_DASHBOARD}${name}`, "_blank")
           }
           ref={
             isClickable && isAccountRoleAllowed(context.getAccountRole(), "ClickPlayer")
