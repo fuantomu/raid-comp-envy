@@ -62,7 +62,7 @@ const BasicGroup: FC<BasicGroupProps> = ({ players = [], raid }) => {
         >
           {players.length > 0 ? (
             players.map((player) =>
-              player.status !== InviteStatus.Benched ? (
+              player?.status !== InviteStatus.Benched ? (
                 <Player
                   key={UUID()}
                   {...player}

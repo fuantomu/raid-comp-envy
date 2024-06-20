@@ -258,11 +258,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     const unsetMains = [];
     mains.forEach((main) => {
       if (!setMains.includes(main)) {
-        if (
-          main.alt !== undefined &&
-          main.alt !== "None" &&
-          main.status === InviteStatus.Accepted
-        ) {
+        const mainAlreadySet = raids
+          .map((raid) => {
+            return raid.players.filter((player) => player.name === main.name);
+          })
+          .some((entry) => entry.length > 0);
+
+        if (main.alt !== undefined && main.alt !== "None" && mainAlreadySet) {
           unsetMains.push(roster.find((rosterPlayer) => rosterPlayer.name === main.alt));
         } else {
           unsetMains.push(main);
