@@ -80,6 +80,13 @@ export enum WarcraftPlayerSpec {
   WarriorProtection = "WarriorProtection"
 }
 
+export enum WarcraftPlayerRole {
+  MainTank = "MainTank",
+  OffTank = "OffTank",
+  SpecSwap = "SpecSwap",
+  Default = "None"
+}
+
 export const WarcraftClassColour: {
   [class_name in WarcraftPlayerClass]: string;
 } = {

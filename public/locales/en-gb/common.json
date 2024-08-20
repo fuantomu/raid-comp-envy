@@ -321,12 +321,19 @@
     "alt": "Alt",
     "date": "Date",
     "instance": "Instance",
-    "main": "Main Character"
+    "main": "Main Character",
+    "role": "Role"
   },
   "absence": {
     "title": "Absence",
     "start": "Startdate",
     "end": "Enddate",
     "reason": "Reason"
+  },
+  "roles": {
+    "OffTank": "Off Tank",
+    "MainTank": "Main Tank",
+    "SpecSwap": "Spec Swap",
+    "Default": "Default"
   }
 }

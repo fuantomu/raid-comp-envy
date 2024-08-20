@@ -66,6 +66,20 @@ export default () => {
         border: 1px solid rgba(0, 0, 0, 0.12);
         padding: 7px;
       }
+    `,
+    specSwapButton: css`
+      flex-wrap: wrap;
+      place-content: center;
+      background-color: ${palette.text.disabled};
+
+      & > button.Mui-selected {
+        background-color: ${hexToRgba(palette.primary.dark, 0.6)};
+      }
+
+      & button.MuiButtonBase-root.MuiToggleButton-root {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        padding: 7px;
+      }
     `
   };
 };

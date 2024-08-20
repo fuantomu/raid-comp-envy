@@ -4,6 +4,7 @@ import {
   MessageType,
   WarcraftPlayerClass,
   WarcraftPlayerRace,
+  WarcraftPlayerRole,
   WarcraftPlayerSpec
 } from "../../consts";
 import {
@@ -161,6 +162,8 @@ export abstract class BuildHelper {
               name: player.name,
               class_name: player.class_name as WarcraftPlayerClass,
               spec: player.spec as WarcraftPlayerSpec,
+              role: (player.role as WarcraftPlayerRole) ?? WarcraftPlayerRole.Default,
+              swap: player.swap as WarcraftPlayerSpec,
               raid: responseBuild.id,
               race: player.race as WarcraftPlayerRace,
               status: player.status as InviteStatus,
@@ -479,7 +482,7 @@ export abstract class BuildHelper {
                 year: "numeric",
                 hour: "2-digit",
                 minute: "2-digit"
-              })}` ?? message.build_id
+              })}`
             : undefined,
           propertyName: message.player.name,
           propertyType: "Player",
@@ -509,7 +512,7 @@ export abstract class BuildHelper {
               year: "numeric",
               hour: "2-digit",
               minute: "2-digit"
-            })}` ?? message.build_id
+            })}`
           : undefined,
         propertyName: message.player.name,
         propertyType: "Player",

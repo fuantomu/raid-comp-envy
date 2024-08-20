@@ -10,7 +10,7 @@ export default (class_name: WarcraftPlayerClass) => {
     player: (isClickable: boolean, status?: InviteStatus, basic: boolean = false) => {
       return css`
         display: grid;
-        grid-template-columns: ${basic ? "10px 10px 1fr 1em auto" : "18px 18px 1fr 14px auto"};
+        grid-template-columns: ${basic ? "10px 10px 1fr 1em auto" : "18px 18px 1fr 17px auto"};
         gap: ${spacing(Spacing.xs)};
         margin: 1px;
         background-color: ${status === "accepted"

@@ -36,6 +36,8 @@ const CompositionGroup: FC<CompositionGroupProps> = ({ group_id, players = [], r
             name: player.name,
             class_name: player.class_name,
             spec: player.spec,
+            role: player.role,
+            swap: player.swap,
             race: player.race,
             raid: raid,
             status: player.status,

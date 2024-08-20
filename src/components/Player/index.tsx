@@ -4,14 +4,22 @@ import Typography from "@mui/material/Typography";
 import { FC, useState } from "react";
 import { useDrag } from "react-dnd";
 import { useTranslation } from "react-i18next";
-import { DragItemTypes, InviteStatus, WarcraftPlayerRace } from "../../consts";
+import { DragItemTypes, InviteStatus, WarcraftPlayerRace, WarcraftPlayerRole } from "../../consts";
 import { Build, BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import UUID from "../../utils/UUID";
 import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 import { useAppContext } from "../App/context";
-import { ArrowDropDown, ArrowLeft, Star } from "@mui/icons-material";
+import {
+  ArrowDropDown,
+  ArrowLeft,
+  LooksOne,
+  LooksTwo,
+  NoAccounts,
+  Star,
+  SwapVert
+} from "@mui/icons-material";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import { Tooltip } from "@mui/material";
 import { sortFunctions } from "../../utils/sorting";
@@ -31,6 +39,8 @@ const Player: FC<PlayerProps> = (props) => {
     name,
     class_name,
     spec,
+    role,
+    swap,
     status,
     race,
     group_id,
@@ -125,13 +135,33 @@ const Player: FC<PlayerProps> = (props) => {
           <Typography css={[styles.name(status), { pointerEvents: "none" }]} title={fullName}>
             {`${fullName}${status === InviteStatus.Benched ? " (Inactive) " : ""}`}
           </Typography>
+
           {main === name && group_id !== "roster" ? (
             <Tooltip title="Main" placement="top" arrow>
               <Star sx={{ fontSize: "12px", justifySelf: "left" }} />
             </Tooltip>
-          ) : (
-            <></>
-          )}
+          ) : null}
+
+          {role !== "None" && group_id !== "roster" ? (
+            <Tooltip
+              title={`${common(`roles.${role}`)} ${
+                role === WarcraftPlayerRole.SpecSwap ? ": " + common(`specs.${swap}`) : ""
+              }`}
+              placement="top"
+              arrow
+            >
+              {role === WarcraftPlayerRole.MainTank ? (
+                <LooksOne sx={{ fontSize: "24px", justifySelf: "left" }} />
+              ) : role === WarcraftPlayerRole.OffTank ? (
+                <LooksTwo sx={{ fontSize: "24px", justifySelf: "left" }} />
+              ) : role === WarcraftPlayerRole.SpecSwap ? (
+                <SwapVert sx={{ fontSize: "24px", justifySelf: "left" }} />
+              ) : (
+                <NoAccounts sx={{ fontSize: "24px", justifySelf: "left" }} />
+              )}
+            </Tooltip>
+          ) : null}
+
           {alts.length > 0 && status !== InviteStatus.Benched ? (
             <Box
               onClick={(event) => {

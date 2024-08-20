@@ -2,6 +2,7 @@ import {
   InviteStatus,
   WarcraftPlayerClass,
   WarcraftPlayerRace,
+  WarcraftPlayerRole,
   WarcraftPlayerSpec
 } from "./consts";
 import { WarcraftRole } from "./utils/RoleProvider/consts";
@@ -22,6 +23,8 @@ export type BuildPlayer = {
   class_name: WarcraftPlayerClass;
   spec: WarcraftPlayerSpec;
   race: WarcraftPlayerRace;
+  role?: WarcraftPlayerRole;
+  swap?: WarcraftPlayerSpec;
   raid: string;
   status: InviteStatus;
   group_id?: GroupId;

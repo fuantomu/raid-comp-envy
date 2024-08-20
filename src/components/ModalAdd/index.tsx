@@ -12,17 +12,19 @@ import {
   InviteStatus,
   WarcraftPlayerClass,
   WarcraftPlayerRace,
-  WarcraftPlayerSpec
+  WarcraftPlayerSpec,
+  WarcraftPlayerRole
 } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
-import { WarcraftPlayerClassSpecs } from "../../utils/RoleProvider/consts";
+import { WarcraftPlayerClassSpecs, WarcraftRole } from "../../utils/RoleProvider/consts";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import WarcraftIcon from "../Icon";
 import useStyles from "./useStyles";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
+import { RoleProvider } from "../../utils/RoleProvider";
 
 export interface ModalAddProps {
   editPlayer?: (callback: (player: BuildPlayer, fromRoster: boolean) => void) => void;
@@ -35,6 +37,8 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
   const [open, setOpen] = useState(false);
   const [class_name, setClassName] = useState(WarcraftPlayerClass.Warrior);
   const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorFury);
+  const [role, setRole] = useState(WarcraftPlayerRole.Default);
+  const [swap, setSwap] = useState(WarcraftPlayerSpec.WarriorFury);
   const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
   const [status, setStatus] = useState(InviteStatus.Unknown);
   const [group_id, setGroupId] = useState(1 as GroupId);
@@ -65,6 +69,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
         }
         if (player.spec) {
           setSpec(player.spec);
+        }
+        if (player.role) {
+          setRole(player.role);
+        }
+        if (player.swap) {
+          setSwap(player.swap);
         }
         if (player.race) {
           setRace(player.race);
@@ -106,6 +116,18 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     }
   };
 
+  const handleSelectRole = (event: MouseEvent, newRole: string) => {
+    if (newRole !== null) {
+      setRole(newRole as WarcraftPlayerRole);
+    }
+  };
+
+  const handleSelectSwap = (event: MouseEvent, newSwap: string) => {
+    if (newSwap !== null) {
+      setSwap(newSwap as WarcraftPlayerSpec);
+    }
+  };
+
   const handleSelectRace = (event: MouseEvent, newRace: string) => {
     if (newRace !== null) {
       setRace(newRace as WarcraftPlayerRace);
@@ -138,6 +160,8 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
       name: nameOverride ?? playerName,
       class_name,
       spec,
+      role,
+      swap,
       raid,
       race: raceName,
       status: statusOverride ?? status,
@@ -162,6 +186,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setAlt("DEFAULT");
     setMain("DEFAULT");
     setName("");
+    setRole(WarcraftPlayerRole.Default);
     setChecked(false);
     setOpen(false);
   };
@@ -186,6 +211,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
       name: playerName,
       class_name,
       spec,
+      role,
       raid,
       race: raceName,
       status,
@@ -202,6 +228,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setAlt("DEFAULT");
     setMain("DEFAULT");
     setName("");
+    setRole(WarcraftPlayerRole.Default);
     setChecked(false);
     setOpen(false);
   };
@@ -210,6 +237,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setChecked(false);
     setAlt("DEFAULT");
     setMain("DEFAULT");
+    setRole(WarcraftPlayerRole.Default);
     setName("");
     setOpen(false);
   };
@@ -218,6 +246,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setChecked(false);
     setAlt("DEFAULT");
     setMain("DEFAULT");
+    setRole(WarcraftPlayerRole.Default);
     setOpen(true);
   };
 
@@ -269,6 +298,60 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
           value={spec}
           exclusive
           onChange={handleSelectSpec}
+        >
+          {WarcraftPlayerClassSpecs[class_name].map((spec) => (
+            <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
+              <WarcraftIcon
+                css={{ width: "28px", height: "28px" }}
+                src={IconProvider.getSpecIcon(spec)}
+              />
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </Box>
+    );
+  };
+
+  const renderRoleToggle = () => {
+    return (
+      <Box>
+        <ToggleButtonGroup
+          css={styles.specSwapButton}
+          value={role}
+          exclusive
+          onChange={handleSelectRole}
+        >
+          {Object.keys(WarcraftPlayerRole)
+            .filter((role) => {
+              if (RoleProvider.getSpecRole(spec) === WarcraftRole.Tank) {
+                return role !== "Default";
+              } else {
+                return role === WarcraftPlayerRole.SpecSwap;
+              }
+            })
+            .map((role) => (
+              <ToggleButton
+                css={{ color: "white" }}
+                value={role}
+                key={UUID()}
+                title={common(`roles.${role}`)}
+              >
+                {role}
+              </ToggleButton>
+            ))}
+        </ToggleButtonGroup>
+      </Box>
+    );
+  };
+
+  const renderSwapToggle = () => {
+    return (
+      <Box>
+        <ToggleButtonGroup
+          css={styles.buttonGroups}
+          value={swap}
+          exclusive
+          onChange={handleSelectSwap}
         >
           {WarcraftPlayerClassSpecs[class_name].map((spec) => (
             <ToggleButton value={spec} key={UUID()} title={common(`specs.${spec}`)}>
@@ -387,6 +470,8 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
             </Box>
             {renderClassToggle()}
             {renderSpecToggle()}
+            {group_id !== "roster" ? renderRoleToggle() : <></>}
+            {role === WarcraftPlayerRole.SpecSwap ? renderSwapToggle() : <></>}
             {renderRaceToggle()}
             {renderMain()}
             {main === name ? renderAlt() : <></>}
