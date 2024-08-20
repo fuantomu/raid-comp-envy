@@ -318,7 +318,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const handleBuildSelect = (build_id: number, value: any) => {
-    localStorage.setItem(`LastBuild-${build_id}`, value.value ?? value);
+    //localStorage.setItem(`LastBuild-${build_id}`, value.value ?? value);
     BuildHelper.parseGetBuild(value.value ?? value).then((build) => {
       build.build_id = build_id;
       selectedBuilds[build_id] = buildSelection.find(
@@ -401,7 +401,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   const setBuildInstance = (build_id: number, value: any, send: boolean = true) => {
     const oldRaid = getBuildCopy(raids[build_id]);
     if (oldRaid) {
-      if (oldRaid.instance === value.value ?? value) {
+      const newValue = value.value ?? value;
+      if (oldRaid.instance === newValue) {
         return;
       }
     }
@@ -506,7 +507,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       newBuild.build_id = oldRaid.build_id;
       raids[oldRaid.build_id] = newBuild;
       selectedBuilds[oldRaid.build_id] = { value: newBuild.id, label: newBuild.name };
-      localStorage.removeItem(`LastBuild-${oldRaid.build_id}`);
+      //localStorage.removeItem(`LastBuild-${oldRaid.build_id}`);
     }
     updateRosterStatus();
     setBuilds([...builds.filter((build) => build.id !== id)]);
@@ -608,7 +609,8 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     oldRaid?: string
   ): void => {
     raids.map((raid) => {
-      if (raid.id === oldRaid ?? newPlayer.raid) {
+      const newRaid = oldRaid ?? newPlayer.raid;
+      if (raid.id === newRaid) {
         raid.players = raid.players.filter((player) => player.id !== newPlayer.id);
       }
       return false;
@@ -619,7 +621,12 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     setRaids([...raids]);
 
     if (save) {
-      saveBuild(raids.find((raid) => raid.id === oldRaid ?? newPlayer.id));
+      saveBuild(
+        raids.find((raid) => {
+          const newRaid = oldRaid ?? newPlayer.raid;
+          return raid.id === newRaid;
+        })
+      );
     }
     if (send) {
       message.message_type = "removeplayer";
@@ -889,7 +896,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       .sort((a, b) => a.date - b.date);
 
     for (let x = 0; x < MAX_RAIDS; x++) {
-      const activeBuild = localStorage.getItem(`LastBuild-${x}`);
+      const activeBuild = null; //localStorage.getItem(`LastBuild-${x}`);
 
       if (activeBuild) {
         const foundBuild = versionBuilds.find((build) => build.id === activeBuild);
