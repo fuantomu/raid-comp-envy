@@ -162,7 +162,7 @@ export abstract class BuildHelper {
               name: player.name,
               class_name: player.class_name as WarcraftPlayerClass,
               spec: player.spec as WarcraftPlayerSpec,
-              role: (player.role as WarcraftPlayerRole) ?? WarcraftPlayerRole.Default,
+              role: (player.role as WarcraftPlayerRole) ?? WarcraftPlayerRole.None,
               swap: player.swap as WarcraftPlayerSpec,
               raid: responseBuild.id,
               race: player.race as WarcraftPlayerRace,

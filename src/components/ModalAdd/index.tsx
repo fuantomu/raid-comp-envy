@@ -37,7 +37,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
   const [open, setOpen] = useState(false);
   const [class_name, setClassName] = useState(WarcraftPlayerClass.Warrior);
   const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorFury);
-  const [role, setRole] = useState(WarcraftPlayerRole.Default);
+  const [role, setRole] = useState(WarcraftPlayerRole.None);
   const [swap, setSwap] = useState(WarcraftPlayerSpec.WarriorFury);
   const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
   const [status, setStatus] = useState(InviteStatus.Unknown);
@@ -186,7 +186,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setAlt("DEFAULT");
     setMain("DEFAULT");
     setName("");
-    setRole(WarcraftPlayerRole.Default);
+    setRole(WarcraftPlayerRole.None);
     setChecked(false);
     setOpen(false);
   };
@@ -228,7 +228,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setAlt("DEFAULT");
     setMain("DEFAULT");
     setName("");
-    setRole(WarcraftPlayerRole.Default);
+    setRole(WarcraftPlayerRole.None);
     setChecked(false);
     setOpen(false);
   };
@@ -237,7 +237,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setChecked(false);
     setAlt("DEFAULT");
     setMain("DEFAULT");
-    setRole(WarcraftPlayerRole.Default);
+    setRole(WarcraftPlayerRole.None);
     setName("");
     setOpen(false);
   };
@@ -246,7 +246,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
     setChecked(false);
     setAlt("DEFAULT");
     setMain("DEFAULT");
-    setRole(WarcraftPlayerRole.Default);
+    setRole(WarcraftPlayerRole.None);
     setOpen(true);
   };
 
@@ -324,9 +324,9 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
           {Object.keys(WarcraftPlayerRole)
             .filter((role) => {
               if (RoleProvider.getSpecRole(spec) === WarcraftRole.Tank) {
-                return role !== "Default";
+                return role;
               } else {
-                return role === WarcraftPlayerRole.SpecSwap;
+                return role === WarcraftPlayerRole.SpecSwap || role === WarcraftPlayerRole.None;
               }
             })
             .map((role) => (

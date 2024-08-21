@@ -84,7 +84,7 @@ export enum WarcraftPlayerRole {
   MainTank = "MainTank",
   OffTank = "OffTank",
   SpecSwap = "SpecSwap",
-  Default = "None"
+  None = "None"
 }
 
 export const WarcraftClassColour: {
