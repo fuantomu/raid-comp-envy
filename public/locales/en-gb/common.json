@@ -333,7 +333,8 @@
   "roles": {
     "OffTank": "Off Tank",
     "MainTank": "Main Tank",
-    "SpecSwap": "Spec Swap",
+    "OffHeal": "Off Heal",
+    "OffDPS": "Off DPS",
     "None": "None"
   }
 }

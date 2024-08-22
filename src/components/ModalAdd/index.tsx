@@ -13,7 +13,8 @@ import {
   WarcraftPlayerClass,
   WarcraftPlayerRace,
   WarcraftPlayerSpec,
-  WarcraftPlayerRole
+  WarcraftPlayerRole,
+  WarcraftRoleClasses
 } from "../../consts";
 import { BuildPlayer, GroupId } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
@@ -38,7 +39,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
   const [class_name, setClassName] = useState(WarcraftPlayerClass.Warrior);
   const [spec, setSpec] = useState(WarcraftPlayerSpec.WarriorFury);
   const [role, setRole] = useState(WarcraftPlayerRole.None);
-  const [swap, setSwap] = useState(WarcraftPlayerSpec.WarriorFury);
+  const [swap, setSwap] = useState("" as WarcraftPlayerSpec);
   const [raceName, setRace] = useState(WarcraftPlayerRace.Human);
   const [status, setStatus] = useState(InviteStatus.Unknown);
   const [group_id, setGroupId] = useState(1 as GroupId);
@@ -323,11 +324,24 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
         >
           {Object.keys(WarcraftPlayerRole)
             .filter((role) => {
-              if (RoleProvider.getSpecRole(spec) === WarcraftRole.Tank) {
-                return role;
-              } else {
-                return role === WarcraftPlayerRole.SpecSwap || role === WarcraftPlayerRole.None;
+              const temp_roles = [];
+              if (WarcraftRoleClasses.Tank.includes(class_name)) {
+                if (RoleProvider.getSpecRole(spec) === WarcraftRole.Tank) {
+                  temp_roles.push(WarcraftPlayerRole.MainTank);
+                }
+                temp_roles.push(WarcraftPlayerRole.OffTank);
               }
+              if (WarcraftRoleClasses.Heal.includes(class_name)) {
+                if (RoleProvider.getSpecRole(spec) === WarcraftRole.Healer) {
+                  temp_roles.push(WarcraftPlayerRole.OffDPS);
+                } else {
+                  temp_roles.push(WarcraftPlayerRole.OffHeal);
+                }
+              }
+              if (temp_roles.length > 0) {
+                temp_roles.push(WarcraftPlayerRole.None);
+              }
+              return temp_roles.includes(role);
             })
             .map((role) => (
               <ToggleButton
@@ -471,7 +485,13 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
             {renderClassToggle()}
             {renderSpecToggle()}
             {group_id !== "roster" ? renderRoleToggle() : <></>}
-            {role === WarcraftPlayerRole.SpecSwap ? renderSwapToggle() : <></>}
+            {role === WarcraftPlayerRole.OffDPS ||
+            role === WarcraftPlayerRole.OffHeal ||
+            role === WarcraftPlayerRole.OffTank ? (
+              renderSwapToggle()
+            ) : (
+              <></>
+            )}
             {renderRaceToggle()}
             {renderMain()}
             {main === name ? renderAlt() : <></>}

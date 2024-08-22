@@ -83,7 +83,8 @@ export enum WarcraftPlayerSpec {
 export enum WarcraftPlayerRole {
   MainTank = "MainTank",
   OffTank = "OffTank",
-  SpecSwap = "SpecSwap",
+  OffHeal = "OffHeal",
+  OffDPS = "OffDPS",
   None = "None"
 }
 
@@ -105,6 +106,11 @@ export const WarcraftClassColour: {
 export const DragItemTypes = {
   PLAYER: "player",
   NONE: "None"
+};
+
+export const WarcraftRoleClasses = {
+  Heal: ["Druid", "Paladin", "Shaman", "Priest"],
+  Tank: ["Druid", "Paladin", "Deathknight", "Warrior"]
 };
 
 export const RoleWeight: {

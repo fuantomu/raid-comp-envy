@@ -14,11 +14,12 @@ import { useAppContext } from "../App/context";
 import {
   ArrowDropDown,
   ArrowLeft,
+  GppBad,
+  HealthAndSafety,
   LooksOne,
   LooksTwo,
   NoAccounts,
-  Star,
-  SwapVert
+  Star
 } from "@mui/icons-material";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import { Tooltip } from "@mui/material";
@@ -145,7 +146,7 @@ const Player: FC<PlayerProps> = (props) => {
           {role !== "None" && group_id !== "roster" ? (
             <Tooltip
               title={`${common(`roles.${role}`)} ${
-                role === WarcraftPlayerRole.SpecSwap ? ": " + common(`specs.${swap}`) : ""
+                swap !== spec && swap.includes(class_name) ? ": " + common(`specs.${swap}`) : ""
               }`}
               placement="top"
               arrow
@@ -154,8 +155,10 @@ const Player: FC<PlayerProps> = (props) => {
                 <LooksOne sx={{ fontSize: "24px", justifySelf: "left" }} />
               ) : role === WarcraftPlayerRole.OffTank ? (
                 <LooksTwo sx={{ fontSize: "24px", justifySelf: "left" }} />
-              ) : role === WarcraftPlayerRole.SpecSwap ? (
-                <SwapVert sx={{ fontSize: "24px", justifySelf: "left" }} />
+              ) : role === WarcraftPlayerRole.OffDPS ? (
+                <GppBad sx={{ fontSize: "24px", justifySelf: "left" }} />
+              ) : role === WarcraftPlayerRole.OffHeal ? (
+                <HealthAndSafety sx={{ fontSize: "24px", justifySelf: "left" }} />
               ) : (
                 <NoAccounts sx={{ fontSize: "24px", justifySelf: "left" }} />
               )}
