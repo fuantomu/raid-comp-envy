@@ -143,10 +143,12 @@ const Player: FC<PlayerProps> = (props) => {
             </Tooltip>
           ) : null}
 
-          {role !== "None" && group_id !== "roster" ? (
+          {role && role !== "None" && group_id !== "roster" ? (
             <Tooltip
               title={`${common(`roles.${role}`)} ${
-                swap !== spec && swap.includes(class_name) ? ": " + common(`specs.${swap}`) : ""
+                swap && swap !== spec && swap.includes(class_name)
+                  ? ": " + common(`specs.${swap}`)
+                  : ""
               }`}
               placement="top"
               arrow
