@@ -25,8 +25,11 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id }) => {
   let sheetUrl = createRef<HTMLInputElement>();
 
   const handleCreate = async () => {
-    const currentUrl = sheetUrl.current?.value ?? "";
-    handlePostDiscord(currentUrl);
+    if (sheetUrl.current?.value && sheetUrl.current?.value !== "") {
+      handlePostDiscord(sheetUrl.current?.value);
+    } else {
+      handlePostDiscord(process.env.REACT_APP_DEFAULT_DISCORD);
+    }
   };
 
   const handleClose = () => {
