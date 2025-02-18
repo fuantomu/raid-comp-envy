@@ -214,7 +214,8 @@ export abstract class BuildHelper {
     sheetUrl: string,
     sendMains?: BuildPlayer[],
     note?: string,
-    version?: string
+    version?: string,
+    debug?: boolean
   ) {
     const messages: DiscordMessage[] = [];
     //@Crenox
@@ -298,21 +299,27 @@ export abstract class BuildHelper {
       ]
     };
     if (this.discordMessages[build.id]){
-      await RosterProvider.patchSetup(JSON.stringify(data), this.discordMessages[build.id]).then((response) => {
-        messages.push({messageId: this.discordMessages[build.id], buildId: build.id, note: response.embeds[0].description})
+      await RosterProvider.patchSetup(JSON.stringify(data), this.discordMessages[build.id], debug).then((response) => {
+        if (!debug){
+          messages.push({messageId: this.discordMessages[build.id], buildId: build.id, note: response.embeds[0].description})
+        }
       }).catch(async error => {
         if(error.status === 404){
-          await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
-            this.discordMessages[build.id] = response.id;
-            messages.push({messageId: response.id, buildId: build.id.toString(), note: response.embeds[0].description})
+          await RosterProvider.postSetup(JSON.stringify(data), debug).then((response) => {
+            if (!debug){
+              this.discordMessages[build.id] = response.id;
+              messages.push({messageId: response.id, buildId: build.id.toString(), note: response.embeds[0].description})
+            }
           });
         }
       });
     }
     else{
-      await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
-        this.discordMessages[build.id] = response.id;
-        messages.push({messageId: response.id, buildId: build.id.toString(), note: response.embeds[0].description})
+      await RosterProvider.postSetup(JSON.stringify(data), debug).then((response) => {
+        if (!debug){
+          this.discordMessages[build.id] = response.id;
+          messages.push({messageId: response.id, buildId: build.id.toString(), note: response.embeds[0].description})
+        }
       });
     }
 

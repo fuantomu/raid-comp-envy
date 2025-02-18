@@ -102,8 +102,8 @@ export abstract class RosterProvider {
       });
   }
 
-  public static async postSetup(build: string): Promise<any> {
-    return await axios.post(`${process.env.REACT_APP_DISCORD_WEBHOOK}?wait=true`, build, {
+  public static async postSetup(build: string, debug: boolean = false): Promise<any> {
+    return await axios.post(`${debug? process.env.REACT_APP_DISCORD_WEBHOOK_TEST : process.env.REACT_APP_DISCORD_WEBHOOK}?wait=true`, build, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
@@ -114,8 +114,8 @@ export abstract class RosterProvider {
       });
   }
 
-  public static async patchSetup(build: string, messageId: string): Promise<any> {
-      return await axios.patch(`${process.env.REACT_APP_DISCORD_WEBHOOK}/messages/${messageId}`, build, {
+  public static async patchSetup(build: string, messageId: string, debug: boolean = false): Promise<any> {
+      return await axios.patch(`${debug? process.env.REACT_APP_DISCORD_WEBHOOK_TEST : process.env.REACT_APP_DISCORD_WEBHOOK}/messages/${messageId}`, build, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json;charset=UTF-8",

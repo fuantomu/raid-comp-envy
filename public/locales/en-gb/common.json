@@ -295,7 +295,8 @@
     "bench": "Send unset players in bench",
     "note": "Note text",
     "update": "Update Setup",
-    "update_setup": "Update setup in Discord"
+    "update_setup": "Update setup in Discord",
+    "debug": "Send setup to test channel"
   },
   "login":{
     "title": "Login to raid planner",

@@ -28,11 +28,11 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id }) => {
   const context = useAppContext();
   let sheetUrl = createRef<HTMLInputElement>();
 
-  const handleCreate = async () => {
+  const handleCreate = async (debug: boolean = false) => {
     if (sheetUrl.current?.value && sheetUrl.current?.value !== "") {
-      handlePostDiscord(sheetUrl.current?.value);
+      handlePostDiscord(sheetUrl.current?.value, debug);
     } else {
-      handlePostDiscord(process.env.REACT_APP_DEFAULT_DISCORD);
+      handlePostDiscord(process.env.REACT_APP_DEFAULT_DISCORD, debug);
     }
   };
 
@@ -72,7 +72,7 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id }) => {
 
 
 
-  const handlePostDiscord = async (sheetUrl: string) => {
+  const handlePostDiscord = async (sheetUrl: string, debug: boolean) => {
     const build = context?.getRaid(build_id);
     if (build) {
       await BuildHelper.parsePostSetup(
@@ -80,7 +80,8 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id }) => {
         sheetUrl,
         checked ? context?.getUnsetMains(build_id) : [],
         note,
-        context?.getVersion()
+        context?.getVersion(),
+        debug
       ).then((response) => {
 
         if(response.length > 0){
@@ -156,12 +157,15 @@ const ModalPostDiscord: FC<ModalPostDiscordProps> = ({ build_id }) => {
             <TextField placeholder={common("discord.note")} value={note} onChange={handleNoteChange} multiline={true}/>
           </Box>
           <Box css={styles.buttons}>
-            <Button color="success" variant="contained" onClick={handleCreate}>
+            <Button color="success" variant="contained" onClick={()=>handleCreate()}>
               {discordMessages.find((message) => message.buildId === build_id) ? (
                 common("discord.update")
               ) : (
                 common("discord.post")
               )}
+            </Button>
+            <Button color="success" variant="contained" onClick={()=>handleCreate(true)}>
+              {common("discord.debug")}
             </Button>
             <Button color="secondary" variant="contained" onClick={handleClose}>
               {common("buttons.cancel")}
