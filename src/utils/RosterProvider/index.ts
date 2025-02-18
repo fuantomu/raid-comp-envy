@@ -4,6 +4,7 @@ import {
   BuildPlayer,
   BuildPlayerResponse,
   BuildResponse,
+  DiscordMessageResponse,
   Login,
   UpdateResponse,
   WebSocketMessage
@@ -114,16 +115,16 @@ export abstract class RosterProvider {
   }
 
   public static async patchSetup(build: string, messageId: string): Promise<any> {
-    return await axios.patch(`${process.env.REACT_APP_DISCORD_WEBHOOK}/messages/${messageId}`, build, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    })
-      .then(({ data }) => {
-        return data;
-      });
-  }
+      return await axios.patch(`${process.env.REACT_APP_DISCORD_WEBHOOK}/messages/${messageId}`, build, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+      })
+        .then(({ data }) => {
+          return data;
+        });
+    }
 
   public static async getAbsences(): Promise<AbsenceResponse[]> {
     return await fetch(`${process.env.REACT_APP_API}/absence/`, {
@@ -223,5 +224,39 @@ export abstract class RosterProvider {
       .then((message) => {
         return message;
       });
+  }
+
+  public static async getDiscordMessages(): Promise<DiscordMessageResponse[]> {
+    return await fetch(`${process.env.REACT_APP_API}/discord/`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    })
+      .then((response) => response.json())
+      .then((messages) => {
+        return messages;
+      });
+  }
+
+  public static async saveDiscordMessage(messageId: string, buildId: string, note: string): Promise<number> {
+    return await axios.post(`${process.env.REACT_APP_API}/discord/${buildId}`, {"messageId": messageId, "note": note}, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    })
+    .then(({ data }) => {
+        return data;
+    });
+  }
+
+  public static async deleteDiscordMessage(buildId: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/discord/delete/${buildId}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response;
+    });
   }
 }

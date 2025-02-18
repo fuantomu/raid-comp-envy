@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import { FC } from "react";
 import { BuildPlayer, GroupId } from "../../types";
 import UUID from "../../utils/UUID";
-import useStyles from "./useStyles";
 import { Typography } from "@mui/material";
 import SetupPlayer from "../SetupPlayer";
 import { useTranslation } from "react-i18next";

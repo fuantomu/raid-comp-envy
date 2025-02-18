@@ -170,3 +170,15 @@ export type LoggedInUser = {
   host: string;
   username: string;
 };
+
+export type DiscordMessage = {
+  messageId: string;
+  buildId: string;
+  note?: string;
+};
+
+export type DiscordMessageResponse = {
+  messageId: string;
+  buildId: string;
+  note?: string;
+};

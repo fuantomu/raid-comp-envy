@@ -291,9 +291,11 @@
   "discord":{
     "send": "Send setup to Discord",
     "url": "Clickable link",
-    "post": "Post setup",
+    "post": "Post Setup",
     "bench": "Send unset players in bench",
-    "note": "Note text"
+    "note": "Note text",
+    "update": "Update Setup",
+    "update_setup": "Update setup in Discord"
   },
   "login":{
     "title": "Login to raid planner",

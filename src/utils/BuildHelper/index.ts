@@ -18,6 +18,7 @@ import {
   BuildPlayerResponse,
   BuildRoles,
   Difference,
+  DiscordMessage,
   GroupId,
   Message,
   PlayerData,
@@ -215,6 +216,7 @@ export abstract class BuildHelper {
     note?: string,
     version?: string
   ) {
+    const messages: DiscordMessage[] = [];
     //@Crenox
     const data = {
       content:
@@ -295,17 +297,26 @@ export abstract class BuildHelper {
         }
       ]
     };
-    if (this.discordMessages[build.name]){
-      await RosterProvider.patchSetup(JSON.stringify(data), this.discordMessages[build.name]).then((response) => {
-        console.log(response)
+    if (this.discordMessages[build.id]){
+      await RosterProvider.patchSetup(JSON.stringify(data), this.discordMessages[build.id]).then((response) => {
+        messages.push({messageId: this.discordMessages[build.id], buildId: build.id, note: response.embeds[0].description})
+      }).catch(async error => {
+        if(error.status === 404){
+          await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
+            this.discordMessages[build.id] = response.id;
+            messages.push({messageId: response.id, buildId: build.id.toString(), note: response.embeds[0].description})
+          });
+        }
       });
     }
     else{
       await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
-        this.discordMessages[build.name] = response.id;
-        console.log(response)
+        this.discordMessages[build.id] = response.id;
+        messages.push({messageId: response.id, buildId: build.id.toString(), note: response.embeds[0].description})
       });
     }
+
+    return messages;
 
   }
 
@@ -733,5 +744,24 @@ export abstract class BuildHelper {
       return true;
     }
     return false;
+  }
+
+  public static async parseGetDiscordMessages() {
+    const discordMessages: DiscordMessage[] = [];
+
+    await RosterProvider.getDiscordMessages().then((response) => {
+      if (response) {
+        for (const message of response) {
+          const newMessage = {
+            messageId: message.messageId,
+            buildId: message.buildId,
+            note: message.note
+          };
+          discordMessages.push(newMessage);
+          this.discordMessages[message.buildId] = message.messageId;
+        }
+      }
+    });
+    return discordMessages;
   }
 }
