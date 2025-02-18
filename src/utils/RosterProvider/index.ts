@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   AbsenceResponse,
   BuildPlayer,
@@ -100,16 +101,28 @@ export abstract class RosterProvider {
       });
   }
 
-  public static async postSetup(build: string): Promise<Response> {
-    return await fetch(`${process.env.REACT_APP_DISCORD_WEBHOOK}`, {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: build
-    }).then((response) => {
-      return response;
-    });
+  public static async postSetup(build: string): Promise<any> {
+    return await axios.post(`${process.env.REACT_APP_DISCORD_WEBHOOK}?wait=true`, build, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    })
+      .then(({ data }) => {
+        return data;
+      });
+  }
+
+  public static async patchSetup(build: string, messageId: string): Promise<any> {
+    return await axios.patch(`${process.env.REACT_APP_DISCORD_WEBHOOK}/messages/${messageId}`, build, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    })
+      .then(({ data }) => {
+        return data;
+      });
   }
 
   public static async getAbsences(): Promise<AbsenceResponse[]> {

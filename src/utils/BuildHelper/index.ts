@@ -206,6 +206,8 @@ export abstract class BuildHelper {
     return builds;
   }
 
+  public static discordMessages = {};
+
   public static async parsePostSetup(
     build: Build,
     sheetUrl: string,
@@ -293,7 +295,18 @@ export abstract class BuildHelper {
         }
       ]
     };
-    await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {});
+    if (this.discordMessages[build.name]){
+      await RosterProvider.patchSetup(JSON.stringify(data), this.discordMessages[build.name]).then((response) => {
+        console.log(response)
+      });
+    }
+    else{
+      await RosterProvider.postSetup(JSON.stringify(data)).then((response) => {
+        this.discordMessages[build.name] = response.id;
+        console.log(response)
+      });
+    }
+
   }
 
   public static async parseGetAbsences() {
