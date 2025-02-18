@@ -46,7 +46,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [buildSelection, setBuildSelection] = useState<SelectOption[]>([]);
   const [selectedBuilds, setSelectedBuilds] = useState<SelectOption[]>([]);
-  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Wotlk");
+  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Cataclysm");
   const [absence, setAbsence] = useState<Absence[]>([]);
   const [maxRaidId, setMaxRaidId] = useState(0);
   const webSocket = useUpdateSocketContext((message: MessageData) => {
@@ -194,7 +194,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const getVersion = (): string => {
-    return version ?? "Wotlk";
+    return version ?? "Cataclysm";
   };
 
   const getAlts = (player: BuildPlayer): BuildPlayer[] => {
@@ -1051,7 +1051,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const loadData = async (data: Update) => {
-    await loadBuilds(data.builds, version ?? "Wotlk");
+    await loadBuilds(data.builds, version ?? "Cataclysm");
     await loadAbsence(data.absences, data.players);
     setRoster(data.players.sort(sortFunctions["DEFAULT"]));
     updateRosterStatus(data.players);
