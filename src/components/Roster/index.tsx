@@ -7,12 +7,13 @@ import RosterGroup from "../RosterGroup";
 export interface RosterProps {
   players: BuildPlayer[];
   manager: any;
+  version: string;
 }
 
-const Roster: FC<RosterProps> = ({ players, manager }) => {
+const Roster: FC<RosterProps> = ({ players, manager, version }) => {
   return (
     <DndProvider manager={manager}>
-      <RosterGroup players={players} />
+      <RosterGroup players={players} version={version} />
     </DndProvider>
   );
 };

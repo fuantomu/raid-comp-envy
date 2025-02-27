@@ -15,12 +15,14 @@ import useStyles from "./useStyles";
 import { Button, MenuItem, TextField } from "@mui/material";
 import ModalAdd from "../ModalAdd";
 import { sortFunctions } from "../../utils/sorting";
+//import { RoleProvider } from "../../utils/RoleProvider";
 
 export interface RosterGroupProps {
   players: BuildPlayer[];
+  version: string;
 }
 
-const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
+const RosterGroup: FC<RosterGroupProps> = ({ players = [], version }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const context = useAppContext();
@@ -67,7 +69,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
           >
             {common("build.groups.group_each", { group_id: "roster" })}
           </Typography>
-          <ModalAdd fromRoster={true} />
+          <ModalAdd fromRoster={true} version={version} />
           <Button
             sx={{
               color: "white",
@@ -121,7 +123,7 @@ const RosterGroup: FC<RosterGroupProps> = ({ players = [] }) => {
           css={[styles.scroll, styles.spread(window.innerWidth)]}
         >
           {players
-            .filter((player) => player.main?.toLowerCase() === player.name.toLowerCase())
+            .filter((player) => player.main?.toLowerCase() === player.name.toLowerCase()) // RoleProvider.getClassVersion(version).includes(player.class_name) && RoleProvider.getRaceVersion(version).includes(player.race)
             .sort(sortFunctions[sorting])
             .map((player) => (
               <Player

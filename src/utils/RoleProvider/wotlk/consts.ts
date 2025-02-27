@@ -44,7 +44,8 @@ export const WarcraftClassRaidBuffs: {
     WarcraftRaidBuff.SpellHaste,
     WarcraftRaidBuff.SpellPower
   ],
-  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower, WarcraftRaidBuff.MaxHealth]
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.AttackPower, WarcraftRaidBuff.MaxHealth],
+  [WarcraftPlayerClass.Monk]: []
 };
 
 export const WarcraftSpecRaidBuffs: {
@@ -137,7 +138,10 @@ export const WarcraftSpecRaidBuffs: {
     ...WarcraftClassRaidBuffs.Warrior,
     WarcraftRaidBuff.PhysicalCrit
   ],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior]
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior],
+  [WarcraftPlayerSpec.MonkBrewmaster]: [],
+  [WarcraftPlayerSpec.MonkWindwalker]: [],
+  [WarcraftPlayerSpec.MonkMistweaver]: []
 };
 
 export enum WarcraftRaidDebuff {
@@ -185,7 +189,8 @@ export const WarcraftClassRaidDebuffs: {
     WarcraftRaidDebuff.ArmorDown20,
     WarcraftRaidDebuff.AttackPowerDown,
     WarcraftRaidDebuff.MeleeHaste
-  ]
+  ],
+  [WarcraftPlayerClass.Monk]: []
 };
 
 export const WarcraftSpecRaidDebuffs: {
@@ -283,7 +288,10 @@ export const WarcraftSpecRaidDebuffs: {
     WarcraftRaidDebuff.PhysicalDamageReceived
   ],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidDebuffs.Warrior],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidDebuffs.Warrior]
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidDebuffs.Warrior],
+  [WarcraftPlayerSpec.MonkBrewmaster]: [],
+  [WarcraftPlayerSpec.MonkWindwalker]: [],
+  [WarcraftPlayerSpec.MonkMistweaver]: []
 };
 
 export enum WarcraftRaidUtility {
@@ -318,7 +326,8 @@ export const WarcraftClassUtilities: {
     WarcraftRaidUtility.Healthstone
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust],
-  [WarcraftPlayerClass.Warrior]: []
+  [WarcraftPlayerClass.Warrior]: [],
+  [WarcraftPlayerClass.Monk]: []
 };
 
 export const WarcraftRaceUtilities: {
@@ -335,7 +344,8 @@ export const WarcraftRaceUtilities: {
   [WarcraftPlayerRace.Undead]: [],
   [WarcraftPlayerRace.Tauren]: [],
   [WarcraftPlayerRace.Bloodelf]: [],
-  [WarcraftPlayerRace.Goblin]: []
+  [WarcraftPlayerRace.Goblin]: [],
+  [WarcraftPlayerRace.Pandaren]: []
 };
 
 export const WarcraftSpecUtilities: {
@@ -411,61 +421,8 @@ export const WarcraftSpecUtilities: {
 
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilities.Warrior],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior]
-};
-
-export const WarcraftPlayerClassSpecs: {
-  [class_name in WarcraftPlayerClass]: WarcraftPlayerSpec[];
-} = {
-  [WarcraftPlayerClass.Deathknight]: [
-    WarcraftPlayerSpec.DeathknightBlood,
-    WarcraftPlayerSpec.DeathknightFrost,
-    WarcraftPlayerSpec.DeathknightUnholy
-  ],
-  [WarcraftPlayerClass.Druid]: [
-    WarcraftPlayerSpec.DruidBalance,
-    WarcraftPlayerSpec.DruidFeral,
-    WarcraftPlayerSpec.DruidGuardian,
-    WarcraftPlayerSpec.DruidRestoration
-  ],
-  [WarcraftPlayerClass.Hunter]: [
-    WarcraftPlayerSpec.HunterBeastmastery,
-    WarcraftPlayerSpec.HunterMarksmanship,
-    WarcraftPlayerSpec.HunterSurvival
-  ],
-  [WarcraftPlayerClass.Mage]: [
-    WarcraftPlayerSpec.MageArcane,
-    WarcraftPlayerSpec.MageFire,
-    WarcraftPlayerSpec.MageFrost
-  ],
-  [WarcraftPlayerClass.Priest]: [
-    WarcraftPlayerSpec.PriestDiscipline,
-    WarcraftPlayerSpec.PriestHoly,
-    WarcraftPlayerSpec.PriestShadow
-  ],
-  [WarcraftPlayerClass.Paladin]: [
-    WarcraftPlayerSpec.PaladinHoly,
-    WarcraftPlayerSpec.PaladinProtection,
-    WarcraftPlayerSpec.PaladinRetribution
-  ],
-  [WarcraftPlayerClass.Rogue]: [
-    WarcraftPlayerSpec.RogueAssassination,
-    WarcraftPlayerSpec.RogueCombat,
-    WarcraftPlayerSpec.RogueSubtlety
-  ],
-  [WarcraftPlayerClass.Warlock]: [
-    WarcraftPlayerSpec.WarlockAffliction,
-    WarcraftPlayerSpec.WarlockDemonology,
-    WarcraftPlayerSpec.WarlockDestruction
-  ],
-  [WarcraftPlayerClass.Shaman]: [
-    WarcraftPlayerSpec.ShamanElemental,
-    WarcraftPlayerSpec.ShamanEnhancement,
-    WarcraftPlayerSpec.ShamanRestoration
-  ],
-  [WarcraftPlayerClass.Warrior]: [
-    WarcraftPlayerSpec.WarriorArms,
-    WarcraftPlayerSpec.WarriorFury,
-    WarcraftPlayerSpec.WarriorProtection
-  ]
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
+  [WarcraftPlayerSpec.MonkBrewmaster]: [],
+  [WarcraftPlayerSpec.MonkWindwalker]: [],
+  [WarcraftPlayerSpec.MonkMistweaver]: []
 };

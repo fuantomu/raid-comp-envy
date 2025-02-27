@@ -46,7 +46,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [buildSelection, setBuildSelection] = useState<SelectOption[]>([]);
   const [selectedBuilds, setSelectedBuilds] = useState<SelectOption[]>([]);
-  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Cataclysm");
+  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? process.env.REACT_APP_DEFAULT_VERSION);
   const [absence, setAbsence] = useState<Absence[]>([]);
   const [maxRaidId, setMaxRaidId] = useState(0);
   const webSocket = useUpdateSocketContext((message: MessageData) => {
@@ -194,7 +194,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const getVersion = (): string => {
-    return version ?? "Cataclysm";
+    return version ?? process.env.REACT_APP_DEFAULT_VERSION;
   };
 
   const getAlts = (player: BuildPlayer): BuildPlayer[] => {
@@ -388,13 +388,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     }
   };
 
-  const editPlayerModalFn = (callback: (player: BuildPlayer, fromRoster: boolean) => void) => {
+  const editPlayerModalFn = (callback: (player: BuildPlayer, fromRoster: boolean, version: string) => void) => {
     openEditModal = callback;
   };
 
-  const editPlayer = (player: BuildPlayer, fromRoster: boolean = false) => {
+  const editPlayer = (player: BuildPlayer, fromRoster: boolean = false, version: string) => {
     if (openEditModal) {
-      openEditModal(player, fromRoster);
+      openEditModal(player, fromRoster, version);
     }
   };
 
@@ -539,7 +539,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         }
       }
       newRoster.push(newPlayer);
-      BuildHelper.parseSaveRoster(newRoster);
+      BuildHelper.parseSaveRoster([newPlayer]);
     }
     updateRosterStatus([...newRoster]);
 
@@ -1051,7 +1051,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   };
 
   const loadData = async (data: Update) => {
-    await loadBuilds(data.builds, version ?? "Cataclysm");
+    await loadBuilds(data.builds, version ?? process.env.REACT_APP_DEFAULT_VERSION);
     await loadAbsence(data.absences, data.players);
     setRoster(data.players.sort(sortFunctions["DEFAULT"]));
     updateRosterStatus(data.players);
@@ -1111,10 +1111,10 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         deleteAbsence
       }}
     >
-      <ModalAdd editPlayer={editPlayerModalFn} />
+      <ModalAdd editPlayer={editPlayerModalFn} version={version} />
       <ModalAlert handleOpen={handleShowError} />
       <div style={{ display: "flex", alignItems: "flex-start" }}>
-        <ScrollingSidebar manager={manager} rosterRef={roster} />
+        <ScrollingSidebar manager={manager} rosterRef={roster} version={version} />
         <div style={{ width: "100%", borderLeft: "1px solid black" }}>
           {raids.map((raid) => (
             <Raid

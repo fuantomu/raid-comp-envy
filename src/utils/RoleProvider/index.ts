@@ -1,11 +1,13 @@
 import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
 import * as cataclysm from "./cataclysm/consts";
-import { WarcraftRole, WarcraftSpecRole } from "./consts";
+import { WarcraftClassVersion, WarcraftRaceVersion, WarcraftRole, WarcraftSpecRole } from "./consts";
+import * as mop from "./mop/consts";
 import * as wotlk from "./wotlk/consts";
 
 const versions = {
   wotlk: wotlk,
-  cataclysm: cataclysm
+  cataclysm: cataclysm,
+  mop: mop
 };
 export abstract class RoleProvider {
   public static getSpecRole(spec?: WarcraftPlayerSpec): WarcraftRole {
@@ -50,5 +52,13 @@ export abstract class RoleProvider {
 
   public static getVersionRaidUtility(version?: string) {
     return versions[version.toLowerCase()].WarcraftRaidUtility;
+  }
+
+  public static getClassVersion(version?: string){
+    return version ? WarcraftClassVersion[version] : [];
+  }
+
+  public static getRaceVersion(version?: string){
+    return version ? WarcraftRaceVersion[version] : [];
   }
 }

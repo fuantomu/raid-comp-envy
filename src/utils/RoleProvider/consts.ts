@@ -8,6 +8,18 @@ export enum WarcraftRole {
   MeleeDPS = "MeleeDPS"
 }
 
+export const WarcraftClassVersion = {
+  Mop: ["Warrior","Mage","Druid","Monk","Hunter","Rogue","Paladin","Priest","Deathknight","Warlock","Shaman"],
+  Cataclysm: ["Warrior","Mage","Druid","Hunter","Rogue","Paladin","Priest","Deathknight","Warlock","Shaman"],
+  Wotlk: ["Warrior","Mage","Druid","Hunter","Rogue","Paladin","Priest","Deathknight","Warlock","Shaman"]
+}
+
+export const WarcraftRaceVersion = {
+  Mop: ["Human", "Nightelf", "Dwarf", "Gnome", "Draenei", "Orc", "Troll", "Tauren", "Undead", "Bloodelf", "Goblin", "Worgen", "Pandaren"],
+  Cataclysm: ["Human", "Nightelf", "Dwarf", "Gnome", "Draenei", "Orc", "Troll", "Tauren", "Undead", "Bloodelf", "Goblin", "Worgen"],
+  Wotlk: ["Human", "Nightelf", "Dwarf", "Gnome", "Draenei", "Orc", "Troll", "Tauren", "Undead", "Bloodelf"]
+}
+
 export const WarcraftSpecRole: {
   [playerSpec in WarcraftPlayerSpec]: WarcraftRole;
 } = {
@@ -41,7 +53,10 @@ export const WarcraftSpecRole: {
   [WarcraftPlayerSpec.ShamanRestoration]: WarcraftRole.Healer,
   [WarcraftPlayerSpec.WarriorArms]: WarcraftRole.MeleeDPS,
   [WarcraftPlayerSpec.WarriorFury]: WarcraftRole.MeleeDPS,
-  [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank
+  [WarcraftPlayerSpec.WarriorProtection]: WarcraftRole.Tank,
+  [WarcraftPlayerSpec.MonkBrewmaster]: WarcraftRole.Tank,
+  [WarcraftPlayerSpec.MonkWindwalker]: WarcraftRole.MeleeDPS,
+  [WarcraftPlayerSpec.MonkMistweaver]: WarcraftRole.Healer
 };
 
 export enum WarcraftRaidBuff {
@@ -98,7 +113,8 @@ export const WarcraftClassRaidBuffs: {
     WarcraftRaidBuff.Armor,
     WarcraftRaidBuff.MP5
   ],
-  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.StrengthAgility, WarcraftRaidBuff.Stamina]
+  [WarcraftPlayerClass.Warrior]: [WarcraftRaidBuff.StrengthAgility, WarcraftRaidBuff.Stamina],
+  [WarcraftPlayerClass.Monk]: []
 };
 
 export const WarcraftSpecRaidBuffs: {
@@ -178,7 +194,10 @@ export const WarcraftSpecRaidBuffs: {
   [WarcraftPlayerSpec.ShamanRestoration]: [...WarcraftClassRaidBuffs.Shaman],
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassRaidBuffs.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassRaidBuffs.Warrior, WarcraftRaidBuff.Crit],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior]
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassRaidBuffs.Warrior],
+  [WarcraftPlayerSpec.MonkBrewmaster]: [],
+  [WarcraftPlayerSpec.MonkWindwalker]: [],
+  [WarcraftPlayerSpec.MonkMistweaver]: []
 };
 
 export enum WarcraftRaidDebuff {
@@ -226,7 +245,8 @@ export const WarcraftClassRaidDebuffs: {
   [WarcraftPlayerClass.Warrior]: [
     WarcraftRaidDebuff.ArmorDown,
     WarcraftRaidDebuff.PhysicalDamageDealt
-  ]
+  ],
+  [WarcraftPlayerClass.Monk]: []
 };
 
 export const WarcraftSpecRaidDebuffs: {
@@ -315,7 +335,10 @@ export const WarcraftSpecRaidDebuffs: {
   [WarcraftPlayerSpec.WarriorProtection]: [
     ...WarcraftClassRaidDebuffs.Warrior,
     WarcraftRaidDebuff.MeleeHaste
-  ]
+  ],
+  [WarcraftPlayerSpec.MonkBrewmaster]: [],
+  [WarcraftPlayerSpec.MonkWindwalker]: [],
+  [WarcraftPlayerSpec.MonkMistweaver]: []
 };
 
 export enum WarcraftRaidUtility {
@@ -351,7 +374,8 @@ export const WarcraftClassUtilities: {
     WarcraftRaidUtility.Healthstone
   ],
   [WarcraftPlayerClass.Shaman]: [WarcraftRaidUtility.Bloodlust],
-  [WarcraftPlayerClass.Warrior]: []
+  [WarcraftPlayerClass.Warrior]: [],
+  [WarcraftPlayerClass.Monk]: []
 };
 
 export const WarcraftRaceUtilities: {
@@ -368,7 +392,8 @@ export const WarcraftRaceUtilities: {
   [WarcraftPlayerRace.Undead]: [],
   [WarcraftPlayerRace.Tauren]: [],
   [WarcraftPlayerRace.Bloodelf]: [],
-  [WarcraftPlayerRace.Goblin]: []
+  [WarcraftPlayerRace.Goblin]: [],
+  [WarcraftPlayerRace.Pandaren]: []
 };
 
 export const WarcraftSpecUtilities: {
@@ -422,7 +447,10 @@ export const WarcraftSpecUtilities: {
 
   [WarcraftPlayerSpec.WarriorArms]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.WarriorFury]: [...WarcraftClassUtilities.Warrior],
-  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior]
+  [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
+  [WarcraftPlayerSpec.MonkBrewmaster]: [],
+  [WarcraftPlayerSpec.MonkWindwalker]: [],
+  [WarcraftPlayerSpec.MonkMistweaver]: []
 };
 
 export const WarcraftPlayerClassSpecs: {
@@ -478,5 +506,10 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.WarriorArms,
     WarcraftPlayerSpec.WarriorFury,
     WarcraftPlayerSpec.WarriorProtection
+  ],
+  [WarcraftPlayerClass.Monk]: [
+    WarcraftPlayerSpec.MonkBrewmaster,
+    WarcraftPlayerSpec.MonkWindwalker,
+    WarcraftPlayerSpec.MonkMistweaver
   ]
 };

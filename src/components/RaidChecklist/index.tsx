@@ -18,7 +18,7 @@ const RaidChecklist: FC<RaidChecklistProps> = ({ build, version }) => {
   const styles = useStyles();
   return (
     <Box css={styles.checklist}>
-      <RaidClassChecklist build={build} />
+      <RaidClassChecklist build={build} version={version} />
       <RaidBuffChecklist build={build} version={version} />
       <RaidDebuffChecklist build={build} version={version} />
       <RaidUtilityChecklist build={build} version={version} />

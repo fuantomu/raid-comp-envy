@@ -133,7 +133,8 @@
     "Rogue": "Rogue",
     "Shaman": "Shaman",
     "Warlock": "Warlock",
-    "Warrior": "Warrior"
+    "Warrior": "Warrior",
+    "Monk": "Monk"
   },
   "specs": {
     "DeathknightBlood": "Blood",
@@ -166,7 +167,10 @@
     "ShamanRestoration": "Restoration",
     "WarriorArms": "Arms",
     "WarriorFury": "Fury",
-    "WarriorProtection": "Protection"
+    "WarriorProtection": "Protection",
+    "MonkBrewmaster": "Brewmaster",
+    "MonkWindwalker": "Windwalker",
+    "MonkMistweaver": "Mistweaver"
   },
   "races": {
     "Human": "Human",
@@ -180,7 +184,8 @@
     "Undead": "Undead",
     "Tauren": "Tauren",
     "Bloodelf": "Bloodelf",
-    "Goblin": "Goblin"
+    "Goblin": "Goblin",
+    "Pandaren": "Pandaren"
   },
   "buff": {
     "MaxMana": "Maximum Mana +2126",
@@ -285,8 +290,9 @@
     "default": "Default"
   },
   "version": {
-    "Cataclysm": "Switch to Wrath of the Lich King",
-    "Wotlk": "Switch to Cataclysm"
+    "Mop": "Switch to Mists of Pandaria",
+    "Cataclysm": "Switch to Cataclysm",
+    "Wotlk": "Switch to Wrath of the Lich King"
   },
   "discord":{
     "send": "Send setup to Discord",

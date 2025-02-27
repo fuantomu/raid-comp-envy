@@ -225,7 +225,7 @@ const App: FC = () => {
                   src={cataclysm}
                 />
               </MenuItem>
-              <MenuItem id={"Mop"} disabled value={"Mop"}>
+              <MenuItem id={"Mop"} value={"Mop"}>
                 <img width={"125"} height={"75"} alt={common(`version.Mop`)} src={mop} />
               </MenuItem>
             </TextField>

@@ -10,9 +10,10 @@ import { BuildPlayer } from "../../types";
 export interface ScrollingSidebarProps {
   manager: any;
   rosterRef: BuildPlayer[];
+  version: string;
 }
 
-const ScrollingSidebar: FC<ScrollingSidebarProps> = ({ manager, rosterRef }) => {
+const ScrollingSidebar: FC<ScrollingSidebarProps> = ({ manager, rosterRef, version }) => {
   return (
     <StickyBox
       style={{
@@ -22,7 +23,7 @@ const ScrollingSidebar: FC<ScrollingSidebarProps> = ({ manager, rosterRef }) => 
         marginRight: "30px"
       }}
     >
-      <Roster manager={manager} players={rosterRef} />
+      <Roster manager={manager} players={rosterRef} version={version} />
       <Box
         display={"grid"}
         sx={{

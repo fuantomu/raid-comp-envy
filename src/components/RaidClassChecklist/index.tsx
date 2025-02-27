@@ -9,14 +9,19 @@ import { WarcraftPlayerClass } from "../../consts";
 import { Build } from "../../types";
 import UUID from "../../utils/UUID";
 import RaidClass from "../RaidClass";
+import { RoleProvider } from "../../utils/RoleProvider";
 
 export interface RaidClassChecklistProps {
   build: Build;
+  version: string;
 }
 
-const buildClassChecklist = (build: Build) => {
+const buildClassChecklist = (build: Build, version: string) => {
   const class_names = [];
   for (const class_name in WarcraftPlayerClass) {
+    if (!RoleProvider.getClassVersion(version).includes(class_name)){
+      continue;
+    }
     if (build.players.length > 0) {
       const playersWithClass = build.players.filter(
         (player) =>
@@ -36,7 +41,7 @@ const buildClassChecklist = (build: Build) => {
   return class_names;
 };
 
-const RaidClassChecklist: FC<RaidClassChecklistProps> = ({ build }) => {
+const RaidClassChecklist: FC<RaidClassChecklistProps> = ({ build, version }) => {
   const [common] = useTranslation("common");
   return (
     <Card sx={{ border: "1px solid black" }}>
@@ -44,7 +49,7 @@ const RaidClassChecklist: FC<RaidClassChecklistProps> = ({ build }) => {
         <Typography style={{ caretColor: "transparent" }} variant="subtitle1">
           {common("build.checklist.classes")}
         </Typography>
-        {buildClassChecklist(build)}
+        {buildClassChecklist(build, version)}
       </CardContent>
     </Card>
   );

@@ -28,7 +28,8 @@ export const WarcraftClassIcon: {
   [WarcraftPlayerClass.Rogue]: "classicon_rogue",
   [WarcraftPlayerClass.Shaman]: "classicon_shaman",
   [WarcraftPlayerClass.Warlock]: "classicon_warlock",
-  [WarcraftPlayerClass.Warrior]: "classicon_warrior"
+  [WarcraftPlayerClass.Warrior]: "classicon_warrior",
+  [WarcraftPlayerClass.Monk]: "classicon_monk"
 };
 
 export const WarcraftRaceIcon: {
@@ -45,7 +46,8 @@ export const WarcraftRaceIcon: {
   [WarcraftPlayerRace.Undead]: "achievement_character_undead_male",
   [WarcraftPlayerRace.Tauren]: "achievement_character_tauren_male",
   [WarcraftPlayerRace.Bloodelf]: "achievement_character_bloodelf_female",
-  [WarcraftPlayerRace.Goblin]: "achievement_goblinhead"
+  [WarcraftPlayerRace.Goblin]: "achievement_goblinhead",
+  [WarcraftPlayerRace.Pandaren]: "achievement_character_pandaren_female"
 };
 
 export const WarcraftSpecIcon: {
@@ -81,7 +83,10 @@ export const WarcraftSpecIcon: {
   [WarcraftPlayerSpec.ShamanRestoration]: "spell_nature_magicimmunity",
   [WarcraftPlayerSpec.WarriorArms]: "ability_warrior_savageblow",
   [WarcraftPlayerSpec.WarriorFury]: "ability_warrior_innerrage",
-  [WarcraftPlayerSpec.WarriorProtection]: "ability_warrior_defensivestance"
+  [WarcraftPlayerSpec.WarriorProtection]: "ability_warrior_defensivestance",
+  [WarcraftPlayerSpec.MonkBrewmaster]: "spell_monk_brewmaster_spec",
+  [WarcraftPlayerSpec.MonkWindwalker]: "spell_monk_windwalker_spec",
+  [WarcraftPlayerSpec.MonkMistweaver]: "spell_monk_mistweaver_spec"
 };
 
 export const WarcraftRoleIcon: {
@@ -172,13 +177,16 @@ export const WarcraftUtilityIcon: {
 
 export enum CustomIcon {
   GroupNeedMore = "inv_misc_groupneedmore",
-  WRATH = "achievement_boss_lichking",
-  CATACLYSM = "achievment_boss_madnessofdeathwing",
   ICC = "achievement_zone_icecrown_01",
   RS = "spell_shadow_twilight",
   BWD = "achievement_boss_nefarion",
   BOT = "spell_fire_twilightcano",
   FOURWINDS = "achievement_boss_murmur",
   FL = "achievement_zone_firelands",
-  DS = "achievment_boss_madnessofdeathwing"
+  DS = "achievment_boss_madnessofdeathwing",
+  MV = "achievement_moguraid_06",
+  HOF = "achievement_raid_mantidraid03",
+  TOES = "achievement_raid_terraceofendlessspring04",
+  TOT = "achievement_boss_leishen",
+  SOO = "ability_garrosh_hellscreams_warsong"
 }

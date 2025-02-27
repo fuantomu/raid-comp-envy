@@ -28,11 +28,12 @@ import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import { RoleProvider } from "../../utils/RoleProvider";
 
 export interface ModalAddProps {
-  editPlayer?: (callback: (player: BuildPlayer, fromRoster: boolean) => void) => void;
+  editPlayer?: (callback: (player: BuildPlayer, fromRoster: boolean, version: string) => void) => void;
   fromRoster?: boolean;
+  version: string;
 }
 
-const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
+const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }) => {
   const styles = useStyles();
   const [common] = useTranslation("common");
   const [open, setOpen] = useState(false);
@@ -278,7 +279,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
           exclusive
           onChange={handleSelectClass}
         >
-          {Object.keys(WarcraftPlayerClass).map((class_name) => (
+          {Object.keys(WarcraftPlayerClass).filter((class_name) => RoleProvider.getClassVersion(version).includes(class_name)).map((class_name) => (
             <ToggleButton value={class_name} key={UUID()} title={common(`classes.${class_name}`)}>
               <WarcraftIcon
                 css={{ width: "28px", height: "28px" }}
@@ -389,7 +390,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false }) => {
           exclusive
           onChange={handleSelectRace}
         >
-          {Object.keys(WarcraftPlayerRace).map((race) => (
+          {Object.keys(WarcraftPlayerRace).filter((race) => RoleProvider.getRaceVersion(version).includes(race)).map((race) => (
             <ToggleButton value={race} key={UUID()} title={common(`races.${race}`)}>
               <WarcraftIcon
                 css={{ width: "28px", height: "28px" }}

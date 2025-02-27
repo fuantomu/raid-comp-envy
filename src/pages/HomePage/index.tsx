@@ -20,7 +20,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
   const [raidsThisLockout, setRaidsThisLockout] = useState<Build[]>([]);
   const [raidsNextLockout, setRaidsNextLockout] = useState<Build[]>([]);
   const [builds, setBuilds] = useState<Build[]>([]);
-  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? "Cataclysm");
+  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? process.env.REACT_APP_DEFAULT_VERSION);
 
   const handleChangeVersion = async (selectedVersion: string) => {
     setVersion(selectedVersion);
@@ -86,7 +86,7 @@ const HomePage: FC<HomePageProps> = ({ changeVersionRef }) => {
   useEffect(() => {
     BuildHelper.parseGetBuilds()
       .then((builds) => {
-        loadRaids(builds, version ?? "Cataclysm");
+        loadRaids(builds, version ?? process.env.REACT_APP_DEFAULT_VERSION);
       })
       .catch(handleError);
     // eslint-disable-next-line

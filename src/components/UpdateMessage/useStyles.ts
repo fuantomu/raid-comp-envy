@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import cataclysm from "../../icons/cataclysm_background.png";
+import mop from "../../icons/mop_background.png";
 import wotlk from "../../icons/wotlk_background.png";
 import useTheme, { Spacing } from "../../utils/useTheme";
 
@@ -24,6 +25,8 @@ export default () => {
             ? `url(${cataclysm})`
             : version === "Wotlk"
             ? `url(${wotlk})`
+            : version === "Mop"
+            ? `url(${mop})`
             : palette.background.default};
         background-position: 0% 22%;
         &:hover {
@@ -32,6 +35,8 @@ export default () => {
               ? `url(${cataclysm})`
               : version === "Wotlk"
               ? `url(${wotlk})`
+              : version === "Mop"
+              ? `url(${mop})`
               : palette.background.default};
           background-position: 0% 22%;
         }

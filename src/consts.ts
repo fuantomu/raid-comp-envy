@@ -18,7 +18,8 @@ export enum WarcraftPlayerClass {
   Rogue = "Rogue",
   Shaman = "Shaman",
   Warlock = "Warlock",
-  Warrior = "Warrior"
+  Warrior = "Warrior",
+  Monk = "Monk"
 }
 
 export enum WarcraftPlayerRace {
@@ -33,7 +34,8 @@ export enum WarcraftPlayerRace {
   Undead = "Undead",
   Tauren = "Tauren",
   Bloodelf = "Bloodelf",
-  Goblin = "Goblin"
+  Goblin = "Goblin",
+  Pandaren = "Pandaren"
 }
 
 export enum InviteStatus {
@@ -77,7 +79,10 @@ export enum WarcraftPlayerSpec {
   ShamanRestoration = "ShamanRestoration",
   WarriorArms = "WarriorArms",
   WarriorFury = "WarriorFury",
-  WarriorProtection = "WarriorProtection"
+  WarriorProtection = "WarriorProtection",
+  MonkBrewmaster = "MonkBrewmaster",
+  MonkWindwalker = "MonkWindwalker",
+  MonkMistweaver = "MonkMistweaver"
 }
 
 export enum WarcraftPlayerRole {
@@ -100,7 +105,8 @@ export const WarcraftClassColour: {
   Rogue: "#FFF569",
   Shaman: "#0070DE",
   Warlock: "#8787ED",
-  Warrior: "#C79C6E"
+  Warrior: "#C79C6E",
+  Monk: "#00FF96"
 };
 
 export const DragItemTypes = {
@@ -109,8 +115,8 @@ export const DragItemTypes = {
 };
 
 export const WarcraftRoleClasses = {
-  Heal: ["Druid", "Paladin", "Shaman", "Priest"],
-  Tank: ["Druid", "Paladin", "Deathknight", "Warrior"]
+  Heal: ["Druid", "Paladin", "Shaman", "Priest", "Monk"],
+  Tank: ["Druid", "Paladin", "Deathknight", "Warrior", "Monk"]
 };
 
 export const RoleWeight: {
@@ -124,6 +130,7 @@ export const RoleWeight: {
 };
 
 export const ClassWeight: { [class_name in WarcraftPlayerClass]: number } = {
+  Monk: 11,
   Priest: 10,
   Rogue: 9,
   Shaman: 8,
@@ -167,6 +174,28 @@ export const Instance = {
     {
       name: "Dragon Soul",
       abbreviation: "DS"
+    }
+  ],
+  Mop: [
+    {
+      name: "Mogu'shan Vaults",
+      abbreviation: "MV"
+    },
+    {
+      name: "Heart of Fear",
+      abbreviation: "HOF"
+    },
+    {
+      name: "Terrace of Endless Spring",
+      abbreviation: "TOES"
+    },
+    {
+      name: "Throne of Thunder",
+      abbreviation: "TOT"
+    },
+    {
+      name: "Siege of Orgrimmar",
+      abbreviation: "SOO"
     }
   ]
 };

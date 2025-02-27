@@ -454,6 +454,8 @@ export abstract class BuildHelper {
         return "<:wowdruid:1067068296551202927>";
       case WarcraftPlayerClass.Rogue:
         return "<:wowrogue:1067068360396914698>";
+      case WarcraftPlayerClass.Monk:
+        return "<:wowmonk:1344732313828851794>";
     }
   }
 
