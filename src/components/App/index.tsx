@@ -40,7 +40,7 @@ const App: FC = () => {
   const changeVersionRef = useRef<any>();
   const [common] = useTranslation("common");
   const [selectedVersion, setSelectedVersion] = useState(
-    localStorage.getItem("LastVersion") ?? "Wotlk"
+    localStorage.getItem("LastVersion") ?? process.env.REACT_APP_DEFAULT_VERSION
   );
   const navigate = useNavigate();
   const [users, setUsers] = useState<LoggedInUser[]>([]);
@@ -173,7 +173,7 @@ const App: FC = () => {
       window.location.pathname !== "/login" ? (
         <StickyBox
           style={{
-            background: "#1d1d1d",
+            background: selectedVersion === "Mop"? "#0b403b" : selectedVersion === "Cataclysm"? "#a64808" : selectedVersion === "Wotlk"? "#006278" : "#1d1d1d",
             height: "116px"
           }}
           bottom={true}
@@ -184,19 +184,19 @@ const App: FC = () => {
             sx={{ width: "100%", border: "1px solid black", height: "95px" }}
           >
             <Button
-              sx={{ borderRight: "1px solid black", height: "95px" }}
+              sx={{ borderRight: "1px solid black", height: "95px", color: "white" }}
               onClick={() => navigate("/home")}
             >
               Home
             </Button>
             <Button
-              sx={{ borderRight: "1px solid black", height: "95px" }}
+              sx={{ borderRight: "1px solid black", height: "95px", color: "white" }}
               onClick={() => navigate("/edit")}
             >
               Planner
             </Button>
             <Tooltip title={"Logout"}>
-              <Button sx={{ height: "95px" }} onClick={logout}>
+              <Button sx={{ height: "95px", color: "white" }} onClick={logout}>
                 <Box>
                   <Box>{`Currently logged in as ${accountName}`}</Box>
                   <Logout />
@@ -204,7 +204,7 @@ const App: FC = () => {
               </Button>
             </Tooltip>
             <TextField
-              defaultValue="Wotlk"
+              defaultValue={process.env.REACT_APP_DEFAULT_VERSION}
               value={selectedVersion}
               onChange={(e) => {
                 changeVersionRef.current?.handleChangeVersion(e.target.value);
