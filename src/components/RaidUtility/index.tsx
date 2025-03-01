@@ -6,7 +6,8 @@ import { IconProvider } from "../../utils/IconProvider";
 import { WarcraftRaidUtility } from "../../utils/RoleProvider/consts";
 import ChecklistItem from "../ChecklistItem";
 import { RoleProvider } from "../../utils/RoleProvider";
-import { WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
+import UUID from "../../utils/UUID";
 
 export interface RaidUtilityProps {
   utility: WarcraftRaidUtility;
@@ -14,8 +15,9 @@ export interface RaidUtilityProps {
   version: string;
 }
 
-const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: string) => {
+const buildUtilityList = (utility: WarcraftRaidUtility, version: string) => {
   const specs = [];
+  const classes = {};
   for (const spec in WarcraftPlayerSpec) {
     if (
       RoleProvider.getSpecUtilities(spec as WarcraftPlayerSpec, version).includes(
@@ -23,6 +25,11 @@ const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: string) => 
       )
     ) {
       specs.push(spec as WarcraftPlayerSpec);
+      const class_name = spec.toString().match(/[A-Z][a-z]+/g)[0] as WarcraftPlayerClass;
+      if (!Object.keys(classes).includes(class_name)) {
+        classes[class_name] = 0;
+      }
+      classes[class_name] += 1;
     }
   }
   for (const race in WarcraftPlayerRace) {
@@ -34,7 +41,7 @@ const buildUtilitySpeclist = (utility: WarcraftRaidUtility, version: string) => 
       specs.push(race as WarcraftPlayerRace);
     }
   }
-  return specs;
+  return { specs: specs, classes: classes };
 };
 
 const RaidUtility: FC<RaidUtilityProps> = ({ utility, players, version }) => {
@@ -45,8 +52,9 @@ const RaidUtility: FC<RaidUtilityProps> = ({ utility, players, version }) => {
       displayName={common(`utility.${utility}`)}
       iconSource={IconProvider.getUtilityIcon(utility)}
       players={players}
-      specs={buildUtilitySpeclist(utility, version)}
+      list={buildUtilityList(utility, version)}
       source={utility}
+      key={UUID()}
     />
   );
 };

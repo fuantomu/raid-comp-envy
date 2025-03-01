@@ -17,15 +17,16 @@ import { useAppContext } from "../App/context";
 
 export type Props = {
   players: BuildPlayer[];
-  specs?: WarcraftPlayerSpec[];
+  list?: { specs: WarcraftPlayerSpec[]; classes: {} };
   source?: any;
   displayName?: string;
 };
 
-const ChecklistTooltip: FC<Props> = ({ players, specs, source, displayName }) => {
+const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => {
   const context = useAppContext();
   const version = context.getVersion();
   const [tooltip] = useTranslation("tooltip");
+  const existingClasses = [];
   return (
     <Box
       sx={{
@@ -36,69 +37,202 @@ const ChecklistTooltip: FC<Props> = ({ players, specs, source, displayName }) =>
         minWidth: "250px"
       }}
       display="grid"
+      key={UUID()}
     >
       <Typography sx={{ color: "white", fontSize: "16px", justifySelf: "center", margin: "15px" }}>
         {displayName}
       </Typography>
       <Typography sx={{ justifySelf: "center" }}>Players</Typography>
       {players.length > 0 ? (
-        Object.values(players).map((player) => {
-          return (
-            <Box
-              sx={{
-                background: "#424242",
-                border: "1px solid black",
-                cursor: source && version ? "pointer" : "default"
-              }}
-              display={"grid"}
-              gridTemplateColumns={"36px 1fr auto"}
-              onClick={
-                source && version
-                  ? () => {
-                      openWowheadLink(
-                        WarcraftPlayerRace[specs?.toString()]
-                          ? tooltip(`${source}.${version}.id`)
-                          : tooltip(`${player.spec}.${source}.${version}.id`),
-                        "spell",
-                        version.toLowerCase()
-                      );
-                    }
-                  : () => {}
-              }
-              key={UUID()}
-            >
-              <WarcraftIcon
-                css={{ width: "28px", height: "28px" }}
-                src={IconProvider.getSpecIcon(player.spec)}
-              ></WarcraftIcon>
-              <Typography
-                sx={{
-                  justifySelf: "start",
-                  fontSize: "15px",
-                  textShadow: "1px 1px black",
-                  color: WarcraftClassColour[player.class_name]
-                }}
-              >
-                {player.name}
-              </Typography>
-              {source && !WarcraftPlayerClass[source] ? (
-                <Typography
+        Object.values(
+          players.sort((a, b) => {
+            if (a.class_name < b.class_name) {
+              return -1;
+            }
+            if (a.class_name > b.class_name) {
+              return 1;
+            }
+            return 0;
+          })
+        ).map((player) => {
+          if (source && version) {
+            if (source === player.class_name) {
+              return (
+                <Box
                   sx={{
-                    textShadow: "1px 1px black",
-                    fontSize: "12px",
-                    margin: "5px",
-                    justifySelf: "end"
+                    background: "#424242",
+                    border: "1px solid black",
+                    cursor: source && version ? "pointer" : "default"
                   }}
-                >{`( ${
-                  WarcraftPlayerRace[specs?.toString()]
-                    ? tooltip(`${source}.${version}.name`)
-                    : tooltip(`${player.spec}.${source}.${version}.name`)
-                } )`}</Typography>
-              ) : (
-                <></>
-              )}
-            </Box>
-          );
+                  display={"grid"}
+                  gridTemplateColumns={"36px 1fr auto"}
+                  onClick={() =>
+                    window.open(`${process.env.REACT_APP_DASHBOARD}${player.name}`, "_blank")
+                  }
+                  key={UUID()}
+                >
+                  <WarcraftIcon
+                    css={{ width: "28px", height: "28px" }}
+                    src={IconProvider.getSpecIcon(player.spec)}
+                  ></WarcraftIcon>
+                  <Typography
+                    sx={{
+                      justifySelf: "start",
+                      fontSize: "15px",
+                      textShadow: "1px 1px black",
+                      color: WarcraftClassColour[player.class_name]
+                    }}
+                  >
+                    {player.name}
+                  </Typography>
+                </Box>
+              );
+            }
+
+            if (!WarcraftPlayerClass[source] && WarcraftPlayerRace[list.specs?.toString()]) {
+              const raceUtility = tooltip(`${source}.${version}`, {
+                returnObjects: true
+              }) as Array<{ id: string; name: string }>;
+              return (raceUtility ? raceUtility : []).map((utility) => {
+                return (
+                  <Box
+                    sx={{
+                      background: "#424242",
+                      border: "1px solid black",
+                      cursor: source && version ? "pointer" : "default"
+                    }}
+                    display={"grid"}
+                    gridTemplateColumns={"36px 1fr auto"}
+                    onClick={
+                      source && version
+                        ? () => {
+                            openWowheadLink(utility.id, "spell", version.toLowerCase());
+                          }
+                        : () => {}
+                    }
+                    key={UUID()}
+                  >
+                    <WarcraftIcon
+                      css={{ width: "28px", height: "28px" }}
+                      src={IconProvider.getSpecIcon(player.spec)}
+                    ></WarcraftIcon>
+                    <Typography
+                      sx={{
+                        justifySelf: "start",
+                        fontSize: "15px",
+                        textShadow: "1px 1px black",
+                        color: WarcraftClassColour[player.class_name]
+                      }}
+                    >
+                      {player.name}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        textShadow: "1px 1px black",
+                        fontSize: "12px",
+                        margin: "5px",
+                        justifySelf: "end"
+                      }}
+                    >
+                      {`( ${utility.name} )`}
+                    </Typography>
+                  </Box>
+                );
+              });
+            }
+            const specUtility = tooltip(`${player.spec}.${source}.${version}`, {
+              returnObjects: true
+            }) as Array<{ id: string; name: string }>;
+
+            // if tooltip does not exist in language file
+            if (typeof specUtility == typeof `${player.spec}.${source}.${version}`) {
+              return (
+                <Box
+                  sx={{
+                    background: "#424242",
+                    border: "1px solid black",
+                    cursor: "default"
+                  }}
+                  display={"grid"}
+                  gridTemplateColumns={"36px 1fr auto"}
+                  key={UUID()}
+                >
+                  <WarcraftIcon
+                    css={{ width: "28px", height: "28px" }}
+                    src={IconProvider.getSpecIcon(player.spec)}
+                  ></WarcraftIcon>
+                  <Typography
+                    sx={{
+                      justifySelf: "start",
+                      fontSize: "15px",
+                      textShadow: "1px 1px black",
+                      color: WarcraftClassColour[player.class_name]
+                    }}
+                  >
+                    {player.name}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      textShadow: "1px 1px black",
+                      fontSize: "12px",
+                      margin: "5px",
+                      justifySelf: "end"
+                    }}
+                  >
+                    {`( ${player.spec}.${source}.${version} )`}
+                  </Typography>
+                </Box>
+              );
+            }
+
+            return specUtility.map((utility) => {
+              return (
+                <Box
+                  sx={{
+                    background: "#424242",
+                    border: "1px solid black",
+                    cursor: source && version ? "pointer" : "default"
+                  }}
+                  display={"grid"}
+                  gridTemplateColumns={"36px 1fr auto"}
+                  onClick={
+                    source && version
+                      ? () => {
+                          openWowheadLink(utility.id, "spell", version.toLowerCase());
+                        }
+                      : () => {}
+                  }
+                  key={UUID()}
+                >
+                  <WarcraftIcon
+                    css={{ width: "28px", height: "28px" }}
+                    src={IconProvider.getSpecIcon(player.spec)}
+                  ></WarcraftIcon>
+                  <Typography
+                    sx={{
+                      justifySelf: "start",
+                      fontSize: "15px",
+                      textShadow: "1px 1px black",
+                      color: WarcraftClassColour[player.class_name]
+                    }}
+                  >
+                    {player.name}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      textShadow: "1px 1px black",
+                      fontSize: "12px",
+                      margin: "5px",
+                      justifySelf: "end"
+                    }}
+                  >
+                    {`( ${utility.name} )`}
+                  </Typography>
+                </Box>
+              );
+            });
+          }
+          return <></>;
         })
       ) : (
         <Typography
@@ -113,42 +247,133 @@ const ChecklistTooltip: FC<Props> = ({ players, specs, source, displayName }) =>
           None
         </Typography>
       )}
-      {specs ? (
-        specs.length > 0 ? (
-          <Box display={"grid"}>
+      {list.specs ? (
+        list.specs.length > 0 ? (
+          <Box display={"grid"} key={UUID()}>
             <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provided by</Typography>
-            <Box css={{ width: "24px", height: "24px" }} display={"flex"}>
-              {Object.values(specs).map((spec) => {
-                return (
-                  <WarcraftIcon
-                    css={{ width: "24px", height: "24px" }}
-                    sx={{ margin: "2px", cursor: "pointer" }}
-                    src={
-                      source === "DraeneiHit"
-                        ? IconProvider.getRaceIcon(WarcraftPlayerRace.Draenei)
-                        : IconProvider.getSpecIcon(spec)
+            <Box css={{ width: "24px", height: "24px" }} display={"flex"} key={UUID()}>
+              {Object.values(list.specs).map((spec) => {
+                const class_name = spec.toString().match(/[A-Z][a-z]+/g)[0] as WarcraftPlayerClass;
+                if (!WarcraftPlayerClass[source] && WarcraftPlayerRace[list.specs?.toString()]) {
+                  const raceUtility = tooltip(`${source}.${version}`, {
+                    returnObjects: true
+                  }) as Array<{ id: string; name: string }>;
+
+                  // if tooltip does not exist in language file
+                  if (typeof raceUtility == typeof `${source}.${version}`) {
+                    return (
+                      <WarcraftIcon
+                        css={{ width: "24px", height: "24px" }}
+                        sx={{ margin: "2px", cursor: "default" }}
+                        src={IconProvider.getRaceIcon(spec.toString() as WarcraftPlayerRace)}
+                        key={UUID()}
+                      ></WarcraftIcon>
+                    );
+                  }
+
+                  return raceUtility.map((utility) => {
+                    return (
+                      <WarcraftIcon
+                        css={{ width: "24px", height: "24px" }}
+                        sx={{ margin: "2px", cursor: "pointer" }}
+                        src={IconProvider.getRaceIcon(spec.toString() as WarcraftPlayerRace)}
+                        key={UUID()}
+                        onClick={
+                          source && version
+                            ? () => {
+                                openWowheadLink(utility.id, "spell", version.toLowerCase());
+                              }
+                            : () => {}
+                        }
+                      ></WarcraftIcon>
+                    );
+                  });
+                }
+
+                if (
+                  (list.classes[class_name] === 3 && class_name !== "Druid") ||
+                  list.classes[class_name] === 4
+                ) {
+                  if (!existingClasses.includes(class_name)) {
+                    existingClasses.push(class_name);
+                    const specUtility = tooltip(`${spec}.${source}.${version}`, {
+                      returnObjects: true
+                    }) as Array<{ id: string; name: string }>;
+
+                    // if tooltip does not exist in language file
+                    if (typeof specUtility == typeof `${spec}.${source}.${version}`) {
+                      return (
+                        <WarcraftIcon
+                          css={{ width: "24px", height: "24px" }}
+                          sx={{ margin: "2px", cursor: "default" }}
+                          src={IconProvider.getClassIcon(class_name)}
+                          key={UUID()}
+                        ></WarcraftIcon>
+                      );
                     }
-                    key={UUID()}
-                    onClick={
-                      source && version
-                        ? () => {
-                            openWowheadLink(
-                              WarcraftPlayerRace[specs.toString()]
-                                ? tooltip(`${source}.${version}.id`)
-                                : tooltip(`${spec}.${source}.${version}.id`),
-                              "spell",
-                              version.toLowerCase()
-                            );
+
+                    return (
+                      <WarcraftIcon
+                        css={{ width: "24px", height: "24px" }}
+                        sx={{ margin: "2px", cursor: "pointer" }}
+                        src={IconProvider.getClassIcon(class_name)}
+                        key={UUID()}
+                        onClick={
+                          source && version
+                            ? () => {
+                                openWowheadLink(specUtility[0].id, "spell", version.toLowerCase());
+                              }
+                            : () => {}
+                        }
+                      ></WarcraftIcon>
+                    );
+                  } else {
+                    return <></>;
+                  }
+                } else {
+                  if (spec.includes(class_name)) {
+                    const specUtility = tooltip(`${spec}.${source}.${version}`, {
+                      returnObjects: true
+                    }) as Array<{ id: string; name: string }>;
+
+                    // if tooltip does not exist in language file
+                    if (typeof specUtility == typeof `${spec}.${source}.${version}`) {
+                      return (
+                        <WarcraftIcon
+                          css={{ width: "24px", height: "24px" }}
+                          sx={{ margin: "2px", cursor: "default" }}
+                          src={IconProvider.getSpecIcon(spec)}
+                          key={UUID()}
+                        ></WarcraftIcon>
+                      );
+                    }
+
+                    return specUtility.map((utility) => {
+                      return (
+                        <WarcraftIcon
+                          css={{ width: "24px", height: "24px" }}
+                          sx={{ margin: "2px", cursor: "pointer" }}
+                          src={IconProvider.getSpecIcon(spec)}
+                          key={UUID()}
+                          onClick={
+                            source && version
+                              ? () => {
+                                  openWowheadLink(utility.id, "spell", version.toLowerCase());
+                                }
+                              : () => {}
                           }
-                        : () => {}
-                    }
-                  ></WarcraftIcon>
-                );
+                        ></WarcraftIcon>
+                      );
+                    });
+                  } else {
+                    return <></>;
+                  }
+                }
               })}
             </Box>
           </Box>
         ) : (
-          <Box display={"grid"}>
+          <Box display={"grid"} key={UUID()}>
             <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provided by</Typography>
             <Typography
               style={{

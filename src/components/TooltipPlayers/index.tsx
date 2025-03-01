@@ -4,26 +4,28 @@ import { FC, ReactElement } from "react";
 import { BuildPlayer } from "../../types";
 import { WarcraftPlayerSpec } from "../../consts";
 import ChecklistTooltip from "../ChecklistTooltip";
+import UUID from "../../utils/UUID";
 
 export interface TooltipPlayersProps {
   players: BuildPlayer[];
-  specs?: WarcraftPlayerSpec[];
+  list?: { specs: WarcraftPlayerSpec[]; classes: {} };
   source?: any;
   children: ReactElement;
   displayName?: string;
 }
 
 const TooltipPlayers: FC<TooltipPlayersProps> = (props) => {
-  const { children, players, specs, source, displayName } = props;
+  const { children, players, list, source, displayName } = props;
 
   return (
     <Tooltip
       title={
         <ChecklistTooltip
           players={players}
-          specs={specs}
+          list={list}
           source={source}
           displayName={displayName}
+          key={UUID()}
         ></ChecklistTooltip>
       }
       placement="top"
@@ -37,6 +39,7 @@ const TooltipPlayers: FC<TooltipPlayersProps> = (props) => {
           }
         }
       }}
+      key={UUID()}
     >
       {children}
     </Tooltip>

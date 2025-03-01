@@ -1,2103 +1,4566 @@
 {
   "WarlockAffliction": {
-    "Healthstone":{
-      "Wotlk":{
-        "id": "47875",
-        "name": "Fel Healthstone"
-      },
-      "Cataclysm":{
-        "id": "6262",
-        "name": "Healthstone"
-      }
+    "Healthstone": {
+      "Wotlk": [
+        {
+          "id": "47875",
+          "name": "Fel Healthstone"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "6262",
+          "name": "Healthstone"
+        }
+      ]
     },
-    "Spirit":{
-      "Wotlk":{
-        "id": "57567",
-        "name": "Fel Intelligence"
-      }
+    "Spirit": {
+      "Wotlk": [
+        {
+          "id": "57567",
+          "name": "Fel Intelligence"
+        }
+      ]
     },
-    "Intellect":{
-      "Wotlk":{
-        "id": "57567",
-        "name": "Fel Intelligence"
-      }
+    "Intellect": {
+      "Wotlk": [
+        {
+          "id": "57567",
+          "name": "Fel Intelligence"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "50511",
-        "name": "Curse of Weakness"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "50511",
+          "name": "Curse of Weakness"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "18180",
-        "name": "Improved Curse of Weakness 2/2"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "18180",
+          "name": "Improved Curse of Weakness 2/2"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "11719",
-        "name": "Curse of Tongues"
-      },
-      "Cataclysm":{
-        "id": "1714",
-        "name": "Curse of Tongues"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "11719",
+          "name": "Curse of Tongues"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "1714",
+          "name": "Curse of Tongues"
+        }
+      ]
     },
-    "SpellCritReceived":{
-      "Wotlk":{
-        "id": "17803",
-        "name": "Improved Shadow Bolt 5/5"
-      }
+    "SpellCritReceived": {
+      "Wotlk": [
+        {
+          "id": "17803",
+          "name": "Improved Shadow Bolt 5/5"
+        }
+      ]
     },
-    "SpellDamageReceived13":{
-      "Wotlk":{
-        "id": "47865",
-        "name": "Curse of the Elements"
-      }
+    "SpellDamageReceived13": {
+      "Wotlk": [
+        {
+          "id": "47865",
+          "name": "Curse of the Elements"
+        }
+      ]
     },
-    "CombatResurrection":{
-      "Wotlk":{
-        "id": "6203",
-        "name": "Soulstone"
-      },
-      "Cataclysm":{
-        "id": "95750",
-        "name": "Soulstone"
-      }
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "6203",
+          "name": "Soulstone"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "95750",
+          "name": "Soulstone"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "95750",
+          "name": "Soulstone"
+        }
+      ]
     },
     "MaxMana": {
-      "Cataclysm":{
-        "id": "54424",
-        "name": "Fel Intelligence"
-      }
+      "Cataclysm": [
+        {
+          "id": "54424",
+          "name": "Fel Intelligence"
+        }
+      ]
     },
-    "MP5":{
-      "Cataclysm":{
-        "id": "54424",
-        "name": "Fel Intelligence"
-      }
+    "MP5": {
+      "Cataclysm": [
+        {
+          "id": "54424",
+          "name": "Fel Intelligence"
+        }
+      ]
     },
-    "DarkIntent":{
-      "Cataclysm":{
-        "id": "85767",
-        "name": "Dark Intent"
-      }
+    "DarkIntent": {
+      "Cataclysm": [
+        {
+          "id": "85767",
+          "name": "Dark Intent"
+        }
+      ]
     },
-    "SpellDamageReceived":{
-      "Cataclysm":{
-        "id": "1490",
-        "name": "Curse of the Elements"
-      }
+    "SpellDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "1490",
+          "name": "Curse of the Elements"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "702",
-        "name": "Curse of Weakness"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "702",
+          "name": "Curse of Weakness"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "47897",
+          "name": "Demonic Breath"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "30283",
+          "name": "Shadowfury"
+        }
+      ]
+    },
+    "Horror": {
+      "Mop": [
+        {
+          "id": "6789",
+          "name": "Mortal Coil"
+        },
+        {
+          "id": "111397",
+          "name": "Blood Horror"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
     }
   },
   "WarlockDemonology": {
-    "Healthstone":{
-      "Wotlk":{
-        "id": "47877",
-        "name": "Fel Healthstone 2/2"
-      },
-      "Cataclysm":{
-        "id": "6262",
-        "name": "Healthstone"
-      }
+    "Healthstone": {
+      "Wotlk": [
+        {
+          "id": "47877",
+          "name": "Fel Healthstone 2/2"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "6262",
+          "name": "Healthstone"
+        }
+      ]
     },
-    "SpellPower":{
-      "Wotlk":{
-        "id": "47240",
-        "name": "Demonic Pact"
-      }
+    "SpellPower": {
+      "Wotlk": [
+        {
+          "id": "47240",
+          "name": "Demonic Pact"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "50511",
-        "name": "Curse of Weakness"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "50511",
+          "name": "Curse of Weakness"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "50511",
-        "name": "Curse of Weakness"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "50511",
+          "name": "Curse of Weakness"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "11719",
-        "name": "Curse of Tongues"
-      },
-      "Cataclysm":{
-        "id": "1714",
-        "name": "Curse of Tongues"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "11719",
+          "name": "Curse of Tongues"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "1714",
+          "name": "Curse of Tongues"
+        }
+      ]
     },
-    "SpellCritReceived":{
-      "Wotlk":{
-        "id": "17803",
-        "name": "Improved Shadow Bolt 5/5"
-      }
+    "SpellCritReceived": {
+      "Wotlk": [
+        {
+          "id": "17803",
+          "name": "Improved Shadow Bolt 5/5"
+        }
+      ]
     },
-    "SpellDamageReceived13":{
-      "Wotlk":{
-        "id": "47865",
-        "name": "Curse of the Elements"
-      }
+    "SpellDamageReceived13": {
+      "Wotlk": [
+        {
+          "id": "47865",
+          "name": "Curse of the Elements"
+        }
+      ]
     },
-    "CombatResurrection":{
-      "Wotlk":{
-        "id": "6203",
-        "name": "Soulstone"
-      },
-      "Cataclysm":{
-        "id": "95750",
-        "name": "Soulstone"
-      }
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "6203",
+          "name": "Soulstone"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "95750",
+          "name": "Soulstone"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "95750",
+          "name": "Soulstone"
+        }
+      ]
     },
-    "SpellPower10":{
-      "Cataclysm":{
-        "id": "47236",
-        "name": "Demonic Pact"
-      }
+    "SpellPower10": {
+      "Cataclysm": [
+        {
+          "id": "47236",
+          "name": "Demonic Pact"
+        }
+      ]
     },
-    "DarkIntent":{
-      "Cataclysm":{
-        "id": "85767",
-        "name": "Dark Intent"
-      }
+    "DarkIntent": {
+      "Cataclysm": [
+        {
+          "id": "85767",
+          "name": "Dark Intent"
+        }
+      ]
     },
-    "SpellDamageReceived":{
-      "Cataclysm":{
-        "id": "1490",
-        "name": "Curse of the Elements"
-      }
+    "SpellDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "1490",
+          "name": "Curse of the Elements"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "30213",
-        "name": "Felguard"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "30213",
+          "name": "Felguard"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "702",
-        "name": "Curse of Weakness"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "702",
+          "name": "Curse of Weakness"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "47897",
+          "name": "Demonic Breath"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "30283",
+          "name": "Shadowfury"
+        }
+      ]
+    },
+    "Horror": {
+      "Mop": [
+        {
+          "id": "6789",
+          "name": "Mortal Coil"
+        },
+        {
+          "id": "111397",
+          "name": "Blood Horror"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
     }
   },
   "WarlockDestruction": {
-    "Healthstone":{
-      "Wotlk":{
-        "id": "47875",
-        "name": "Fel Healthstone"
-      },
-      "Cataclysm":{
-        "id": "6262",
-        "name": "Healthstone"
-      }
+    "Healthstone": {
+      "Wotlk": [
+        {
+          "id": "47875",
+          "name": "Fel Healthstone"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "6262",
+          "name": "Healthstone"
+        }
+      ]
     },
-    "MaxHealth":{
-      "Wotlk":{
-        "id": "18696",
-        "name": "Improved Imp 3/3"
-      }
+    "MaxHealth": {
+      "Wotlk": [
+        {
+          "id": "18696",
+          "name": "Improved Imp 3/3"
+        }
+      ]
     },
     "Replenishment": {
-      "Wotlk":{
-        "id": "54118",
-        "name": "Improved Soul Leech 2/2"
-      },
-      "Cataclysm":{
-        "id": "30295",
-        "name": "Soul Leech"
-      }
+      "Wotlk": [
+        {
+          "id": "54118",
+          "name": "Improved Soul Leech 2/2"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "30295",
+          "name": "Soul Leech"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "50511",
-        "name": "Curse of Weakness"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "50511",
+          "name": "Curse of Weakness"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "50511",
-        "name": "Curse of Weakness"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "50511",
+          "name": "Curse of Weakness"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "11719",
-        "name": "Curse of Tongues"
-      },
-      "Cataclysm":{
-        "id": "1714",
-        "name": "Curse of Tongues"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "11719",
+          "name": "Curse of Tongues"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "1714",
+          "name": "Curse of Tongues"
+        }
+      ]
     },
-    "SpellDamageReceived13":{
-      "Wotlk":{
-        "id": "47865",
-        "name": "Curse of the Elements"
-      }
+    "SpellDamageReceived13": {
+      "Wotlk": [
+        {
+          "id": "47865",
+          "name": "Curse of the Elements"
+        }
+      ]
     },
-    "CombatResurrection":{
-      "Wotlk":{
-        "id": "6203",
-        "name": "Soulstone"
-      },
-      "Cataclysm":{
-        "id": "95750",
-        "name": "Soulstone"
-      }
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "6203",
+          "name": "Soulstone"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "6203",
+          "name": "Soulstone"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "6203",
+          "name": "Soulstone"
+        }
+      ]
     },
-    "Stamina":{
-      "Cataclysm":{
-        "id": "6307",
-        "name": "Blood Pact"
-      }
+    "Stamina": {
+      "Cataclysm": [
+        {
+          "id": "6307",
+          "name": "Blood Pact"
+        }
+      ]
     },
-    "DarkIntent":{
-      "Cataclysm":{
-        "id": "85767",
-        "name": "Dark Intent"
-      }
+    "DarkIntent": {
+      "Cataclysm": [
+        {
+          "id": "85767",
+          "name": "Dark Intent"
+        }
+      ]
     },
-    "SpellCritReceived":{
-      "Cataclysm":{
-        "id": "17801",
-        "name": "Shadow and Flame"
-      }
+    "SpellCritReceived": {
+      "Cataclysm": [
+        {
+          "id": "17801",
+          "name": "Shadow and Flame"
+        }
+      ]
     },
-    "SpellDamageReceived":{
-      "Cataclysm":{
-        "id": "1490",
-        "name": "Curse of the Elements"
-      }
+    "SpellDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "1490",
+          "name": "Curse of the Elements"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "702",
-        "name": "Curse of Weakness"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "702",
+          "name": "Curse of Weakness"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "47897",
+          "name": "Demonic Breath"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "30283",
+          "name": "Shadowfury"
+        }
+      ]
+    },
+    "Horror": {
+      "Mop": [
+        {
+          "id": "6789",
+          "name": "Mortal Coil"
+        },
+        {
+          "id": "111397",
+          "name": "Blood Horror"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "108501",
+          "name": "Grimoire of Sacrifice"
+        }
+      ]
     }
   },
   "ShamanEnhancement": {
-    "SpellHaste":{
-      "Wotlk":{
-        "id": "3738",
-        "name": "Wrath of Air Totem"
-      },
-      "Cataclysm":{
-        "id": "3738",
-        "name": "Wrath of Air Totem"
-      }
+    "SpellHaste": {
+      "Wotlk": [
+        {
+          "id": "3738",
+          "name": "Wrath of Air Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "3738",
+          "name": "Wrath of Air Totem"
+        }
+      ]
     },
-    "SpellPower":{
-      "Wotlk":{
-        "id": "58656",
-        "name": "Flametongue Totem"
-      }
+    "SpellPower": {
+      "Wotlk": [
+        {
+          "id": "58656",
+          "name": "Flametongue Totem"
+        }
+      ]
     },
-    "MeleeHaste20":{
-      "Wotlk":{
-        "id": "29193",
-        "name": "Improved Windfury Totem"
-      }
+    "MeleeHaste20": {
+      "Wotlk": [
+        {
+          "id": "29193",
+          "name": "Improved Windfury Totem"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Wotlk":{
-        "id": "58643",
-        "name": "Strength of Earth Totem"
-      },
-      "Cataclysm":{
-        "id": "8075",
-        "name": "Strength of Earth Totem"
-      }
+    "StrengthAgility": {
+      "Wotlk": [
+        {
+          "id": "58643",
+          "name": "Strength of Earth Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "8075",
+          "name": "Strength of Earth Totem"
+        }
+      ]
     },
     "AttackPower10": {
-      "Wotlk":{
-        "id": "30809",
-        "name": "Unleashed Rage"
-      }
+      "Wotlk": [
+        {
+          "id": "30809",
+          "name": "Unleashed Rage"
+        }
+      ]
     },
-    "Bloodlust":{
-      "Wotlk":{
-        "id": "32182",
-        "name": "Heroism"
-      },
-      "Cataclysm":{
-        "id": "32182",
-        "name": "Heroism"
-      }
+    "Bloodlust": {
+      "Wotlk": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ]
     },
-    "MP5":{
-      "Wotlk":{
-        "id":"58774",
-        "name": "Mana Spring Totem"
-      },
-      "Cataclysm":{
-        "id":"5675",
-        "name": "Mana Spring Totem"
-      }
+    "MP5": {
+      "Wotlk": [
+        {
+          "id": "58774",
+          "name": "Mana Spring Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "5675",
+          "name": "Mana Spring Totem"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Cataclysm":{
-        "id": "8512",
-        "name": "Windfury Totem"
-      }
+    "MeleeHaste": {
+      "Cataclysm": [
+        {
+          "id": "8512",
+          "name": "Windfury Totem"
+        }
+      ]
     },
     "AttackPower20": {
-      "Cataclysm":{
-        "id": "30808",
-        "name": "Unleashed Rage"
-      }
+      "Cataclysm": [
+        {
+          "id": "30808",
+          "name": "Unleashed Rage"
+        }
+      ]
     },
-    "SpellPower6":{
-      "Cataclysm":{
-        "id": "8227",
-        "name": "Flametongue Totem"
-      }
+    "SpellPower6": {
+      "Cataclysm": [
+        {
+          "id": "8227",
+          "name": "Flametongue Totem"
+        }
+      ]
     },
-    "Armor":{
-      "Cataclysm":{
-        "id": "8071",
-        "name": "Stoneskin Totem"
-      }
+    "Armor": {
+      "Cataclysm": [
+        {
+          "id": "8071",
+          "name": "Stoneskin Totem"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "8042",
-        "name": "Earth Shock"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "8042",
+          "name": "Earth Shock"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "63374",
+          "name": "Frozen Power"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "51485",
+          "name": "Earthgrab Totem"
+        }
+      ]
+    },
+    "SlowImmunity": {
+      "Mop": [
+        {
+          "id": "108273",
+          "name": "Windwalk Totem"
+        }
+      ]
     }
   },
   "ShamanElemental": {
-    "SpellHaste":{
-      "Wotlk":{
-        "id": "3738",
-        "name": "Wrath of Air Totem"
-      },
-      "Cataclysm":{
-        "id": "3738",
-        "name": "Wrath of Air Totem"
-      }
+    "SpellHaste": {
+      "Wotlk": [
+        {
+          "id": "3738",
+          "name": "Wrath of Air Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "3738",
+          "name": "Wrath of Air Totem"
+        }
+      ]
     },
-    "SpellPower":{
-      "Wotlk":{
-        "id": "57722",
-        "name": "Totem of Wrath"
-      }
+    "SpellPower": {
+      "Wotlk": [
+        {
+          "id": "57722",
+          "name": "Totem of Wrath"
+        }
+      ]
     },
-    "SpellCrit":{
-      "Wotlk":{
-        "id": "51470",
-        "name": "Elemental Oath"
-      }
+    "SpellCrit": {
+      "Wotlk": [
+        {
+          "id": "51470",
+          "name": "Elemental Oath"
+        }
+      ]
     },
-    "MeleeHaste20":{
-      "Wotlk":{
-        "id": "8512",
-        "name": "Windfury Totem"
-      }
+    "MeleeHaste20": {
+      "Wotlk": [
+        {
+          "id": "8512",
+          "name": "Windfury Totem"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Wotlk":{
-        "id": "58643",
-        "name": "Strength of Earth Totem"
-      },
-      "Cataclysm":{
-        "id": "8075",
-        "name": "Strength of Earth Totem"
-      }
+    "StrengthAgility": {
+      "Wotlk": [
+        {
+          "id": "58643",
+          "name": "Strength of Earth Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "8075",
+          "name": "Strength of Earth Totem"
+        }
+      ]
     },
-    "CritChanceReceived":{
-      "Wotlk":{
-        "id": "57722",
-        "name": "Totem of Wrath"
-      }
+    "CritChanceReceived": {
+      "Wotlk": [
+        {
+          "id": "57722",
+          "name": "Totem of Wrath"
+        }
+      ]
     },
-    "Bloodlust":{
-      "Wotlk":{
-        "id": "32182",
-        "name": "Heroism"
-      },
-      "Cataclysm":{
-        "id": "32182",
-        "name": "Heroism"
-      }
+    "Bloodlust": {
+      "Wotlk": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ]
     },
-    "MP5":{
-      "Wotlk":{
-        "id":"58774",
-        "name": "Mana Spring Totem"
-      },
-      "Cataclysm":{
-        "id":"5675",
-        "name": "Mana Spring Totem"
-      }
+    "MP5": {
+      "Wotlk": [
+        {
+          "id": "58774",
+          "name": "Mana Spring Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "5675",
+          "name": "Mana Spring Totem"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Cataclysm":{
-        "id": "8512",
-        "name": "Windfury Totem"
-      }
+    "MeleeHaste": {
+      "Cataclysm": [
+        {
+          "id": "8512",
+          "name": "Windfury Totem"
+        }
+      ]
     },
-    "Crit":{
-      "Cataclysm":{
-        "id": "51470",
-        "name": "Elemental Oath"
-      }
+    "Crit": {
+      "Cataclysm": [
+        {
+          "id": "51470",
+          "name": "Elemental Oath"
+        }
+      ]
     },
-    "SpellPower10":{
-      "Cataclysm":{
-        "id": "77746",
-        "name": "Totemic Wrath"
-      }
+    "SpellPower10": {
+      "Cataclysm": [
+        {
+          "id": "77746",
+          "name": "Totemic Wrath"
+        }
+      ]
     },
-    "SpellPower6":{
-      "Cataclysm":{
-        "id": "8227",
-        "name": "Flametongue Totem"
-      }
+    "SpellPower6": {
+      "Cataclysm": [
+        {
+          "id": "8227",
+          "name": "Flametongue Totem"
+        }
+      ]
     },
-    "Armor":{
-      "Cataclysm":{
-        "id": "8071",
-        "name": "Stoneskin Totem"
-      }
+    "Armor": {
+      "Cataclysm": [
+        {
+          "id": "8071",
+          "name": "Stoneskin Totem"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "8042",
-        "name": "Earth Shock"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "8042",
+          "name": "Earth Shock"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "63374",
+          "name": "Frozen Power"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "51485",
+          "name": "Earthgrab Totem"
+        }
+      ]
+    },
+    "SlowImmunity": {
+      "Mop": [
+        {
+          "id": "108273",
+          "name": "Windwalk Totem"
+        }
+      ]
     }
   },
   "ShamanRestoration": {
-    "SpellHaste":{
-      "Wotlk":{
-        "id": "3738",
-        "name": "Wrath of Air Totem"
-      },
-      "Cataclysm":{
-        "id": "3738",
-        "name": "Wrath of Air Totem"
-      }
+    "SpellHaste": {
+      "Wotlk": [
+        {
+          "id": "3738",
+          "name": "Wrath of Air Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "3738",
+          "name": "Wrath of Air Totem"
+        }
+      ]
     },
-    "SpellPower":{
-      "Wotlk":{
-        "id": "58656",
-        "name": "Flametongue Totem"
-      }
+    "SpellPower": {
+      "Wotlk": [
+        {
+          "id": "58656",
+          "name": "Flametongue Totem"
+        }
+      ]
     },
-    "MeleeHaste20":{
-      "Wotlk":{
-        "id": "8512",
-        "name": "Windfury Totem"
-      }
+    "MeleeHaste20": {
+      "Wotlk": [
+        {
+          "id": "8512",
+          "name": "Windfury Totem"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Wotlk":{
-        "id": "52456",
-        "name": "Strength of Earth Totem 3/3"
-      },
-      "Cataclysm":{
-        "id": "8075",
-        "name": "Strength of Earth Totem"
-      }
+    "StrengthAgility": {
+      "Wotlk": [
+        {
+          "id": "52456",
+          "name": "Strength of Earth Totem 3/3"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "8075",
+          "name": "Strength of Earth Totem"
+        }
+      ]
     },
-    "DamageReduction10":{
-      "Wotlk":{
-        "id":"16240",
-        "name": "Ancestral Healing"
-      }
+    "DamageReduction10": {
+      "Wotlk": [
+        {
+          "id": "16240",
+          "name": "Ancestral Healing"
+        }
+      ]
     },
-    "ManaTide":{
-      "Wotlk":{
-        "id":"16190",
-        "name": "Mana Tide Totem"
-      },
-      "Cataclysm":{
-        "id":"16190",
-        "name": "Mana Tide Totem"
-      }
+    "ManaTide": {
+      "Wotlk": [
+        {
+          "id": "16190",
+          "name": "Mana Tide Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "16190",
+          "name": "Mana Tide Totem"
+        }
+      ]
     },
-    "Bloodlust":{
-      "Wotlk":{
-        "id": "32182",
-        "name": "Heroism"
-      },
-      "Cataclysm":{
-        "id": "32182",
-        "name": "Heroism"
-      }
+    "Bloodlust": {
+      "Wotlk": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "32182",
+          "name": "Heroism"
+        }
+      ]
     },
-    "MP5":{
-      "Wotlk":{
-        "id":"58774",
-        "name": "Mana Spring Totem"
-      },
-      "Cataclysm":{
-        "id":"5675",
-        "name": "Mana Spring Totem"
-      }
+    "MP5": {
+      "Wotlk": [
+        {
+          "id": "58774",
+          "name": "Mana Spring Totem"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "5675",
+          "name": "Mana Spring Totem"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Cataclysm":{
-        "id": "8512",
-        "name": "Windfury Totem"
-      }
+    "MeleeHaste": {
+      "Cataclysm": [
+        {
+          "id": "8512",
+          "name": "Windfury Totem"
+        }
+      ]
     },
-    "SpellPower6":{
-      "Cataclysm":{
-        "id": "8227",
-        "name": "Flametongue Totem"
-      }
+    "SpellPower6": {
+      "Cataclysm": [
+        {
+          "id": "8227",
+          "name": "Flametongue Totem"
+        }
+      ]
     },
-    "Armor":{
-      "Cataclysm":{
-        "id": "8071",
-        "name": "Stoneskin Totem"
-      }
+    "Armor": {
+      "Cataclysm": [
+        {
+          "id": "8071",
+          "name": "Stoneskin Totem"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "8042",
-        "name": "Earth Shock"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "8042",
+          "name": "Earth Shock"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "63374",
+          "name": "Frozen Power"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "51485",
+          "name": "Earthgrab Totem"
+        }
+      ]
+    },
+    "SlowImmunity": {
+      "Mop": [
+        {
+          "id": "108273",
+          "name": "Windwalk Totem"
+        }
+      ]
     }
   },
   "PaladinRetribution": {
-    "Kings":{
-      "Wotlk":{
-        "id": "25898",
-        "name": "Blessing of Kings"
-      }
+    "Kings": {
+      "Wotlk": [
+        {
+          "id": "25898",
+          "name": "Blessing of Kings"
+        }
+      ]
     },
-    "Haste3":{
-      "Wotlk":{
-        "id": "53648",
-        "name": "Swift Retribution 3/3"
-      }
+    "Haste3": {
+      "Wotlk": [
+        {
+          "id": "53648",
+          "name": "Swift Retribution 3/3"
+        }
+      ]
     },
-    "AttackPower":{
-      "Wotlk":{
-        "id": "48934",
-        "name": "Blessing of Might 2/2"
-      }
+    "AttackPower": {
+      "Wotlk": [
+        {
+          "id": "48934",
+          "name": "Blessing of Might 2/2"
+        }
+      ]
     },
     "IncDamage": {
-      "Wotlk":{
-        "id": "31869",
-        "name": "Sanctified Retribution"
-      },
-      "Cataclysm":{
-        "id": "31876",
-        "name": "Communion"
-      }
+      "Wotlk": [
+        {
+          "id": "31869",
+          "name": "Sanctified Retribution"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "31876",
+          "name": "Communion"
+        }
+      ]
     },
     "Replenishment": {
-      "Wotlk":{
-        "id": "31878",
-        "name": "Judgements of the Wise"
-      },
-      "Cataclysm":{
-        "id":"31876",
-        "name": "Communion"
-      }
+      "Wotlk": [
+        {
+          "id": "31878",
+          "name": "Judgements of the Wise"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "31876",
+          "name": "Communion"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "26016",
-        "name": "Vindication"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "26016",
+          "name": "Vindication"
+        }
+      ]
     },
-    "CritChanceReceived":{
-      "Wotlk":{
-        "id": "20337",
-        "name": "Heart of the Crusader"
-      }
+    "CritChanceReceived": {
+      "Wotlk": [
+        {
+          "id": "20337",
+          "name": "Heart of the Crusader"
+        }
+      ]
     },
-    "DivineGuardian":{
-      "Wotlk":{
-        "id": "53530",
-        "name": "Divine Guardian 2/2"
-      }
+    "DivineGuardian": {
+      "Wotlk": [
+        {
+          "id": "53530",
+          "name": "Divine Guardian 2/2"
+        }
+      ]
     },
-    "BlessingOfProtection":{
-      "Wotlk":{
-        "id":"41450",
-        "name": "Blessing of Protection"
-      },
-      "Cataclysm":{
-        "id":"41450",
-        "name": "Blessing of Protection"
-      }
+    "BlessingOfProtection": {
+      "Wotlk": [
+        {
+          "id": "41450",
+          "name": "Blessing of Protection"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "41450",
+          "name": "Blessing of Protection"
+        }
+      ]
     },
-    "MP5":{
-      "Wotlk":{
-        "id":"19742",
-        "name": "Blessing of Wisdom"
-      },
-      "Cataclysm":{
-        "id":"19740",
-        "name": "Blessing of Might"
-      }
+    "MP5": {
+      "Wotlk": [
+        {
+          "id": "19742",
+          "name": "Blessing of Wisdom"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
     },
-    "AttackPower20":{
-      "Cataclysm":{
-        "id": "19740",
-        "name": "Blessing of Might"
-      }
+    "AttackPower20": {
+      "Cataclysm": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
     },
-    "AllStats":{
-      "Cataclysm":{
-        "id": "20217",
-        "name": "Blessing of Kings"
-      }
+    "AllStats": {
+      "Cataclysm": [
+        {
+          "id": "20217",
+          "name": "Blessing of Kings"
+        }
+      ]
     },
-    "Armor":{
-      "Cataclysm":{
-        "id": "465",
-        "name": "Devotion Aura"
-      }
+    "Armor": {
+      "Cataclysm": [
+        {
+          "id": "465",
+          "name": "Devotion Aura"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "105593",
+          "name": "Fist of Justice"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "20066",
+          "name": "Repentance"
+        }
+      ]
+    },
+    "Fear": {
+      "Mop": [
+        {
+          "id": "110301",
+          "name": "Evil is a Point of View"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "114039",
+          "name": "Hand of Purity"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "114158",
+          "name": "Light's Hammer"
+        }
+      ]
     }
   },
   "PaladinProtection": {
-    "Kings":{
-      "Wotlk":{
-        "id": "25898",
-        "name": "Blessing of Kings"
-      }
+    "Kings": {
+      "Wotlk": [
+        {
+          "id": "25898",
+          "name": "Blessing of Kings"
+        }
+      ]
     },
-    "AttackPower":{
-      "Wotlk":{
-        "id": "48934",
-        "name": "Blessing of Might 2/2"
-      }
+    "AttackPower": {
+      "Wotlk": [
+        {
+          "id": "48934",
+          "name": "Blessing of Might 2/2"
+        }
+      ]
     },
-    "DamageReduction3":{
-      "Wotlk":{
-        "id":"20911",
-        "name": "Blessing of Sanctuary"
-      }
+    "DamageReduction3": {
+      "Wotlk": [
+        {
+          "id": "20911",
+          "name": "Blessing of Sanctuary"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "26016",
-        "name": "Vindication"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "26016",
+          "name": "Vindication"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "53696",
-        "name": "Judgements of the Just"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "53696",
+          "name": "Judgements of the Just"
+        }
+      ]
     },
-    "DivineGuardian":{
-      "Wotlk":{
-        "id": "53530",
-        "name": "Divine Guardian 2/2"
-      }
+    "DivineGuardian": {
+      "Wotlk": [
+        {
+          "id": "53530",
+          "name": "Divine Guardian 2/2"
+        }
+      ]
     },
-    "BlessingOfProtection":{
-      "Wotlk":{
-        "id":"41450",
-        "name": "Blessing of Protection"
-      },
-      "Cataclysm":{
-        "id":"41450",
-        "name": "Blessing of Protection"
-      }
+    "BlessingOfProtection": {
+      "Wotlk": [
+        {
+          "id": "41450",
+          "name": "Blessing of Protection"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "41450",
+          "name": "Blessing of Protection"
+        }
+      ]
     },
-    "MP5":{
-      "Wotlk":{
-        "id":"19742",
-        "name": "Blessing of Wisdom"
-      },
-      "Cataclysm":{
-        "id":"19740",
-        "name": "Blessing of Might"
-      }
+    "MP5": {
+      "Wotlk": [
+        {
+          "id": "19742",
+          "name": "Blessing of Wisdom"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
     },
-    "AttackPower20":{
-      "Cataclysm":{
-        "id": "19740",
-        "name": "Blessing of Might"
-      }
+    "AttackPower20": {
+      "Cataclysm": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
     },
-    "AllStats":{
-      "Cataclysm":{
-        "id": "20217",
-        "name": "Blessing of Kings"
-      }
+    "AllStats": {
+      "Cataclysm": [
+        {
+          "id": "20217",
+          "name": "Blessing of Kings"
+        }
+      ]
     },
-    "Armor":{
-      "Cataclysm":{
-        "id": "465",
-        "name": "Devotion Aura"
-      }
+    "Armor": {
+      "Cataclysm": [
+        {
+          "id": "465",
+          "name": "Devotion Aura"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "53696",
-        "name": "Judgements of the Just"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "53696",
+          "name": "Judgements of the Just"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "26016",
-        "name": "Vindication"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "26016",
+          "name": "Vindication"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "105593",
+          "name": "Fist of Justice"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "20066",
+          "name": "Repentance"
+        }
+      ]
+    },
+    "Fear": {
+      "Mop": [
+        {
+          "id": "110301",
+          "name": "Evil is a Point of View"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "114039",
+          "name": "Hand of Purity"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "114158",
+          "name": "Light's Hammer"
+        }
+      ]
     }
   },
   "PaladinHoly": {
-    "Kings":{
-      "Wotlk":{
-        "id": "25898",
-        "name": "Blessing of Kings"
-      }
+    "Kings": {
+      "Wotlk": [
+        {
+          "id": "25898",
+          "name": "Blessing of Kings"
+        }
+      ]
     },
-    "AttackPower":{
-      "Wotlk":{
-        "id": "48934",
-        "name": "Blessing of Might"
-      }
+    "AttackPower": {
+      "Wotlk": [
+        {
+          "id": "48934",
+          "name": "Blessing of Might"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id":"20140",
-        "name": "Improved Devotion Aura 3/3"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "20140",
+          "name": "Improved Devotion Aura 3/3"
+        }
+      ]
     },
-    "DivineGuardian":{
-      "Wotlk":{
-        "id": "53530",
-        "name": "Divine Guardian 2/2"
-      }
+    "DivineGuardian": {
+      "Wotlk": [
+        {
+          "id": "53530",
+          "name": "Divine Guardian 2/2"
+        }
+      ]
     },
-    "BlessingOfProtection":{
-      "Wotlk":{
-        "id":"41450",
-        "name": "Blessing of Protection"
-      },
-      "Cataclysm":{
-        "id":"41450",
-        "name": "Blessing of Protection"
-      }
+    "BlessingOfProtection": {
+      "Wotlk": [
+        {
+          "id": "41450",
+          "name": "Blessing of Protection"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "41450",
+          "name": "Blessing of Protection"
+        }
+      ]
     },
-    "MP5":{
-      "Wotlk":{
-        "id":"19742",
-        "name": "Blessing of Wisdom"
-      },
-      "Cataclysm":{
-        "id":"19740",
-        "name": "Blessing of Might"
-      }
+    "MP5": {
+      "Wotlk": [
+        {
+          "id": "19742",
+          "name": "Blessing of Wisdom"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
     },
-    "AttackPower20":{
-      "Cataclysm":{
-        "id": "19740",
-        "name": "Blessing of Might"
-      }
+    "AttackPower20": {
+      "Cataclysm": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
     },
-    "AllStats":{
-      "Cataclysm":{
-        "id": "20217",
-        "name": "Blessing of Kings"
-      }
+    "AllStats": {
+      "Cataclysm": [
+        {
+          "id": "20217",
+          "name": "Blessing of Kings"
+        }
+      ]
     },
-    "Armor":{
-      "Cataclysm":{
-        "id": "465",
-        "name": "Devotion Aura"
-      }
+    "Armor": {
+      "Cataclysm": [
+        {
+          "id": "465",
+          "name": "Devotion Aura"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "105593",
+          "name": "Fist of Justice"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "20066",
+          "name": "Repentance"
+        }
+      ]
+    },
+    "Fear": {
+      "Mop": [
+        {
+          "id": "110301",
+          "name": "Evil is a Point of View"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "114039",
+          "name": "Hand of Purity"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "114158",
+          "name": "Light's Hammer"
+        }
+      ]
     }
   },
   "DruidRestoration": {
     "MarkOfTheWild": {
-      "Wotlk":{
-        "id": "48469",
-        "name": "Mark of the Wild 2/2"
-      }
+      "Wotlk": [
+        {
+          "id": "48469",
+          "name": "Mark of the Wild 2/2"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id":"65139",
-        "name": "Tree of Life"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "65139",
+          "name": "Tree of Life"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "770",
-        "name": "Faerie Fire"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
+        }
+      ]
     },
-    "Innervate":{
-      "Wotlk":{
-        "id":"29166",
-        "name": "Innervate"
-      },
-      "Cataclysm":{
-        "id":"29166",
-        "name": "Innervate"
-      }
+    "Innervate": {
+      "Wotlk": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ]
     },
-    "CombatResurrection":{
-      "Wotlk":{
-        "id": "48477",
-        "name": "Rebirth"
-      },
-      "Cataclysm":{
-        "id": "20484",
-        "name": "Rebirth"
-      }
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "48477",
+          "name": "Rebirth"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "48477",
+          "name": "Rebirth"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "48477",
+          "name": "Rebirth"
+        }
+      ]
     },
-    "AllStats":{
-      "Cataclysm":{
-        "id": "1126",
-        "name": "Mark of the Wild"
-      }
+    "AllStats": {
+      "Cataclysm": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
     },
-    "Replenishment":{
-      "Cataclysm":{
-        "id": "48544",
-        "name": "Revitalize"
-      }
+    "Replenishment": {
+      "Cataclysm": [
+        {
+          "id": "48544",
+          "name": "Revitalize"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "770",
-        "name": "Faerie Fire"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "5211",
+          "name": "Mighty Bash"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "102401",
+          "name": "Wild Charge - Bear"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "102359",
+          "name": "Mass Entanglement"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "106707",
+          "name": "Faerie Swarm"
+        }
+      ]
+    },
+    "Knockback": {
+      "Mop": [
+        {
+          "id": "132469",
+          "name": "Typhoon"
+        }
+      ]
+    },
+    "Disorient": {
+      "Mop": [
+        {
+          "id": "99",
+          "name": "Disorienting Roar"
+        }
+      ]
+    },
+    "Pull": {
+      "Mop": [
+        {
+          "id": "102793",
+          "name": "Ursol's Vortex"
+        }
+      ]
     }
   },
   "DruidBalance": {
-    "Haste3":{
-      "Wotlk":{
-        "id": "48396",
-        "name": "Improved Moonkin Form 3/3"
-      }
+    "Haste3": {
+      "Wotlk": [
+        {
+          "id": "48396",
+          "name": "Improved Moonkin Form 3/3"
+        }
+      ]
     },
-    "SpellCrit":{
-      "Wotlk":{
-        "id": "24907",
-        "name": "Moonkin Aura"
-      }
+    "SpellCrit": {
+      "Wotlk": [
+        {
+          "id": "24907",
+          "name": "Moonkin Aura"
+        }
+      ]
     },
     "MarkOfTheWild": {
-      "Wotlk":{
-        "id": "48469",
-        "name": "Mark of the Wild 2/2"
-      }
+      "Wotlk": [
+        {
+          "id": "48469",
+          "name": "Mark of the Wild 2/2"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "770",
-        "name": "Faerie Fire"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
+        }
+      ]
     },
-    "PhysicalHitDown":{
-      "Wotlk":{
-        "id": "5570",
-        "name": "Insect Swarm"
-      }
+    "PhysicalHitDown": {
+      "Wotlk": [
+        {
+          "id": "5570",
+          "name": "Insect Swarm"
+        }
+      ]
     },
-    "SpellDamageReceived13":{
-      "Wotlk":{
-        "id": "48511",
-        "name": "Earth and Moon"
-      }
+    "SpellDamageReceived13": {
+      "Wotlk": [
+        {
+          "id": "48511",
+          "name": "Earth and Moon"
+        }
+      ]
     },
-    "SpellHit":{
-      "Wotlk":{
-        "id": "33602",
-        "name": "Improved Faerie Fire"
-      }
+    "SpellHit": {
+      "Wotlk": [
+        {
+          "id": "33602",
+          "name": "Improved Faerie Fire"
+        }
+      ]
     },
-    "Innervate":{
-      "Wotlk":{
-        "id":"29166",
-        "name": "Innervate"
-      },
-      "Cataclysm":{
-        "id":"29166",
-        "name": "Innervate"
-      }
+    "Innervate": {
+      "Wotlk": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ]
     },
-    "CombatResurrection":{
-      "Wotlk":{
-        "id": "48477",
-        "name": "Rebirth"
-      },
-      "Cataclysm":{
-        "id": "20484",
-        "name": "Rebirth"
-      }
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "20484",
+          "name": "Rebirth"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "20484",
+          "name": "Rebirth"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "20484",
+          "name": "Rebirth"
+        }
+      ]
     },
-    "SpellHaste":{
-      "Cataclysm":{
-        "id": "24858",
-        "name": "Moonkin Form"
-      }
+    "SpellHaste": {
+      "Cataclysm": [
+        {
+          "id": "24858",
+          "name": "Moonkin Form"
+        }
+      ]
     },
-    "AllStats":{
-      "Cataclysm":{
-        "id": "1126",
-        "name": "Mark of the Wild"
-      }
+    "AllStats": {
+      "Cataclysm": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "770",
-        "name": "Faerie Fire"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
+        }
+      ]
     },
-    "SpellDamageReceived":{
-      "Cataclysm":{
-        "id": "48506",
-        "name": "Earth and Moon"
-      }
+    "SpellDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "48506",
+          "name": "Earth and Moon"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "5211",
+          "name": "Mighty Bash"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "102401",
+          "name": "Wild Charge - Bear"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "102359",
+          "name": "Mass Entanglement"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "106707",
+          "name": "Faerie Swarm"
+        }
+      ]
+    },
+    "Knockback": {
+      "Mop": [
+        {
+          "id": "132469",
+          "name": "Typhoon"
+        }
+      ]
+    },
+    "Disorient": {
+      "Mop": [
+        {
+          "id": "99",
+          "name": "Disorienting Roar"
+        }
+      ]
+    },
+    "Pull": {
+      "Mop": [
+        {
+          "id": "102793",
+          "name": "Ursol's Vortex"
+        }
+      ]
     }
   },
   "DruidFeral": {
     "MarkOfTheWild": {
-      "Wotlk":{
-        "id": "48469",
-        "name": "Mark of the Wild 2/2"
-      }
+      "Wotlk": [
+        {
+          "id": "48469",
+          "name": "Mark of the Wild 2/2"
+        }
+      ]
     },
-    "PhysicalCrit":{
-      "Wotlk":{
-        "id": "17007",
-        "name": "Leader of the Pack"
-      }
+    "PhysicalCrit": {
+      "Wotlk": [
+        {
+          "id": "17007",
+          "name": "Leader of the Pack"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "16857",
-        "name": "Faerie Fire (Feral)"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "16857",
+          "name": "Faerie Fire (Feral)"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "16862",
-        "name": "Demoralizing Roar 5/5"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "16862",
+          "name": "Demoralizing Roar 5/5"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "48485",
-        "name": "Infested Wounds"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "48485",
+          "name": "Infested Wounds"
+        }
+      ]
     },
-    "BleedDamageReceived":{
-      "Wotlk":{
-        "id": "33917",
-        "name": "Mangle"
-      },
-      "Cataclysm":{
-        "id": "33876",
-        "name": "Mangle (Cat)"
-      }
+    "BleedDamageReceived": {
+      "Wotlk": [
+        {
+          "id": "33917",
+          "name": "Mangle"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "33876",
+          "name": "Mangle (Cat)"
+        }
+      ]
     },
-    "Innervate":{
-      "Wotlk":{
-        "id":"29166",
-        "name": "Innervate"
-      },
-      "Cataclysm":{
-        "id":"29166",
-        "name": "Innervate"
-      }
+    "Innervate": {
+      "Wotlk": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ]
     },
-    "CombatResurrection":{
-      "Wotlk":{
-        "id": "48477",
-        "name": "Rebirth"
-      },
-      "Cataclysm":{
-        "id": "20484",
-        "name": "Rebirth"
-      }
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "48477",
+          "name": "Rebirth"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "20484",
+          "name": "Rebirth"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "20484",
+          "name": "Rebirth"
+        }
+      ]
     },
-    "Crit":{
-      "Cataclysm":{
-        "id": "17007",
-        "name": "Leader of the Pack"
-      }
+    "Crit": {
+      "Cataclysm": [
+        {
+          "id": "17007",
+          "name": "Leader of the Pack"
+        }
+      ]
     },
-    "AllStats":{
-      "Cataclysm":{
-        "id": "1126",
-        "name": "Mark of the Wild"
-      }
+    "AllStats": {
+      "Cataclysm": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "16857",
-        "name": "Faerie Fire (Feral)"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "16857",
+          "name": "Faerie Fire (Feral)"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "48484",
-        "name": "Infested Wounds"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "48484",
+          "name": "Infested Wounds"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "99",
-        "name": "Demoralizing Roar"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "99",
+          "name": "Demoralizing Roar"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "5211",
+          "name": "Mighty Bash"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "102401",
+          "name": "Wild Charge - Bear"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "102359",
+          "name": "Mass Entanglement"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "106707",
+          "name": "Faerie Swarm"
+        }
+      ]
+    },
+    "Knockback": {
+      "Mop": [
+        {
+          "id": "132469",
+          "name": "Typhoon"
+        }
+      ]
+    },
+    "Disorient": {
+      "Mop": [
+        {
+          "id": "99",
+          "name": "Disorienting Roar"
+        }
+      ]
+    },
+    "Pull": {
+      "Mop": [
+        {
+          "id": "102793",
+          "name": "Ursol's Vortex"
+        }
+      ]
     }
   },
   "DruidGuardian": {
     "MarkOfTheWild": {
-      "Wotlk":{
-        "id": "48469",
-        "name": "Mark of the Wild 2/2"
-      }
+      "Wotlk": [
+        {
+          "id": "48469",
+          "name": "Mark of the Wild 2/2"
+        }
+      ]
     },
-    "PhysicalCrit":{
-      "Wotlk":{
-        "id": "17007",
-        "name": "Leader of the Pack"
-      }
+    "PhysicalCrit": {
+      "Wotlk": [
+        {
+          "id": "17007",
+          "name": "Leader of the Pack"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "16857",
-        "name": "Faerie Fire (Feral)"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "16857",
+          "name": "Faerie Fire (Feral)"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "48560",
-        "name": "Demoralizing Roar"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "48560",
+          "name": "Demoralizing Roar"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "48485",
-        "name": "Infested Wounds"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "48485",
+          "name": "Infested Wounds"
+        }
+      ]
     },
-    "BleedDamageReceived":{
-      "Wotlk":{
-        "id": "33917",
-        "name": "Mangle"
-      },
-      "Cataclysm":{
-        "id": "33878",
-        "name": "Mangle (Bear)"
-      }
+    "BleedDamageReceived": {
+      "Wotlk": [
+        {
+          "id": "33917",
+          "name": "Mangle"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "33878",
+          "name": "Mangle (Bear)"
+        }
+      ]
     },
-    "Innervate":{
-      "Wotlk":{
-        "id":"29166",
-        "name": "Innervate"
-      },
-      "Cataclysm":{
-        "id":"29166",
-        "name": "Innervate"
-      }
+    "Innervate": {
+      "Wotlk": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "29166",
+          "name": "Innervate"
+        }
+      ]
     },
-    "CombatResurrection":{
-      "Wotlk":{
-        "id": "48477",
-        "name": "Rebirth"
-      },"Cataclysm":{
-        "id": "20484",
-        "name": "Rebirth"
-      }
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "48477",
+          "name": "Rebirth"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "20484",
+          "name": "Rebirth"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "20484",
+          "name": "Rebirth"
+        }
+      ]
     },
-    "Crit":{
-      "Cataclysm":{
-        "id": "17007",
-        "name": "Leader of the Pack"
-      }
+    "Crit": {
+      "Cataclysm": [
+        {
+          "id": "17007",
+          "name": "Leader of the Pack"
+        }
+      ]
     },
-    "AllStats":{
-      "Cataclysm":{
-        "id": "1126",
-        "name": "Mark of the Wild"
-      }
+    "AllStats": {
+      "Cataclysm": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "16857",
-        "name": "Faerie Fire (Feral)"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "16857",
+          "name": "Faerie Fire (Feral)"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "48484",
-        "name": "Infested Wounds"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "48484",
+          "name": "Infested Wounds"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "99",
-        "name": "Demoralizing Roar"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "99",
+          "name": "Demoralizing Roar"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "5211",
+          "name": "Mighty Bash"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "102401",
+          "name": "Wild Charge - Bear"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "102359",
+          "name": "Mass Entanglement"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "106707",
+          "name": "Faerie Swarm"
+        }
+      ]
+    },
+    "Knockback": {
+      "Mop": [
+        {
+          "id": "132469",
+          "name": "Typhoon"
+        }
+      ]
+    },
+    "Disorient": {
+      "Mop": [
+        {
+          "id": "99",
+          "name": "Disorienting Roar"
+        }
+      ]
+    },
+    "Pull": {
+      "Mop": [
+        {
+          "id": "102793",
+          "name": "Ursol's Vortex"
+        }
+      ]
     }
   },
   "WarriorFury": {
     "AttackPower": {
-      "Wotlk":{
-        "id": "12861",
-        "name": "Battle Shout 5/5"
-      }
+      "Wotlk": [
+        {
+          "id": "12861",
+          "name": "Battle Shout 5/5"
+        }
+      ]
     },
-    "PhysicalCrit":{
-      "Wotlk":{
-        "id": "29801",
-        "name": "Rampage"
-      }
+    "PhysicalCrit": {
+      "Wotlk": [
+        {
+          "id": "29801",
+          "name": "Rampage"
+        }
+      ]
     },
-    "MaxHealth":{
-      "Wotlk":{
-        "id": "12861",
-        "name": "Commanding Shout 5/5"
-      }
+    "MaxHealth": {
+      "Wotlk": [
+        {
+          "id": "12861",
+          "name": "Commanding Shout 5/5"
+        }
+      ]
     },
-    "ArmorDown20":{
-      "Wotlk":{
-        "id": "7386",
-        "name": "Sunder Armor"
-      }
+    "ArmorDown20": {
+      "Wotlk": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "47437",
-        "name": "Demoralizing Shout"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "47437",
+          "name": "Demoralizing Shout"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "47502",
-        "name": "Thunder Clap"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "47502",
+          "name": "Thunder Clap"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "46911",
-        "name": "Furious Attacks 2/2"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "46911",
+          "name": "Furious Attacks 2/2"
+        }
+      ]
     },
-    "Crit":{
-      "Cataclysm":{
-        "id": "29801",
-        "name": "Rampage"
-      }
+    "Crit": {
+      "Cataclysm": [
+        {
+          "id": "29801",
+          "name": "Rampage"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Cataclysm":{
-        "id": "6673",
-        "name": "Battle Shout"
-      }
+    "StrengthAgility": {
+      "Cataclysm": [
+        {
+          "id": "6673",
+          "name": "Battle Shout"
+        }
+      ]
     },
-    "Stamina":{
-      "Cataclysm":{
-        "id": "469",
-        "name": "Commanding Shout"
-      }
+    "Stamina": {
+      "Cataclysm": [
+        {
+          "id": "469",
+          "name": "Commanding Shout"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "7386",
-        "name": "Sunder Armor"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "46910",
-        "name": "Furious Attacks"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "46910",
+          "name": "Furious Attacks"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "1160",
-        "name": "Demoralizing Shout"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "1160",
+          "name": "Demoralizing Shout"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "103828",
+          "name": "Warbringer"
+        },
+        {
+          "id": "107566",
+          "name": "Staggering Shout"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "103828",
+          "name": "Warbringer"
+        },
+        {
+          "id": "12323",
+          "name": "Piercing Howl"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "46968",
+          "name": "Shockwave"
+        },
+        {
+          "id": "107570",
+          "name": "Storm Bolt"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "102060",
+          "name": "Disrupting Shout"
+        }
+      ]
+    },
+    "Knockback": {
+      "Mop": [
+        {
+          "id": "118000",
+          "name": "Dragon Roar"
+        }
+      ]
+    },
+    "SpellReflect": {
+      "Mop": [
+        {
+          "id": "114028",
+          "name": "Mass Spell Reflection"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "114029",
+          "name": "Safeguard"
+        },
+        {
+          "id": "114030",
+          "name": "Vigilance"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "114192",
+          "name": "Mocking Banner"
+        }
+      ]
+    },
+    "EnemyDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "114203",
+          "name": "Demoralizing Banner"
+        }
+      ]
+    },
+    "CritDamageUp20":{
+      "Mop": [
+        {
+          "id": "114207",
+          "name": "Skull Banner"
+        }
+      ]
     }
   },
   "WarriorArms": {
     "AttackPower": {
-      "Wotlk":{
-        "id": "47436",
-        "name": "Battle Shout"
-      }
+      "Wotlk": [
+        {
+          "id": "47436",
+          "name": "Battle Shout"
+        }
+      ]
     },
-    "MaxHealth":{
-      "Wotlk":{
-        "id": "47440",
-        "name": "Commanding Shout"
-      }
+    "MaxHealth": {
+      "Wotlk": [
+        {
+          "id": "47440",
+          "name": "Commanding Shout"
+        }
+      ]
     },
-    "ArmorDown20":{
-      "Wotlk":{
-        "id": "7386",
-        "name": "Sunder Armor"
-      }
+    "ArmorDown20": {
+      "Wotlk": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "12879",
-        "name": "Demoralizing Shout 5/5"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "12879",
+          "name": "Demoralizing Shout 5/5"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "12666",
-        "name": "Improved Thunder Clap 3/3"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "12666",
+          "name": "Improved Thunder Clap 3/3"
+        }
+      ]
     },
-    "BleedDamageReceived":{
-      "Wotlk":{
-        "id": "46855",
-        "name": "Trauma"
-      },
-      "Cataclysm":{
-        "id": "29859",
-        "name": "Blood Frenzy"
-      }
+    "BleedDamageReceived": {
+      "Wotlk": [
+        {
+          "id": "46855",
+          "name": "Trauma"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "29859",
+          "name": "Blood Frenzy"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "12294",
-        "name": "Mortal Strike"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "12294",
+          "name": "Mortal Strike"
+        }
+      ]
     },
-    "PhysicalDamageReceived":{
-      "Wotlk":{
-        "id": "58413",
-        "name": "Savage Combat"
-      },
-      "Cataclysm":{
-        "id": "29859",
-        "name": "Blood Frenzy"
-      }
+    "PhysicalDamageReceived": {
+      "Wotlk": [
+        {
+          "id": "58413",
+          "name": "Savage Combat"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "29859",
+          "name": "Blood Frenzy"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Cataclysm":{
-        "id": "6673",
-        "name": "Battle Shout"
-      }
+    "StrengthAgility": {
+      "Cataclysm": [
+        {
+          "id": "6673",
+          "name": "Battle Shout"
+        }
+      ]
     },
-    "Stamina":{
-      "Cataclysm":{
-        "id": "469",
-        "name": "Commanding Shout"
-      }
+    "Stamina": {
+      "Cataclysm": [
+        {
+          "id": "469",
+          "name": "Commanding Shout"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "7386",
-        "name": "Sunder Armor"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "12294",
-        "name": "Mortal Strike"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "12294",
+          "name": "Mortal Strike"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "1160",
-        "name": "Demoralizing Shout"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "1160",
+          "name": "Demoralizing Shout"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "103828",
+          "name": "Warbringer"
+        },
+        {
+          "id": "107566",
+          "name": "Staggering Shout"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "103828",
+          "name": "Warbringer"
+        },
+        {
+          "id": "12323",
+          "name": "Piercing Howl"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "46968",
+          "name": "Shockwave"
+        },
+        {
+          "id": "107570",
+          "name": "Storm Bolt"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "102060",
+          "name": "Disrupting Shout"
+        }
+      ]
+    },
+    "Knockback": {
+      "Mop": [
+        {
+          "id": "118000",
+          "name": "Dragon Roar"
+        }
+      ]
+    },
+    "SpellReflect": {
+      "Mop": [
+        {
+          "id": "114028",
+          "name": "Mass Spell Reflection"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "114029",
+          "name": "Safeguard"
+        },
+        {
+          "id": "114030",
+          "name": "Vigilance"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "114192",
+          "name": "Mocking Banner"
+        }
+      ]
+    },
+    "EnemyDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "114203",
+          "name": "Demoralizing Banner"
+        }
+      ]
+    },
+    "CritDamageUp20":{
+      "Mop": [
+        {
+          "id": "114207",
+          "name": "Skull Banner"
+        }
+      ]
     }
   },
   "WarriorProtection": {
     "AttackPower": {
-      "Wotlk":{
-        "id": "47436",
-        "name": "Battle Shout"
-      }
+      "Wotlk": [
+        {
+          "id": "47436",
+          "name": "Battle Shout"
+        }
+      ]
     },
-    "MaxHealth":{
-      "Wotlk":{
-        "id": "47440",
-        "name": "Commanding Shout"
-      }
+    "MaxHealth": {
+      "Wotlk": [
+        {
+          "id": "47440",
+          "name": "Commanding Shout"
+        }
+      ]
     },
-    "ArmorDown20":{
-      "Wotlk":{
-        "id": "7386",
-        "name": "Sunder Armor"
-      }
+    "ArmorDown20": {
+      "Wotlk": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
     },
-    "AttackPowerDown":{
-      "Wotlk":{
-        "id": "47437",
-        "name": "Demoralizing Shout"
-      }
+    "AttackPowerDown": {
+      "Wotlk": [
+        {
+          "id": "47437",
+          "name": "Demoralizing Shout"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "12666",
-        "name": "Improved Thunder Clap 3/3"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "12666",
+          "name": "Improved Thunder Clap 3/3"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Cataclysm":{
-        "id": "6673",
-        "name": "Battle Shout"
-      }
+    "StrengthAgility": {
+      "Cataclysm": [
+        {
+          "id": "6673",
+          "name": "Battle Shout"
+        }
+      ]
     },
-    "Stamina":{
-      "Cataclysm":{
-        "id": "469",
-        "name": "Commanding Shout"
-      }
+    "Stamina": {
+      "Cataclysm": [
+        {
+          "id": "469",
+          "name": "Commanding Shout"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "7386",
-        "name": "Sunder Armor"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "6343",
-        "name": "Thunder Clap"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "6343",
+          "name": "Thunder Clap"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "1160",
-        "name": "Demoralizing Shout"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "1160",
+          "name": "Demoralizing Shout"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "103828",
+          "name": "Warbringer"
+        },
+        {
+          "id": "107566",
+          "name": "Staggering Shout"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "103828",
+          "name": "Warbringer"
+        },
+        {
+          "id": "12323",
+          "name": "Piercing Howl"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "46968",
+          "name": "Shockwave"
+        },
+        {
+          "id": "107570",
+          "name": "Storm Bolt"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "102060",
+          "name": "Disrupting Shout"
+        }
+      ]
+    },
+    "Knockback": {
+      "Mop": [
+        {
+          "id": "118000",
+          "name": "Dragon Roar"
+        }
+      ]
+    },
+    "SpellReflect": {
+      "Mop": [
+        {
+          "id": "114028",
+          "name": "Mass Spell Reflection"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "114029",
+          "name": "Safeguard"
+        },
+        {
+          "id": "114030",
+          "name": "Vigilance"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "114192",
+          "name": "Mocking Banner"
+        }
+      ]
+    },
+    "EnemyDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "114203",
+          "name": "Demoralizing Banner"
+        }
+      ]
+    },
+    "CritDamageUp20":{
+      "Mop": [
+        {
+          "id": "114207",
+          "name": "Skull Banner"
+        }
+      ]
     }
   },
   "DeathknightBlood": {
-    "MeleeHaste20":{
-      "Wotlk":{
-        "id": "55610",
-        "name": "Improved Icy Talons"
-      }
+    "MeleeHaste20": {
+      "Wotlk": [
+        {
+          "id": "55610",
+          "name": "Improved Icy Talons"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Wotlk":{
-        "id": "57623",
-        "name": "Horn of Winter"
-      },
-      "Cataclysm":{
-        "id": "57330",
-        "name": "Horn of Winter"
-      }
+    "StrengthAgility": {
+      "Wotlk": [
+        {
+          "id": "57623",
+          "name": "Horn of Winter"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "57330",
+          "name": "Horn of Winter"
+        }
+      ]
     },
     "AttackPower10": {
-      "Wotlk":{
-        "id": "53138",
-        "name": "Abomination's Might"
-      }
+      "Wotlk": [
+        {
+          "id": "53138",
+          "name": "Abomination's Might"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "51456",
-        "name": "Improved Icy Touch 3/3"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "51456",
+          "name": "Improved Icy Touch 3/3"
+        }
+      ]
     },
-    "UnholyFrenzy":{
-      "Wotlk":{
-        "id": "49016",
-        "name": "Unholy Frenzy"
-      },
-      "Cataclysm":{
-        "id": "49016",
-        "name": "Unholy Frenzy"
-      }
+    "UnholyFrenzy": {
+      "Wotlk": [
+        {
+          "id": "49016",
+          "name": "Unholy Frenzy"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "49016",
+          "name": "Unholy Frenzy"
+        }
+      ]
     },
     "AttackPower20": {
-      "Cataclysm":{
-        "id": "53138",
-        "name": "Abomination's Might"
-      }
+      "Cataclysm": [
+        {
+          "id": "53138",
+          "name": "Abomination's Might"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "59921",
-        "name": "Frost Fever"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "59921",
+          "name": "Frost Fever"
+        }
+      ]
     },
-    "PhysicalDamageDealt":{
-      "Cataclysm":{
-        "id": "81132",
-        "name": "Scarlet Fever"
-      }
+    "PhysicalDamageDealt": {
+      "Cataclysm": [
+        {
+          "id": "81132",
+          "name": "Scarlet Fever"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Cataclysm":{
-        "id": "73975",
-        "name": "Necrotic Strike"
-      }
+    "CastSpeed30": {
+      "Cataclysm": [
+        {
+          "id": "73975",
+          "name": "Necrotic Strike"
+        }
+      ]
+    },
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "114556",
+          "name": "Purgatory"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "50041",
+          "name": "Chilblains"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "50041",
+          "name": "Chilblains"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "108194",
+          "name": "Asphyxiate"
+        },
+        {
+          "id": "108200",
+          "name": "Remorseless Winter"
+        }
+      ]
+    },
+    "Silence": {
+      "Mop": [
+        {
+          "id": "108194",
+          "name": "Asphyxiate"
+        }
+      ]
+    },
+    "Pull": {
+      "Mop": [
+        {
+          "id": "108199",
+          "name": "Gorefiend's Grip"
+        }
+      ]
     }
   },
   "DeathknightUnholy": {
-    "StrengthAgility":{
-      "Wotlk":{
-        "id": "57623",
-        "name": "Horn of Winter"
-      },
-      "Cataclysm":{
-        "id": "57330",
-        "name": "Horn of Winter"
-      }
+    "StrengthAgility": {
+      "Wotlk": [
+        {
+          "id": "57623",
+          "name": "Horn of Winter"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "57330",
+          "name": "Horn of Winter"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "49909",
-        "name": "Icy Touch"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "49909",
+          "name": "Icy Touch"
+        }
+      ]
     },
-    "SpellDamageReceived13":{
-      "Wotlk":{
-        "id": "51161",
-        "name": "Ebon Plaguebringer"
-      }
+    "SpellDamageReceived13": {
+      "Wotlk": [
+        {
+          "id": "51161",
+          "name": "Ebon Plaguebringer"
+        }
+      ]
     },
-    "UnholyFrenzy":{
-      "Cataclysm":{
-        "id": "49016",
-        "name": "Unholy Frenzy"
-      }
+    "UnholyFrenzy": {
+      "Cataclysm": [
+        {
+          "id": "49016",
+          "name": "Unholy Frenzy"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "59921",
-        "name": "Frost Fever"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "59921",
+          "name": "Frost Fever"
+        }
+      ]
     },
-    "SpellDamageReceived":{
-      "Cataclysm":{
-        "id": "51160",
-        "name": "Ebon Plaguebringer"
-      }
+    "SpellDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "51160",
+          "name": "Ebon Plaguebringer"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Cataclysm":{
-        "id": "73975",
-        "name": "Necrotic Strike"
-      }
+    "CastSpeed30": {
+      "Cataclysm": [
+        {
+          "id": "73975",
+          "name": "Necrotic Strike"
+        }
+      ]
+    },
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "114556",
+          "name": "Purgatory"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "50041",
+          "name": "Chilblains"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "50041",
+          "name": "Chilblains"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "108194",
+          "name": "Asphyxiate"
+        },
+        {
+          "id": "108200",
+          "name": "Remorseless Winter"
+        }
+      ]
+    },
+    "Silence": {
+      "Mop": [
+        {
+          "id": "108194",
+          "name": "Asphyxiate"
+        }
+      ]
+    },
+    "Pull": {
+      "Mop": [
+        {
+          "id": "108199",
+          "name": "Gorefiend's Grip"
+        }
+      ]
     }
   },
-  "DeathknightFrost":{
-    "MeleeHaste20":{
-      "Wotlk":{
-        "id": "55610",
-        "name": "Improved Icy Talons"
-      }
+  "DeathknightFrost": {
+    "MeleeHaste20": {
+      "Wotlk": [
+        {
+          "id": "55610",
+          "name": "Improved Icy Talons"
+        }
+      ]
     },
-    "StrengthAgility":{
-      "Wotlk":{
-        "id": "57623",
-        "name": "Horn of Winter"
-      },
-      "Cataclysm":{
-        "id": "57330",
-        "name": "Horn of Winter"
-      }
+    "StrengthAgility": {
+      "Wotlk": [
+        {
+          "id": "57623",
+          "name": "Horn of Winter"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "57330",
+          "name": "Horn of Winter"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Wotlk":{
-        "id": "51456",
-        "name": "Improved Icy Touch 3/3"
-      },
-      "Cataclysm":{
-        "id": "55610",
-        "name": "Improved Icy Talons"
-      }
+    "MeleeHaste": {
+      "Wotlk": [
+        {
+          "id": "51456",
+          "name": "Improved Icy Touch 3/3"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "55610",
+          "name": "Improved Icy Talons"
+        }
+      ]
     },
-    "MeleeHasteDown":{
-      "Cataclysm":{
-        "id": "59921",
-        "name": "Frost Fever"
-      }
+    "MeleeHasteDown": {
+      "Cataclysm": [
+        {
+          "id": "59921",
+          "name": "Frost Fever"
+        }
+      ]
     },
-    "PhysicalDamageReceived":{
-      "Cataclysm":{
-        "id": "81328",
-        "name": "Brittle Bones"
-      }
+    "PhysicalDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "81328",
+          "name": "Brittle Bones"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Cataclysm":{
-        "id": "73975",
-        "name": "Necrotic Strike"
-      }
+    "CastSpeed30": {
+      "Cataclysm": [
+        {
+          "id": "73975",
+          "name": "Necrotic Strike"
+        }
+      ]
+    },
+    "CombatResurrection": {
+      "Wotlk": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "61999",
+          "name": "Raise Ally"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "114556",
+          "name": "Purgatory"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "50041",
+          "name": "Chilblains"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "50041",
+          "name": "Chilblains"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "108194",
+          "name": "Asphyxiate"
+        },
+        {
+          "id": "108200",
+          "name": "Remorseless Winter"
+        }
+      ]
+    },
+    "Silence": {
+      "Mop": [
+        {
+          "id": "108194",
+          "name": "Asphyxiate"
+        }
+      ]
+    },
+    "Pull": {
+      "Mop": [
+        {
+          "id": "108199",
+          "name": "Gorefiend's Grip"
+        }
+      ]
     }
   },
-  "HunterMarksmanship":{
+  "HunterMarksmanship": {
     "AttackPower10": {
-      "Wotlk":{
-        "id": "19506",
-        "name": "Trueshot Aura"
-      }
+      "Wotlk": [
+        {
+          "id": "19506",
+          "name": "Trueshot Aura"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "56631",
-        "name": "Sting"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "56631",
+          "name": "Sting"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "19434",
-        "name": "Aimed Shot"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "19434",
+          "name": "Aimed Shot"
+        }
+      ]
     },
-    "PhysicalHitDown":{
-      "Wotlk":{
-        "id": "3043",
-        "name": "Scorpid Sting"
-      }
+    "PhysicalHitDown": {
+      "Wotlk": [
+        {
+          "id": "3043",
+          "name": "Scorpid Sting"
+        }
+      ]
     },
     "AttackPower20": {
-      "Cataclysm":{
-        "id": "19506",
-        "name": "Trueshot Aura"
-      }
+      "Cataclysm": [
+        {
+          "id": "19506",
+          "name": "Trueshot Aura"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "82654",
-        "name": "Widow Venom"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "82654",
+          "name": "Widow Venom"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "109298",
+          "name": "Narrow Escape"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "109248",
+          "name": "Binding Shot"
+        },
+        {
+          "id": "19577",
+          "name": "Intimidation"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "19386",
+          "name": "Wyvern Sting"
+        }
+      ]
+    },
+    "CombatResurrection": {
+      "Mop": [
+        {
+          "id": "126393",
+          "name": "Eternal Guardian"
+        }
+      ]
     }
   },
-  "HunterBeastmastery":{
+  "HunterBeastmastery": {
     "IncDamage": {
-      "Wotlk":{
-        "id": "34460",
-        "name": "Ferocious Inspiration"
-      },
-      "Cataclysm":{
-        "id": "34460",
-        "name": "Ferocious Inspiration"
-      }
+      "Wotlk": [
+        {
+          "id": "34460",
+          "name": "Ferocious Inspiration"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "34460",
+          "name": "Ferocious Inspiration"
+        }
+      ]
     },
-    "ArmorDown20":{
-      "Wotlk":{
-        "id": "55754",
-        "name": "Acid Spit"
-      }
+    "ArmorDown20": {
+      "Wotlk": [
+        {
+          "id": "55754",
+          "name": "Acid Spit"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "56631",
-        "name": "Sting"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "56631",
+          "name": "Sting"
+        }
+      ]
     },
-    "BleedDamageReceived":{
-      "Wotlk":{
-        "id": "57393",
-        "name": "Stampede"
-      }
+    "BleedDamageReceived": {
+      "Wotlk": [
+        {
+          "id": "57393",
+          "name": "Stampede"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "58611",
-        "name": "Lava Breath"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "58611",
+          "name": "Lava Breath"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "19434",
-        "name": "Aimed Shot"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "19434",
+          "name": "Aimed Shot"
+        }
+      ]
     },
-    "PhysicalHitDown":{
-      "Wotlk":{
-        "id": "3043",
-        "name": "Scorpid Sting"
-      }
+    "PhysicalHitDown": {
+      "Wotlk": [
+        {
+          "id": "3043",
+          "name": "Scorpid Sting"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "82654",
-        "name": "Widow Venom"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "82654",
+          "name": "Widow Venom"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "109298",
+          "name": "Narrow Escape"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "109248",
+          "name": "Binding Shot"
+        },
+        {
+          "id": "19577",
+          "name": "Intimidation"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "19386",
+          "name": "Wyvern Sting"
+        }
+      ]
+    },
+    "Bloodlust": {
+      "Cataclysm": [
+        {
+          "id": "90355",
+          "name": "Primal Rage"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "90355",
+          "name": "Primal Rage"
+        }
+      ]
+    },
+    "CombatResurrection": {
+      "Mop": [
+        {
+          "id": "126393",
+          "name": "Eternal Guardian"
+        }
+      ]
     }
   },
-  "HunterSurvival":{
+  "HunterSurvival": {
     "Replenishment": {
-      "Wotlk":{
-        "id": "53292",
-        "name": "Hunting Party"
-      }
+      "Wotlk": [
+        {
+          "id": "53292",
+          "name": "Hunting Party"
+        }
+      ]
     },
-    "ArmorDown5":{
-      "Wotlk":{
-        "id": "56631",
-        "name": "Sting"
-      }
+    "ArmorDown5": {
+      "Wotlk": [
+        {
+          "id": "56631",
+          "name": "Sting"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "19434",
-        "name": "Aimed Shot"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "19434",
+          "name": "Aimed Shot"
+        }
+      ]
     },
-    "PhysicalHitDown":{
-      "Wotlk":{
-        "id": "3043",
-        "name": "Scorpid Sting"
-      }
+    "PhysicalHitDown": {
+      "Wotlk": [
+        {
+          "id": "3043",
+          "name": "Scorpid Sting"
+        }
+      ]
     },
-    "MeleeHaste":{
-      "Cataclysm":{
-        "id": "53290",
-        "name": "Hunting Party"
-      }
+    "MeleeHaste": {
+      "Cataclysm": [
+        {
+          "id": "53290",
+          "name": "Hunting Party"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "82654",
-        "name": "Widow Venom"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "82654",
+          "name": "Widow Venom"
+        }
+      ]
+    },
+    "RootAoE": {
+      "Mop": [
+        {
+          "id": "109298",
+          "name": "Narrow Escape"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "109248",
+          "name": "Binding Shot"
+        },
+        {
+          "id": "19577",
+          "name": "Intimidation"
+        }
+      ]
+    },
+    "Incapacitate": {
+      "Mop": [
+        {
+          "id": "19386",
+          "name": "Wyvern Sting"
+        }
+      ]
+    },
+    "CombatResurrection": {
+      "Mop": [
+        {
+          "id": "126393",
+          "name": "Eternal Guardian"
+        }
+      ]
     }
   },
   "MageArcane": {
     "IncDamage": {
-      "Wotlk":{
-        "id": "31583",
-        "name": "Arcane Empowerment"
-      },
-      "Cataclysm":{
-        "id": "82930",
-        "name": "Arcane Tactics"
-      }
+      "Wotlk": [
+        {
+          "id": "31583",
+          "name": "Arcane Empowerment"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "82930",
+          "name": "Arcane Tactics"
+        }
+      ]
     },
-    "Intellect":{
-      "Wotlk":{
-        "id": "42995",
-        "name": "Arcane Intelligence"
-      }
+    "Intellect": {
+      "Wotlk": [
+        {
+          "id": "42995",
+          "name": "Arcane Intelligence"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "31589",
-        "name": "Slow"
-      },
-      "Cataclysm":{
-        "id": "31589",
-        "name": "Slow"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "31589",
+          "name": "Slow"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "31589",
+          "name": "Slow"
+        }
+      ]
     },
-    "FocusMagic":{
-      "Wotlk":{
-        "id": "54646",
-        "name": "Focus Magic"
-      },
-      "Cataclysm":{
-        "id": "54646",
-        "name": "Focus Magic"
-      }
+    "FocusMagic": {
+      "Wotlk": [
+        {
+          "id": "54646",
+          "name": "Focus Magic"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "54646",
+          "name": "Focus Magic"
+        }
+      ]
     },
-    "SpellPower6":{
-      "Cataclysm":{
-        "id": "1459",
-        "name": "Arcane Brilliance"
-      }
+    "SpellPower6": {
+      "Cataclysm": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
     },
     "MaxMana": {
-      "Cataclysm":{
-        "id": "1459",
-        "name": "Arcane Brilliance"
-      }
+      "Cataclysm": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
     },
-    "Bloodlust":{
-      "Cataclysm":{
-        "id": "80353",
-        "name": "Time Warp"
-      }
+    "Bloodlust": {
+      "Cataclysm": [
+        {
+          "id": "80353",
+          "name": "Time Warp"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "80353",
+          "name": "Time Warp"
+        }
+      ]
+    },
+    "Incapacitate":{
+      "Mop": [
+        {
+          "id": "113724",
+          "name": "Ring of Frost"
+        }
+      ]
+    },
+    "Root":{
+      "Mop": [
+        {
+          "id": "111264",
+          "name": "Ice Ward"
+        },
+        {
+          "id": "102051",
+          "name": "Frostjaw"
+        }
+      ]
+    },
+    "Silence":{
+      "Mop": [
+        {
+          "id": "102051",
+          "name": "Frostjaw"
+        }
+      ]
+    },
+    "Immunity":{
+      "Mop": [
+        {
+          "id": "86949",
+          "name": "Cauterize"
+        }
+      ]
+    },
+    "Slow":{
+      "Mop": [
+        {
+          "id": "112948",
+          "name": "Frost Bomb"
+        }
+      ]
     }
   },
   "MageFire": {
-    "Intellect":{
-      "Wotlk":{
-        "id": "42995",
-        "name": "Arcane Intelligence"
-      }
+    "Intellect": {
+      "Wotlk": [
+        {
+          "id": "42995",
+          "name": "Arcane Intelligence"
+        }
+      ]
     },
-    "SpellCritReceived":{
-      "Wotlk":{
-        "id": "12873",
-        "name": "Improved Scorch 3/3"
-      },
-      "Cataclysm":{
-        "id": "12873",
-        "name": "Critical Mass"
-      }
+    "SpellCritReceived": {
+      "Wotlk": [
+        {
+          "id": "12873",
+          "name": "Improved Scorch 3/3"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "12873",
+          "name": "Critical Mass"
+        }
+      ]
     },
-    "FocusMagic":{
-      "Wotlk":{
-        "id": "54646",
-        "name": "Focus Magic"
-      }
+    "FocusMagic": {
+      "Wotlk": [
+        {
+          "id": "54646",
+          "name": "Focus Magic"
+        }
+      ]
     },
-    "SpellPower6":{
-      "Cataclysm":{
-        "id": "1459",
-        "name": "Arcane Brilliance"
-      }
+    "SpellPower6": {
+      "Cataclysm": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
     },
     "MaxMana": {
-      "Cataclysm":{
-        "id": "1459",
-        "name": "Arcane Brilliance"
-      }
+      "Cataclysm": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
     },
-    "Bloodlust":{
-      "Cataclysm":{
-        "id": "80353",
-        "name": "Time Warp"
-      }
+    "Bloodlust": {
+      "Cataclysm": [
+        {
+          "id": "80353",
+          "name": "Time Warp"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "80353",
+          "name": "Time Warp"
+        }
+      ]
+    },
+    "Incapacitate":{
+      "Mop": [
+        {
+          "id": "113724",
+          "name": "Ring of Frost"
+        }
+      ]
+    },
+    "Root":{
+      "Mop": [
+        {
+          "id": "111264",
+          "name": "Ice Ward"
+        },
+        {
+          "id": "102051",
+          "name": "Frostjaw"
+        }
+      ]
+    },
+    "Silence":{
+      "Mop": [
+        {
+          "id": "102051",
+          "name": "Frostjaw"
+        }
+      ]
+    },
+    "Immunity":{
+      "Mop": [
+        {
+          "id": "86949",
+          "name": "Cauterize"
+        }
+      ]
+    },
+    "Slow":{
+      "Mop": [
+        {
+          "id": "112948",
+          "name": "Frost Bomb"
+        }
+      ]
     }
   },
   "MageFrost": {
-    "Intellect":{
-      "Wotlk":{
-        "id": "42995",
-        "name": "Arcane Intelligence"
-      }
+    "Intellect": {
+      "Wotlk": [
+        {
+          "id": "42995",
+          "name": "Arcane Intelligence"
+        }
+      ]
     },
-    "Replenishment":{
-      "Wotlk":{
-        "id":"44561",
-        "name": "Enduring Winter"
-      },
-      "Cataclysm":{
-        "id":"86508",
-        "name": "Enduring Winter"
-      }
+    "Replenishment": {
+      "Wotlk": [
+        {
+          "id": "44561",
+          "name": "Enduring Winter"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "86508",
+          "name": "Enduring Winter"
+        }
+      ]
     },
-    "SpellCritReceived":{
-      "Wotlk":{
-        "id": "28593",
-        "name": "Winter's Chill 3/3"
-      }
+    "SpellCritReceived": {
+      "Wotlk": [
+        {
+          "id": "28593",
+          "name": "Winter's Chill 3/3"
+        }
+      ]
     },
-    "FocusMagic":{
-      "Wotlk":{
-        "id": "54646",
-        "name": "Focus Magic"
-      }
+    "FocusMagic": {
+      "Wotlk": [
+        {
+          "id": "54646",
+          "name": "Focus Magic"
+        }
+      ]
     },
-    "SpellPower6":{
-      "Cataclysm":{
-        "id": "1459",
-        "name": "Arcane Brilliance"
-      }
+    "SpellPower6": {
+      "Cataclysm": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
     },
     "MaxMana": {
-      "Cataclysm":{
-        "id": "1459",
-        "name": "Arcane Brilliance"
-      }
+      "Cataclysm": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
     },
-    "Bloodlust":{
-      "Cataclysm":{
-        "id": "80353",
-        "name": "Time Warp"
-      }
+    "Bloodlust": {
+      "Cataclysm": [
+        {
+          "id": "80353",
+          "name": "Time Warp"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "80353",
+          "name": "Time Warp"
+        }
+      ]
+    },
+    "Incapacitate":{
+      "Mop": [
+        {
+          "id": "113724",
+          "name": "Ring of Frost"
+        }
+      ]
+    },
+    "Root":{
+      "Mop": [
+        {
+          "id": "111264",
+          "name": "Ice Ward"
+        },
+        {
+          "id": "102051",
+          "name": "Frostjaw"
+        }
+      ]
+    },
+    "Silence":{
+      "Mop": [
+        {
+          "id": "102051",
+          "name": "Frostjaw"
+        }
+      ]
+    },
+    "Immunity":{
+      "Mop": [
+        {
+          "id": "86949",
+          "name": "Cauterize"
+        }
+      ]
+    },
+    "Slow":{
+      "Mop": [
+        {
+          "id": "112948",
+          "name": "Frost Bomb"
+        }
+      ]
     }
   },
   "PriestHoly": {
-    "Spirit":{
-      "Wotlk":{
-        "id": "48073",
-        "name": "Divine Spirit"
-      }
+    "Spirit": {
+      "Wotlk": [
+        {
+          "id": "48073",
+          "name": "Divine Spirit"
+        }
+      ]
     },
-    "Stamina":{
-      "Wotlk":{
-        "id": "14767",
-        "name": "Improved Power Word: Fortitude 2/2"
-      },
-      "Cataclysm":{
-        "id": "21562",
-        "name": "Power Word: Fortitude"
-      }
+    "Stamina": {
+      "Wotlk": [
+        {
+          "id": "14767",
+          "name": "Improved Power Word: Fortitude 2/2"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "21562",
+          "name": "Power Word: Fortitude"
+        }
+      ]
     },
-    "DamageReduction3":{
-      "Wotlk":{
-        "id":"57472",
-        "name": "Renewed Hope"
-      }
+    "DamageReduction3": {
+      "Wotlk": [
+        {
+          "id": "57472",
+          "name": "Renewed Hope"
+        }
+      ]
     },
-    "DamageReduction10":{
-      "Wotlk":{
-        "id":"15363",
-        "name": "Inspiration"
-      }
+    "DamageReduction10": {
+      "Wotlk": [
+        {
+          "id": "15363",
+          "name": "Inspiration"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "108920",
+          "name": "Void Tendrils"
+        }
+      ]
+    },
+    "Fear": {
+      "Mop": [
+        {
+          "id": "108921",
+          "name": "Psyfiend"
+        }
+      ]
     }
   },
   "PriestShadow": {
-    "Spirit":{
-      "Wotlk":{
-        "id": "48073",
-        "name": "Divine Spirit"
-      }
+    "Spirit": {
+      "Wotlk": [
+        {
+          "id": "48073",
+          "name": "Divine Spirit"
+        }
+      ]
     },
-    "Stamina":{
-      "Wotlk":{
-        "id": "48161",
-        "name": "Power Word: Fortitude"
-      },
-      "Cataclysm":{
-        "id": "21562",
-        "name": "Power Word: Fortitude"
-      }
+    "Stamina": {
+      "Wotlk": [
+        {
+          "id": "48161",
+          "name": "Power Word: Fortitude"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "21562",
+          "name": "Power Word: Fortitude"
+        }
+      ]
     },
-    "Replenishment":{
-      "Wotlk":{
-        "id":"34914",
-        "name": "Vampiric Touch"
-      },
-      "Cataclysm":{
-        "id":"34914",
-        "name": "Vampiric Touch"
-      }
+    "Replenishment": {
+      "Wotlk": [
+        {
+          "id": "34914",
+          "name": "Vampiric Touch"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "34914",
+          "name": "Vampiric Touch"
+        }
+      ]
     },
-    "SpellHit":{
-      "Wotlk":{
-        "id": "33193",
-        "name": "Misery"
-      }
+    "SpellHit": {
+      "Wotlk": [
+        {
+          "id": "33193",
+          "name": "Misery"
+        }
+      ]
     },
-    "SpellHaste":{
-      "Cataclysm":{
-        "id": "15473",
-        "name": "Shadowform"
-      }
+    "SpellHaste": {
+      "Cataclysm": [
+        {
+          "id": "15473",
+          "name": "Shadowform"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "15313",
-        "name": "Improved Mind Blast"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "15313",
+          "name": "Improved Mind Blast"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "108920",
+          "name": "Void Tendrils"
+        }
+      ]
+    },
+    "Fear": {
+      "Mop": [
+        {
+          "id": "108921",
+          "name": "Psyfiend"
+        }
+      ]
     }
   },
   "PriestDiscipline": {
-    "Spirit":{
-      "Wotlk":{
-        "id": "48073",
-        "name": "Divine Spirit"
-      }
+    "Spirit": {
+      "Wotlk": [
+        {
+          "id": "48073",
+          "name": "Divine Spirit"
+        }
+      ]
     },
-    "Stamina":{
-      "Wotlk":{
-        "id": "14767",
-        "name": "Improved Power Word: Fortitude 2/2"
-      },
-      "Cataclysm":{
-        "id": "21562",
-        "name": "Power Word: Fortitude"
-      }
+    "Stamina": {
+      "Wotlk": [
+        {
+          "id": "14767",
+          "name": "Improved Power Word: Fortitude 2/2"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "21562",
+          "name": "Power Word: Fortitude"
+        }
+      ]
     },
-    "DamageReduction10":{
-      "Wotlk":{
-        "id":"15363",
-        "name": "Inspiration"
-      }
+    "DamageReduction10": {
+      "Wotlk": [
+        {
+          "id": "15363",
+          "name": "Inspiration"
+        }
+      ]
     },
-    "PowerInfusion":{
-      "Wotlk":{
-        "id": "10060",
-        "name": "Power Infusion"
-      },
-      "Cataclysm":{
-        "id": "10060",
-        "name": "Power Infusion"
-      }
+    "PowerInfusion": {
+      "Wotlk": [
+        {
+          "id": "10060",
+          "name": "Power Infusion"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "10060",
+          "name": "Power Infusion"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "108920",
+          "name": "Void Tendrils"
+        }
+      ]
+    },
+    "Fear": {
+      "Mop": [
+        {
+          "id": "108921",
+          "name": "Psyfiend"
+        }
+      ]
     }
   },
   "RogueCombat": {
-    "ArmorDown20":{
-      "Wotlk":{
-        "id": "8647",
-        "name": "Expose Armor"
-      }
+    "ArmorDown20": {
+      "Wotlk": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "5760",
-        "name": "Mind-numbing Poison"
-      },
-      "Cataclysm":{
-        "id": "5761",
-        "name": "Mind-numbing Poison"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "5760",
+          "name": "Mind-numbing Poison"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "5761",
+          "name": "Mind-numbing Poison"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "13219",
-        "name": "Wound Poison"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "13219",
+          "name": "Wound Poison"
+        }
+      ]
     },
-    "PhysicalDamageReceived":{
-      "Wotlk":{
-        "id": "58413",
-        "name": "Savage Combat"
-      },
-      "Cataclysm":{
-        "id": "58413",
-        "name": "Savage Combat"
-      }
+    "PhysicalDamageReceived": {
+      "Wotlk": [
+        {
+          "id": "58413",
+          "name": "Savage Combat"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "58413",
+          "name": "Savage Combat"
+        }
+      ]
     },
-    "TricksOfTheTrade":{
-      "Wotlk":{
-        "id": "57934",
-        "name": "Tricks of the Trade"
-      },
-      "Cataclysm":{
-        "id": "57934",
-        "name": "Tricks of the Trade"
-      }
+    "TricksOfTheTrade": {
+      "Wotlk": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "8647",
-        "name": "Expose Armor"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "13219",
-        "name": "Wound Poison"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "13219",
+          "name": "Wound Poison"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "26679",
+          "name": "Deadly Throw"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "26679",
+          "name": "Deadly Throw"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "108210",
+          "name": "Nerve Strike"
+        }
+      ]
+    },
+    "HealingReduction": {
+      "Mop": [
+        {
+          "id": "108210",
+          "name": "Nerve Strike"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "31230",
+          "name": "Cheat Death"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "108215",
+          "name": "Paralytic Poison"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "108215",
+          "name": "Paralytic Poison"
+        }
+      ]
+    },
+    "IncreasedDamageTaken": {
+      "Mop": [
+        {
+          "id": "131511",
+          "name": "Prey on the Weak"
+        }
+      ]
     }
   },
   "RogueAssassination": {
-    "ArmorDown20":{
-      "Wotlk":{
-        "id": "8647",
-        "name": "Expose Armor"
-      }
+    "ArmorDown20": {
+      "Wotlk": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "5760",
-        "name": "Mind-numbing Poison"
-      },
-      "Cataclysm":{
-        "id": "5761",
-        "name": "Mind-numbing Poison"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "5760",
+          "name": "Mind-numbing Poison"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "5761",
+          "name": "Mind-numbing Poison"
+        }
+      ]
     },
-    "CritChanceReceived":{
-      "Wotlk":{
-        "id": "58410",
-        "name": "Master Poisoner"
-      }
+    "CritChanceReceived": {
+      "Wotlk": [
+        {
+          "id": "58410",
+          "name": "Master Poisoner"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "13219",
-        "name": "Wound Poison"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "13219",
+          "name": "Wound Poison"
+        }
+      ]
     },
-    "TricksOfTheTrade":{
-      "Wotlk":{
-        "id": "57934",
-        "name": "Tricks of the Trade"
-      },
-      "Cataclysm":{
-        "id": "57934",
-        "name": "Tricks of the Trade"
-      }
+    "TricksOfTheTrade": {
+      "Wotlk": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "8647",
-        "name": "Expose Armor"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
     },
-    "SpellDamageReceived":{
-      "Cataclysm":{
-        "id": "58410",
-        "name": "Master Poisoner"
-      }
+    "SpellDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "58410",
+          "name": "Master Poisoner"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "13219",
-        "name": "Wound Poison"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "13219",
+          "name": "Wound Poison"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "26679",
+          "name": "Deadly Throw"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "26679",
+          "name": "Deadly Throw"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "108210",
+          "name": "Nerve Strike"
+        }
+      ]
+    },
+    "HealingReduction": {
+      "Mop": [
+        {
+          "id": "108210",
+          "name": "Nerve Strike"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "31230",
+          "name": "Cheat Death"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "108215",
+          "name": "Paralytic Poison"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "108215",
+          "name": "Paralytic Poison"
+        }
+      ]
+    },
+    "IncreasedDamageTaken": {
+      "Mop": [
+        {
+          "id": "131511",
+          "name": "Prey on the Weak"
+        }
+      ]
     }
   },
   "RogueSubtlety": {
-    "ArmorDown20":{
-      "Wotlk":{
-        "id": "8647",
-        "name": "Expose Armor"
-      }
+    "ArmorDown20": {
+      "Wotlk": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
     },
-    "CastSpeed30":{
-      "Wotlk":{
-        "id": "5760",
-        "name": "Mind-numbing Poison"
-      },
-      "Cataclysm":{
-        "id": "5761",
-        "name": "Mind-numbing Poison"
-      }
+    "CastSpeed30": {
+      "Wotlk": [
+        {
+          "id": "5760",
+          "name": "Mind-numbing Poison"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "5761",
+          "name": "Mind-numbing Poison"
+        }
+      ]
     },
-    "HealingReceived":{
-      "Wotlk":{
-        "id": "13219",
-        "name": "Wound Poison"
-      }
+    "HealingReceived": {
+      "Wotlk": [
+        {
+          "id": "13219",
+          "name": "Wound Poison"
+        }
+      ]
     },
-    "TricksOfTheTrade":{
-      "Wotlk":{
-        "id": "57934",
-        "name": "Tricks of the Trade"
-      },
-      "Cataclysm":{
-        "id": "57934",
-        "name": "Tricks of the Trade"
-      }
+    "TricksOfTheTrade": {
+      "Wotlk": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
+        }
+      ]
     },
-    "Crit":{
-      "Cataclysm":{
-        "id": "51701",
-        "name": "Honor Among Thieves"
-      }
+    "Crit": {
+      "Cataclysm": [
+        {
+          "id": "51701",
+          "name": "Honor Among Thieves"
+        }
+      ]
     },
-    "ArmorDown":{
-      "Cataclysm":{
-        "id": "8647",
-        "name": "Expose Armor"
-      }
+    "ArmorDown": {
+      "Cataclysm": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
     },
-    "BleedDamageReceived":{
-      "Cataclysm":{
-        "id": "16511",
-        "name": "Hemorrhage"
-      }
+    "BleedDamageReceived": {
+      "Cataclysm": [
+        {
+          "id": "16511",
+          "name": "Hemorrhage"
+        }
+      ]
     },
-    "HealingReceived25":{
-      "Cataclysm":{
-        "id": "13219",
-        "name": "Wound Poison"
-      }
+    "HealingReceived25": {
+      "Cataclysm": [
+        {
+          "id": "13219",
+          "name": "Wound Poison"
+        }
+      ]
+    },
+    "Interrupt": {
+      "Mop": [
+        {
+          "id": "26679",
+          "name": "Deadly Throw"
+        }
+      ]
+    },
+    "Slow": {
+      "Mop": [
+        {
+          "id": "26679",
+          "name": "Deadly Throw"
+        }
+      ]
+    },
+    "DamageReduction": {
+      "Mop": [
+        {
+          "id": "108210",
+          "name": "Nerve Strike"
+        }
+      ]
+    },
+    "HealingReduction": {
+      "Mop": [
+        {
+          "id": "108210",
+          "name": "Nerve Strike"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "31230",
+          "name": "Cheat Death"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "108215",
+          "name": "Paralytic Poison"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "108215",
+          "name": "Paralytic Poison"
+        }
+      ]
+    },
+    "IncreasedDamageTaken": {
+      "Mop": [
+        {
+          "id": "131511",
+          "name": "Prey on the Weak"
+        }
+      ]
     }
   },
-  "DraeneiHit":{
-    "Wotlk":{
-      "id": "6562",
-      "name": "Heroic Presence"
+  "DraeneiHit": {
+    "Wotlk": [
+      {
+        "id": "6562",
+        "name": "Heroic Presence"
+      }
+    ]
+  },
+  "MonkBrewmaster": {
+    "Silence": {
+      "Mop": [
+        {
+          "id": "116844",
+          "name": "Ring of Peace"
+        }
+      ]
+    },
+    "Disarm": {
+      "Mop": [
+        {
+          "id": "116844",
+          "name": "Ring of Peace"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "119392",
+          "name": "Charging Ox Wave"
+        },
+        {
+          "id": "119381",
+          "name": "Leg Sweep"
+        }
+      ]
+    }
+  },
+  "MonkWindwalker": {
+    "Silence": {
+      "Mop": [
+        {
+          "id": "116844",
+          "name": "Ring of Peace"
+        }
+      ]
+    },
+    "Disarm": {
+      "Mop": [
+        {
+          "id": "116844",
+          "name": "Ring of Peace"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "119392",
+          "name": "Charging Ox Wave"
+        },
+        {
+          "id": "119381",
+          "name": "Leg Sweep"
+        }
+      ]
+    }
+  },
+  "MonkMistweaver": {
+    "Silence": {
+      "Mop": [
+        {
+          "id": "116844",
+          "name": "Ring of Peace"
+        }
+      ]
+    },
+    "Disarm": {
+      "Mop": [
+        {
+          "id": "116844",
+          "name": "Ring of Peace"
+        }
+      ]
+    },
+    "Stun": {
+      "Mop": [
+        {
+          "id": "119392",
+          "name": "Charging Ox Wave"
+        },
+        {
+          "id": "119381",
+          "name": "Leg Sweep"
+        }
+      ]
     }
   }
 }

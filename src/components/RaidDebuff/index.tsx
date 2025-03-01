@@ -6,7 +6,8 @@ import { IconProvider } from "../../utils/IconProvider";
 import { WarcraftRaidDebuff } from "../../utils/RoleProvider/consts";
 import ChecklistItem from "../ChecklistItem";
 import { RoleProvider } from "../../utils/RoleProvider";
-import { WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerClass, WarcraftPlayerSpec } from "../../consts";
+import UUID from "../../utils/UUID";
 
 export interface RaidDebuffProps {
   debuff: WarcraftRaidDebuff;
@@ -16,6 +17,7 @@ export interface RaidDebuffProps {
 
 const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff, version: string) => {
   const specs = [];
+  const classes = {};
   for (const spec in WarcraftPlayerSpec) {
     if (
       RoleProvider.getSpecDebuffs(spec as WarcraftPlayerSpec, version).includes(
@@ -23,9 +25,14 @@ const buildDebuffSpeclist = (debuff: WarcraftRaidDebuff, version: string) => {
       )
     ) {
       specs.push(spec as WarcraftPlayerSpec);
+      const class_name = spec.toString().match(/[A-Z][a-z]+/g)[0] as WarcraftPlayerClass;
+      if (!Object.keys(classes).includes(class_name)) {
+        classes[class_name] = 0;
+      }
+      classes[class_name] += 1;
     }
   }
-  return specs;
+  return { specs: specs, classes: classes };
 };
 
 const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players, version }) => {
@@ -36,8 +43,9 @@ const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players, version }) => {
       displayName={common(`debuff.${debuff}`)}
       iconSource={IconProvider.getDebuffIcon(debuff)}
       players={players}
-      specs={buildDebuffSpeclist(debuff, version)}
+      list={buildDebuffSpeclist(debuff, version)}
       source={debuff}
+      key={UUID()}
     />
   );
 };
