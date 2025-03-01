@@ -7,11 +7,17 @@ import { BuildPlayer } from "../../types";
 import { IconProvider } from "../../utils/IconProvider";
 import ChecklistItem from "../ChecklistItem";
 import useStyles from "./useStyles";
+import { RoleProvider } from "../../utils/RoleProvider";
 
 export interface RaidClassProps {
   class_name: WarcraftPlayerClass;
   players: BuildPlayer[];
 }
+
+const buildClassSpeclist = (class_name: WarcraftPlayerClass) => {
+  const specs = RoleProvider.getClassSpecs(class_name);
+  return { specs: specs, classes: {} };
+};
 
 const RaidClass: FC<RaidClassProps> = ({ class_name, players }) => {
   const styles = useStyles(class_name);
@@ -22,6 +28,7 @@ const RaidClass: FC<RaidClassProps> = ({ class_name, players }) => {
       styles={styles}
       displayName={common(`classes.${class_name}`)}
       iconSource={IconProvider.getClassIcon(class_name)}
+      list={buildClassSpeclist(class_name)}
       players={players}
       source={class_name}
     />

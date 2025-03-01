@@ -14,6 +14,7 @@ import { IconProvider } from "../../utils/IconProvider";
 import { openWowheadLink } from "../../utils/Wowhead";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
+import ChecklistTooltipClass from "../ChecklistTooltipClass";
 
 export type Props = {
   players: BuildPlayer[];
@@ -34,7 +35,7 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
         padding: "4px",
         borderRadius: "5px",
         background: "#242424",
-        minWidth: "250px"
+        minWidth: "420px"
       }}
       display="grid"
       key={UUID()}
@@ -247,7 +248,7 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
           None
         </Typography>
       )}
-      {list.specs ? (
+      {list.specs && Object.values(list.classes).length !== 0 ? (
         list.specs.length > 0 ? (
           <Box display={"grid"} key={UUID()}>
             <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provided by</Typography>
@@ -373,23 +374,27 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
             </Box>
           </Box>
         ) : (
-          <Box display={"grid"} key={UUID()}>
-            <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provided by</Typography>
-            <Typography
-              style={{
-                caretColor: "transparent",
-                color: "dimgray",
-                userSelect: "none",
-                justifySelf: "center"
-              }}
-              variant="subtitle2"
-            >
-              None
-            </Typography>
-          </Box>
+          <></>
         )
       ) : (
-        <></>
+        <Box display="grid" key={UUID()}>
+          <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provides</Typography>
+          {Object.values(list.specs).map((spec) => {
+            const specUtility = Object.entries(
+              tooltip(`${spec}`, {
+                returnObjects: true
+              }) as Array<string>
+            ).filter((entry) => Object.keys(entry[1]).includes(version));
+            return (
+              <ChecklistTooltipClass
+                source={source}
+                spec={spec}
+                specUtility={specUtility}
+                version={version}
+              ></ChecklistTooltipClass>
+            );
+          })}
+        </Box>
       )}
     </Box>
   );

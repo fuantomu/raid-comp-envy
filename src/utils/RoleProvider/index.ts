@@ -61,4 +61,8 @@ export abstract class RoleProvider {
   public static getRaceVersion(version?: string){
     return version ? WarcraftRaceVersion[version] : [];
   }
+
+  public static getClassSpecs(class_name: string){
+    return Object.values(WarcraftPlayerSpec).filter((entry) => entry.includes(class_name))
+  }
 }
