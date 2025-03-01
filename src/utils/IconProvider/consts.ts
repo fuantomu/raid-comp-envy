@@ -128,7 +128,13 @@ export const WarcraftBuffIcon: {
   [WarcraftRaidBuff.MarkOfTheWild]: "spell_nature_regeneration",
   [WarcraftRaidBuff.PhysicalCrit]: "spell_nature_unyeildingstamina",
   [WarcraftRaidBuff.HealingReceived6]: "ability_druid_treeoflife",
-  [WarcraftRaidBuff.MeleeHaste20]: "spell_nature_windfury"
+  [WarcraftRaidBuff.MeleeHaste20]: "spell_nature_windfury",
+  [WarcraftRaidBuff.AttackSpeed10]: "inv_helmet_08",
+  [WarcraftRaidBuff.SpellHaste5]: "spell_nature_moonglow",
+  [WarcraftRaidBuff.CritChance5]: "spell_nature_unyeildingstamina",
+  [WarcraftRaidBuff.MasteryRating3000]: "spell_holy_fistofjustice",
+  [WarcraftRaidBuff.AllStats5]: "spell_magic_magearmor",
+  [WarcraftRaidBuff.Stamina10]: "spell_holy_wordfortitude"
 };
 
 export const WarcraftDebuffIcon: {
@@ -151,7 +157,14 @@ export const WarcraftDebuffIcon: {
   [WarcraftRaidDebuff.ArmorDown5]: "spell_nature_faeriefire",
   [WarcraftRaidDebuff.SpellHit]: "spell_shadow_misery",
   [WarcraftRaidDebuff.CritChanceReceived]: "ability_creature_poison_06",
-  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot"
+  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot",
+
+  [WarcraftRaidDebuff.PhysicalDamageDealtDown10]: "ability_druid_demoralizingroar",
+  [WarcraftRaidDebuff.PhysicalDamageTakenUp4]: "ability_warrior_colossussmash",
+  [WarcraftRaidDebuff.ArmorDown12]: "ability_warrior_sunder",
+  [WarcraftRaidDebuff.SpellDamageTaken5]: "warlock_curse_shadow",
+  [WarcraftRaidDebuff.HealingReduction25]: "ability_criticalstrike",
+  [WarcraftRaidDebuff.CastSpeedReduction30]: "spell_nature_nullifydisease"
 };
 
 export const WarcraftUtilityIcon: {
@@ -171,7 +184,30 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.DivineGuardian]: "spell_holy_powerwordbarrier",
   [WarcraftRaidUtility.DamageReduction10]: "spell_holy_layonhands",
   [WarcraftRaidUtility.DamageReduction3]: "spell_holy_greaterblessingofsanctuary",
-  [WarcraftRaidUtility.DarkIntent]: "spell_warlock_focusshadow"
+  [WarcraftRaidUtility.DarkIntent]: "spell_warlock_focusshadow",
+
+  [WarcraftRaidUtility.Stun]: "spell_frost_stun",
+  [WarcraftRaidUtility.Incapacitate]: "spell_holy_prayerofhealing",
+  [WarcraftRaidUtility.Fear]: "spell_shadow_possession",
+  [WarcraftRaidUtility.Slow]: "spell_nature_slow",
+  [WarcraftRaidUtility.Root]: "spell_nature_stranglevines",
+  [WarcraftRaidUtility.RootAoE]: "spell_druid_massentanglement",
+  [WarcraftRaidUtility.Knockback]: "ability_druid_typhoon",
+  [WarcraftRaidUtility.Pull]: "ability_deathknight_aoedeathgrip",
+  [WarcraftRaidUtility.DamageReduction]: "ability_warrior_safeguard",
+  [WarcraftRaidUtility.Disorient]: "spell_shadow_mindsteal",
+  [WarcraftRaidUtility.Silence]: "ability_priest_silence",
+  [WarcraftRaidUtility.Disarm]: "ability_warrior_disarm",
+  [WarcraftRaidUtility.SlowImmunity]: "ability_shaman_windwalktotem",
+  [WarcraftRaidUtility.Interrupt]: "ability_kick",
+  [WarcraftRaidUtility.Taunt]: "spell_nature_reincarnation",
+  [WarcraftRaidUtility.Horror]: "spell_shadow_psychichorrors",
+  [WarcraftRaidUtility.HealingReduction]: "rogue_nerve_strike",
+  [WarcraftRaidUtility.IncreasedDamageTaken]: "ability_rogue_preyontheweak",
+  [WarcraftRaidUtility.Immunity]: "ability_rogue_cheatdeath",
+  [WarcraftRaidUtility.SpellReflect]: "ability_warrior_shieldreflection",
+  [WarcraftRaidUtility.CritDamageUp20]: "warrior_skullbanner",
+  [WarcraftRaidUtility.EnemyDamageDealtDown10]: "demoralizing_banner"
 };
 
 export enum CustomIcon {

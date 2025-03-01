@@ -86,7 +86,13 @@ export enum WarcraftRaidBuff {
   AttackPower10 = "AttackPower10",
   Spirit = "Spirit",
   HealingReceived6 = "HealingReceived6",
-  Intellect = "Intellect"
+  Intellect = "Intellect",
+  AttackSpeed10 = "AttackSpeed10",
+  SpellHaste5 = "SpellHaste5",
+  CritChance5 = "CritChance5",
+  MasteryRating3000 = "MasteryRating3000",
+  AllStats5 = "AllStats5",
+  Stamina10 = "Stamina10"
 }
 
 export const WarcraftClassRaidBuffs: {
@@ -218,7 +224,13 @@ export enum WarcraftRaidDebuff {
   ArmorDown20 = "ArmorDown20",
   CritChanceReceived = "CritChanceReceived",
   PhysicalHitDown = "PhysicalHitDown",
-  SpellHit = "SpellHit"
+  SpellHit = "SpellHit",
+  PhysicalDamageDealtDown10 = "PhysicalDamageDealtDown10",
+  PhysicalDamageTakenUp4 = "PhysicalDamageTakenUp4",
+  ArmorDown12 = "ArmorDown12",
+  SpellDamageTaken5 = "SpellDamageTaken5",
+  HealingReduction25 = "HealingReduction25",
+  CastSpeedReduction30 = "CastSpeedReduction30"
 }
 
 export const WarcraftClassRaidDebuffs: {
@@ -355,7 +367,29 @@ export enum WarcraftRaidUtility {
   DivineGuardian = "DivineGuardian",
   DamageReduction10 = "DamageReduction10",
   DamageReduction3 = "DamageReduction3",
-  DarkIntent = "DarkIntent"
+  DarkIntent = "DarkIntent",
+  Stun = "Stun",
+  Incapacitate = "Incapacitate",
+  Fear = "Fear",
+  Slow = "Slow",
+  Root = "Root",
+  RootAoE = "RootAoE",
+  Knockback = "Knockback",
+  Pull = "Pull",
+  DamageReduction = "DamageReduction",
+  Disorient = "Disorient",
+  Silence = "Silence",
+  Disarm = "Disarm",
+  SlowImmunity = "SlowImmunity",
+  Interrupt = "Interrupt",
+  Taunt = "Taunt",
+  Horror = "Horror",
+  HealingReduction = "HealingReduction",
+  IncreasedDamageTaken = "IncreasedDamageTaken",
+  Immunity = "Immunity",
+  SpellReflect = "SpellReflect",
+  CritDamageUp20 = "CritDamageUp20",
+  EnemyDamageDealtDown10 = "EnemyDamageDealtDown10"
 }
 
 export const WarcraftClassUtilities: {
