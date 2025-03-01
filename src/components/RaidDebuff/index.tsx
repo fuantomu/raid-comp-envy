@@ -40,7 +40,7 @@ const RaidDebuff: FC<RaidDebuffProps> = ({ debuff, players, version }) => {
 
   return (
     <ChecklistItem
-      displayName={common(`debuff.${debuff}`)}
+      displayName={common(`utility.${debuff}`)}
       iconSource={IconProvider.getDebuffIcon(debuff)}
       players={players}
       list={buildDebuffSpeclist(debuff, version)}

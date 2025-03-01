@@ -8,6 +8,7 @@ import { WarcraftClassColour, WarcraftPlayerSpec } from "../../consts";
 import { IconProvider } from "../../utils/IconProvider";
 import { ArrowDropDown, ArrowLeft } from "@mui/icons-material";
 import { openWowheadLink } from "../../utils/Wowhead";
+import { useTranslation } from "react-i18next";
 
 export interface ChecklistTooltipProps {
   spec: WarcraftPlayerSpec;
@@ -23,6 +24,7 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
   version
 }) => {
   const [visible, setVisible] = useState(false);
+  const [common] = useTranslation("common");
 
   return (
     <Box
@@ -73,7 +75,6 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
             console.log(utility);
             console.log(utility[1][version]);
             return (
-              //<Box display={"grid"} key={UUID()}>
               <Box sx={{ border: "1px solid black", background: "#222222" }} key={UUID()}>
                 <Typography
                   sx={{
@@ -83,53 +84,53 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
                     justifySelf: "start"
                   }}
                 >
-                  {utility[0]}
+                  {common(`utility.${utility[0]}`)}
                 </Typography>
-                <Box
-                  display={"grid"}
-                  sx={{ background: "#424242", cursor: "pointer" }}
-                  gridTemplateColumns={"1fr auto"}
-                  key={UUID()}
-                  onClick={
-                    source && version
-                      ? (event) => {
-                          event.preventDefault();
-                          event.stopPropagation();
-                          openWowheadLink(
-                            utility[1][version][0].id,
-                            "spell",
-                            version.toLowerCase()
-                          );
-                        }
-                      : (event) => {
-                          event.preventDefault();
-                          event.stopPropagation();
-                        }
-                  }
-                >
-                  <Typography
-                    sx={{
-                      color: "lightgray",
-                      textShadow: "1px 1px black",
-                      fontSize: "11px",
-                      margin: "5px",
-                      justifySelf: "start"
-                    }}
-                  >
-                    {utility[1][version][0].name}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "lightgray",
-                      textShadow: "1px 1px black",
-                      fontSize: "9px",
-                      margin: "5px",
-                      justifySelf: "start"
-                    }}
-                  >
-                    {`( ${utility[1][version][0].id} )`}
-                  </Typography>
-                </Box>
+                {utility[1][version].map((entry) => {
+                  return (
+                    <Box
+                      display={"grid"}
+                      sx={{ background: "#424242", cursor: "pointer" }}
+                      gridTemplateColumns={"1fr auto"}
+                      key={UUID()}
+                      onClick={
+                        source && version
+                          ? (event) => {
+                              event.preventDefault();
+                              event.stopPropagation();
+                              openWowheadLink(entry.id, "spell", version.toLowerCase());
+                            }
+                          : (event) => {
+                              event.preventDefault();
+                              event.stopPropagation();
+                            }
+                      }
+                    >
+                      <Typography
+                        sx={{
+                          color: "lightgray",
+                          textShadow: "1px 1px black",
+                          fontSize: "11px",
+                          margin: "5px",
+                          justifySelf: "start"
+                        }}
+                      >
+                        {entry.name}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          color: "lightgray",
+                          textShadow: "1px 1px black",
+                          fontSize: "9px",
+                          margin: "5px",
+                          justifySelf: "start"
+                        }}
+                      >
+                        {`( ${entry.id} )`}
+                      </Typography>
+                    </Box>
+                  );
+                })}
               </Box>
             );
           })}

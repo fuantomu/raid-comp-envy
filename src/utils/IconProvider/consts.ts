@@ -102,7 +102,7 @@ export const WarcraftRoleIcon: {
 export const WarcraftBuffIcon: {
   [buff in WarcraftRaidBuff]: WarcraftIcon;
 } = {
-  [WarcraftRaidBuff.MeleeHaste]: "spell_nature_windfury",
+  [WarcraftRaidBuff.MeleeHasteUp10]: "spell_nature_windfury",
   [WarcraftRaidBuff.Crit]: "spell_nature_unyeildingstamina",
   [WarcraftRaidBuff.AttackPower20]: "spell_holy_fistofjustice",
   [WarcraftRaidBuff.AttackPower10]: "ability_trueshot",
@@ -127,7 +127,7 @@ export const WarcraftBuffIcon: {
   [WarcraftRaidBuff.SpellCrit]: "spell_nature_forceofnature",
   [WarcraftRaidBuff.MarkOfTheWild]: "spell_nature_regeneration",
   [WarcraftRaidBuff.PhysicalCrit]: "spell_nature_unyeildingstamina",
-  [WarcraftRaidBuff.HealingReceived]: "ability_druid_treeoflife",
+  [WarcraftRaidBuff.HealingReceived6]: "ability_druid_treeoflife",
   [WarcraftRaidBuff.MeleeHaste20]: "spell_nature_windfury"
 };
 
@@ -137,12 +137,12 @@ export const WarcraftDebuffIcon: {
   [WarcraftRaidDebuff.ArmorDown]: "ability_warrior_riposte",
   [WarcraftRaidDebuff.BleedDamageReceived]: "ability_druid_mangle2",
   [WarcraftRaidDebuff.SpellCritReceived]: "spell_fire_soulburn",
-  [WarcraftRaidDebuff.MeleeHaste]: "spell_nature_thunderclap",
+  [WarcraftRaidDebuff.MeleeHasteDown20]: "spell_nature_thunderclap",
   [WarcraftRaidDebuff.SpellDamageReceived]: "ability_creature_poison_06",
   [WarcraftRaidDebuff.SpellDamageReceived13]: "spell_shadow_chilltouch",
   [WarcraftRaidDebuff.PhysicalDamageReceived]: "ability_warrior_bloodfrenzy",
-  [WarcraftRaidDebuff.HealingReceived]: "ability_warrior_savageblow",
-  [WarcraftRaidDebuff.HealingReceived25]: "ability_warrior_savageblow",
+  [WarcraftRaidDebuff.HealingReceivedDown50]: "ability_warrior_savageblow",
+  [WarcraftRaidDebuff.HealingReceivedDown25]: "ability_warrior_savageblow",
   [WarcraftRaidDebuff.PhysicalDamageDealt]: "ability_warrior_warcry",
   [WarcraftRaidDebuff.CastSpeed]: "spell_shadow_curseoftounges",
   [WarcraftRaidDebuff.CastSpeed30]: "spell_nature_nullifydisease",
@@ -151,8 +151,7 @@ export const WarcraftDebuffIcon: {
   [WarcraftRaidDebuff.ArmorDown5]: "spell_nature_faeriefire",
   [WarcraftRaidDebuff.SpellHit]: "spell_shadow_misery",
   [WarcraftRaidDebuff.CritChanceReceived]: "ability_creature_poison_06",
-  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot",
-  [WarcraftRaidDebuff.MeleeHasteDown]: "spell_nature_thunderclap"
+  [WarcraftRaidDebuff.PhysicalHitDown]: "ability_hunter_criticalshot"
 };
 
 export const WarcraftUtilityIcon: {

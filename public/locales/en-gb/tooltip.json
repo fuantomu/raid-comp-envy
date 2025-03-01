@@ -187,6 +187,46 @@
           "name": "Grimoire of Sacrifice"
         }
       ]
+    },
+    "SpellPower10":{
+      "Mop": [
+        {
+          "id": "109773",
+          "name": "Dark Intent"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "109773",
+          "name": "Dark Intent"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10" : {
+      "Mop": [
+        {
+          "id": "109466",
+          "name": "Curse of Enfeeblement"
+        }
+      ]
+    },
+    "SpellDamageTaken5" : {
+      "Mop": [
+        {
+          "id": "1490",
+          "name": "Curse of the Element"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "109466",
+          "name": "Curse of Enfeeblement"
+        }
+      ]
     }
   },
   "WarlockDemonology": {
@@ -278,14 +318,6 @@
         }
       ]
     },
-    "SpellPower10": {
-      "Cataclysm": [
-        {
-          "id": "47236",
-          "name": "Demonic Pact"
-        }
-      ]
-    },
     "DarkIntent": {
       "Cataclysm": [
         {
@@ -302,7 +334,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "30213",
@@ -367,6 +399,52 @@
         {
           "id": "108501",
           "name": "Grimoire of Sacrifice"
+        }
+      ]
+    },
+    "SpellPower10":{
+      "Cataclysm": [
+        {
+          "id": "47236",
+          "name": "Demonic Pact"
+        }
+      ],
+      "Mop": [
+        {
+          "id": "109773",
+          "name": "Dark Intent"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "109773",
+          "name": "Dark Intent"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10" : {
+      "Mop": [
+        {
+          "id": "109466",
+          "name": "Curse of Enfeeblement"
+        }
+      ]
+    },
+    "SpellDamageTaken5" : {
+      "Mop": [
+        {
+          "id": "1490",
+          "name": "Curse of the Element"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "109466",
+          "name": "Curse of Enfeeblement"
         }
       ]
     }
@@ -557,6 +635,46 @@
           "name": "Grimoire of Sacrifice"
         }
       ]
+    },
+    "SpellPower10":{
+      "Mop": [
+        {
+          "id": "109773",
+          "name": "Dark Intent"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "109773",
+          "name": "Dark Intent"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10" : {
+      "Mop": [
+        {
+          "id": "109466",
+          "name": "Curse of Enfeeblement"
+        }
+      ]
+    },
+    "SpellDamageTaken5" : {
+      "Mop": [
+        {
+          "id": "1490",
+          "name": "Curse of the Element"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "109466",
+          "name": "Curse of Enfeeblement"
+        }
+      ]
     }
   },
   "ShamanEnhancement": {
@@ -646,7 +764,7 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteUp10": {
       "Cataclysm": [
         {
           "id": "8512",
@@ -678,7 +796,7 @@
         }
       ]
     },
-    "MeleeHasteDown": {
+    "MeleeHasteDown20": {
       "Cataclysm": [
         {
           "id": "8042",
@@ -707,6 +825,38 @@
         {
           "id": "108273",
           "name": "Windwalk Totem"
+        }
+      ]
+    },
+    "SpellPower10": {
+      "Mop": [
+        {
+          "id": "77747",
+          "name": "Burning Wrath"
+        }
+      ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "30809",
+          "name": "Unleashed Rage"
+        }
+      ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "116956",
+          "name": "Grace of Air"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "8042",
+          "name": "Earth Shock"
         }
       ]
     }
@@ -806,7 +956,7 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteUp10": {
       "Cataclysm": [
         {
           "id": "8512",
@@ -828,6 +978,12 @@
           "id": "77746",
           "name": "Totemic Wrath"
         }
+      ],
+      "Mop": [
+        {
+          "id": "77747",
+          "name": "Burning Wrath"
+        }
       ]
     },
     "SpellPower6": {
@@ -846,7 +1002,7 @@
         }
       ]
     },
-    "MeleeHasteDown": {
+    "MeleeHasteDown20": {
       "Cataclysm": [
         {
           "id": "8042",
@@ -875,6 +1031,30 @@
         {
           "id": "108273",
           "name": "Windwalk Totem"
+        }
+      ]
+    },
+    "SpellHaste5": {
+      "Mop": [
+        {
+          "id": "51470",
+          "name": "Elemental Oath"
+        }
+      ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "116956",
+          "name": "Grace of Air"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "8042",
+          "name": "Earth Shock"
         }
       ]
     }
@@ -980,7 +1160,7 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteUp10": {
       "Cataclysm": [
         {
           "id": "8512",
@@ -1004,7 +1184,7 @@
         }
       ]
     },
-    "MeleeHasteDown": {
+    "MeleeHasteDown20": {
       "Cataclysm": [
         {
           "id": "8042",
@@ -1033,6 +1213,22 @@
         {
           "id": "108273",
           "name": "Windwalk Totem"
+        }
+      ]
+    },
+    "SpellPower10": {
+      "Mop": [
+        {
+          "id": "77747",
+          "name": "Burning Wrath"
+        }
+      ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "116956",
+          "name": "Grace of Air"
         }
       ]
     }
@@ -1205,6 +1401,38 @@
           "name": "Light's Hammer"
         }
       ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "20217",
+          "name": "Blessing of Kings"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "53595",
+          "name": "Hammer of the Righteous"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "111529",
+          "name": "Judgments of the Bold"
+        }
+      ]
     }
   },
   "PaladinProtection": {
@@ -1240,8 +1468,14 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
+        {
+          "id": "53696",
+          "name": "Judgements of the Just"
+        }
+      ],
+      "Cataclysm": [
         {
           "id": "53696",
           "name": "Judgements of the Just"
@@ -1308,14 +1542,6 @@
         }
       ]
     },
-    "MeleeHasteDown": {
-      "Cataclysm": [
-        {
-          "id": "53696",
-          "name": "Judgements of the Just"
-        }
-      ]
-    },
     "PhysicalDamageDealt": {
       "Cataclysm": [
         {
@@ -1363,6 +1589,30 @@
           "name": "Light's Hammer"
         }
       ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "20217",
+          "name": "Blessing of Kings"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "53595",
+          "name": "Hammer of the Righteous"
+        }
+      ]
     }
   },
   "PaladinHoly": {
@@ -1382,7 +1632,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceived6": {
       "Wotlk": [
         {
           "id": "20140",
@@ -1489,6 +1739,22 @@
           "name": "Light's Hammer"
         }
       ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "19740",
+          "name": "Blessing of Might"
+        }
+      ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "20217",
+          "name": "Blessing of Kings"
+        }
+      ]
     }
   },
   "DruidRestoration": {
@@ -1500,7 +1766,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceived6": {
       "Wotlk": [
         {
           "id": "65139",
@@ -1627,6 +1893,22 @@
         {
           "id": "102793",
           "name": "Ursol's Vortex"
+        }
+      ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
         }
       ]
     }
@@ -1809,6 +2091,30 @@
           "name": "Ursol's Vortex"
         }
       ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
+        }
+      ]
+    },
+    "SpellHaste5": {
+      "Mop": [
+        {
+          "id": "24907",
+          "name": "Moonkin Aura"
+        }
+      ]
     }
   },
   "DruidFeral": {
@@ -1844,10 +2150,16 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "48485",
+          "name": "Infested Wounds"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "48484",
           "name": "Infested Wounds"
         }
       ]
@@ -1924,14 +2236,6 @@
         }
       ]
     },
-    "MeleeHasteDown": {
-      "Cataclysm": [
-        {
-          "id": "48484",
-          "name": "Infested Wounds"
-        }
-      ]
-    },
     "PhysicalDamageDealt": {
       "Cataclysm": [
         {
@@ -1995,6 +2299,38 @@
           "name": "Ursol's Vortex"
         }
       ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
+        }
+      ]
+    },
+    "CritChance5": {
+      "Mop": [
+        {
+          "id": "17007",
+          "name": "Leader of the Pack"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "106830",
+          "name": "Thrash"
+        }
+      ]
     }
   },
   "DruidGuardian": {
@@ -2030,10 +2366,16 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "48485",
+          "name": "Infested Wounds"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "48484",
           "name": "Infested Wounds"
         }
       ]
@@ -2110,14 +2452,6 @@
         }
       ]
     },
-    "MeleeHasteDown": {
-      "Cataclysm": [
-        {
-          "id": "48484",
-          "name": "Infested Wounds"
-        }
-      ]
-    },
     "PhysicalDamageDealt": {
       "Cataclysm": [
         {
@@ -2181,6 +2515,38 @@
           "name": "Ursol's Vortex"
         }
       ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "1126",
+          "name": "Mark of the Wild"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "770",
+          "name": "Faerie Fire"
+        }
+      ]
+    },
+    "CritChance5": {
+      "Mop": [
+        {
+          "id": "17007",
+          "name": "Leader of the Pack"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "77758",
+          "name": "Thrash"
+        }
+      ]
     }
   },
   "WarriorFury": {
@@ -2224,7 +2590,7 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "47502",
@@ -2232,7 +2598,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "46911",
@@ -2272,7 +2638,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "46910",
@@ -2383,6 +2749,54 @@
           "name": "Skull Banner"
         }
       ]
+    },
+    "AttackPower10": {
+      "Mop": [
+        {
+          "id": "6673",
+          "name": "Battle Shout"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "469",
+          "name": "Commanding Shout"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "6343",
+          "name": "Thunder Clap"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "86346",
+          "name": "Colossus Smash"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "100130",
+          "name": "Wild Strike"
+        }
+      ]
     }
   },
   "WarriorArms": {
@@ -2418,7 +2832,7 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "12666",
@@ -2440,7 +2854,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "12294",
@@ -2486,7 +2900,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "12294",
@@ -2597,6 +3011,54 @@
           "name": "Skull Banner"
         }
       ]
+    },
+    "AttackPower10": {
+      "Mop": [
+        {
+          "id": "6673",
+          "name": "Battle Shout"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "469",
+          "name": "Commanding Shout"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "6343",
+          "name": "Thunder Clap"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "86346",
+          "name": "Colossus Smash"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "7386",
+          "name": "Sunder Armor"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "12294",
+          "name": "Mortal Strike"
+        }
+      ]
     }
   },
   "WarriorProtection": {
@@ -2632,11 +3094,17 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "12666",
           "name": "Improved Thunder Clap 3/3"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "6343",
+          "name": "Thunder Clap"
         }
       ]
     },
@@ -2661,14 +3129,6 @@
         {
           "id": "7386",
           "name": "Sunder Armor"
-        }
-      ]
-    },
-    "MeleeHasteDown": {
-      "Cataclysm": [
-        {
-          "id": "6343",
-          "name": "Thunder Clap"
         }
       ]
     },
@@ -2775,6 +3235,38 @@
           "name": "Skull Banner"
         }
       ]
+    },
+    "AttackPower10": {
+      "Mop": [
+        {
+          "id": "6673",
+          "name": "Battle Shout"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "469",
+          "name": "Commanding Shout"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "6343",
+          "name": "Thunder Clap"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "20243",
+          "name": "Devastate"
+        }
+      ]
     }
   },
   "DeathknightBlood": {
@@ -2806,13 +3298,25 @@
           "id": "53138",
           "name": "Abomination's Might"
         }
+      ],
+      "Mop": [
+        {
+          "id": "57330",
+          "name": "Horn of Winter"
+        }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "51456",
           "name": "Improved Icy Touch 3/3"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "59921",
+          "name": "Frost Fever"
         }
       ]
     },
@@ -2835,14 +3339,6 @@
         {
           "id": "53138",
           "name": "Abomination's Might"
-        }
-      ]
-    },
-    "MeleeHasteDown": {
-      "Cataclysm": [
-        {
-          "id": "59921",
-          "name": "Frost Fever"
         }
       ]
     },
@@ -2933,6 +3429,22 @@
           "name": "Gorefiend's Grip"
         }
       ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "81132",
+          "name": "Scarlet Fever"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "73975",
+          "name": "Necrotic Strike"
+        }
+      ]
     }
   },
   "DeathknightUnholy": {
@@ -2950,11 +3462,17 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "49909",
           "name": "Icy Touch"
+        }
+      ],
+      "Cataclysm": [
+        {
+          "id": "59921",
+          "name": "Frost Fever"
         }
       ]
     },
@@ -2971,14 +3489,6 @@
         {
           "id": "49016",
           "name": "Unholy Frenzy"
-        }
-      ]
-    },
-    "MeleeHasteDown": {
-      "Cataclysm": [
-        {
-          "id": "59921",
-          "name": "Frost Fever"
         }
       ]
     },
@@ -3069,6 +3579,38 @@
           "name": "Gorefiend's Grip"
         }
       ]
+    },
+    "AttackPower10": {
+      "Mop": [
+        {
+          "id": "57330",
+          "name": "Horn of Winter"
+        }
+      ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "55610",
+          "name": "Unholy Aura"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "51160",
+          "name": "Ebon Plaguebringer"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "73975",
+          "name": "Necrotic Strike"
+        }
+      ]
     }
   },
   "DeathknightFrost": {
@@ -3094,7 +3636,7 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteDown20": {
       "Wotlk": [
         {
           "id": "51456",
@@ -3105,11 +3647,7 @@
         {
           "id": "55610",
           "name": "Improved Icy Talons"
-        }
-      ]
-    },
-    "MeleeHasteDown": {
-      "Cataclysm": [
+        },
         {
           "id": "59921",
           "name": "Frost Fever"
@@ -3203,11 +3741,49 @@
           "name": "Gorefiend's Grip"
         }
       ]
+    },
+    "AttackPower10": {
+      "Mop": [
+        {
+          "id": "57330",
+          "name": "Horn of Winter"
+        }
+      ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "55610",
+          "name": "Unholy Aura"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "81328",
+          "name": "Brittle Bones"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "73975",
+          "name": "Necrotic Strike"
+        }
+      ]
     }
   },
   "HunterMarksmanship": {
     "AttackPower10": {
       "Wotlk": [
+        {
+          "id": "19506",
+          "name": "Trueshot Aura"
+        }
+      ],
+      "Mop": [
         {
           "id": "19506",
           "name": "Trueshot Aura"
@@ -3222,7 +3798,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "19434",
@@ -3246,7 +3822,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "82654",
@@ -3286,7 +3862,107 @@
       "Mop": [
         {
           "id": "126393",
-          "name": "Eternal Guardian"
+          "name": "Eternal Guardian (Quilen)"
+        }
+      ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "128432",
+          "name": "Cackling Howl (Hyena)"
+        },
+        {
+          "id": "128433",
+          "name": "Serpent's Swiftness (Serpent)"
+        }
+      ]
+    },
+    "SpellHaste5": {
+      "Mop": [
+        {
+          "id": "49868",
+          "name": "Mind Quickening (Sporebat)"
+        }
+      ]
+    },
+    "CritChance5": {
+      "Mop": [
+        {
+          "id": "24604",
+          "name": "Furious Howl (Wolf)"
+        }
+      ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "93435",
+          "name": "Roar of Coursage (Cat)"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "50256",
+          "name": "Demoralizing Roar (Bear)"
+        },
+        {
+          "id": "24423",
+          "name": "Demoralizing Screech (Carrion Bird)"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "35290",
+          "name": "Gore (Boar)"
+        },
+        {
+          "id": "50518",
+          "name": "Ravage (Ravager)"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "50498",
+          "name": "Tear Amor (Raptor)"
+        },
+        {
+          "id": "50285",
+          "name": "Dust Cloud (Tallstrider)"
+        }
+      ]
+    },
+    "SpellDamageTaken5": {
+      "Mop": [
+        {
+          "id": "34889",
+          "name": "Fire Breath (Dragonhawk)"
+        },
+        {
+          "id": "24844",
+          "name": "Lightning Breath (Wind Serpent)"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "82654",
+          "name": "Widow Venom"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "50274",
+          "name": "Spore Cloud (Sporebat)"
         }
       ]
     }
@@ -3338,7 +4014,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "19434",
@@ -3354,7 +4030,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "82654",
@@ -3394,13 +4070,13 @@
       "Cataclysm": [
         {
           "id": "90355",
-          "name": "Primal Rage"
+          "name": "Primal Rage (Core Hound)"
         }
       ],
       "Mop": [
         {
           "id": "90355",
-          "name": "Primal Rage"
+          "name": "Primal Rage (Core Hound)"
         }
       ]
     },
@@ -3408,7 +4084,167 @@
       "Mop": [
         {
           "id": "126393",
-          "name": "Eternal Guardian"
+          "name": "Eternal Guardian (Quilen)"
+        }
+      ]
+    },
+    "AttackPower10": {
+      "Mop": [
+        {
+          "id": "19506",
+          "name": "Trueshot Aura"
+        }
+      ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "128432",
+          "name": "Cackling Howl (Hyena)"
+        },
+        {
+          "id": "128433",
+          "name": "Serpent's Swiftness (Serpent)"
+        }
+      ]
+    },
+    "SpellPower10": {
+      "Mop": [
+        {
+          "id": "126309",
+          "name": "Still Water (Water Strider)"
+        }
+      ]
+    },
+    "SpellHaste5": {
+      "Mop": [
+        {
+          "id": "49868",
+          "name": "Mind Quickening (Sporebat)"
+        }
+      ]
+    },
+    "CritChance5": {
+      "Mop": [
+        {
+          "id": "24604",
+          "name": "Furious Howl (Wolf)"
+        },
+        {
+          "id": "90309",
+          "name": "Terrifying Roar (Devilsaur)"
+        },
+        {
+          "id": "126309",
+          "name": "Still Water (Water Strider)"
+        }
+      ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "93435",
+          "name": "Roar of Coursage (Cat)"
+        },
+        {
+          "id": "128997",
+          "name": "Spirit Beast Blessing (Spirit Beast)"
+        }
+      ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "90363",
+          "name": "Embrace of the Shale Spider (Shale Spider)"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "90364",
+          "name": "Qiraji Fortitude (Silithid)"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "50256",
+          "name": "Demoralizing Roar (Bear)"
+        },
+        {
+          "id": "24423",
+          "name": "Demoralizing Screech (Carrion Bird)"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "35290",
+          "name": "Gore (Boar)"
+        },
+        {
+          "id": "50518",
+          "name": "Ravage (Ravager)"
+        },
+        {
+          "id": "57386",
+          "name": "Stampede (Rhino)"
+        },
+        {
+          "id": "55749",
+          "name": "Acid Spit (Worm)"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "50498",
+          "name": "Tear Amor (Raptor)"
+        },
+        {
+          "id": "50285",
+          "name": "Dust Cloud (Tallstrider)"
+        }
+      ]
+    },
+    "SpellDamageTaken5": {
+      "Mop": [
+        {
+          "id": "34889",
+          "name": "Fire Breath (Dragonhawk)"
+        },
+        {
+          "id": "24844",
+          "name": "Lightning Breath (Wind Serpent)"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "82654",
+          "name": "Widow Venom"
+        },
+        {
+          "id": "54680",
+          "name": "Monstrous Bite (Devilsaur)"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "50274",
+          "name": "Spore Cloud (Sporebat)"
+        },
+        {
+          "id": "58604",
+          "name": "Lava Breath (Core Hound)"
         }
       ]
     }
@@ -3430,7 +4266,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "19434",
@@ -3446,7 +4282,7 @@
         }
       ]
     },
-    "MeleeHaste": {
+    "MeleeHasteUp10": {
       "Cataclysm": [
         {
           "id": "53290",
@@ -3454,7 +4290,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "82654",
@@ -3494,7 +4330,115 @@
       "Mop": [
         {
           "id": "126393",
-          "name": "Eternal Guardian"
+          "name": "Eternal Guardian (Quilen)"
+        }
+      ]
+    },
+    "AttackPower10": {
+      "Mop": [
+        {
+          "id": "19506",
+          "name": "Trueshot Aura"
+        }
+      ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "128432",
+          "name": "Cackling Howl (Hyena)"
+        },
+        {
+          "id": "128433",
+          "name": "Serpent's Swiftness (Serpent)"
+        }
+      ]
+    },
+    "SpellHaste5": {
+      "Mop": [
+        {
+          "id": "49868",
+          "name": "Mind Quickening (Sporebat)"
+        }
+      ]
+    },
+    "CritChance5": {
+      "Mop": [
+        {
+          "id": "24604",
+          "name": "Furious Howl (Wolf)"
+        }
+      ]
+    },
+    "MasteryRating3000": {
+      "Mop": [
+        {
+          "id": "93435",
+          "name": "Roar of Coursage (Cat)"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "50256",
+          "name": "Demoralizing Roar (Bear)"
+        },
+        {
+          "id": "24423",
+          "name": "Demoralizing Screech (Carrion Bird)"
+        }
+      ]
+    },
+    "PhysicalDamageTakenUp4": {
+      "Mop": [
+        {
+          "id": "35290",
+          "name": "Gore (Boar)"
+        },
+        {
+          "id": "50518",
+          "name": "Ravage (Ravager)"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "50498",
+          "name": "Tear Amor (Raptor)"
+        },
+        {
+          "id": "50285",
+          "name": "Dust Cloud (Tallstrider)"
+        }
+      ]
+    },
+    "SpellDamageTaken5": {
+      "Mop": [
+        {
+          "id": "34889",
+          "name": "Fire Breath (Dragonhawk)"
+        },
+        {
+          "id": "24844",
+          "name": "Lightning Breath (Wind Serpent)"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "82654",
+          "name": "Widow Venom"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "50274",
+          "name": "Spore Cloud (Sporebat)"
         }
       ]
     }
@@ -3623,6 +4567,30 @@
           "name": "Frost Bomb"
         }
       ]
+    },
+    "SpellPower10":{
+      "Mop": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
+    },
+    "CritChance5":{
+      "Mop": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
+    },
+    "CastSpeedReduction30":{
+      "Mop": [
+        {
+          "id": "31589",
+          "name": "Slow"
+        }
+      ]
     }
   },
   "MageFire": {
@@ -3727,6 +4695,22 @@
         {
           "id": "112948",
           "name": "Frost Bomb"
+        }
+      ]
+    },
+    "SpellPower10":{
+      "Mop": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
+    },
+    "CritChance5":{
+      "Mop": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
         }
       ]
     }
@@ -3843,6 +4827,22 @@
           "name": "Frost Bomb"
         }
       ]
+    },
+    "SpellPower10":{
+      "Mop": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
+    },
+    "CritChance5":{
+      "Mop": [
+        {
+          "id": "1459",
+          "name": "Arcane Brilliance"
+        }
+      ]
     }
   },
   "PriestHoly": {
@@ -3897,6 +4897,14 @@
         {
           "id": "108921",
           "name": "Psyfiend"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "21562",
+          "name": "Power Word: Fortitude"
         }
       ]
     }
@@ -3954,7 +4962,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "15313",
@@ -3975,6 +4983,22 @@
         {
           "id": "108921",
           "name": "Psyfiend"
+        }
+      ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "21562",
+          "name": "Power Word: Fortitude"
+        }
+      ]
+    },
+    "SpellHaste5": {
+      "Mop": [
+        {
+          "id": "15473",
+          "name": "Shadowform"
         }
       ]
     }
@@ -4039,6 +5063,14 @@
           "name": "Psyfiend"
         }
       ]
+    },
+    "Stamina10": {
+      "Mop": [
+        {
+          "id": "21562",
+          "name": "Power Word: Fortitude"
+        }
+      ]
     }
   },
   "RogueCombat": {
@@ -4064,7 +5096,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "13219",
@@ -4108,7 +5140,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "13219",
@@ -4179,6 +5211,46 @@
           "name": "Prey on the Weak"
         }
       ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "113742",
+          "name": "Swiftblade's Cunning"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
+    },
+    "SpellDamageTaken5": {
+      "Mop": [
+        {
+          "id": "58410",
+          "name": "Master Poisoner"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "8679",
+          "name": "Wound Poison"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "5761",
+          "name": "Mind-numbing Poison"
+        }
+      ]
     }
   },
   "RogueAssassination": {
@@ -4212,7 +5284,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "13219",
@@ -4250,7 +5322,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "13219",
@@ -4321,6 +5393,46 @@
           "name": "Prey on the Weak"
         }
       ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "113742",
+          "name": "Swiftblade's Cunning"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
+    },
+    "SpellDamageTaken5": {
+      "Mop": [
+        {
+          "id": "58410",
+          "name": "Master Poisoner"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "8679",
+          "name": "Wound Poison"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "5761",
+          "name": "Mind-numbing Poison"
+        }
+      ]
     }
   },
   "RogueSubtlety": {
@@ -4346,7 +5458,7 @@
         }
       ]
     },
-    "HealingReceived": {
+    "HealingReceivedDown50": {
       "Wotlk": [
         {
           "id": "13219",
@@ -4392,7 +5504,7 @@
         }
       ]
     },
-    "HealingReceived25": {
+    "HealingReceivedDown25": {
       "Cataclysm": [
         {
           "id": "13219",
@@ -4463,6 +5575,46 @@
           "name": "Prey on the Weak"
         }
       ]
+    },
+    "AttackSpeed10": {
+      "Mop": [
+        {
+          "id": "113742",
+          "name": "Swiftblade's Cunning"
+        }
+      ]
+    },
+    "ArmorDown12": {
+      "Mop": [
+        {
+          "id": "8647",
+          "name": "Expose Armor"
+        }
+      ]
+    },
+    "SpellDamageTaken5": {
+      "Mop": [
+        {
+          "id": "58410",
+          "name": "Master Poisoner"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "8679",
+          "name": "Wound Poison"
+        }
+      ]
+    },
+    "CastSpeedReduction30": {
+      "Mop": [
+        {
+          "id": "5761",
+          "name": "Mind-numbing Poison"
+        }
+      ]
     }
   },
   "DraeneiHit": {
@@ -4501,6 +5653,22 @@
           "name": "Leg Sweep"
         }
       ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "115921",
+          "name": "Legacy of the Emperor"
+        }
+      ]
+    },
+    "PhysicalDamageDealtDown10": {
+      "Mop": [
+        {
+          "id": "121253",
+          "name": "Keg Smash"
+        }
+      ]
     }
   },
   "MonkWindwalker": {
@@ -4531,6 +5699,30 @@
           "name": "Leg Sweep"
         }
       ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "115921",
+          "name": "Legacy of the Emperor"
+        }
+      ]
+    },
+    "CritChance5": {
+      "Mop": [
+        {
+          "id": "116781",
+          "name": "Legacy of the White Tiger"
+        }
+      ]
+    },
+    "HealingReduction25": {
+      "Mop": [
+        {
+          "id": "107428",
+          "name": "Rising Sun Kick"
+        }
+      ]
     }
   },
   "MonkMistweaver": {
@@ -4559,6 +5751,14 @@
         {
           "id": "119381",
           "name": "Leg Sweep"
+        }
+      ]
+    },
+    "AllStats5": {
+      "Mop": [
+        {
+          "id": "115921",
+          "name": "Legacy of the Emperor"
         }
       ]
     }

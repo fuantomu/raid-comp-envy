@@ -1,7 +1,7 @@
 import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../../consts";
 
 export enum WarcraftRaidBuff {
-  MeleeHaste = "MeleeHaste",
+  MeleeHasteUp10 = "MeleeHasteUp10",
   Crit = "Crit",
   AttackPower20 = "AttackPower20",
   SpellHaste = "SpellHaste",
@@ -34,7 +34,7 @@ export const WarcraftClassRaidBuffs: {
   [WarcraftPlayerClass.Rogue]: [],
   [WarcraftPlayerClass.Warlock]: [],
   [WarcraftPlayerClass.Shaman]: [
-    WarcraftRaidBuff.MeleeHaste,
+    WarcraftRaidBuff.MeleeHasteUp10,
     WarcraftRaidBuff.SpellHaste,
     WarcraftRaidBuff.SpellPower6,
     WarcraftRaidBuff.StrengthAgility,
@@ -54,7 +54,7 @@ export const WarcraftSpecRaidBuffs: {
   ],
   [WarcraftPlayerSpec.DeathknightFrost]: [
     ...WarcraftClassRaidBuffs.Deathknight,
-    WarcraftRaidBuff.MeleeHaste
+    WarcraftRaidBuff.MeleeHasteUp10
   ],
   [WarcraftPlayerSpec.DeathknightUnholy]: [...WarcraftClassRaidBuffs.Deathknight],
   [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassRaidBuffs.Druid, WarcraftRaidBuff.SpellHaste],
@@ -74,7 +74,7 @@ export const WarcraftSpecRaidBuffs: {
   ],
   [WarcraftPlayerSpec.HunterSurvival]: [
     ...WarcraftClassRaidBuffs.Hunter,
-    WarcraftRaidBuff.MeleeHaste
+    WarcraftRaidBuff.MeleeHasteUp10
   ],
   [WarcraftPlayerSpec.MageArcane]: [...WarcraftClassRaidBuffs.Mage, WarcraftRaidBuff.IncDamage],
   [WarcraftPlayerSpec.MageFire]: [...WarcraftClassRaidBuffs.Mage],
@@ -132,10 +132,10 @@ export enum WarcraftRaidDebuff {
   ArmorDown = "ArmorDown",
   BleedDamageReceived = "BleedDamageReceived",
   SpellCritReceived = "SpellCritReceived",
-  MeleeHasteDown = "MeleeHasteDown",
+  MeleeHasteDown20 = "MeleeHasteDown20",
   SpellDamageReceived = "SpellDamageReceived",
   PhysicalDamageReceived = "PhysicalDamageReceived",
-  HealingReceived25 = "HealingReceived25",
+  HealingReceivedDown25 = "HealingReceivedDown25",
   PhysicalDamageDealt = "PhysicalDamageDealt",
   CastSpeed30 = "CastSpeed30"
 }
@@ -144,17 +144,17 @@ export const WarcraftClassRaidDebuffs: {
   [class_name in WarcraftPlayerClass]: WarcraftRaidDebuff[];
 } = {
   [WarcraftPlayerClass.Deathknight]: [
-    WarcraftRaidDebuff.MeleeHasteDown,
+    WarcraftRaidDebuff.MeleeHasteDown20,
     WarcraftRaidDebuff.CastSpeed30
   ],
   [WarcraftPlayerClass.Druid]: [WarcraftRaidDebuff.ArmorDown],
-  [WarcraftPlayerClass.Hunter]: [WarcraftRaidDebuff.HealingReceived25],
+  [WarcraftPlayerClass.Hunter]: [WarcraftRaidDebuff.HealingReceivedDown25],
   [WarcraftPlayerClass.Mage]: [],
   [WarcraftPlayerClass.Priest]: [],
   [WarcraftPlayerClass.Paladin]: [],
   [WarcraftPlayerClass.Rogue]: [
     WarcraftRaidDebuff.ArmorDown,
-    WarcraftRaidDebuff.HealingReceived25,
+    WarcraftRaidDebuff.HealingReceivedDown25,
     WarcraftRaidDebuff.CastSpeed30
   ],
   [WarcraftPlayerClass.Warlock]: [
@@ -162,7 +162,7 @@ export const WarcraftClassRaidDebuffs: {
     WarcraftRaidDebuff.PhysicalDamageDealt,
     WarcraftRaidDebuff.CastSpeed30
   ],
-  [WarcraftPlayerClass.Shaman]: [WarcraftRaidDebuff.MeleeHasteDown],
+  [WarcraftPlayerClass.Shaman]: [WarcraftRaidDebuff.MeleeHasteDown20],
   [WarcraftPlayerClass.Warrior]: [
     WarcraftRaidDebuff.ArmorDown,
     WarcraftRaidDebuff.PhysicalDamageDealt
@@ -192,13 +192,13 @@ export const WarcraftSpecRaidDebuffs: {
   [WarcraftPlayerSpec.DruidFeral]: [
     ...WarcraftClassRaidDebuffs.Druid,
     WarcraftRaidDebuff.BleedDamageReceived,
-    WarcraftRaidDebuff.MeleeHasteDown,
+    WarcraftRaidDebuff.MeleeHasteDown20,
     WarcraftRaidDebuff.PhysicalDamageDealt
   ],
   [WarcraftPlayerSpec.DruidGuardian]: [
     ...WarcraftClassRaidDebuffs.Druid,
     WarcraftRaidDebuff.BleedDamageReceived,
-    WarcraftRaidDebuff.MeleeHasteDown,
+    WarcraftRaidDebuff.MeleeHasteDown20,
     WarcraftRaidDebuff.PhysicalDamageDealt
   ],
   [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassRaidDebuffs.Druid],
@@ -218,12 +218,12 @@ export const WarcraftSpecRaidDebuffs: {
   [WarcraftPlayerSpec.PriestHoly]: [...WarcraftClassRaidDebuffs.Priest],
   [WarcraftPlayerSpec.PriestShadow]: [
     ...WarcraftClassRaidDebuffs.Priest,
-    WarcraftRaidDebuff.HealingReceived25
+    WarcraftRaidDebuff.HealingReceivedDown25
   ],
   [WarcraftPlayerSpec.PaladinHoly]: [...WarcraftClassRaidDebuffs.Paladin],
   [WarcraftPlayerSpec.PaladinProtection]: [
     ...WarcraftClassRaidDebuffs.Paladin,
-    WarcraftRaidDebuff.MeleeHasteDown,
+    WarcraftRaidDebuff.MeleeHasteDown20,
     WarcraftRaidDebuff.PhysicalDamageDealt
   ],
   [WarcraftPlayerSpec.PaladinRetribution]: [...WarcraftClassRaidDebuffs.Paladin],
@@ -242,7 +242,7 @@ export const WarcraftSpecRaidDebuffs: {
   [WarcraftPlayerSpec.WarlockAffliction]: [...WarcraftClassRaidDebuffs.Warlock],
   [WarcraftPlayerSpec.WarlockDemonology]: [
     ...WarcraftClassRaidDebuffs.Warlock,
-    WarcraftRaidDebuff.HealingReceived25
+    WarcraftRaidDebuff.HealingReceivedDown25
   ],
   [WarcraftPlayerSpec.WarlockDestruction]: [
     ...WarcraftClassRaidDebuffs.Warlock,
@@ -255,15 +255,15 @@ export const WarcraftSpecRaidDebuffs: {
     ...WarcraftClassRaidDebuffs.Warrior,
     WarcraftRaidDebuff.BleedDamageReceived,
     WarcraftRaidDebuff.PhysicalDamageReceived,
-    WarcraftRaidDebuff.HealingReceived25
+    WarcraftRaidDebuff.HealingReceivedDown25
   ],
   [WarcraftPlayerSpec.WarriorFury]: [
     ...WarcraftClassRaidDebuffs.Warrior,
-    WarcraftRaidDebuff.HealingReceived25
+    WarcraftRaidDebuff.HealingReceivedDown25
   ],
   [WarcraftPlayerSpec.WarriorProtection]: [
     ...WarcraftClassRaidDebuffs.Warrior,
-    WarcraftRaidDebuff.MeleeHasteDown
+    WarcraftRaidDebuff.MeleeHasteDown20
   ],
   [WarcraftPlayerSpec.MonkBrewmaster]: [],
   [WarcraftPlayerSpec.MonkWindwalker]: [],

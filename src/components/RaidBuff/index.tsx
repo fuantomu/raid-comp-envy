@@ -40,7 +40,7 @@ const RaidBuff: FC<RaidBuffProps> = ({ buff, players, version }) => {
 
   return (
     <ChecklistItem
-      displayName={common(`buff.${buff}`)}
+      displayName={common(`utility.${buff}`)}
       iconSource={IconProvider.getBuffIcon(buff)}
       players={players}
       list={buildBuffSpeclist(buff, version)}
