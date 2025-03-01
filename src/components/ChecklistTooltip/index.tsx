@@ -119,6 +119,7 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                     ></WarcraftIcon>
                     <Typography
                       sx={{
+                        marginTop: "3px",
                         justifySelf: "start",
                         fontSize: "15px",
                         textShadow: "1px 1px black",
@@ -164,6 +165,7 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                   ></WarcraftIcon>
                   <Typography
                     sx={{
+                      marginTop: "3px",
                       justifySelf: "start",
                       fontSize: "15px",
                       textShadow: "1px 1px black",
@@ -211,6 +213,7 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                   ></WarcraftIcon>
                   <Typography
                     sx={{
+                      marginTop: "3px",
                       justifySelf: "start",
                       fontSize: "15px",
                       textShadow: "1px 1px black",

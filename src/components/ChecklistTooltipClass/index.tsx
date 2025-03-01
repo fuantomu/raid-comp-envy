@@ -49,6 +49,7 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
       ></WarcraftIcon>
       <Typography
         sx={{
+          marginTop: "3px",
           justifySelf: "start",
           fontSize: "15px",
           textShadow: "1px 1px black",
@@ -57,12 +58,17 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
       >
         {`${spec.replace(source, "")} (${Object.entries(specUtility).length})`}
       </Typography>
-      {!visible ? <ArrowLeft></ArrowLeft> : <ArrowDropDown></ArrowDropDown>}
+      {!visible ? (
+        <ArrowLeft sx={{ marginTop: "3px" }}></ArrowLeft>
+      ) : (
+        <ArrowDropDown sx={{ marginTop: "3px" }}></ArrowDropDown>
+      )}
       {visible ? (
         <Box
           display={"grid"}
           sx={{
-            cursor: "default"
+            cursor: "default",
+            marginTop: "5px"
           }}
           gridTemplateColumns={"420px"}
           key={UUID()}
@@ -72,16 +78,15 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
           }}
         >
           {Object.values(specUtility).map((utility) => {
-            console.log(utility);
-            console.log(utility[1][version]);
             return (
               <Box sx={{ border: "1px solid black", background: "#222222" }} key={UUID()}>
                 <Typography
                   sx={{
                     textShadow: "1px 1px black",
-                    fontSize: "12px",
+                    fontSize: "14px",
                     margin: "5px",
-                    justifySelf: "start"
+                    justifySelf: "start",
+                    fontWeight: "medium"
                   }}
                 >
                   {common(`utility.${utility[0]}`)}
