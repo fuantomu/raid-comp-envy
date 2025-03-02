@@ -223,5 +223,8 @@ export enum CustomIcon {
   HOF = "achievement_raid_mantidraid03",
   TOES = "achievement_raid_terraceofendlessspring04",
   TOT = "achievement_boss_leishen",
-  SOO = "ability_garrosh_hellscreams_warsong"
+  SOO = "ability_garrosh_hellscreams_warsong",
+  Vanquisher = "inv_helmet_24",
+  Protector = "inv_helmet_24",
+  Conqueror = "inv_helmet_24"
 }

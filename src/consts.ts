@@ -254,3 +254,21 @@ export const RegisteredMessages = {
   ],
   absence: ["absence"]
 };
+
+export const WarcraftTokenClass = {
+  "Wotlk" : {
+    "Vanquisher" : [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
+    "Protector" : [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman],
+    "Conqueror" : [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
+  },
+  "Cataclysm" : {
+    "Vanquisher" : [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
+    "Protector" : [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman],
+    "Conqueror" : [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
+  },
+  "Mop": {
+    "Vanquisher" : [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
+    "Protector" : [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman, WarcraftPlayerClass.Monk],
+    "Conqueror" : [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
+  }
+}

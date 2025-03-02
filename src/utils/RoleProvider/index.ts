@@ -1,4 +1,4 @@
-import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec } from "../../consts";
+import { WarcraftPlayerClass, WarcraftPlayerRace, WarcraftPlayerSpec, WarcraftTokenClass } from "../../consts";
 import * as cataclysm from "./cataclysm/consts";
 import { WarcraftClassVersion, WarcraftRaceVersion, WarcraftRole, WarcraftSpecRole } from "./consts";
 import * as mop from "./mop/consts";
@@ -64,5 +64,9 @@ export abstract class RoleProvider {
 
   public static getClassSpecs(class_name: string){
     return Object.values(WarcraftPlayerSpec).filter((entry) => entry.includes(class_name))
+  }
+
+  public static getTokenClass(version?: string){
+    return version? WarcraftTokenClass[version] : [];
   }
 }

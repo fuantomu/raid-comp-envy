@@ -7,7 +7,8 @@ import {
   WarcraftClassColour,
   WarcraftPlayerClass,
   WarcraftPlayerRace,
-  WarcraftPlayerSpec
+  WarcraftPlayerSpec,
+  WarcraftTokenClass
 } from "../../consts";
 import WarcraftIcon from "../Icon";
 import { IconProvider } from "../../utils/IconProvider";
@@ -57,6 +58,39 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
           })
         ).map((player) => {
           if (source && version) {
+            if (Object.keys(WarcraftTokenClass[version]).includes(source)) {
+              return (
+                <Box
+                  sx={{
+                    background: "#424242",
+                    border: "1px solid black",
+                    cursor: source && version ? "pointer" : "default"
+                  }}
+                  display={"grid"}
+                  gridTemplateColumns={"36px 1fr auto"}
+                  onClick={() =>
+                    window.open(`${process.env.REACT_APP_DASHBOARD}${player.name}`, "_blank")
+                  }
+                  key={UUID()}
+                >
+                  <WarcraftIcon
+                    css={{ width: "28px", height: "28px" }}
+                    src={IconProvider.getSpecIcon(player.spec)}
+                  ></WarcraftIcon>
+                  <Typography
+                    sx={{
+                      justifySelf: "start",
+                      fontSize: "15px",
+                      textShadow: "1px 1px black",
+                      color: WarcraftClassColour[player.class_name]
+                    }}
+                  >
+                    {player.name}
+                  </Typography>
+                </Box>
+              );
+            }
+
             if (source === player.class_name) {
               return (
                 <Box
@@ -381,7 +415,12 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
         )
       ) : (
         <Box display="grid" key={UUID()}>
-          <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provides</Typography>
+          {!Object.values(WarcraftPlayerClass).includes(source) ? (
+            <></>
+          ) : (
+            <Typography sx={{ marginTop: "15px", justifySelf: "center" }}>Provides</Typography>
+          )}
+
           {Object.values(list.specs).map((spec) => {
             const specUtility = Object.entries(
               tooltip(`${spec}`, {

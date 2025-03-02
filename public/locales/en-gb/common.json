@@ -374,5 +374,10 @@
     "OffHeal": "Off Heal",
     "OffDPS": "Off DPS",
     "None": "None"
+  },
+  "token": {
+    "Vanquisher": "Vanquisher",
+    "Protector": "Protector",
+    "Conqueror": "Conqueror"
   }
 }
