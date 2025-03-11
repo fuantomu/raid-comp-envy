@@ -773,4 +773,85 @@ export abstract class BuildHelper {
     });
     return discordMessages;
   }
+
+  public static async parsePostSetupUpdate(
+    message: Message
+  ) {
+    const messageTranslation = {
+      "group_id": "Group",
+      "spec": "Spec",
+      "class_name": "Class",
+      "race": "Race",
+      "raid": "Raid",
+      "add": "added",
+      "remove": "removed",
+      "alt": "Alt",
+      "date": "Date",
+      "instance": "Instance",
+      "main": "Main Character",
+      "role": "Role"
+    }
+    let changes = ""
+    if (message.changes.length > 0) {
+      changes = message.changes.map((changeMessage) => {
+        if (changeMessage.key === "absence") {
+          return `${changeMessage.propertyType} '${changeMessage.propertyName}' is absent from ${changeMessage.old} to ${changeMessage.new}`
+        }
+        else if (changeMessage.key === "swap" && changeMessage.old){
+          return `${changeMessage.propertyType} '${changeMessage.old.name}' and '${changeMessage.new.name}' were swapped`
+        }
+        else if (changeMessage.key === "status") {
+          return `${changeMessage.propertyType} '${changeMessage.propertyName}' was set to ${
+              changeMessage.new === "benched" ? "inactive" : "active"
+            }`
+        }
+        else if (changeMessage.old) {
+          return `${messageTranslation[changeMessage.key]} of ${changeMessage.propertyType} '${
+              changeMessage.propertyName
+            }' was changed from '${changeMessage.old}' to '${changeMessage.new}'`
+        }
+        else{
+          return `${changeMessage.propertyType} '${changeMessage.propertyName}' was ${messageTranslation[changeMessage.key]}`
+        }
+      }
+    ).join("\n")
+    }
+
+    const data = {
+      content: "",
+      embeds: [
+        {
+          description: "",
+          title: `Setup changed by ${message.from}`,
+          color: null,
+          fields: [
+            {
+              name: "Date",
+              value: new Date(message.date)
+              .toLocaleString("de-de", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              }),
+              inline: false,
+            },
+            {
+              name: "Change",
+              value: `${message.type}` + (message.changes[0]?.objectName? ` in ${message.changes[0]?.objectType} '${message.changes[0]?.objectName}'` : ''),
+              inline: false,
+            },
+            {
+              name: "Detail",
+              value: changes,
+              inline: false,
+            },
+          ],
+        },
+      ],
+    };
+
+    await await RosterProvider.postSetup(JSON.stringify(data), true);
+  }
 }

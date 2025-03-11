@@ -13,7 +13,8 @@ import {
   MessageData,
   PlayerData,
   SelectOption,
-  Update
+  Update,
+  WebSocketMessage
 } from "../../types";
 import { BuildHelper } from "../../utils/BuildHelper";
 import useErrorHandler from "../../utils/useErrorHandler";
@@ -46,7 +47,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   const [roster, setRoster] = useState<BuildPlayer[]>([]);
   const [buildSelection, setBuildSelection] = useState<SelectOption[]>([]);
   const [selectedBuilds, setSelectedBuilds] = useState<SelectOption[]>([]);
-  const [version, setVersion] = useState(localStorage.getItem("LastVersion") ?? process.env.REACT_APP_DEFAULT_VERSION);
+  const [version, setVersion] = useState(
+    localStorage.getItem("LastVersion") ?? process.env.REACT_APP_DEFAULT_VERSION
+  );
   const [absence, setAbsence] = useState<Absence[]>([]);
   const [maxRaidId, setMaxRaidId] = useState(0);
   const webSocket = useUpdateSocketContext((message: MessageData) => {
@@ -388,7 +391,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     }
   };
 
-  const editPlayerModalFn = (callback: (player: BuildPlayer, fromRoster: boolean, version: string) => void) => {
+  const editPlayerModalFn = (
+    callback: (player: BuildPlayer, fromRoster: boolean, version: string) => void
+  ) => {
     openEditModal = callback;
   };
 
@@ -563,6 +568,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       message.message_type = "addplayer";
       message.data = { player: newPlayer, build_id: newPlayer.raid };
       webSocket.sendMessage(JSON.stringify(message));
+      BuildHelper.parsePostSetupUpdate(
+        BuildHelper.parseMessage(message as WebSocketMessage, raids, currentRaid.players)
+      );
     }
   };
 
@@ -589,6 +597,9 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       message.message_type = "updateplayer";
       message.data = { player: newPlayer, build_id: newPlayer.raid, oldData: oldPlayer };
       webSocket.sendMessage(JSON.stringify(message));
+      BuildHelper.parsePostSetupUpdate(
+        BuildHelper.parseMessage(message as WebSocketMessage, raids, currentRaid.players)
+      );
     }
   };
 
@@ -644,6 +655,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       };
       message.data = { player: newPlayerCopy, build_id: oldRaid };
       webSocket.sendMessage(JSON.stringify(message));
+      BuildHelper.parsePostSetupUpdate(
+        BuildHelper.parseMessage(
+          message as WebSocketMessage,
+          raids,
+          raids.find((raid) => raid.build_id.toString() === oldRaid)?.players
+        )
+      );
     }
   };
 
@@ -681,6 +699,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
       };
       message.data = { player: newPlayer, build_id: newPlayer.raid, oldData: oldPlayer };
       webSocket.sendMessage(JSON.stringify(message));
+      BuildHelper.parsePostSetupUpdate(
+        BuildHelper.parseMessage(
+          message as WebSocketMessage,
+          raids,
+          raids.find((raid) => raid.build_id.toString() === newPlayer.raid)?.players
+        )
+      );
     }
   };
 
@@ -746,6 +771,13 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         oldData: swappedCharacters
       };
       webSocket.sendMessage(JSON.stringify(message));
+      BuildHelper.parsePostSetupUpdate(
+        BuildHelper.parseMessage(
+          message as WebSocketMessage,
+          raids,
+          raids.find((raid) => raid.build_id.toString() === oldRaid)?.players
+        )
+      );
     }
   };
 
