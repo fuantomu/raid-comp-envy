@@ -389,7 +389,18 @@ export enum WarcraftRaidUtility {
   Immunity = "Immunity",
   SpellReflect = "SpellReflect",
   CritDamageUp20 = "CritDamageUp20",
-  EnemyDamageDealtDown10 = "EnemyDamageDealtDown10"
+  EnemyDamageDealtDown10 = "EnemyDamageDealtDown10",
+
+  EnemyArmorDown20 = "EnemyArmorDown20",
+  AdditionalDamageDealt = "AdditionalDamageDealt",
+  ReducedMagicDamageTaken20 = "ReducedMagicDamageTaken20",
+  ReducedMagicDamageTaken40 = "ReducedMagicDamageTaken40",
+  ReducedDamageTaken25 = "ReducedDamageTaken25",
+  ReducedDamageTaken20 = "ReducedDamageTaken20",
+  ReducedDamageTaken10 = "ReducedDamageTaken10",
+  IncreasedMaximumHealth20 = "IncreasedMaximumHealth20",
+  IncreasedPhysicalHaste20 = "IncreasedPhysicalHaste20",
+  IncreasedDamageDealt15 = "IncreasedDamageDealt15"
 }
 
 export const WarcraftClassUtilities: {

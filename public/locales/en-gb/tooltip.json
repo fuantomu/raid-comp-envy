@@ -859,6 +859,14 @@
           "name": "Earth Shock"
         }
       ]
+    },
+    "AdditionalDamageDealt" : {
+      "Mop":[
+        {
+          "id": "120668",
+          "name": "Stormlash Totem"
+        }
+      ]
     }
   },
   "ShamanElemental": {
@@ -1057,6 +1065,14 @@
           "name": "Earth Shock"
         }
       ]
+    },
+    "AdditionalDamageDealt" : {
+      "Mop":[
+        {
+          "id": "120668",
+          "name": "Stormlash Totem"
+        }
+      ]
     }
   },
   "ShamanRestoration": {
@@ -1229,6 +1245,22 @@
         {
           "id": "116956",
           "name": "Grace of Air"
+        }
+      ]
+    },
+    "AdditionalDamageDealt" : {
+      "Mop":[
+        {
+          "id": "120668",
+          "name": "Stormlash Totem"
+        }
+      ]
+    },
+    "ReducedDamageTaken10" : {
+      "Mop":[
+        {
+          "id": "98008",
+          "name": "Spirit Link Totem"
         }
       ]
     }
@@ -1433,6 +1465,14 @@
           "name": "Judgments of the Bold"
         }
       ]
+    },
+    "ReducedMagicDamageTaken20": {
+      "Mop": [
+        {
+          "id": "31821",
+          "name": "Devotion Aura"
+        }
+      ]
     }
   },
   "PaladinProtection": {
@@ -1613,6 +1653,14 @@
           "name": "Hammer of the Righteous"
         }
       ]
+    },
+    "ReducedMagicDamageTaken20": {
+      "Mop": [
+        {
+          "id": "31821",
+          "name": "Devotion Aura"
+        }
+      ]
     }
   },
   "PaladinHoly": {
@@ -1753,6 +1801,14 @@
         {
           "id": "20217",
           "name": "Blessing of Kings"
+        }
+      ]
+    },
+    "ReducedMagicDamageTaken20": {
+      "Mop": [
+        {
+          "id": "31821",
+          "name": "Devotion Aura"
         }
       ]
     }
@@ -2331,6 +2387,14 @@
           "name": "Thrash"
         }
       ]
+    },
+    "EnemyArmorDown20": {
+      "Mop": [
+        {
+          "id": "112997",
+          "name": "Shattering Blow (Symbiosis)"
+        }
+      ]
     }
   },
   "DruidGuardian": {
@@ -2797,6 +2861,22 @@
           "name": "Wild Strike"
         }
       ]
+    },
+    "IncreasedMaximumHealth20": {
+      "Mop": [
+        {
+          "id": "97462",
+          "name": "Rallying Cry"
+        }
+      ]
+    },
+    "EnemyArmorDown20": {
+      "Mop": [
+        {
+          "id": "64382",
+          "name": "Shattering Throw"
+        }
+      ]
     }
   },
   "WarriorArms": {
@@ -3059,6 +3139,22 @@
           "name": "Mortal Strike"
         }
       ]
+    },
+    "IncreasedMaximumHealth20": {
+      "Mop": [
+        {
+          "id": "97462",
+          "name": "Rallying Cry"
+        }
+      ]
+    },
+    "EnemyArmorDown20": {
+      "Mop": [
+        {
+          "id": "64382",
+          "name": "Shattering Throw"
+        }
+      ]
     }
   },
   "WarriorProtection": {
@@ -3267,6 +3363,22 @@
           "name": "Devastate"
         }
       ]
+    },
+    "IncreasedMaximumHealth20": {
+      "Mop": [
+        {
+          "id": "97462",
+          "name": "Rallying Cry"
+        }
+      ]
+    },
+    "EnemyArmorDown20": {
+      "Mop": [
+        {
+          "id": "64382",
+          "name": "Shattering Throw"
+        }
+      ]
     }
   },
   "DeathknightBlood": {
@@ -3445,6 +3557,14 @@
           "name": "Necrotic Strike"
         }
       ]
+    },
+    "ReducedMagicDamageTaken40": {
+      "Mop": [
+        {
+          "id": "51052",
+          "name": "Anti-Magic Zone"
+        }
+      ]
     }
   },
   "DeathknightUnholy": {
@@ -3611,6 +3731,22 @@
           "name": "Necrotic Strike"
         }
       ]
+    },
+    "ReducedMagicDamageTaken40": {
+      "Mop": [
+        {
+          "id": "51052",
+          "name": "Anti-Magic Zone"
+        }
+      ]
+    },
+    "IncreasedPhysicalHaste20": {
+      "Mop": [
+        {
+          "id": "49016",
+          "name": "Unholy Frenzy"
+        }
+      ]
     }
   },
   "DeathknightFrost": {
@@ -3771,6 +3907,14 @@
         {
           "id": "73975",
           "name": "Necrotic Strike"
+        }
+      ]
+    },
+    "ReducedMagicDamageTaken40": {
+      "Mop": [
+        {
+          "id": "51052",
+          "name": "Anti-Magic Zone"
         }
       ]
     }
@@ -5071,6 +5215,14 @@
           "name": "Power Word: Fortitude"
         }
       ]
+    },
+    "ReducedDamageTaken25": {
+      "Mop": [
+        {
+          "id": "62618",
+          "name": "Power Word: Barrier"
+        }
+      ]
     }
   },
   "RogueCombat": {
@@ -5249,6 +5401,22 @@
         {
           "id": "5761",
           "name": "Mind-numbing Poison"
+        }
+      ]
+    },
+    "ReducedDamageTaken20": {
+      "Mop": [
+        {
+          "id": "76577",
+          "name": "Smoke Bomb"
+        }
+      ]
+    },
+    "IncreasedDamageDealt15": {
+      "Mop": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
         }
       ]
     }
@@ -5433,6 +5601,22 @@
           "name": "Mind-numbing Poison"
         }
       ]
+    },
+    "ReducedDamageTaken20": {
+      "Mop": [
+        {
+          "id": "76577",
+          "name": "Smoke Bomb"
+        }
+      ]
+    },
+    "IncreasedDamageDealt15": {
+      "Mop": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
+        }
+      ]
     }
   },
   "RogueSubtlety": {
@@ -5613,6 +5797,22 @@
         {
           "id": "5761",
           "name": "Mind-numbing Poison"
+        }
+      ]
+    },
+    "ReducedDamageTaken20": {
+      "Mop": [
+        {
+          "id": "76577",
+          "name": "Smoke Bomb"
+        }
+      ]
+    },
+    "IncreasedDamageDealt15": {
+      "Mop": [
+        {
+          "id": "57934",
+          "name": "Tricks of the Trade"
         }
       ]
     }

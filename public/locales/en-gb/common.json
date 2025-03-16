@@ -281,7 +281,17 @@
     "Immunity": "Immunity",
     "SpellReflect": "Spell reflect",
     "CritDamageUp20": "Critical damage increased +20%",
-    "EnemyDamageDealtDown10": "Damage dealt -10%"
+    "EnemyDamageDealtDown10": "Enemy damage dealt -10%",
+    "EnemyArmorDown20": "Enemy armor decreased -20%",
+    "AdditionalDamageDealt": "Additional Nature damage dealt",
+    "ReducedMagicDamageTaken20": "Reduced Magic damage taken -20%",
+    "ReducedMagicDamageTaken40": "Reduced Magic damage taken -40%",
+    "ReducedDamageTaken20": "Reduced damage taken -20%",
+    "ReducedDamageTaken25": "Reduced damage taken -25%",
+    "ReducedDamageTaken10": "Reduced damage taken -10%",
+    "IncreasedMaximumHealth20": "Increased maximum health +20%",
+    "IncreasedPhysicalHaste20": "Increased melee and range haste +20%",
+    "IncreasedDamageDealt15": "Increased damage dealt +15%"
   },
   "buttons": {
     "ok": "OK",

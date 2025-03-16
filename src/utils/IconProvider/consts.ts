@@ -207,7 +207,18 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.Immunity]: "ability_rogue_cheatdeath",
   [WarcraftRaidUtility.SpellReflect]: "ability_warrior_shieldreflection",
   [WarcraftRaidUtility.CritDamageUp20]: "warrior_skullbanner",
-  [WarcraftRaidUtility.EnemyDamageDealtDown10]: "demoralizing_banner"
+  [WarcraftRaidUtility.EnemyDamageDealtDown10]: "demoralizing_banner",
+
+  [WarcraftRaidUtility.EnemyArmorDown20]: "ability_warrior_shatteringthrow",
+  [WarcraftRaidUtility.AdditionalDamageDealt]: "ability_shaman_tranquilmindtotem",
+  [WarcraftRaidUtility.ReducedMagicDamageTaken20]: "spell_holy_auramastery",
+  [WarcraftRaidUtility.ReducedMagicDamageTaken40]: "spell_deathknight_antimagiczone",
+  [WarcraftRaidUtility.ReducedDamageTaken25]: "spell_holy_powerwordbarrier",
+  [WarcraftRaidUtility.ReducedDamageTaken20]: "ability_rogue_smoke",
+  [WarcraftRaidUtility.ReducedDamageTaken10]: "spell_shaman_spiritlink",
+  [WarcraftRaidUtility.IncreasedMaximumHealth20]: "ability_toughness",
+  [WarcraftRaidUtility.IncreasedPhysicalHaste20]: "spell_shadow_unholyfrenzy",
+  [WarcraftRaidUtility.IncreasedDamageDealt15]: "ability_rogue_tricksofthetrade"
 };
 
 export enum CustomIcon {
