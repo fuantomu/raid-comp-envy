@@ -283,8 +283,9 @@ export enum WarcraftRaidUtility {
   ReducedDamageTaken10 = "ReducedDamageTaken10",
   IncreasedMaximumHealth20 = "IncreasedMaximumHealth20",
   IncreasedPhysicalHaste20 = "IncreasedPhysicalHaste20",
-  IncreasedDamageDealt15 = "IncreasedDamageDealt15"
+  IncreasedDamageDealt15 = "IncreasedDamageDealt15",
 
+  Symbiosis = "Symbiosis"
 }
 
 export const WarcraftClassUtilities: {
@@ -308,7 +309,8 @@ export const WarcraftClassUtilities: {
     WarcraftRaidUtility.Knockback,
     WarcraftRaidUtility.Disorient,
     WarcraftRaidUtility.Slow,
-    WarcraftRaidUtility.Pull
+    WarcraftRaidUtility.Pull,
+    WarcraftRaidUtility.Symbiosis
   ],
   [WarcraftPlayerClass.Hunter]: [
     WarcraftRaidUtility.CombatResurrection,
@@ -346,7 +348,8 @@ export const WarcraftClassUtilities: {
     WarcraftRaidUtility.Root,
     WarcraftRaidUtility.IncreasedDamageTaken,
     WarcraftRaidUtility.ReducedDamageTaken20,
-    WarcraftRaidUtility.IncreasedDamageDealt15
+    WarcraftRaidUtility.IncreasedDamageDealt15,
+    WarcraftRaidUtility.Taunt
   ],
   [WarcraftPlayerClass.Warlock]: [
     WarcraftRaidUtility.CombatResurrection,
@@ -413,10 +416,10 @@ export const WarcraftSpecUtilities: {
     WarcraftRaidUtility.IncreasedPhysicalHaste20
   ],
 
-  [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassUtilities.Druid],
-  [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassUtilities.Druid,WarcraftRaidUtility.EnemyArmorDown20],
-  [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassUtilities.Druid],
-  [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassUtilities.Druid],
+  [WarcraftPlayerSpec.DruidBalance]: [...WarcraftClassUtilities.Druid,WarcraftRaidUtility.Immunity,WarcraftRaidUtility.Disarm,WarcraftRaidUtility.Stun],
+  [WarcraftPlayerSpec.DruidFeral]: [...WarcraftClassUtilities.Druid,WarcraftRaidUtility.EnemyArmorDown20,WarcraftRaidUtility.Stun,WarcraftRaidUtility.Immunity],
+  [WarcraftPlayerSpec.DruidGuardian]: [...WarcraftClassUtilities.Druid,WarcraftRaidUtility.Slow],
+  [WarcraftPlayerSpec.DruidRestoration]: [...WarcraftClassUtilities.Druid,WarcraftRaidUtility.Disorient,WarcraftRaidUtility.Immunity],
 
   [WarcraftPlayerSpec.HunterBeastmastery]: [...WarcraftClassUtilities.Hunter,WarcraftRaidUtility.Bloodlust],
   [WarcraftPlayerSpec.HunterMarksmanship]: [...WarcraftClassUtilities.Hunter],
@@ -433,7 +436,7 @@ export const WarcraftSpecUtilities: {
   [WarcraftPlayerSpec.PriestHoly]: [...WarcraftClassUtilities.Priest],
   [WarcraftPlayerSpec.PriestShadow]: [...WarcraftClassUtilities.Priest],
 
-  [WarcraftPlayerSpec.PaladinHoly]: [...WarcraftClassUtilities.Paladin],
+  [WarcraftPlayerSpec.PaladinHoly]: [...WarcraftClassUtilities.Paladin,WarcraftRaidUtility.CombatResurrection],
   [WarcraftPlayerSpec.PaladinProtection]: [...WarcraftClassUtilities.Paladin],
   [WarcraftPlayerSpec.PaladinRetribution]: [...WarcraftClassUtilities.Paladin],
 
@@ -445,8 +448,8 @@ export const WarcraftSpecUtilities: {
   [WarcraftPlayerSpec.WarlockDemonology]: [...WarcraftClassUtilities.Warlock],
   [WarcraftPlayerSpec.WarlockDestruction]: [...WarcraftClassUtilities.Warlock],
 
-  [WarcraftPlayerSpec.ShamanElemental]: [...WarcraftClassUtilities.Shaman],
-  [WarcraftPlayerSpec.ShamanEnhancement]: [...WarcraftClassUtilities.Shaman],
+  [WarcraftPlayerSpec.ShamanElemental]: [...WarcraftClassUtilities.Shaman,WarcraftRaidUtility.Silence],
+  [WarcraftPlayerSpec.ShamanEnhancement]: [...WarcraftClassUtilities.Shaman,WarcraftRaidUtility.Silence],
   [WarcraftPlayerSpec.ShamanRestoration]: [
     ...WarcraftClassUtilities.Shaman,
     WarcraftRaidUtility.ReducedDamageTaken10
@@ -457,5 +460,5 @@ export const WarcraftSpecUtilities: {
   [WarcraftPlayerSpec.WarriorProtection]: [...WarcraftClassUtilities.Warrior],
   [WarcraftPlayerSpec.MonkBrewmaster]: [...WarcraftClassUtilities.Monk],
   [WarcraftPlayerSpec.MonkWindwalker]: [...WarcraftClassUtilities.Monk],
-  [WarcraftPlayerSpec.MonkMistweaver]: [...WarcraftClassUtilities.Monk]
+  [WarcraftPlayerSpec.MonkMistweaver]: [...WarcraftClassUtilities.Monk,WarcraftRaidUtility.Root]
 };

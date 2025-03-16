@@ -218,7 +218,8 @@ export const WarcraftUtilityIcon: {
   [WarcraftRaidUtility.ReducedDamageTaken10]: "spell_shaman_spiritlink",
   [WarcraftRaidUtility.IncreasedMaximumHealth20]: "ability_toughness",
   [WarcraftRaidUtility.IncreasedPhysicalHaste20]: "spell_shadow_unholyfrenzy",
-  [WarcraftRaidUtility.IncreasedDamageDealt15]: "ability_rogue_tricksofthetrade"
+  [WarcraftRaidUtility.IncreasedDamageDealt15]: "ability_rogue_tricksofthetrade",
+  [WarcraftRaidUtility.Symbiosis]: "spell_druid_symbiosis"
 };
 
 export enum CustomIcon {

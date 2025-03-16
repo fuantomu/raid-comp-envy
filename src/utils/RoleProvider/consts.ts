@@ -400,7 +400,9 @@ export enum WarcraftRaidUtility {
   ReducedDamageTaken10 = "ReducedDamageTaken10",
   IncreasedMaximumHealth20 = "IncreasedMaximumHealth20",
   IncreasedPhysicalHaste20 = "IncreasedPhysicalHaste20",
-  IncreasedDamageDealt15 = "IncreasedDamageDealt15"
+  IncreasedDamageDealt15 = "IncreasedDamageDealt15",
+
+  Symbiosis = "Symbiosis"
 }
 
 export const WarcraftClassUtilities: {

@@ -291,7 +291,8 @@
     "ReducedDamageTaken10": "Reduced damage taken -10%",
     "IncreasedMaximumHealth20": "Increased maximum health +20%",
     "IncreasedPhysicalHaste20": "Increased melee and range haste +20%",
-    "IncreasedDamageDealt15": "Increased damage dealt +15%"
+    "IncreasedDamageDealt15": "Increased damage dealt +15%",
+    "Symbiosis": "Symbiosis"
   },
   "buttons": {
     "ok": "OK",

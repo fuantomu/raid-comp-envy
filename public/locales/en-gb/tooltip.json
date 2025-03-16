@@ -227,6 +227,14 @@
           "name": "Curse of Enfeeblement"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113295",
+          "name": "Rejuvenation"
+        }
+      ]
     }
   },
   "WarlockDemonology": {
@@ -445,6 +453,14 @@
         {
           "id": "109466",
           "name": "Curse of Enfeeblement"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113295",
+          "name": "Rejuvenation"
         }
       ]
     }
@@ -675,6 +691,14 @@
           "name": "Curse of Enfeeblement"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113295",
+          "name": "Rejuvenation"
+        }
+      ]
     }
   },
   "ShamanEnhancement": {
@@ -865,6 +889,22 @@
         {
           "id": "120668",
           "name": "Stormlash Totem"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113286",
+          "name": "Solar Beam"
+        }
+      ]
+    },
+    "Silence": {
+      "Mop": [
+        {
+          "id": "113286",
+          "name": "Solar Beam (Symbiosis)"
         }
       ]
     }
@@ -1073,6 +1113,22 @@
           "name": "Stormlash Totem"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113286",
+          "name": "Solar Beam"
+        }
+      ]
+    },
+    "Silence": {
+      "Mop": [
+        {
+          "id": "113286",
+          "name": "Solar Beam (Symbiosis)"
+        }
+      ]
     }
   },
   "ShamanRestoration": {
@@ -1261,6 +1317,14 @@
         {
           "id": "98008",
           "name": "Spirit Link Totem"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113289",
+          "name": "Prowl"
         }
       ]
     }
@@ -1473,6 +1537,14 @@
           "name": "Devotion Aura"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "122287",
+          "name": "Wrath"
+        }
+      ]
     }
   },
   "PaladinProtection": {
@@ -1661,6 +1733,14 @@
           "name": "Devotion Aura"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113075",
+          "name": "Barkskin"
+        }
+      ]
     }
   },
   "PaladinHoly": {
@@ -1811,6 +1891,22 @@
           "name": "Devotion Aura"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113269",
+          "name": "Rebirth"
+        }
+      ]
+    },
+    "CombatResurrection": {
+      "Mop":[
+        {
+          "id": "113269",
+          "name": "Rebirth (Symbiosis)"
+        }
+      ]
     }
   },
   "DruidRestoration": {
@@ -1941,6 +2037,10 @@
         {
           "id": "99",
           "name": "Disorienting Roar"
+        },
+        {
+          "id": "113004",
+          "name": "Intimidating Roar (Symbiosis - Warrior)"
         }
       ]
     },
@@ -1965,6 +2065,62 @@
         {
           "id": "770",
           "name": "Faerie Fire"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "110575",
+          "name": "Icebound Fortitude (Deathknight)"
+        },
+        {
+          "id": "110617",
+          "name": "Deterrence (Hunter)"
+        },
+        {
+          "id": "110696",
+          "name": "Ice Block (Mage)"
+        },
+        {
+          "id": "126456",
+          "name": "Fortifying Brew (Monk)"
+        },
+        {
+          "id": "122288",
+          "name": "Cleanse (Paladin)"
+        },
+        {
+          "id": "110718",
+          "name": "Leap of Faith (Priest)"
+        },
+        {
+          "id": "110791",
+          "name": "Evasion (Rogue)"
+        },
+        {
+          "id": "110806",
+          "name": "Spiritwalker's Grace (Shaman)"
+        },
+        {
+          "id": "112970",
+          "name": "Demonic Circle: Teleport (Warlock)"
+        },
+        {
+          "id": "113004",
+          "name": "Intimidating Roar (Warrior)"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "110696",
+          "name": "Ice Block (Symbiosis - Mage)"
+        },
+        {
+          "id": "110617",
+          "name": "Deterrence (Symbiosis - Hunter)"
         }
       ]
     }
@@ -2097,6 +2253,10 @@
         {
           "id": "5211",
           "name": "Mighty Bash"
+        },
+        {
+          "id": "110698",
+          "name": "Hammer of Justice (Symbiosis - Paladin)"
         }
       ]
     },
@@ -2169,6 +2329,66 @@
         {
           "id": "24907",
           "name": "Moonkin Aura"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "110570",
+          "name": "Anti-Magic Shell (Deathknight)"
+        },
+        {
+          "id": "110588",
+          "name": "Misdirection (Hunter)"
+        },
+        {
+          "id": "110621",
+          "name": "Mirror Image (Mage)"
+        },
+        {
+          "id": "126458",
+          "name": "Grapple Weapon (Monk)"
+        },
+        {
+          "id": "110698",
+          "name": "Hammer of Justice (Paladin)"
+        },
+        {
+          "id": "110707",
+          "name": "Mass Dispel (Priest)"
+        },
+        {
+          "id": "110788",
+          "name": "Cloak of Shadows (Rogue)"
+        },
+        {
+          "id": "110802",
+          "name": "Purge (Shaman)"
+        },
+        {
+          "id": "122291",
+          "name": "Unending Resolve (Warlock)"
+        },
+        {
+          "id": "122292",
+          "name": "Intervene (Warrior)"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "110788",
+          "name": "Cloak of Shadows (Symbiosis - Rogue)"
+        }
+      ]
+    },
+    "Disarm": {
+      "Mop": [
+        {
+          "id": "126458",
+          "name": "Grapple Weapon (Symbiosis - Monk)"
         }
       ]
     }
@@ -2305,6 +2525,10 @@
         {
           "id": "5211",
           "name": "Mighty Bash"
+        },
+        {
+          "id": "126449",
+          "name": "Clash (Symbiosis - Monk)"
         }
       ]
     },
@@ -2393,6 +2617,58 @@
         {
           "id": "112997",
           "name": "Shattering Blow (Symbiosis)"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "122282",
+          "name": "Death Coil (Deathknight)"
+        },
+        {
+          "id": "110597",
+          "name": "Play Dead (Hunter)"
+        },
+        {
+          "id": "110693",
+          "name": "Frost Nova (Mage)"
+        },
+        {
+          "id": "126449",
+          "name": "Clash (Monk)"
+        },
+        {
+          "id": "110700",
+          "name": "Divine Shield (Paladin)"
+        },
+        {
+          "id": "110715",
+          "name": "Dispersion (Priest)"
+        },
+        {
+          "id": "110730",
+          "name": "Redirect (Rogue)"
+        },
+        {
+          "id": "110807",
+          "name": "Feral Spirit (Shaman)"
+        },
+        {
+          "id": "110810",
+          "name": "Soul Swap (Warlock)"
+        },
+        {
+          "id": "112997",
+          "name": "Shattering Blow (Warrior)"
+        }
+      ]
+    },
+    "Immunity": {
+      "Mop": [
+        {
+          "id": "110700",
+          "name": "Divine Shield (Symbiosis - Paladin)"
         }
       ]
     }
@@ -2553,6 +2829,10 @@
         {
           "id": "106707",
           "name": "Faerie Swarm"
+        },
+        {
+          "id": "110600",
+          "name": "Ice Trap (Symbiosis - Hunter)"
         }
       ]
     },
@@ -2609,6 +2889,50 @@
         {
           "id": "77758",
           "name": "Thrash"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "122285",
+          "name": "Bone Shield (Deathknight)"
+        },
+        {
+          "id": "110600",
+          "name": "Ice Trap (Hunter)"
+        },
+        {
+          "id": "110694",
+          "name": "Frost Armor (Mage)"
+        },
+        {
+          "id": "126453",
+          "name": "Elusive Brew (Monk)"
+        },
+        {
+          "id": "110701",
+          "name": "Consecration (Paladin)"
+        },
+        {
+          "id": "110717",
+          "name": "Fear Ward (Priest)"
+        },
+        {
+          "id": "122289",
+          "name": "Feint (Rogue)"
+        },
+        {
+          "id": "110803",
+          "name": "Lightning Shield (Shaman)"
+        },
+        {
+          "id": "122290",
+          "name": "Life Tap (Warlock)"
+        },
+        {
+          "id": "113002",
+          "name": "Spell Reflection (Warrior)"
         }
       ]
     }
@@ -2875,6 +3199,14 @@
         {
           "id": "64382",
           "name": "Shattering Throw"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "122294",
+          "name": "Stampeding Shout"
         }
       ]
     }
@@ -3155,6 +3487,14 @@
           "name": "Shattering Throw"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "122294",
+          "name": "Stampeding Shout"
+        }
+      ]
     }
   },
   "WarriorProtection": {
@@ -3379,6 +3719,14 @@
           "name": "Shattering Throw"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "122286",
+          "name": "Savage Defense"
+        }
+      ]
     }
   },
   "DeathknightBlood": {
@@ -3565,6 +3913,14 @@
           "name": "Anti-Magic Zone"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113072",
+          "name": "Might of Ursoc"
+        }
+      ]
     }
   },
   "DeathknightUnholy": {
@@ -3747,6 +4103,14 @@
           "name": "Unholy Frenzy"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113516",
+          "name": "Wild Mushroom: Plague"
+        }
+      ]
     }
   },
   "DeathknightFrost": {
@@ -3915,6 +4279,14 @@
         {
           "id": "51052",
           "name": "Anti-Magic Zone"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113516",
+          "name": "Wild Mushroom: Plague"
         }
       ]
     }
@@ -4107,6 +4479,14 @@
         {
           "id": "50274",
           "name": "Spore Cloud (Sporebat)"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113073",
+          "name": "Dash"
         }
       ]
     }
@@ -4391,6 +4771,14 @@
           "name": "Lava Breath (Core Hound)"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113073",
+          "name": "Dash"
+        }
+      ]
     }
   },
   "HunterSurvival": {
@@ -4585,6 +4973,14 @@
           "name": "Spore Cloud (Sporebat)"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113073",
+          "name": "Dash"
+        }
+      ]
     }
   },
   "MageArcane": {
@@ -4735,6 +5131,14 @@
           "name": "Slow"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113074",
+          "name": "Healing Touch"
+        }
+      ]
     }
   },
   "MageFire": {
@@ -4855,6 +5259,14 @@
         {
           "id": "1459",
           "name": "Arcane Brilliance"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113074",
+          "name": "Healing Touch"
         }
       ]
     }
@@ -4987,6 +5399,14 @@
           "name": "Arcane Brilliance"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113074",
+          "name": "Healing Touch"
+        }
+      ]
     }
   },
   "PriestHoly": {
@@ -5049,6 +5469,14 @@
         {
           "id": "21562",
           "name": "Power Word: Fortitude"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113506",
+          "name": "Cyclone"
         }
       ]
     }
@@ -5145,6 +5573,14 @@
           "name": "Shadowform"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113277",
+          "name": "Tranquility"
+        }
+      ]
     }
   },
   "PriestDiscipline": {
@@ -5221,6 +5657,14 @@
         {
           "id": "62618",
           "name": "Power Word: Barrier"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113506",
+          "name": "Cyclone"
         }
       ]
     }
@@ -5417,6 +5861,22 @@
         {
           "id": "57934",
           "name": "Tricks of the Trade"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113612",
+          "name": "Growl"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "113612",
+          "name": "Growl (Symbiosis)"
         }
       ]
     }
@@ -5617,6 +6077,22 @@
           "name": "Tricks of the Trade"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113612",
+          "name": "Growl"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "113612",
+          "name": "Growl (Symbiosis)"
+        }
+      ]
     }
   },
   "RogueSubtlety": {
@@ -5815,6 +6291,22 @@
           "name": "Tricks of the Trade"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113612",
+          "name": "Growl"
+        }
+      ]
+    },
+    "Taunt": {
+      "Mop": [
+        {
+          "id": "113612",
+          "name": "Growl (Symbiosis)"
+        }
+      ]
     }
   },
   "DraeneiHit": {
@@ -5867,6 +6359,14 @@
         {
           "id": "121253",
           "name": "Keg Smash"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113306",
+          "name": "Survival Instincts"
         }
       ]
     }
@@ -5923,6 +6423,14 @@
           "name": "Rising Sun Kick"
         }
       ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "127361",
+          "name": "Bear Hug"
+        }
+      ]
     }
   },
   "MonkMistweaver": {
@@ -5959,6 +6467,22 @@
         {
           "id": "115921",
           "name": "Legacy of the Emperor"
+        }
+      ]
+    },
+    "Symbiosis": {
+      "Mop":[
+        {
+          "id": "113275",
+          "name": "Entangling Roots"
+        }
+      ]
+    },
+    "Root": {
+      "Mop": [
+        {
+          "id": "113275",
+          "name": "Entangling Roots (Symbiosis)"
         }
       ]
     }
