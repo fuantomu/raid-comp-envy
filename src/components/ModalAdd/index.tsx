@@ -26,9 +26,12 @@ import useStyles from "./useStyles";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import { RoleProvider } from "../../utils/RoleProvider";
+import LootHistoryItem from "../LootHistoryItem";
 
 export interface ModalAddProps {
-  editPlayer?: (callback: (player: BuildPlayer, fromRoster: boolean, version: string) => void) => void;
+  editPlayer?: (
+    callback: (player: BuildPlayer, fromRoster: boolean, version: string) => void
+  ) => void;
   fromRoster?: boolean;
   version: string;
 }
@@ -53,6 +56,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
   const [altOptions, setAltOptions] = useState<any[]>([]);
   const [mainOptions, setMainOptions] = useState<any[]>([]);
   const [roster, setRoster] = useState(fromRoster);
+  const [currentTab, setCurrentTab] = useState(0);
   const context = useAppContext();
   let playerName = name;
 
@@ -189,6 +193,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
     setMain("DEFAULT");
     setName("");
     setRole(WarcraftPlayerRole.None);
+    setCurrentTab(0);
     setChecked(false);
     setOpen(false);
   };
@@ -231,6 +236,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
     setMain("DEFAULT");
     setName("");
     setRole(WarcraftPlayerRole.None);
+    setCurrentTab(0);
     setChecked(false);
     setOpen(false);
   };
@@ -240,6 +246,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
     setAlt("DEFAULT");
     setMain("DEFAULT");
     setRole(WarcraftPlayerRole.None);
+    setCurrentTab(0);
     setName("");
     setOpen(false);
   };
@@ -249,6 +256,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
     setAlt("DEFAULT");
     setMain("DEFAULT");
     setRole(WarcraftPlayerRole.None);
+    setCurrentTab(0);
     setOpen(true);
   };
 
@@ -279,14 +287,16 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
           exclusive
           onChange={handleSelectClass}
         >
-          {Object.keys(WarcraftPlayerClass).filter((class_name) => RoleProvider.getClassVersion(version).includes(class_name)).map((class_name) => (
-            <ToggleButton value={class_name} key={UUID()} title={common(`classes.${class_name}`)}>
-              <WarcraftIcon
-                css={{ width: "28px", height: "28px" }}
-                src={IconProvider.getClassIcon(class_name as WarcraftPlayerClass)}
-              />
-            </ToggleButton>
-          ))}
+          {Object.keys(WarcraftPlayerClass)
+            .filter((class_name) => RoleProvider.getClassVersion(version).includes(class_name))
+            .map((class_name) => (
+              <ToggleButton value={class_name} key={UUID()} title={common(`classes.${class_name}`)}>
+                <WarcraftIcon
+                  css={{ width: "28px", height: "28px" }}
+                  src={IconProvider.getClassIcon(class_name as WarcraftPlayerClass)}
+                />
+              </ToggleButton>
+            ))}
         </ToggleButtonGroup>
       </Box>
     );
@@ -390,14 +400,16 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
           exclusive
           onChange={handleSelectRace}
         >
-          {Object.keys(WarcraftPlayerRace).filter((race) => RoleProvider.getRaceVersion(version).includes(race)).map((race) => (
-            <ToggleButton value={race} key={UUID()} title={common(`races.${race}`)}>
-              <WarcraftIcon
-                css={{ width: "28px", height: "28px" }}
-                src={IconProvider.getRaceIcon(race as WarcraftPlayerRace)}
-              />
-            </ToggleButton>
-          ))}
+          {Object.keys(WarcraftPlayerRace)
+            .filter((race) => RoleProvider.getRaceVersion(version).includes(race))
+            .map((race) => (
+              <ToggleButton value={race} key={UUID()} title={common(`races.${race}`)}>
+                <WarcraftIcon
+                  css={{ width: "28px", height: "28px" }}
+                  src={IconProvider.getRaceIcon(race as WarcraftPlayerRace)}
+                />
+              </ToggleButton>
+            ))}
         </ToggleButtonGroup>
       </Box>
     );
@@ -445,6 +457,155 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
     );
   };
 
+  const renderTabs = () => {
+    return (
+      <Box>
+        <Button
+          sx={{
+            "backgroundColor": "#1d1d1d",
+            "border": "1px solid black",
+            "borderRadius": "0px",
+            "color": currentTab === 0 ? "red" : "white",
+            "width": "120px",
+            "height": "50px",
+            "&:hover": {
+              background: "#3d3d3d"
+            }
+          }}
+          onClick={() => setCurrentTab(0)}
+        >
+          Details
+        </Button>
+        {name ? (
+          <Button
+            sx={{
+              "backgroundColor": "#1d1d1d",
+              "border": "1px solid black",
+              "borderRadius": "0px",
+              "color": currentTab === 1 ? "red" : "white",
+              "width": "120px",
+              "height": "50px",
+              "&:hover": {
+                background: "#3d3d3d"
+              }
+            }}
+            onClick={() => setCurrentTab(1)}
+          >
+            Gear
+          </Button>
+        ) : (
+          <></>
+        )}
+        {name ? (
+          <Button
+            sx={{
+              "backgroundColor": "#1d1d1d",
+              "border": "1px solid black",
+              "borderRadius": "0px",
+              "color": currentTab === 2 ? "red" : "white",
+              "width": "120px",
+              "height": "50px",
+              "&:hover": {
+                background: "#3d3d3d"
+              }
+            }}
+            onClick={() => setCurrentTab(2)}
+          >
+            Loothistory
+          </Button>
+        ) : (
+          <></>
+        )}
+      </Box>
+    );
+  };
+
+  const renderDetails = () => {
+    return (
+      <Box css={styles.modal}>
+        <h2>{name ? common("build.edit.title") : common("build.add.title")}</h2>
+        <Box height={"480px"} css={styles.content}>
+          <Box css={styles.nameInputWrapper}>
+            <Input
+              id={UUID()}
+              css={styles.nameInput}
+              type="text"
+              autoFocus={true}
+              defaultValue={name}
+              onChange={handleNameChange}
+              placeholder="Character name"
+            />
+          </Box>
+          {renderClassToggle()}
+          {renderSpecToggle()}
+          {group_id !== "roster" ? renderRoleToggle() : null}
+          {role === WarcraftPlayerRole.OffDPS ||
+          role === WarcraftPlayerRole.OffHeal ||
+          role === WarcraftPlayerRole.OffTank
+            ? renderSwapToggle()
+            : null}
+          {renderRaceToggle()}
+          {renderMain()}
+          {main === name ? renderAlt() : null}
+        </Box>
+        <Box css={styles.buttons}>
+          {!roster ? (
+            <Box>
+              <Checkbox name="checked" checked={checked} onChange={handleChange} />
+              {common("build.roster.save")}
+            </Box>
+          ) : null}
+
+          {name ? (
+            <Button color="info" variant="contained" onClick={handleViewPlayer}>
+              {common("build.add.view")}
+            </Button>
+          ) : null}
+          {name ? (
+            <Button color="warning" variant="contained" onClick={handlePlayerStatus}>
+              {status === InviteStatus.Benched
+                ? common("build.add.activate")
+                : common("build.add.deactivate")}
+            </Button>
+          ) : null}
+          <Button color="success" variant="contained" onClick={handleAddPlayer}>
+            {name ? common("build.edit.save") : common("build.add.add")}
+          </Button>
+          {name ? (
+            <Button color="primary" variant="contained" onClick={handleRemovePlayer}>
+              {common("build.edit.remove")}
+            </Button>
+          ) : null}
+          <Button color="secondary" variant="contained" onClick={handleClose}>
+            {common("buttons.cancel")}
+          </Button>
+        </Box>
+      </Box>
+    );
+  };
+
+  const renderGear = () => {
+    return (
+      <Box css={styles.modal}>
+        <h2>{common("build.edit.gear")}</h2>
+        <Box css={styles.content}></Box>
+      </Box>
+    );
+  };
+
+  const renderLoot = () => {
+    return (
+      <Box css={styles.modal}>
+        <h2>
+          {common("build.edit.loot")} - {playerName}
+        </h2>
+        <Box css={styles.content}>
+          <LootHistoryItem playerName={playerName} version={version}></LootHistoryItem>
+        </Box>
+      </Box>
+    );
+  };
+
   return (
     <>
       {!editPlayer || fromRoster ? (
@@ -469,67 +630,19 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <Box css={styles.modal}>
-          <h2>{name ? common("build.edit.title") : common("build.add.title")}</h2>
-          <Box css={styles.content}>
-            <Box css={styles.nameInputWrapper}>
-              <Input
-                id={UUID()}
-                css={styles.nameInput}
-                type="text"
-                autoFocus={true}
-                defaultValue={name}
-                onChange={handleNameChange}
-                placeholder="Character name"
-              />
-            </Box>
-            {renderClassToggle()}
-            {renderSpecToggle()}
-            {group_id !== "roster" ? renderRoleToggle() : <></>}
-            {role === WarcraftPlayerRole.OffDPS ||
-            role === WarcraftPlayerRole.OffHeal ||
-            role === WarcraftPlayerRole.OffTank ? (
-              renderSwapToggle()
-            ) : (
-              <></>
-            )}
-            {renderRaceToggle()}
-            {renderMain()}
-            {main === name ? renderAlt() : <></>}
-          </Box>
-          <Box css={styles.buttons}>
-            {!roster ? (
-              <Box>
-                <Checkbox name="checked" checked={checked} onChange={handleChange} />
-                {common("build.roster.save")}
-              </Box>
-            ) : (
-              <></>
-            )}
-
-            {name ? (
-              <Button color="info" variant="contained" onClick={handleViewPlayer}>
-                {common("build.add.view")}
-              </Button>
-            ) : null}
-            {name ? (
-              <Button color="warning" variant="contained" onClick={handlePlayerStatus}>
-                {status === InviteStatus.Benched
-                  ? common("build.add.activate")
-                  : common("build.add.deactivate")}
-              </Button>
-            ) : null}
-            <Button color="success" variant="contained" onClick={handleAddPlayer}>
-              {name ? common("build.edit.save") : common("build.add.add")}
-            </Button>
-            {name ? (
-              <Button color="primary" variant="contained" onClick={handleRemovePlayer}>
-                {common("build.edit.remove")}
-              </Button>
-            ) : null}
-            <Button color="secondary" variant="contained" onClick={handleClose}>
-              {common("buttons.cancel")}
-            </Button>
+        <Box
+          onClick={() => {
+            handleClose();
+          }}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          marginTop={"10%"}
+          data-test={"test"}
+        >
+          <Box onClick={(e) => e.stopPropagation()}>
+            {currentTab === 0 ? renderDetails() : currentTab === 1 ? renderGear() : renderLoot()}
+            {renderTabs()}
           </Box>
         </Box>
       </Modal>

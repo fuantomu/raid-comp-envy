@@ -8,15 +8,12 @@ export default () => {
 
   return {
     modal: css`
-      position: absolute;
       width: min(800px, 90vw);
+      height: 620px;
       background-color: ${palette.background.paper};
       border: 2px solid #000;
       box-shadow: ${shadows[5]};
       padding: ${spacing(2, 4, 3)};
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       border-radius: ${spacing(Spacing.xs)};
 
       &:focus {
@@ -24,8 +21,10 @@ export default () => {
       }
     `,
     buttons: css`
-      margin-top: ${spacing(Spacing.xs)};
+      margin-top: 20px;
       display: flex;
+      flex-wrap: wrap;
+      place-content: center;
       column-gap: ${spacing(Spacing.xs)};
 
       & > *:first-of-type {
@@ -36,9 +35,7 @@ export default () => {
       display: grid;
       place-items: center;
 
-      & > * {
-        margin: ${spacing(Spacing.xxs)} 0;
-      }
+
     `,
     nameInputWrapper: css`
       width: 100%;

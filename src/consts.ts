@@ -272,3 +272,17 @@ export const WarcraftTokenClass = {
     "Conqueror" : [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
   }
 }
+
+export const ReleaseDates = {
+  "Wotlk": {
+    "release": "2022-09-27",
+    "next": "Cataclysm"
+  },
+  "Cataclysm": {
+    "release": "2024-05-21",
+    "next": "Mop"
+  },
+  "Mop": {
+    "release": "2025-08-31"
+  }
+}

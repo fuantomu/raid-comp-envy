@@ -259,4 +259,14 @@ export abstract class RosterProvider {
       return response;
     });
   }
+
+  public static async getLootHistory(player: string): Promise<Response> {
+    return await fetch(`${process.env.REACT_APP_API}/loot/${player}`, {
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    }).then((response) => {
+      return response
+    })
+  }
 }

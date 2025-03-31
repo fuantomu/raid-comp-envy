@@ -182,3 +182,35 @@ export type DiscordMessageResponse = {
   buildId: string;
   note?: string;
 };
+
+export type LootHistoryResponse = {
+  history: Item[];
+};
+
+export type Item = {
+  di: string;
+  player: string;
+  date: string;
+  time: string;
+  id: string;
+  item: string;
+  itemid: string;
+  itemstring?: string;
+  response: string;
+  votes?: string;
+  class_: string;
+  instance: string;
+  boss: string;
+  difficultyid: string;
+  mapid: string;
+  groupsize: string;
+  gear1?: string;
+  gear2?: string;
+  responseid: string;
+  isawardreason: string;
+  subtype: string;
+  equiploc: string;
+  note?: string;
+  owner: string;
+  timestamp?: Date;
+};

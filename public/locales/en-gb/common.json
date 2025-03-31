@@ -58,7 +58,8 @@
     "edit": {
       "title": "Edit Player",
       "save": "Save",
-      "remove": "Remove"
+      "remove": "Remove",
+      "loot": "Loot History"
     },
     "create": {
       "title": "Add a new build",

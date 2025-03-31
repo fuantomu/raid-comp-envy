@@ -433,6 +433,7 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                 spec={spec}
                 specUtility={specUtility}
                 version={version}
+                key={UUID()}
               ></ChecklistTooltipClass>
             );
           })}
