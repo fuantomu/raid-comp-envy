@@ -539,7 +539,11 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
         const differences = Object.fromEntries(
           Object.entries(oldPlayer).filter(([key, val]) => newPlayer[key] !== val)
         );
-        if (Object.entries(differences).length === 0) {
+
+        if (
+          Object.entries(differences).length === 0 &&
+          Object.keys(oldPlayer).length === Object.keys(newPlayer).length
+        ) {
           return;
         }
       }

@@ -102,7 +102,10 @@ export abstract class BuildHelper {
               raid: "roster",
               group_id: "roster",
               main: player.main ?? "",
-              alt: player.alt ?? "None"
+              alt: player.alt ?? "None",
+              swap: player.swap ?? (BuildHelper.capitalize(spec[0]) +
+              BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
+              role: player.role ?? WarcraftPlayerRole.None
             });
           }
         }
@@ -378,7 +381,10 @@ export abstract class BuildHelper {
               raid: "roster",
               group_id: "roster",
               main: player.main ?? "",
-              alt: player.alt ?? "None"
+              alt: player.alt ?? "None",
+              swap: player.swap?? (BuildHelper.capitalize(spec[0]) +
+              BuildHelper.capitalize(spec[1])) as WarcraftPlayerSpec,
+              role: player.role ?? WarcraftPlayerRole.None
             });
           }
         }
@@ -404,7 +410,9 @@ export abstract class BuildHelper {
                 status: InviteStatus.Unknown,
                 group_id: player.group_id as GroupId,
                 main: player.main ?? "",
-                alt: player.alt ?? "None"
+                alt: player.alt ?? "None",
+                swap: player.swap?? player.spec as WarcraftPlayerSpec,
+                role: player.role?? WarcraftPlayerRole.None
               });
             }
           }
@@ -501,12 +509,14 @@ export abstract class BuildHelper {
       const differences = Object.fromEntries(
         Object.entries(message.oldData ?? []).filter(([key, val]) => message.player[key] !== val)
       );
+
       for (const key of Object.keys(differences)) {
+
         if ((key === "raid" && message.oldData[key] === "roster") || key === "1") {
           continue;
         }
         const changeMessage = {
-          key: key === "0" ? "swap" : key,
+          key: key === "0" ? "swapplayer" : key,
           objectType: "Raid",
           objectName: foundBuild
             ? `${foundBuild?.name} - ${new Date(foundBuild?.date).toLocaleString("de-de", {
@@ -792,12 +802,16 @@ export abstract class BuildHelper {
       "role": "Role"
     }
     let changes = ""
+
     if (message.changes.length > 0) {
+
       changes = message.changes.map((changeMessage) => {
+
         if (changeMessage.key === "absence") {
           return `${changeMessage.propertyType} '${changeMessage.propertyName}' is absent from ${changeMessage.old} to ${changeMessage.new}`
         }
-        else if (changeMessage.key === "swap" && changeMessage.old){
+
+        else if (changeMessage.key === "swapplayer" && changeMessage.old){
           return `${changeMessage.propertyType} '${changeMessage.old.name}' and '${changeMessage.new.name}' were swapped`
         }
         else if (changeMessage.key === "status") {

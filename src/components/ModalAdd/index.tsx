@@ -175,6 +175,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
       main: main === "DEFAULT" ? playerName : main,
       alt: alt === "DEFAULT" ? "None" : alt
     };
+
     if (roster || checked) {
       context?.updateRoster({ ...playerInfo, group_id: "roster" as GroupId }, true, remove);
     } else if (!roster) {
@@ -219,6 +220,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
       class_name,
       spec,
       role,
+      swap,
       raid,
       race: raceName,
       status,
@@ -538,7 +540,7 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
           </Box>
           {renderClassToggle()}
           {renderSpecToggle()}
-          {group_id !== "roster" ? renderRoleToggle() : null}
+          {renderRoleToggle()}
           {role === WarcraftPlayerRole.OffDPS ||
           role === WarcraftPlayerRole.OffHeal ||
           role === WarcraftPlayerRole.OffTank
