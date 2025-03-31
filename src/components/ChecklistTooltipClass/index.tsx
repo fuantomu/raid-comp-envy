@@ -111,17 +111,36 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
                             }
                       }
                     >
-                      <Typography
-                        sx={{
-                          color: "lightgray",
-                          textShadow: "1px 1px black",
-                          fontSize: "11px",
-                          margin: "5px",
-                          justifySelf: "start"
-                        }}
+                      <a
+                        href={`https://${
+                          version === "Mop"
+                            ? "mop"
+                            : version === "Cataclysm"
+                            ? "cata"
+                            : version ?? "Wotlk"
+                        }.wowhead.com/spell=${entry.id}`}
+                        className="q3"
+                        data-wowhead={`domain=${
+                          version === "Mop"
+                            ? "mop"
+                            : version === "Cataclysm"
+                            ? "cata"
+                            : version ?? "Wotlk"
+                        }`}
+                        style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
                       >
-                        {entry.name}
-                      </Typography>
+                        <Typography
+                          sx={{
+                            color: "lightgray",
+                            textShadow: "1px 1px black",
+                            fontSize: "11px",
+                            margin: "5px",
+                            justifySelf: "start"
+                          }}
+                        >
+                          {entry.name}
+                        </Typography>
+                      </a>
                       <Typography
                         sx={{
                           color: "lightgray",
@@ -131,7 +150,7 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
                           justifySelf: "start"
                         }}
                       >
-                        {`( ${entry.id} )`}
+                        {`${entry.id}`}
                       </Typography>
                     </Box>
                   );

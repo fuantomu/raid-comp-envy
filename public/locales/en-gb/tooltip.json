@@ -4289,6 +4289,14 @@
           "name": "Wild Mushroom: Plague"
         }
       ]
+    },
+    "MeleeHasteUp10": {
+      "Cataclysm": [
+        {
+          "id": "55610",
+          "name": "Improved Icy Talons"
+        }
+      ]
     }
   },
   "HunterMarksmanship": {
