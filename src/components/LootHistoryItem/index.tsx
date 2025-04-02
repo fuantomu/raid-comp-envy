@@ -8,6 +8,7 @@ import useStyles from "./useStyles";
 import { DateParser } from "../../utils/DateParser";
 import UUID from "../../utils/UUID";
 import { ReleaseDates } from "../../consts";
+import { RarityColors } from "../../utils/IconProvider/consts";
 
 export interface LootHistoryItemProps {
   playerName: string;
@@ -103,9 +104,9 @@ const ItemList = ({ items, version }) => {
               data-wowhead={`domain=${
                 version === "Mop" ? "mop" : version === "Cataclysm" ? "cata" : version ?? "Wotlk"
               }`}
-              style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
+              style={{ fontSize: "16px", textDecoration: "none" }}
             >
-              {item.item}
+              <Typography color={RarityColors.EPIC}> {item.item}</Typography>
             </a>
             <Typography>
               {item.timestamp.toLocaleString("de-DE", {

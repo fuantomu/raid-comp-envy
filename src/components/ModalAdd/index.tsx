@@ -27,6 +27,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { isAccountRoleAllowed } from "../../utils/AccountRole";
 import { RoleProvider } from "../../utils/RoleProvider";
 import LootHistoryItem from "../LootHistoryItem";
+import GearItem from "../GearList";
 
 export interface ModalAddProps {
   editPlayer?: (
@@ -589,8 +590,12 @@ const ModalAdd: FC<ModalAddProps> = ({ editPlayer, fromRoster = false, version }
   const renderGear = () => {
     return (
       <Box css={styles.modal}>
-        <h2>{common("build.edit.gear")}</h2>
-        <Box css={styles.content}></Box>
+        <h2>
+          {common("build.edit.gear")} - {playerName}
+        </h2>
+        <Box css={styles.content}>
+          <GearItem playerName={playerName} version={version}></GearItem>
+        </Box>
       </Box>
     );
   };

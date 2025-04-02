@@ -214,3 +214,191 @@ export type Item = {
   owner: string;
   timestamp?: Date;
 };
+
+export type BlizzardApiItem = {
+  key: {
+    href: string
+  },
+  id: number
+  name?: string,
+  is_equipped?: boolean
+}
+
+export type BlizzardApiType = {
+  type: string,
+  name: string
+}
+
+export type BlizzardApiStats = {
+  value: number,
+  display: {
+    display_string: string,
+    color: {
+      r: number,
+      g: number,
+      b: number,
+      a: 1
+    }
+  },
+  type?: BlizzardApiType,
+  is_equip_bonus?: boolean,
+}
+
+export type BlizzardApiEnchantment = {
+  display_string: string,
+  source_item: BlizzardApiItem,
+  enchantment_id?: number,
+  enchantment_slot?: {
+    id: number,
+    type?: string
+  }
+}
+
+export type BlizzardEquippedItem = {
+  item: BlizzardApiItem,
+  enchantments: BlizzardApiEnchantment[],
+  slot: BlizzardApiType,
+  quantity: number,
+  quality: BlizzardApiType,
+  name: string,
+  media: BlizzardApiItem,
+  item_class: BlizzardApiItem,
+  item_subclass: BlizzardApiItem,
+  inventory_type: BlizzardApiType,
+  binding: BlizzardApiType,
+  armor: BlizzardApiStats,
+  stats: BlizzardApiStats
+  sell_price: {
+    value: number,
+    display_strings: {
+      header: string,
+      gold: string,
+      silver: string,
+      copper: string
+    }
+  },
+  requirements: {
+    level: {
+      value: number,
+      display_string: string
+    },
+    playable_classes: {
+      links: BlizzardApiItem[],
+      display_string: string
+    }
+  },
+  set: {
+    item_set: BlizzardApiItem,
+    items: BlizzardApiItem[],
+    effects: {
+      display_string: string,
+      required_count: number,
+      is_active: boolean
+    }[],
+    display_string: string
+  },
+  transmog: {
+    item: BlizzardApiItem,
+    display_string: string,
+    item_modified_appearance_id: number
+  },
+  durability: {
+    value: number,
+    display_string: string
+  },
+  limit_category?: string,
+  spells?: {
+    spell: BlizzardApiItem,
+    description: string
+  }[],
+  is_subclass_hidden?: boolean,
+  weapon: {
+    damage: {
+      min_value: number,
+      max_value: number,
+      display_string: string,
+      damage_class: BlizzardApiType
+    },
+    attack_speed: {
+      value: number,
+      display_string: string,
+    },
+    dps: {
+      value: number,
+      display_string: string
+    }
+  },
+  link?: string,
+  gems?: any,
+  icon?: string,
+}
+
+export type Enchant = {
+  id: number,
+  tier: number,
+  name: string,
+  itemid: number,
+  role?: string,
+  type?: string,
+  stats: string,
+  statsDE: string,
+  version?: string
+}
+
+export type EnchantSlots = {
+  0: Enchant[],
+  1: Enchant[],
+  2: Enchant[],
+  3: Enchant[],
+  4: Enchant[],
+  5: Enchant[],
+  6: Enchant[],
+  7: Enchant[],
+  8: Enchant[],
+  9: Enchant[],
+  10: Enchant[],
+  11: Enchant[],
+  12: Enchant[],
+  13: Enchant[],
+  14: Enchant[],
+  15: Enchant[],
+  16: Enchant[],
+  17: Enchant[]
+}
+
+export type AffixPhase = {
+  P1: {
+    ids: number[],
+    affix: {
+      [key: string]: {
+        name: string,
+        stats: string[]
+      }
+    }
+  }
+}
+
+export type Affixes = {
+  WAIST: AffixPhase,
+  WEAPON: AffixPhase,
+  LEGS: AffixPhase,
+  CLOAK: AffixPhase,
+  FINGER: AffixPhase,
+  NECK: AffixPhase
+}
+
+export type BlizzardApiMedia = {
+  _links: {
+    self: {
+      href: string
+    }
+  },
+  assets: {
+    [key: number]: {
+      key: string,
+      value: string,
+      file_data_id: number
+    }
+  },
+  id: number
+}
