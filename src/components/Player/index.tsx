@@ -67,15 +67,13 @@ const Player: FC<PlayerProps> = (props) => {
 
   if (group_id === "roster" && context?.getPlayerAbsence(main ?? name, 0).length > 0) {
     const lastReset = new Date().setDate(
-      new Date().getDate() + ((3 - 7 - new Date().getDay()) % 7 || 7)
+      new Date().getDate() + ((3 - 14 - new Date().getDay()) % 14 || 14)
     );
-    const lastRaid = context?.getBuilds().reduce(
-      (a: any, b: any) => {
-        return a?.date < b?.date ? a?.date : b?.date;
-      },
-      { date: new Date().getTime() } as Build
-    );
-    absences.push(...context?.getPlayerAbsence(main ?? name, Math.min(lastRaid, lastReset)));
+
+    const lastRaid = context?.getBuilds().reduce((a: Build, b: Build) => {
+      return a?.date > b?.date ? a : b;
+    });
+    absences.push(...context?.getPlayerAbsence(main ?? name, Math.min(lastRaid.date, lastReset)));
   } else {
     absences.push(...context?.getPlayerAbsence(main ?? name, context.getRaid(raid).date));
   }
