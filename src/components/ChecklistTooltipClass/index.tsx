@@ -9,6 +9,7 @@ import { IconProvider } from "../../utils/IconProvider";
 import { ArrowDropDown, ArrowLeft } from "@mui/icons-material";
 import { openWowheadLink } from "../../utils/Wowhead";
 import { useTranslation } from "react-i18next";
+import { WarcraftGameVersion } from "../../utils/RoleProvider/consts";
 
 export interface ChecklistTooltipProps {
   spec: WarcraftPlayerSpec;
@@ -113,20 +114,10 @@ const ChecklistTooltipClass: FC<ChecklistTooltipProps> = ({
                     >
                       <a
                         href={`https://${
-                          version === "Mop"
-                            ? "mop"
-                            : version === "Cataclysm"
-                            ? "cata"
-                            : version ?? "Wotlk"
+                          WarcraftGameVersion[version.toLowerCase()]
                         }.wowhead.com/spell=${entry.id}`}
                         className="q3"
-                        data-wowhead={`domain=${
-                          version === "Mop"
-                            ? "mop"
-                            : version === "Cataclysm"
-                            ? "cata"
-                            : version ?? "Wotlk"
-                        }`}
+                        data-wowhead={`domain=${WarcraftGameVersion[version.toLowerCase()]}`}
                         style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
                       >
                         <Typography

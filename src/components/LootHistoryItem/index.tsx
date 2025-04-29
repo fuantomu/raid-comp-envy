@@ -9,6 +9,7 @@ import { DateParser } from "../../utils/DateParser";
 import UUID from "../../utils/UUID";
 import { ReleaseDates } from "../../consts";
 import { RarityColors } from "../../utils/IconProvider/consts";
+import { WarcraftGameVersion } from "../../utils/RoleProvider/consts";
 
 export interface LootHistoryItemProps {
   playerName: string;
@@ -97,13 +98,11 @@ const ItemList = ({ items, version }) => {
             key={UUID()}
           >
             <a
-              href={`https://${
-                version === "Mop" ? "mop" : version === "Cataclysm" ? "cata" : version ?? "Wotlk"
-              }.wowhead.com/item=${item.itemid}`}
-              className="q3"
-              data-wowhead={`domain=${
-                version === "Mop" ? "mop" : version === "Cataclysm" ? "cata" : version ?? "Wotlk"
+              href={`https://${WarcraftGameVersion[version.toLowerCase()]}.wowhead.com/item=${
+                item.itemid
               }`}
+              className="q3"
+              data-wowhead={`domain=${WarcraftGameVersion[version.toLowerCase()]}`}
               style={{ fontSize: "16px", textDecoration: "none" }}
             >
               <Typography color={RarityColors.EPIC}> {item.item}</Typography>

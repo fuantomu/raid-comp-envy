@@ -9,9 +9,9 @@ export enum WarcraftRole {
 }
 
 export const WarcraftClassVersion = {
-  Mop: ["Warrior","Mage","Druid","Monk","Hunter","Rogue","Paladin","Priest","Deathknight","Warlock","Shaman"],
-  Cataclysm: ["Warrior","Mage","Druid","Hunter","Rogue","Paladin","Priest","Deathknight","Warlock","Shaman"],
-  Wotlk: ["Warrior","Mage","Druid","Hunter","Rogue","Paladin","Priest","Deathknight","Warlock","Shaman"]
+  Mop: ["Warrior", "Mage", "Druid", "Monk", "Hunter", "Rogue", "Paladin", "Priest", "Deathknight", "Warlock", "Shaman"],
+  Cataclysm: ["Warrior", "Mage", "Druid", "Hunter", "Rogue", "Paladin", "Priest", "Deathknight", "Warlock", "Shaman"],
+  Wotlk: ["Warrior", "Mage", "Druid", "Hunter", "Rogue", "Paladin", "Priest", "Deathknight", "Warlock", "Shaman"]
 }
 
 export const WarcraftRaceVersion = {
@@ -559,3 +559,9 @@ export const WarcraftPlayerClassSpecs: {
     WarcraftPlayerSpec.MonkMistweaver
   ]
 };
+
+export enum WarcraftGameVersion {
+  mop = "mop-classic",
+  cataclysm = "cata",
+  wotlk = "wotlk"
+}

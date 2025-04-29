@@ -8,6 +8,7 @@ import { CustomIcon, RarityColors, WarcraftIconSize } from "../../utils/IconProv
 import UUID from "../../utils/UUID";
 import { Avatar, Typography } from "@mui/material";
 import { ArmoryIconSlot } from "../../utils/ArmoryIcons";
+import { WarcraftGameVersion } from "../../utils/RoleProvider/consts";
 
 export interface GearListProps {
   playerName: string;
@@ -40,44 +41,44 @@ const GearList: FC<GearListProps> = ({ playerName, version }) => {
     return <>Loading</>;
   }
 
-  return <GearItemList items={items}></GearItemList>;
+  return <GearItemList items={items} version={version}></GearItemList>;
 };
 
-const GearItemList = ({ items }) => {
+const GearItemList = ({ items, version }) => {
   return (
     <Box border={"1px solid black"} bgcolor={"#242424"} display={"flex"} flexWrap={"wrap"}>
       <Box marginTop={"10px"} sx={{ width: "50%" }}>
-        <GearItem key={UUID()} item={items[0]}></GearItem>
-        <GearItem key={UUID()} item={items[1]}></GearItem>
-        <GearItem key={UUID()} item={items[2]}></GearItem>
-        <GearItem key={UUID()} item={items[14]}></GearItem>
-        <GearItem key={UUID()} item={items[4]}></GearItem>
-        <GearItem key={UUID()} item={items[3]}></GearItem>
-        <GearItem key={UUID()} item={items[18]}></GearItem>
-        <GearItem key={UUID()} item={items[8]}></GearItem>
+        <GearItem key={UUID()} item={items[0]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[1]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[2]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[14]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[4]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[3]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[18]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[8]} version={version}></GearItem>
       </Box>
       <Box marginTop={"10px"} sx={{ width: "50%" }}>
-        <GearItem key={UUID()} item={items[9]} reverse={true}></GearItem>
-        <GearItem key={UUID()} item={items[5]} reverse={true}></GearItem>
-        <GearItem key={UUID()} item={items[6]} reverse={true}></GearItem>
-        <GearItem key={UUID()} item={items[7]} reverse={true}></GearItem>
-        <GearItem key={UUID()} item={items[10]} reverse={true}></GearItem>
-        <GearItem key={UUID()} item={items[11]} reverse={true}></GearItem>
-        <GearItem key={UUID()} item={items[12]} reverse={true}></GearItem>
-        <GearItem key={UUID()} item={items[13]} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[9]} version={version} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[5]} version={version} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[6]} version={version} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[7]} version={version} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[10]} version={version} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[11]} version={version} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[12]} version={version} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[13]} version={version} reverse={true}></GearItem>
       </Box>
       <Box marginTop={"10px"} marginBottom={"10px"} paddingTop={"50px"} sx={{ width: "50%" }}>
-        <GearItem key={UUID()} item={items[15]}></GearItem>
-        <GearItem key={UUID()} item={items[16]}></GearItem>
+        <GearItem key={UUID()} item={items[15]} version={version}></GearItem>
+        <GearItem key={UUID()} item={items[16]} version={version}></GearItem>
       </Box>
       <Box marginTop={"10px"} marginBottom={"10px"} paddingTop={"50px"} sx={{ width: "50%" }}>
-        <GearItem key={UUID()} item={items[17]} reverse={true}></GearItem>
+        <GearItem key={UUID()} item={items[17]} version={version} reverse={true}></GearItem>
       </Box>
     </Box>
   );
 };
 
-const GearItem = ({ item, reverse = false }) => {
+const GearItem = ({ item, version, reverse = false }) => {
   if (item[1] === null) {
     return (
       <Box
@@ -123,7 +124,9 @@ const GearItem = ({ item, reverse = false }) => {
         style={{
           textDecoration: "none"
         }}
-        href={`https://www.wowhead.com/cata/item=${item[1].item.id}`}
+        href={`https://${WarcraftGameVersion[version.toLowerCase()]}.wowhead.com/item=${
+          item[1].item.id
+        }`}
         data-wowhead={`${item[1].link}`}
       >
         {!reverse ? (

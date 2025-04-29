@@ -16,6 +16,7 @@ import { openWowheadLink } from "../../utils/Wowhead";
 import UUID from "../../utils/UUID";
 import { useAppContext } from "../App/context";
 import ChecklistTooltipClass from "../ChecklistTooltipClass";
+import { WarcraftGameVersion } from "../../utils/RoleProvider/consts";
 
 export type Props = {
   players: BuildPlayer[];
@@ -210,20 +211,10 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                   </Typography>
                   <a
                     href={`https://${
-                      version === "Mop"
-                        ? "mop"
-                        : version === "Cataclysm"
-                        ? "cata"
-                        : version ?? "Wotlk"
+                      WarcraftGameVersion[version.toLowerCase()]
                     }.wowhead.com/spell=${player.spec}.${source}.${version}`}
                     className="q3"
-                    data-wowhead={`domain=${
-                      version === "Mop"
-                        ? "mop"
-                        : version === "Cataclysm"
-                        ? "cata"
-                        : version ?? "Wotlk"
-                    }`}
+                    data-wowhead={`domain=${WarcraftGameVersion[version.toLowerCase()]}`}
                     style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
                   >
                     <Typography
@@ -277,20 +268,10 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                   </Typography>
                   <a
                     href={`https://${
-                      version === "Mop"
-                        ? "mop"
-                        : version === "Cataclysm"
-                        ? "cata"
-                        : version ?? "Wotlk"
+                      WarcraftGameVersion[version.toLowerCase()]
                     }.wowhead.com/spell=${utility.id}`}
                     className="q3"
-                    data-wowhead={`domain=${
-                      version === "Mop"
-                        ? "mop"
-                        : version === "Cataclysm"
-                        ? "cata"
-                        : version ?? "Wotlk"
-                    }`}
+                    data-wowhead={`domain=${WarcraftGameVersion[version.toLowerCase()]}`}
                     style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
                   >
                     <Typography
@@ -352,20 +333,10 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                     return (
                       <a
                         href={`https://${
-                          version === "Mop"
-                            ? "mop"
-                            : version === "Cataclysm"
-                            ? "cata"
-                            : version ?? "Wotlk"
+                          WarcraftGameVersion[version.toLowerCase()]
                         }.wowhead.com/spell=${utility.id}`}
                         className="q3"
-                        data-wowhead={`domain=${
-                          version === "Mop"
-                            ? "mop"
-                            : version === "Cataclysm"
-                            ? "cata"
-                            : version ?? "Wotlk"
-                        }`}
+                        data-wowhead={`domain=${WarcraftGameVersion[version.toLowerCase()]}`}
                         style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
                       >
                         <WarcraftIcon
@@ -411,20 +382,10 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                     return (
                       <a
                         href={`https://${
-                          version === "Mop"
-                            ? "mop"
-                            : version === "Cataclysm"
-                            ? "cata"
-                            : version ?? "Wotlk"
+                          WarcraftGameVersion[version.toLowerCase()]
                         }.wowhead.com/spell=${specUtility[0].id}`}
                         className="q3"
-                        data-wowhead={`domain=${
-                          version === "Mop"
-                            ? "mop"
-                            : version === "Cataclysm"
-                            ? "cata"
-                            : version ?? "Wotlk"
-                        }`}
+                        data-wowhead={`domain=${WarcraftGameVersion[version.toLowerCase()]}`}
                         style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
                       >
                         <WarcraftIcon
@@ -471,20 +432,10 @@ const ChecklistTooltip: FC<Props> = ({ players, list, source, displayName }) => 
                       return (
                         <a
                           href={`https://${
-                            version === "Mop"
-                              ? "mop"
-                              : version === "Cataclysm"
-                              ? "cata"
-                              : version ?? "Wotlk"
+                            WarcraftGameVersion[version.toLowerCase()]
                           }.wowhead.com/spell=${utility.id}`}
                           className="q3"
-                          data-wowhead={`domain=${
-                            version === "Mop"
-                              ? "mop"
-                              : version === "Cataclysm"
-                              ? "cata"
-                              : version ?? "Wotlk"
-                          }`}
+                          data-wowhead={`domain=${WarcraftGameVersion[version.toLowerCase()]}`}
                           style={{ fontSize: "16px", color: "red", textDecoration: "none" }}
                         >
                           <WarcraftIcon
