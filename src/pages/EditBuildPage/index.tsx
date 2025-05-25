@@ -281,7 +281,7 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
     return {
       id: UUID(),
       name: "New Build",
-      date: new Date().setHours(0, 0, 0, 0),
+      date: new Date().setHours(19, 0, 0, 0),
       players: [],
       instance: Instance[game_version]
         ? Instance[game_version][0].abbreviation
@@ -909,65 +909,73 @@ const EditBuildPage: FC<EditBuildPageProps> = ({
   const loadBuilds = async (buildData: Build[], activeVersion: string = version) => {
     const versionInstances = Instance[activeVersion].map((instance) => instance.abbreviation);
 
-    if (raids.length === 0) {
-      raids.push(
-        Instance[activeVersion].includes(buildData[buildData.length - 1].instance)
-          ? buildData[buildData.length - 1] ?? getEmptyBuild()
-          : getEmptyBuild(),
-        Instance[activeVersion].includes(buildData[buildData.length - 2].instance)
-          ? buildData[buildData.length - 2] ?? getEmptyBuild()
-          : getEmptyBuild()
-      );
-    } else {
-      raids[0] = Instance[activeVersion].includes(buildData[buildData.length - 1].instance)
-        ? buildData[buildData.length - 1] ?? getEmptyBuild()
-        : getEmptyBuild();
-      raids[1] = Instance[activeVersion].includes(buildData[buildData.length - 2].instance)
-        ? buildData[buildData.length - 2] ?? getEmptyBuild()
-        : getEmptyBuild();
-    }
-
     const versionBuilds = buildData
       .filter((build) => versionInstances.includes(build.instance))
       .sort((a, b) => a.date - b.date);
 
+    if (raids.length === 0) {
+      raids.push(
+        Instance[activeVersion].includes(versionBuilds[versionBuilds.length - 1]?.instance)
+          ? versionBuilds[versionBuilds.length - 1] ?? getEmptyBuild()
+          : getEmptyBuild(),
+        Instance[activeVersion].includes(versionBuilds[versionBuilds.length - 2]?.instance)
+          ? versionBuilds[versionBuilds.length - 2] ?? getEmptyBuild()
+          : getEmptyBuild()
+      );
+    } else {
+      raids[0] = Instance[activeVersion].includes(versionBuilds[versionBuilds.length - 1]?.instance)
+        ? versionBuilds[versionBuilds.length - 1] ?? getEmptyBuild()
+        : getEmptyBuild();
+      raids[1] = Instance[activeVersion].includes(versionBuilds[versionBuilds.length - 2]?.instance)
+        ? versionBuilds[versionBuilds.length - 2] ?? getEmptyBuild()
+        : getEmptyBuild();
+    }
+
     for (let x = 0; x < MAX_RAIDS; x++) {
       const activeBuild = null; //localStorage.getItem(`LastBuild-${x}`);
 
-      if (activeBuild) {
-        const foundBuild = versionBuilds.find((build) => build.id === activeBuild);
-        if (foundBuild) {
-          await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
-            response.build_id = x;
-            raids[x] = response;
-          });
-          continue;
-        } else {
-          if (versionBuilds) {
-            const foundBuild = versionBuilds.pop();
-            if (foundBuild) {
-              await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
-                response.build_id = x;
-                raids[x] = response;
-              });
-              continue;
+      if (versionBuilds.length === 1) {
+        await BuildHelper.parseGetBuild(versionBuilds.pop().id).then((response) => {
+          response.build_id = x;
+          raids[x] = response;
+        });
+      } else {
+        if (activeBuild) {
+          const foundBuild = versionBuilds.find((build) => build.id === activeBuild);
+          if (foundBuild) {
+            await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
+              response.build_id = x;
+              raids[x] = response;
+            });
+            continue;
+          } else {
+            if (versionBuilds) {
+              const foundBuild = versionBuilds.pop();
+              if (foundBuild) {
+                await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
+                  response.build_id = x;
+                  raids[x] = response;
+                });
+                continue;
+              }
             }
           }
+        } else if (versionBuilds) {
+          const foundBuild = versionBuilds.pop();
+          if (foundBuild) {
+            await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
+              response.build_id = MAX_RAIDS - 1 - x;
+              raids[MAX_RAIDS - 1 - x] = response;
+            });
+            continue;
+          }
         }
-      } else if (versionBuilds) {
-        const foundBuild = versionBuilds.pop();
-        if (foundBuild) {
-          await BuildHelper.parseGetBuild(foundBuild.id).then((response) => {
-            response.build_id = MAX_RAIDS - 1 - x;
-            raids[MAX_RAIDS - 1 - x] = response;
-          });
-          continue;
-        }
-      }
 
-      raids[MAX_RAIDS - 1 - x].build_id = MAX_RAIDS - 1 - x;
+        raids[MAX_RAIDS - 1 - x].build_id = MAX_RAIDS - 1 - x;
+      }
     }
-    setRaids(raids);
+
+    setRaids([...raids]);
 
     loadBuildNames(
       buildData
