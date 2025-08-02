@@ -256,20 +256,20 @@ export const RegisteredMessages = {
 };
 
 export const WarcraftTokenClass = {
-  "Wotlk" : {
-    "Vanquisher" : [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
-    "Protector" : [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman],
-    "Conqueror" : [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
+  "Wotlk": {
+    "Vanquisher": [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
+    "Protector": [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman],
+    "Conqueror": [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
   },
-  "Cataclysm" : {
-    "Vanquisher" : [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
-    "Protector" : [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman],
-    "Conqueror" : [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
+  "Cataclysm": {
+    "Vanquisher": [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
+    "Protector": [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman],
+    "Conqueror": [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
   },
   "Mop": {
-    "Vanquisher" : [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
-    "Protector" : [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman, WarcraftPlayerClass.Monk],
-    "Conqueror" : [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
+    "Vanquisher": [WarcraftPlayerClass.Deathknight, WarcraftPlayerClass.Rogue, WarcraftPlayerClass.Mage, WarcraftPlayerClass.Druid],
+    "Protector": [WarcraftPlayerClass.Warrior, WarcraftPlayerClass.Hunter, WarcraftPlayerClass.Shaman, WarcraftPlayerClass.Monk],
+    "Conqueror": [WarcraftPlayerClass.Paladin, WarcraftPlayerClass.Priest, WarcraftPlayerClass.Warlock]
   }
 }
 
@@ -283,6 +283,6 @@ export const ReleaseDates = {
     "next": "Mop"
   },
   "Mop": {
-    "release": "2025-08-31"
+    "release": "2025-07-22"
   }
 }
